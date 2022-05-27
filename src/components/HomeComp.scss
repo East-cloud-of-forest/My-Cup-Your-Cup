@@ -1,0 +1,53 @@
+.maincomp {
+  
+  & ul {
+    padding: 0 10px;
+  }
+}
+
+.main_banner {
+  height: 500px;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.main_slide {
+  max-width: 1000px;
+  height: 300px;
+  background-color: blanchedalmond;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_circlemenu {
+  display: flex;
+  justify-content: space-around;
+
+  & .main_circleitem {
+    width: 200px;
+    height: 200px;
+    background-color: cadetblue;
+    border-radius: 50%;
+  }
+}
+
+.main_review, .main_design {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  & .main_review_item, .main_design_item {
+    width: 23%;
+    height: 200px;
+    background-color: darkorange;
+    margin-bottom: 20px;
+  }
+
+  & .main_design_item {
+    background-color: darkblue;
+  }
+}

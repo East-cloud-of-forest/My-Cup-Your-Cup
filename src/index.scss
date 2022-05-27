@@ -1,12 +1,22 @@
-// 공통 디자인
+// 기본 설정
+ul {
+  list-style: none;
+}
+
+// 폰트
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .body {
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .caption {
-  font-size: 12px;
+  font-size: 0.8rem;
 }
 
-.d-felx {
-  display: flex;
+.text-center {
+  text-align: center;
 }
