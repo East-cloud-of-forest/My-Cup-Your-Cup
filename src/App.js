@@ -1,5 +1,6 @@
-import './App.css';
-import HomeComp from './components/HomeComp'
+import "./App.css";
+import HomeComp from "./components/HomeComp";
+import ReviewComp from "./components/Review/ReviewComp";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
       <main>
         <HomeComp />
+        <ReviewComp />
       </main>
     </div>
   );
