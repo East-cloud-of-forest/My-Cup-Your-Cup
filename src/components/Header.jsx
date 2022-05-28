@@ -1,9 +1,12 @@
 import './Header.scss'
+import Logo from './Logo'
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = () => {
   return (
     <header id="App_header" className="text-center">
-      <h1>로고</h1>
+      <Logo style={{width:'80px', margin:'1rem 1.5rem'}}></Logo>
       <nav id="App_nav">
         <ul>
           <li>
@@ -22,10 +25,9 @@ const Header = () => {
       </nav>
       <div>
         <ul id="main_subnav" className="caption">
-          <li></li>
-          <li>검색</li>
-          <li>로그인</li>
-          <li>회원가입</li>
+          <li><FontAwesomeIcon icon={solid('magnifying-glass')} size="2x" /></li>
+          <li><FontAwesomeIcon icon={solid('cart-shopping')} size="2x" /></li>
+          <li><FontAwesomeIcon icon={solid('user')} size="2x" /></li>
         </ul>
       </div>
     </header>
