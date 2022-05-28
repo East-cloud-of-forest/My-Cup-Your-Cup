@@ -1,5 +1,5 @@
 import './HomeComp.scss'
-import { Button } from './index-comp/IndexComp'
+import { CustomButton } from './index-comp/IndexComp'
 
 const HomeComp = () => {
 
@@ -7,7 +7,7 @@ const HomeComp = () => {
     <div className='maincomp'>
       <div className='main_banner'>
         메인 배너
-        <Button>텀블러 제작하러 가기</Button>
+        <CustomButton>텀블러 제작하러 가기</CustomButton>
       </div>
       <div className='main_slide'>
         메인 슬라이더

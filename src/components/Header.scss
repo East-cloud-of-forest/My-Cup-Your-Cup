@@ -1,0 +1,40 @@
+#App_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+
+  & h1 {
+    width: 15%;
+  }
+  & nav {
+    width: 65%;
+  }
+  & div {
+    width: 20%;
+  }
+}
+
+#App_nav ul {
+  display: flex;
+  padding: 0;
+  margin-bottom: 0;
+
+  & p {
+    margin-right: 40px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+#main_subnav {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 5px 0;
+}
+
+#App_footer {
+  padding: 20px 10px;
+  border-top: 1px solid black;
+}
