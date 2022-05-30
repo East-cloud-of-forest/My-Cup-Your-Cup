@@ -1,20 +1,43 @@
 .profile {
-    .cirlcle {
+    background-color: rgb(171, 230, 227);
+    width: 30rem;
+    height: 14rem;
+    display: flex;
+    margin-top: 3rem;
+    margin-left: 55rem;
+    // position: absolute;
+    // top: 150px;
+    // right: 100px;
+    .circled_container {
+        margin: 2rem 2rem;
         overflow: hidden;
         position: relative;
-        border: 1px solid black;
-        border-radius: 50%;
-        &.picture_wrapper {
-            width: 10rem;
-            height: 10rem;
-
+        width: 10rem;
+        height: 10rem;
+        img {        
+            border: 1px solid black;
+            border-radius: 50%;
+            display: flex;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+    }
+    & .text {
+        margin-top: 2rem;
+        #username {
+            font-size: larger;
+            font-weight: bold;
+        }
+        #intro {
+            margin-top: 1rem;
+        }
+        .social {
+            margin-top: 2rem;
+            display: flex;
             img {
-                position: absolute;
-                top: -100%;
-                bottom: -100%;
-                margin: auto;
-                width: 5rem;
-                height: auto;
+                width: 30px;
+                height: 30px;
             }
         }
     }
