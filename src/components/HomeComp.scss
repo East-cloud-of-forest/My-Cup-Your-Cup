@@ -16,38 +16,65 @@
 
 .main_slide {
   max-width: 1000px;
-  height: 300px;
-  background-color: blanchedalmond;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 1rem auto 2.5rem;
+
+  & .main_slide_item {
+    height: 300px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .main_circlemenu {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 
   & .main_circleitem {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     background-color: cadetblue;
     border-radius: 50%;
+    margin-bottom: 1rem;
+    transition: 0.3s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.15);
+      transition: 0.3s;
+    }
   }
 }
 
 .main_review, .main_design {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  justify-content: center;
+
   & .main_review_item, .main_design_item {
-    width: 23%;
-    height: 200px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     background-color: darkorange;
     margin-bottom: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
   }
 
   & .main_design_item {
     background-color: darkblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
   }
 }

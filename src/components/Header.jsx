@@ -1,6 +1,6 @@
 import './Header.scss'
 import Logo from './Logo'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = () => {
