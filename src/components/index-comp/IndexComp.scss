@@ -10,3 +10,29 @@
   color: white;
   background-color: blue;
 }
+
+.customarrow {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  right: 5px;
+  color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.arrow-next {
+  right: 5px;
+}
+
+.arrow-prev {
+  left: 5px;
+  z-index: 999;
+}
