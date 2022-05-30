@@ -1,14 +1,23 @@
+// 버튼
 .button {
   border: none;
-  height: 2.25rem;
-  padding: 0 1rem;
-  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  border-radius: 7px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: white;
   background-color: blue;
+
+  &.icon {
+    color: inherit;
+    background-color: transparent;
+    padding: 0.5rem;
+    border-radius: 50%;
+    height: inherit;
+    box-shadow : none;
+  }
 }
 
 .customarrow {
