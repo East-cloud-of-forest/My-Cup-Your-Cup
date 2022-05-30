@@ -1,0 +1,21 @@
+.profile {
+    .cirlcle {
+        overflow: hidden;
+        position: relative;
+        border: 1px solid black;
+        border-radius: 50%;
+        &.picture_wrapper {
+            width: 10rem;
+            height: 10rem;
+
+            img {
+                position: absolute;
+                top: -100%;
+                bottom: -100%;
+                margin: auto;
+                width: 5rem;
+                height: auto;
+            }
+        }
+    }
+}
