@@ -1,9 +1,9 @@
 
 import "./App.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomeComp from "./components/HomeComp";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import HomeComp from "./pages/Home/Home";
+import Header from "./components/HeaderComp";
+import Footer from "./components/FooterComp";
 import MypageComp from "./components/Mypage/MypageComp";
 import CreateComp from "./components/createcomp/CreateComp";
 

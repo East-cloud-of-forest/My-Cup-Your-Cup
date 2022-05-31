@@ -1,5 +1,5 @@
-import './HomeComp.scss'
-import { ButtonComp, SliderComp } from './index-comp/IndexComp'
+import './Home.scss'
+import { ButtonComp, SliderComp } from '../../components/index-comp/IndexComp'
 import { Col, Container, Row } from 'react-bootstrap'
 
 const HomeComp = () => {
