@@ -1,13 +1,10 @@
 .profile {
     background-color: rgb(171, 230, 227);
-    width: 30rem;
-    height: 14rem;
+    min-width: 25rem;
+    height: 12rem;
     display: flex;
-    margin-top: 3rem;
-    margin-left: 55rem;
-    // position: absolute;
-    // top: 150px;
-    // right: 100px;
+    position: relative;
+    left: 40%;
     .circled_container {
         margin: 2rem 2rem;
         overflow: hidden;
@@ -15,29 +12,31 @@
         width: 10rem;
         height: 10rem;
         img {        
-            border: 1px solid black;
+            
             border-radius: 50%;
             display: flex;
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
         }
     }
     & .text {
         margin-top: 2rem;
+        margin-left: -3rem;
         #username {
             font-size: larger;
             font-weight: bold;
         }
         #intro {
-            margin-top: 1rem;
+            margin-top: 0.8rem;
         }
         .social {
-            margin-top: 2rem;
+            margin-top: 1rem;
             display: flex;
             img {
-                width: 30px;
-                height: 30px;
+                width: 40px;
+                height: 40px;
+                padding: 5px;
             }
         }
     }

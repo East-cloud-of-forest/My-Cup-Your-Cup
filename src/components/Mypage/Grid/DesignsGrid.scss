@@ -1,4 +1,5 @@
 .header {
+    margin: 1rem 1rem;
     #title {
         font-size: 1.5rem;
     }
@@ -6,16 +7,10 @@
     justify-content: space-between;
 }
 .design_thumb {
-    
+    width: 10rem;
+    height: 10rem;
+    background-color: rgb(187, 187, 187);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    li {
-        display: inline-block;
-        width: 10rem;
-        height: 10rem;
-        background-color: rgb(187, 187, 187);
-    }
-        
+    justify-content: space-between;
     
 }
