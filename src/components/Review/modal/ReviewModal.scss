@@ -1,0 +1,54 @@
+.review_h1 {
+  text-align: center;
+}
+
+.user_review_image {
+  float: left;
+  background-color: gray;
+  height: 500px;
+  width: 400px;
+}
+
+.review_modal {
+  overflow: hidden;
+}
+
+.review_profile {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+
+.review_write {
+  overflow: hidden;
+  margin-bottom: 50px;
+}
+
+.hashTag {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 70px;
+
+  li {
+    padding-right: 30px;
+  }
+
+  a {
+    background-color: aquamarine;
+    border-radius: 30px;
+    padding: 5px 30px;
+  }
+}
+
+.review_btn {
+  display: flex;
+  justify-content: center;
+
+  li {
+    padding-right: 30px;
+  }
+
+  button {
+    padding: 7px 15px;
+  }
+}
