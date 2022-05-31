@@ -1,35 +1,29 @@
-import "./App.css";
+
+import "./App.scss";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeComp from "./components/HomeComp";
-import ReviewComp from "./components/Review/ReviewComp";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import MypageComp from "./components/Mypage/MypageComp";
+
 
 function App() {
   return (
-    <div className="App">
-      <header id="App_Header">
-        <div>
-          <ul id="Top_nav" className="caption">
-            <li>검색</li>
-            <li>로그인</li>
-            <li>회원가입</li>
-          </ul>
-        </div>
-        <h1>로고</h1>
-        <nav>
-          <ul>
-            <li>텀블러 제작</li>
-            <li>모두의 디자인</li>
-            <li>리뷰</li>
-            <li>문의하기</li>
-          </ul>
-        </nav>
-        <hr></hr>
-      </header>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomeComp />} />
+            <Route path="/mypage" element={<MypageComp />} />
 
-      <main>
-        <HomeComp />
-        <ReviewComp />
-      </main>
-    </div>
+
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
+
   );
 }
 

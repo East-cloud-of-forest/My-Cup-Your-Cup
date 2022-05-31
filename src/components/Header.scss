@@ -1,0 +1,43 @@
+#App_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid grey;
+
+  & h1 {
+    width: 15%;
+  }
+  & nav {
+    width: 70%;
+
+    &#App_nav ul {
+      display: flex;
+      padding: 0;
+      margin-bottom: 0;
+    
+      & li {
+        margin:1rem 1.5rem;
+
+        & a {
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+  }
+  & #App_subnav {
+    min-width: 15%;
+
+    & #main_subnav {
+      display: flex;
+      justify-content: space-evenly;
+      padding: 0;
+      margin: 5px 0;
+    }
+  }
+}
+
+#App_footer {
+  padding: 20px 10px;
+  border-top: 1px solid black;
+}
