@@ -1,0 +1,147 @@
+.cre_color{
+    border: solid black 2px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin: 10px;
+};
+
+.cre_colorDiv{
+    display: flex;
+};
+
+.cre_all{
+    display: flex;
+}
+
+.cre_result {
+    width: 900px;
+    height: 500px;
+}
+
+.cre_opt{
+    width: 450px;
+}
+
+
+.cre_selectbox {
+    background-color: white;
+    width: 250px;
+    padding:5px;
+    border:1px solid #60ab90;
+    font-family:'Nanumgothic';
+    border-radius:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+    margin: 10px;
+}
+
+.cre_ar{
+    display: flex;
+}
+
+.cre_prev {
+    background-color: #9dfad9;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.cre_save {
+    background-color: #b89790;
+    color: white;
+    width: 225px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.cre_pay {
+    
+    background-color: #60ab90;
+    color: white;
+    width: 225px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @keyframes slide-fade-in-dropdown-animation {
+//     0% {
+//         transform: translateY(-100%);
+//     }
+
+//     100% {
+//         transform: translateY(0);
+//     }
+// }
+
+// .cre_slide-fade-in-dropdown {
+//     overflow: hidden;
+// }
+
+// .cre_slide-fade-in-dropdown > ul {
+//     animation: slide-fade-in-dropdown-animation .4s ease;
+// }
+
+// @keyframes slide-fade-out-dropdown-animation {
+//     0% {
+//         transform: translateY(0);
+//     }
+
+//     100% {
+//         transform: translateY(-100%);
+//     }
+// }
+
+// .cre_slide-fade-out-dropdown {
+//     overflow: hidden;
+// }
+
+// .cre_slide-fade-out-dropdown > ul {
+//     animation: slide-fade-out-dropdown-animation 0.4s ease;
+//     animation-fill-mode: forwards;
+// }
+
+// .cre_components-dropdown > ul {
+//     position: relative;
+//     top: 5px;
+//     margin-top: 0;
+//     margin-bottom: 5px;
+//     padding-left: 0;
+//     list-style: none;
+// }
+
+// .cre_dropdownDiv {
+//     width: 200px;
+//     padding: 10px;
+//     border-radius: 10px;
+//     border: gray solid 1px;
+//     margin: 10px;
+
+// }
+
+// .cre_DdList>li{
+//     text-align: center;
+//     padding: 5px;
+// }

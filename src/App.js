@@ -5,6 +5,7 @@ import HomeComp from "./components/HomeComp";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MypageComp from "./components/Mypage/MypageComp";
+import CreateComp from "./components/createcomp/CreateComp";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeComp />} />
             <Route path="/mypage" element={<MypageComp />} />
+            <Route path="/create" element={<CreateComp />} />
 
 
           </Routes>
