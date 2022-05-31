@@ -1,4 +1,4 @@
-import './Header.scss'
+import './HeaderComp.scss'
 import { Logo, ButtonComp } from './index-comp/IndexComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

@@ -1,10 +1,12 @@
 import "./App.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomeComp from "./components/HomeComp";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import HomeComp from "./pages/Home/Home";
+import Header from "./components/HeaderComp";
+import Footer from "./components/FooterComp";
 import MypageComp from "./components/Mypage/MypageComp";
 import ReviewPage from "./components/Review/ReviewPage";
+import CreateComp from "./components/createcomp/CreateComp";
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
             <Route path="/" element={<HomeComp />} />
             <Route path="/mypage" element={<MypageComp />} />
             <Route path="/review" element={<ReviewPage />} />
+            <Route path="/create" element={<CreateComp />} />
           </Routes>
         </main>
         <Footer />
