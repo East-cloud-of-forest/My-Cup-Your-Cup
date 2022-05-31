@@ -1,5 +1,5 @@
 import './Header.scss'
-import { Logo } from './index-comp/IndexComp'
+import { Logo, ButtonComp } from './index-comp/IndexComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
@@ -8,34 +8,40 @@ const Header = () => {
   return (
     <header id="App_header" className="text-center">
       <Link to="/">
-        <Logo style={{ width: '80px', margin: '1rem 1.5rem' }}></Logo>
+        <Logo style={{ width: '80px', margin: '1rem 1.5rem' }} />
       </Link>
       <nav id="App_nav">
-        <ul>
+        <ul className='body'>
           <li>
-            <p>제작</p>
+            <Link to="/">주문제작</Link>
           </li>
           <li>
-            <p>모두의 디자인</p>
+            <Link to="/">잔디자인</Link>
           </li>
           <li>
-            <p>리뷰</p>
+            <Link to="/">포토리뷰</Link>
           </li>
           <li>
-            <p>문의하기</p>
+            <Link to="/">제품문의</Link>
           </li>
         </ul>
       </nav>
-      <div>
+      <div id="App_subnav">
         <ul id="main_subnav" className="caption">
           <li>
-            <FontAwesomeIcon icon={solid('magnifying-glass')} size="2x" />
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid("magnifying-glass")} size="2x" />
+            </ButtonComp>
           </li>
           <li>
-            <FontAwesomeIcon icon={solid('cart-shopping')} size="2x" />
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
+            </ButtonComp>
           </li>
           <li>
-            <FontAwesomeIcon icon={solid('user')} size="2x" />
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid("user")} size="2x" />
+            </ButtonComp>
           </li>
         </ul>
       </div>

@@ -6,9 +6,10 @@ import 'slick-carousel/slick/slick-theme.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-export const CustomButton = (props) => {
-  const { children, size } = props
-  return <button className={classNames('button', size)}>{children}</button>
+// 버튼
+export const ButtonComp = (props) => {
+  const { children, size, icon } = props
+  return <button className={classNames('button', size, icon?'icon':'')}>{children}</button>
 }
 
 

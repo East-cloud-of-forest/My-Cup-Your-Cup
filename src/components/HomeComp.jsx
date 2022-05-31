@@ -1,5 +1,5 @@
 import './HomeComp.scss'
-import { CustomButton, SliderComp } from './index-comp/IndexComp'
+import { ButtonComp, SliderComp } from './index-comp/IndexComp'
 import { Col, Container, Row } from 'react-bootstrap'
 
 const HomeComp = () => {
@@ -22,7 +22,7 @@ const HomeComp = () => {
     <div className="maincomp">
       <div className="main_banner">
         메인 배너
-        <CustomButton>텀블러 제작하러 가기</CustomButton>
+        <ButtonComp>텀블러 제작하러 가기</ButtonComp>
       </div>
       <div className="main_slide">
         <SliderComp infinite={true} autoplay={true}>
