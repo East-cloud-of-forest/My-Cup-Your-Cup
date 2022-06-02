@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeComp from "./pages/Home/Home";
 import Header from "./components/HeaderComp";
 import Footer from "./components/FooterComp";
-import MypageComp from "./components/Mypage/MypageComp";
+import MypageComp from "./pages/MyPage/MypageComp";
 import CreateComp from "./components/createcomp/CreateComp";
 
 

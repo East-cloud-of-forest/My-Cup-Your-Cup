@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { useState } from 'react'
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -140,4 +141,39 @@ export const Logo = ({ style }) => {
       </svg>
     </div>
   );
+}
+
+// 프로필 컴포넌트
+
+// 모달 컴포넌트
+export const ModalComp = (props) => {
+  const { title, imageURL } = props;
+  const [isOpen, setIsOPen] =useState(false);
+  const handleOpen = () => setIsOPen(!isOpen);
+
+  if (isOpen) {
+    document.body.classList.add('active-modal')
+  } else {
+    document.body.classList.remove('active-modal')
+  }
+  return (
+    <div>
+      <button onClick={handleOpen}>모달</button>
+      {
+        isOpen && (
+          <div className='ModalComp' >
+            <div className='overlay'>
+              <div className='content'>
+                <button className='closeButton' onClick={handleOpen}> X </button>
+                
+                <img src={imageURL} />
+                <h2 className='title'>{title}</h2>
+                
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  )
 }
