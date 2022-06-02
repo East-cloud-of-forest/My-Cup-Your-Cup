@@ -1,16 +1,14 @@
 .profile {
-    background-color: rgb(171, 230, 227);
-    min-width: 25rem;
-    height: 12rem;
+    background-color: #FAE8E3;
+    max-width: 21rem;
+    height: 10rem;
     display: flex;
     position: relative;
-    left: 40%;
     .circled_container {
         margin: 2rem 2rem;
         overflow: hidden;
         position: relative;
-        width: 10rem;
-        height: 10rem;
+        margin: 22px 16px;
         img {        
             
             border-radius: 50%;
@@ -22,13 +20,15 @@
     }
     & .text {
         margin-top: 2rem;
-        margin-left: -3rem;
+        margin-left: 0rem;
+        margin-right: 3rem;
         #username {
-            font-size: larger;
+            
             font-weight: bold;
         }
         #intro {
-            margin-top: 0.8rem;
+            margin-top: -0.1rem;
+            font-size: small;
         }
         .social {
             margin-top: 1rem;

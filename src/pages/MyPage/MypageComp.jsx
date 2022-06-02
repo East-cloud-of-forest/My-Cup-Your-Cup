@@ -1,17 +1,12 @@
 import './MypageComp.scss'
-import Profile from "./Profile";
-import AllDesigns from "./Grid/AllDesigns";
-import MyDesigns from "./Grid/MyDesigns";
-import LikedDesigns from "./Grid/LikedDesigns";
+import Profile from "../../components/Mypage/Profile";
+import MyDesigns from "../../components/Mypage/Grid/MyDesigns";
+import LikedDesigns from "../../components/Mypage/Grid/LikedDesigns";
 import { Link } from 'react-router-dom';
-import useModals from './Modal/UseModal';
-import MyModal from './Modal/MyModal';
+
 
 const MypageComp = () => {
-    const { openModal } = useModals();
-    const handleClick = () => {
-        openModal( MyModal, {foo: 'bar'})
-    }
+
     return (
         <>
             
@@ -26,10 +21,6 @@ const MypageComp = () => {
                 </div>
                 <Profile />
             </div>
-
-            <button onClick={handleClick}> 모달 생성중</button>
-            <MyModal />
-            <AllDesigns />
             <MyDesigns />
             <LikedDesigns />
         </>
