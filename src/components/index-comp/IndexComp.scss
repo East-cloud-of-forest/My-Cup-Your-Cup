@@ -9,6 +9,8 @@
   cursor: pointer;
   color: white;
   background-color: blue;
+  margin: 0.5rem;
+  box-sizing: border-box;
 
   &.icon {
     color: inherit;
@@ -17,6 +19,10 @@
     border-radius: 50%;
     height: inherit;
     box-shadow : none;
+  }
+
+  &.block {
+    display: flex;
   }
 }
 

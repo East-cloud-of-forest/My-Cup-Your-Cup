@@ -1,18 +1,22 @@
 //import { useState } from "react"
-import ColorComp from "./ColorComp";
-import Memo from "./Memo";
-import SelectComp from "./SelectComp";
+import "./Create.scss";
+import ColorComp from "../../components/createcomp/ColorComp";
+import SelectComp from "../../components/createcomp/SelectComp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar } from '@fortawesome/free-solid-svg-icons'
+import { ButtonComp } from '../../components/index-comp/IndexComp'
 
 const CreateComp =() =>{
 
-    const optimg = require("./img/1.jpg")
+    const optimg = require("../../components/createcomp/img/1.jpg")
 
     return (
         <div className="cre_all">
 
+            {/**제작화면 */}
             <div className="cre_result">
+
+                {/**에딧 아이콘 */}
                 <div className="cre_edit">
                     <div className="cre_editdiv">
                         <FontAwesomeIcon icon={faPaintBrush} className="cre_icon" />
@@ -40,8 +44,30 @@ const CreateComp =() =>{
                     </div>
                 </div>
 
-                <div>
+
+                {/**메인이미지 */}
+                <div className="mainImg">
                     <img className="cre_img" src={optimg} alt="" />
+
+                    {/**에딧 2 */}
+                    <div className="cre_edit2">
+                        <div className="cre_editdiv2">
+                            <FontAwesomeIcon icon={faWhiskeyGlass} className="cre_icon2" />
+                            텀블러변경
+                        </div>
+                        <div className="cre_editdiv2">
+                            <FontAwesomeIcon icon={faFileArrowUp} className="cre_icon2" />
+                            이미지 업로드
+                        </div>
+                        <div className="cre_editdiv2">
+                            <FontAwesomeIcon icon={faFont} className="cre_icon2" />
+                            텍스트 추가
+                        </div>
+                        <div className="cre_editdiv2">
+                            <FontAwesomeIcon icon={faStar} className="cre_icon2" />
+                            무료 디자인
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -57,21 +83,14 @@ const CreateComp =() =>{
 
                 <SelectComp/>
 
-                <div className="cre_calc">
-                    <p>총 가격</p>
-                    <h3>원</h3>
-                </div>
-
                 <div id="btn">
-                    <div className="cre_prev">미리보기</div>
-                    <div className="cre_savepay">
-                        <div className="cre_save">저장</div>
-                        <div className="cre_pay">결제</div>
-                    </div>
+                    <ButtonComp>미리보기</ButtonComp>
+                <div className="cre_savepay">
+                    <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
+                    <ButtonComp style={{width:'100%'}}>결제</ButtonComp>
+                </div>
                 </div>
             </div>
-
-            <Memo/>
         </div>
     )
 }

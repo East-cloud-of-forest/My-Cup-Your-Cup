@@ -5,7 +5,7 @@ import Header from "./components/HeaderComp";
 import Footer from "./components/FooterComp";
 import MypageComp from "./components/Mypage/MypageComp";
 import ReviewPage from "./components/Review/ReviewPage";
-import CreateComp from "./components/createcomp/CreateComp";
+import CreateComp from "./pages/Create/CreateComp";
 
 
 function App() {
