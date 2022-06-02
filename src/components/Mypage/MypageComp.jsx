@@ -4,14 +4,10 @@ import AllDesigns from "./Grid/AllDesigns";
 import MyDesigns from "./Grid/MyDesigns";
 import LikedDesigns from "./Grid/LikedDesigns";
 import { Link } from 'react-router-dom';
-import useModals from './Modal/UseModal';
-import MyModal from './Modal/MyModal';
+
+
 
 const MypageComp = () => {
-    const { openModal } = useModals();
-    const handleClick = () => {
-        openModal( MyModal, {foo: 'bar'})
-    }
     return (
         <>
             
@@ -27,8 +23,6 @@ const MypageComp = () => {
                 <Profile />
             </div>
 
-            <button onClick={handleClick}> 모달 생성중</button>
-            <MyModal />
             <AllDesigns />
             <MyDesigns />
             <LikedDesigns />
