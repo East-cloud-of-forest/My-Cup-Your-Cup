@@ -68,3 +68,31 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+1. 로그인 페이지, 로그인 제목을 로그인이라고 바꾸고
+   입력창, 버튼 등 모두 로그인 글짜에 맞춰서 일렬로.
+
+2. 아이디,비번찾기 모달창으로 구현
+
+3. 배경색은 계속 화이트 로, 적용하지 말고 none
+   (디자인은 나중에 차차 수정할 계획임)
+
+4. css들은 모두 scss 형태로,
+
+5. 코드 짤때 오토 포멧팅 기능으로 코드배열 제대로 하기.
+
+6. 로고이미지는 img파일 말고 컴포넌트 코드방식으로 해당 위치에 붙이기
+
+7. 간편로그인버튼은 로고파일만 가져온 뒤에
+   버튼 컴포넌트형식으로 넣어 만들어서 하나씩 붙이기
+
+8. header, footer 부분은 이미 정해져 있으니
+   코드 수정해서 따로 웹화면 수정.
+   (회원가입, 로그인 페이지를 모두 한 main으로 감싼 후에 div로 나눠서 만들기)
+
+
+
+
+- 경로 설정시 .은 상위 경로로 가는 것을 뜻함.
+    ../은 현재 있는 파일 밖으로 나가는 걸 뜻함.
+    ../../은 현재 파일 나간후 그 다음 파일도 나가는걸 뜻함.

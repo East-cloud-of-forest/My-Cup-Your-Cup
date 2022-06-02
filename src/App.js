@@ -1,3 +1,4 @@
+
 import "./App.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeComp from "./pages/Home/Home";
@@ -6,6 +7,10 @@ import Footer from "./components/FooterComp";
 import MypageComp from "./components/Mypage/MypageComp";
 import ReviewPage from "./components/Review/ReviewPage";
 import CreateComp from "./components/createcomp/CreateComp";
+
+import LoginMain from "./pages/Login/LoginMain"
+import JoinUser from "./pages/Join/JoinUser"
+
 
 
 function App() {
@@ -19,6 +24,8 @@ function App() {
             <Route path="/mypage" element={<MypageComp />} />
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/create" element={<CreateComp />} />
+            <Route path="/Login" element={<LoginMain />} />
+            <Route path="/Join" element={<JoinUser />} />
           </Routes>
         </main>
         <Footer />
