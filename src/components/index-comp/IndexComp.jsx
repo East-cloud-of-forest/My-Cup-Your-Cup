@@ -53,7 +53,7 @@ export const SliderComp = ({
         style={{ ...style }}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={solid('caret-right')} size="3x" />
+        <FontAwesomeIcon icon={solid("caret-right")} size="3x" />
       </div>
     );
   };
@@ -65,7 +65,7 @@ export const SliderComp = ({
         style={{ ...style }}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={solid('caret-left')} size="3x" />
+        <FontAwesomeIcon icon={solid("caret-left")} size="3x" />
       </div>
     );
   };
@@ -175,5 +175,54 @@ export const Logo = ({ style }) => {
         />
       </svg>
     </div>
-  )
-}
+  );
+};
+
+// 모달 컴포넌트
+export const ModalComp = (props) => {
+  const { title, write, designbtn } = props;
+  return (
+    <div>
+      <div className="user_review_image"></div>
+      <div>
+        <h1 className="review_h1">{title}</h1>
+        <ul className="review_profile">
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>user1</li>
+          <li>조회수 0000</li>
+          <li>2022-05-31</li>
+          <li>★★★★★</li>
+        </ul>{" "}
+        <br />
+        <p className="review_write">{write}</p>
+        <ul className="hashTag">
+          <li>
+            <a href="">#태그</a>
+          </li>
+          <li>
+            <a href="">#태그</a>
+          </li>
+          <li>
+            <a href="">#태그</a>
+          </li>
+        </ul>
+        {/** */}
+        <ul className="review_btn">
+          <li>
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid("heart")} size="2x" /> <span>5</span>
+            </ButtonComp>
+          </li>
+          <li>
+            <ButtonComp>공유</ButtonComp>
+          </li>
+          <li>
+            <ButtonComp>{designbtn}</ButtonComp>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
