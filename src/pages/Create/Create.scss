@@ -14,19 +14,19 @@
     display: flex;
     justify-content: space-around;
     
-    margin: 50px auto;
+    margin: 30px auto;
 }
 
 .cre_result {
     width: 900px;
     height: 500px;
-    margin: 0px 0px 20px 0px;
+    margin: 0px 20px 20px 0px;
 }
 
 .cre_edit{
     display: flex;
     justify-content: space-around;
-    padding: 0px 60px;
+    padding: 0px 30px;
 }
 
 .cre_editdiv{
@@ -34,17 +34,45 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    cursor: pointer;
 }
 
 .cre_icon{
-    height: 30px;
+    height: 20px;
     margin: 0 0 5px 0;
+}
+
+.mainImg{
+    display: flex;
+    position: relative;
 }
 
 .cre_img{
     width: 900px;
     margin: 20px 0px;
 }
+
+.cre_edit2{
+    position: absolute;
+}
+
+.cre_editdiv2{
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    float: right;
+
+}
+
+.cre_icon2{
+    height: 30px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 50%;
+}
+
 
 .cre_opt{
     width: 300px;
@@ -104,8 +132,10 @@
     text-align: center;
 }
 
-
-
+#btn {
+    display: flex;
+    flex-direction: column;
+}
 
 
 

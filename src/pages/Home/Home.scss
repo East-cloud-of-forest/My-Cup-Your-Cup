@@ -31,7 +31,7 @@
   justify-content: center;
 
   & .main_circleitem {
-    width: 100%;
+    width: 80%;
     aspect-ratio: 1 / 1;
     background-color: cadetblue;
     border-radius: 50%;
@@ -56,10 +56,10 @@
   justify-content: center;
 
   & .main_review_item, .main_design_item {
-    width: 100%;
+    width: 90%;
     aspect-ratio: 1 / 1;
     background-color: darkorange;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 
     display: flex;
     justify-content: center;

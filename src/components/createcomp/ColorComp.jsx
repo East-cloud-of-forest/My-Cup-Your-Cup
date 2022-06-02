@@ -1,5 +1,3 @@
-import "./style.scss";
-
 const ColorComp = (props) =>{
 
     const colors =[
