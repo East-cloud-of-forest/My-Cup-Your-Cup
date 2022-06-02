@@ -8,9 +8,12 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon } = props;
+  const { children, size, icon, style } = props;
   return (
-    <button className={classNames("button", size, icon ? "icon" : "")}>
+    <button
+      style={style}
+      className={classNames("button", size, icon ? "icon" : "", "block")}
+    >
       {children}
     </button>
   );
