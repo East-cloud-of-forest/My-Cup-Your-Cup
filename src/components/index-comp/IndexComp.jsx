@@ -1,39 +1,56 @@
-import './IndexComp.scss'
-import React, { useState } from 'react'
-import classNames from 'classnames'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import "./IndexComp.scss";
+import React, { useState, useEffect } from "react";
+import classNames from "classnames";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style } = props
-  const [ripples, setRipples] = useState(null)
+  const { children, size, icon, style } = props;
+  const [ripples, setRipples] = useState([]);
+  useEffect(() => {
+    if (ripples.length > 0) {
+      const a = setTimeout(() => {
+        setRipples(ripples.filter((e) => e.id !== ripples.length - 1));
+      }, 600);
+      return () => clearTimeout(a);
+    }
+  }, [ripples]);
   const clickanimation = (e) => {
-    let x = e.clientX - e.target.offsetLeft
-    let y = e.clientY - e.target.offsetTop
-    console.log(e)
-    let ripple = React.createElement('span', {style: {left:x + 'px', top: y + 'px'}}, null)
-    setRipples(ripple)
-    setTimeout(() => {
-      setRipples(null)
-    }, 1000)
-  }
+    let x = e.clientX - e.currentTarget.offsetLeft;
+    let y = e.clientY - e.currentTarget.offsetTop;
+    let ripple = React.createElement(
+      "span",
+      {
+        style: { left: x + "px", top: y + "px" },
+        key: ripples.length,
+        className: 'ripple-span'
+      },
+      null
+    );
+    setRipples(
+      ripples.concat({
+        element: ripple,
+        id: ripples.length,
+      })
+    );
+  };
   return (
     <button
       style={style}
-      className={classNames('button', size, icon ? 'icon' : '', 'block')}
+      className={classNames("button", size, icon ? "icon" : "", "block")}
       onClick={(e) => {
-        clickanimation(e)
+        clickanimation(e);
       }}
     >
-      {children}
-      {ripples ? ripples : null}
+      <span>{children}</span>
+      {ripples.map((e) => e.element)}
     </button>
-  )
-}
+  );
+};
 
 // 슬라이드 컴포넌트
 export const SliderComp = ({
@@ -176,43 +193,42 @@ export const Logo = ({ style }) => {
       </svg>
     </div>
   );
-}
+};
 
 // 프로필 컴포넌트
 
 // 모달 컴포넌트
 export const ModalComp = (props) => {
   const { title, imageURL } = props;
-  const [isOpen, setIsOPen] =useState(false);
+  const [isOpen, setIsOPen] = useState(false);
   const handleOpen = () => setIsOPen(!isOpen);
 
   if (isOpen) {
-    document.body.classList.add('active-modal')
+    document.body.classList.add("active-modal");
   } else {
-    document.body.classList.remove('active-modal')
+    document.body.classList.remove("active-modal");
   }
   return (
     <div>
       <button onClick={handleOpen}>모달</button>
-      {
-        isOpen && (
-          <div className='ModalComp' >
-            <div className='overlay'>
-              <div className='content'>
-                <button className='closeButton' onClick={handleOpen}> X </button>
-                
-                <img src={imageURL} />
-                <h2 className='title'>{title}</h2>
-                
-              </div>
+      {isOpen && (
+        <div className="ModalComp">
+          <div className="overlay">
+            <div className="content">
+              <button className="closeButton" onClick={handleOpen}>
+                {" "}
+                X{" "}
+              </button>
+
+              <img src={imageURL} />
+              <h2 className="title">{title}</h2>
             </div>
           </div>
-        )
-      }
+        </div>
+      )}
     </div>
-  )
-}
-
+  );
+};
 
 // 모달 컴포넌트
 export const ModalComp2 = (props) => {

@@ -1,4 +1,41 @@
 // 버튼
+@mixin buttonanime($type) {
+  & .ripple-span {
+    background-color: if($type== "icon", #000, #fff);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: if($type== "icon", buttonanimaicon, buttonanima) 0.6s linear;
+    pointer-events: none;
+  }
+
+  @keyframes buttonanima {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.5;
+    }
+    100% {
+      width: 500px;
+      height: 500px;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes buttonanimaicon {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.5;
+    }
+    100% {
+      width: 200px;
+      height: 200px;
+      opacity: 0;
+    }
+  }
+}
+
 .button {
   border: none;
   padding: 1rem 1.5rem;
@@ -20,36 +57,19 @@
     padding: 0.5rem;
     border-radius: 50%;
     height: inherit;
-    box-shadow : none;
+    box-shadow: none;
+
+    @include buttonanime('icon');
   }
 
   &.block {
     display: flex;
   }
 
-  & span {
-    background-color: #fff;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    animation: buttonanima 1s linear;
-    pointer-events: none;
-  }
-
-  @keyframes buttonanima {
-    0% {
-      width: 0;
-      height: 0;
-      opacity: 0.5;
-    }
-    100% {
-      width: 500px;
-      height: 500px;
-      opacity: 0;
-    }
-  }
+  @include buttonanime('');
 }
 
+// 슬라이더 화살표
 .customarrow {
   background-color: transparent;
   border: none;
@@ -77,15 +97,17 @@
 }
 
 // 모달
-body.active-modal { 
-  overflow-y: hidden; 
+body.active-modal {
+  overflow-y: hidden;
 }
 
-.ModalComp { 
-  
+.ModalComp {
   & .overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
@@ -104,7 +126,7 @@ body.active-modal {
     justify-content: space-between;
     & .closeButton {
       position: relative;
-      top: -11em; 
+      top: -11em;
       left: 36em;
       border: none;
       background: transparent;
