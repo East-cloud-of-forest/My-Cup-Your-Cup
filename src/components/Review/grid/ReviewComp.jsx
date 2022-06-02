@@ -1,4 +1,7 @@
-import "./ReviewForm.scss";
+import { ButtonComp } from "../../index-comp/IndexComp";
+import "./ReviewComp.scss";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ReviewComp = () => {
   return (
@@ -7,46 +10,10 @@ const ReviewComp = () => {
         <li>
           <div></div>
           <p className="review_title">
-            고객이 올린 리뷰 제목{" "}
-            <button className="heart_btn">
-              ♥ <span>5</span>
-            </button>
-          </p>
-
-          <p>★★★★★</p>
-        </li>
-
-        <li>
-          <div></div>
-          <p className="review_title">
-            고객이 올린 리뷰 제목{" "}
-            <button className="heart_btn">
-              ♥ <span>5</span>
-            </button>
-          </p>
-
-          <p>★★★★★</p>
-        </li>
-
-        <li>
-          <div></div>
-          <p className="review_title">
-            고객이 올린 리뷰 제목{" "}
-            <button className="heart_btn">
-              ♥ <span>5</span>
-            </button>
-          </p>
-
-          <p>★★★★★</p>
-        </li>
-
-        <li>
-          <div></div>
-          <p className="review_title">
-            고객이 올린 리뷰 제목{" "}
-            <button className="heart_btn">
-              ♥ <span>5</span>
-            </button>
+            고객이 올린 리뷰 제목
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid("heart")} size="x" /> <span>5</span>
+            </ButtonComp>
           </p>
 
           <p>★★★★★</p>

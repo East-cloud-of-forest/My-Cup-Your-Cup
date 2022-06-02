@@ -11,6 +11,8 @@
   background-color: blue;
   margin: 0.5rem;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 
   &.icon {
     color: inherit;
@@ -23,6 +25,28 @@
 
   &.block {
     display: flex;
+  }
+
+  & span {
+    background-color: #fff;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: buttonanima 1s linear;
+    pointer-events: none;
+  }
+
+  @keyframes buttonanima {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.5;
+    }
+    100% {
+      width: 500px;
+      height: 500px;
+      opacity: 0;
+    }
   }
 }
 

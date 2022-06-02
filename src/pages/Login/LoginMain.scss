@@ -3,11 +3,12 @@
 
 
 /* 전체적인 배치 및 배경색 */
-*{
+
+.LoginMain {
 	margin:0;        
 	padding:0;
-    background-color:cornsilk;
 }
+
 
 .main-container{
 	width:100%;
@@ -53,7 +54,7 @@
 }
 
 .login-input-wrap{  /*아이디, 비번창*/
-	width: 465px;
+	width: 260px;
 	height :48px;
 	border: solid 1px lightgrey;
     border-radius: 11px;
@@ -62,7 +63,7 @@
 
 .login-input-wrap input{   /*아이디, 비번 입력input창 늘리기*/
 	border: none;
-	width:430px;
+	width:240px;
 	margin-top: 10px;
 	font-size: 14px;
 	margin-left: 10px;
@@ -80,7 +81,7 @@
 }
 
 .login-button-wrap button{ /* 로그인 버튼 디자인*/
-	width: 465px;
+	width: 250px;
 	height :48px;
 	font-size: 18px;
     border-radius: 50px;
@@ -157,8 +158,8 @@
 }
 .forget-account-p{
     text-align: center;
-    margin-top: 16px;
-    font-size: 15px;
+    margin-top: 17px;
+    font-size: 14px;
 }
 
 
@@ -192,10 +193,10 @@ footer{
 .GoogleButton {
     padding: 17px;
     padding-top: 30px;
-    width: 325px;
+    width: 250px;
 }
 
 .FacebookButton {
-    width: 290px;
+    width: 215px;
 }
 

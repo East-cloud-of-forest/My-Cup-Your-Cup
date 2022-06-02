@@ -1,4 +1,5 @@
 import './IndexComp.scss'
+import React, { useState } from 'react'
 import classNames from 'classnames'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -9,9 +10,30 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 // 버튼
 export const ButtonComp = (props) => {
   const { children, size, icon, style } = props
-  return <button style={style} className={classNames('button', size, icon?'icon':'', 'block')}>{children}</button>
+  const [ripples, setRipples] = useState(null)
+  const clickanimation = (e) => {
+    let x = e.clientX - e.target.offsetLeft
+    let y = e.clientY - e.target.offsetTop
+    console.log(e)
+    let ripple = React.createElement('span', {style: {left:x + 'px', top: y + 'px'}}, null)
+    setRipples(ripple)
+    setTimeout(() => {
+      setRipples(null)
+    }, 1000)
+  }
+  return (
+    <button
+      style={style}
+      className={classNames('button', size, icon ? 'icon' : '', 'block')}
+      onClick={(e) => {
+        clickanimation(e)
+      }}
+    >
+      {children}
+      {ripples ? ripples : null}
+    </button>
+  )
 }
-
 
 // 슬라이드 컴포넌트
 export const SliderComp = ({
@@ -24,22 +46,29 @@ export const SliderComp = ({
   autoplay,
   children,
 }) => {
-
   const NextArrow = ({ style, onClick }) => {
     return (
-      <div className='customarrow arrow-next' style={{ ...style }} onClick={onClick}>
+      <div
+        className="customarrow arrow-next"
+        style={{ ...style }}
+        onClick={onClick}
+      >
         <FontAwesomeIcon icon={solid('caret-right')} size="3x" />
       </div>
-    )
-  }
+    );
+  };
 
   const PrevArrow = ({ style, onClick }) => {
     return (
-      <div className='customarrow arrow-prev' style={{ ...style }} onClick={onClick}>
+      <div
+        className="customarrow arrow-prev"
+        style={{ ...style }}
+        onClick={onClick}
+      >
         <FontAwesomeIcon icon={solid('caret-left')} size="3x" />
       </div>
-    )
-  }
+    );
+  };
 
   const settings = {
     dots: dots,
@@ -51,14 +80,14 @@ export const SliderComp = ({
     autoplay: autoplay,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-  }
+  };
 
   return (
     <div>
       <Slider {...settings}>{children}</Slider>
     </div>
-  )
-}
+  );
+};
 
 SliderComp.defaultProps = {
   dots: true,
@@ -68,7 +97,7 @@ SliderComp.defaultProps = {
   slidesToScroll: 1,
   arrows: true,
   autoplay: false,
-}
+};
 
 // 로고 컴포넌트
 export const Logo = ({ style }) => {
@@ -95,7 +124,14 @@ export const Logo = ({ style }) => {
           className="cls-1"
           points="222 10 59.87 32.48 29.41 74.05 414.59 74.05 384.13 32.48 222 10"
         />
-        <rect className="cls-1" x="10" y="74.43" width="424" height="32" rx="16" />
+        <rect
+          className="cls-1"
+          x="10"
+          y="74.43"
+          width="424"
+          height="32"
+          rx="16"
+        />
         <path
           className="cls-1"
           d="M849,904s-6,24-141,24-142-24-142-24L526,337H889Z"
@@ -139,5 +175,5 @@ export const Logo = ({ style }) => {
         />
       </svg>
     </div>
-  );
+  )
 }
