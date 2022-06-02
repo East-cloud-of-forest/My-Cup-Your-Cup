@@ -1,0 +1,20 @@
+.review_image {
+  display: flex;
+  justify-content: space-around;
+
+  li div {
+    background-color: gray;
+    height: 200px;
+    width: 240px;
+  }
+}
+
+.review_title {
+  position: right;
+}
+
+.heart_btn {
+  text-align: right;
+  border: none;
+  background-color: inherit;
+}

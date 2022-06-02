@@ -40,7 +40,7 @@ const Header = () => {
           </li>
           <li>
             <ButtonComp icon>
-              <FontAwesomeIcon icon={solid("user")} size="2x" />
+              <Link to="/Login"><FontAwesomeIcon icon={solid("user")} size="2x" /></Link>
             </ButtonComp>
           </li>
         </ul>

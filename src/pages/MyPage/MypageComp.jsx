@@ -1,13 +1,12 @@
 import './MypageComp.scss'
-import Profile from "./Profile";
-import AllDesigns from "./Grid/AllDesigns";
-import MyDesigns from "./Grid/MyDesigns";
-import LikedDesigns from "./Grid/LikedDesigns";
+import Profile from "../../components/Mypage/Profile";
+import MyDesigns from "../../components/Mypage/Grid/MyDesigns";
+import LikedDesigns from "../../components/Mypage/Grid/LikedDesigns";
 import { Link } from 'react-router-dom';
 
 
-
 const MypageComp = () => {
+
     return (
         <>
             
@@ -22,8 +21,6 @@ const MypageComp = () => {
                 </div>
                 <Profile />
             </div>
-
-            <AllDesigns />
             <MyDesigns />
             <LikedDesigns />
         </>

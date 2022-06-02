@@ -9,6 +9,10 @@
   cursor: pointer;
   color: white;
   background-color: blue;
+  margin: 0.5rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 
   &.icon {
     color: inherit;
@@ -17,6 +21,32 @@
     border-radius: 50%;
     height: inherit;
     box-shadow : none;
+  }
+
+  &.block {
+    display: flex;
+  }
+
+  & span {
+    background-color: #fff;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: buttonanima 1s linear;
+    pointer-events: none;
+  }
+
+  @keyframes buttonanima {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.5;
+    }
+    100% {
+      width: 500px;
+      height: 500px;
+      opacity: 0;
+    }
   }
 }
 
@@ -44,4 +74,44 @@
 .arrow-prev {
   left: 5px;
   z-index: 999;
+}
+
+// 모달
+body.active-modal { 
+  overflow-y: hidden; 
+}
+
+.ModalComp { 
+  
+  & .overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & .content {
+    background-color: rgb(255, 254, 206);
+    min-width: 20rem;
+    width: 600px;
+    height: 20rem;
+    padding: 0px;
+    // 이미지 옆에 공간 삭제..
+    display: flex;
+    justify-content: space-between;
+    & .closeButton {
+      position: relative;
+      top: -11em; 
+      left: 36em;
+      border: none;
+      background: transparent;
+    }
+    & img {
+      position: inherit;
+      top: 0;
+    }
+  }
 }
