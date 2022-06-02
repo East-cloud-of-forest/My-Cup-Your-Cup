@@ -1,5 +1,5 @@
 .cre_color{
-    border: solid black 2px;
+    border: solid black 1px;
     height: 30px;
     width: 30px;
     border-radius: 50%;
@@ -12,17 +12,71 @@
 
 .cre_all{
     display: flex;
+    justify-content: space-around;
+    
+    margin: 30px auto;
 }
 
 .cre_result {
     width: 900px;
     height: 500px;
+    margin: 0px 20px 20px 0px;
 }
+
+.cre_edit{
+    display: flex;
+    justify-content: space-around;
+    padding: 0px 30px;
+}
+
+.cre_editdiv{
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cre_icon{
+    height: 20px;
+    margin: 0 0 5px 0;
+}
+
+.mainImg{
+    display: flex;
+    position: relative;
+}
+
+.cre_img{
+    width: 900px;
+    margin: 20px 0px;
+}
+
+.cre_edit2{
+    position: absolute;
+}
+
+.cre_editdiv2{
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    float: right;
+
+}
+
+.cre_icon2{
+    height: 30px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 50%;
+}
+
 
 .cre_opt{
-    width: 450px;
+    width: 300px;
 }
-
 
 .cre_selectbox {
     background-color: white;
@@ -37,8 +91,11 @@
     margin: 10px;
 }
 
-.cre_ar{
+.cre_calc{
     display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 20px 50px 20px 20px;
 }
 
 .cre_prev {
@@ -50,10 +107,14 @@
     margin: 10px;
 }
 
+.cre_savepay{
+    display: flex;
+}
+
 .cre_save {
     background-color: #b89790;
     color: white;
-    width: 225px;
+    width: 150px;
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
@@ -64,18 +125,17 @@
     
     background-color: #60ab90;
     color: white;
-    width: 225px;
+    width: 150px;
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
     text-align: center;
 }
 
-
-
-
-
-
+#btn {
+    display: flex;
+    flex-direction: column;
+}
 
 
 
