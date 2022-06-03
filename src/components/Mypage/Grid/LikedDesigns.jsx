@@ -1,16 +1,19 @@
 import './DesignsGrid.scss'
+import { IMAGES } from '../../../images';
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { ModalComp2 } from '../../index-comp/IndexComp';
 
 export default function LikedDesigns() {
-    const [ designs, setDesigns] = useState([
-        { id: 1, title : "제목1" },
-        { id: 2, title : "제목2" },
-        { id: 3, title : "제목3" },
-        { id: 4, title : "제목4" },
-        { id: 5, title : "제목5" },
-        { id: 6, title : "제목6" },
-    ]);
+    const [isOpen, setIsOPen] =useState(false);
+    const handleOpen = () => setIsOPen(!isOpen);
+
+    if (isOpen) {
+        document.body.classList.add('active-modal')
+    } else {
+        document.body.classList.remove('active-modal')
+    }
+
     return (
         <>
             <div className='header'>
@@ -18,16 +21,19 @@ export default function LikedDesigns() {
                 <a href="#">더보기</a>
 
                 
-            </div><Container fluid="sm">
+            </div>
+            {/* 리스트/링크/이미지 클릭시 해당 상품 모달은 path로 네비게이트? */}
+            <Container fluid="sm">
+                
                 <Row>
                     {
-                        designs.map( (design) => (
-                        <Col xs={6} sm={4} md={2} key={design.id}>
-                            <div className='design_thumb'>
-                                
-                            </div>
-                            <p>{ design.title }</p>
-                        </Col>
+                        IMAGES.map( (image, i) => (
+                            <Col>
+                                <ModalComp2 >
+                                    <img src={IMAGES[i].src} alt={IMAGES[i].title } />
+                                </ModalComp2>
+                            </Col>
+                            
                         ))
                     }
                 </Row>

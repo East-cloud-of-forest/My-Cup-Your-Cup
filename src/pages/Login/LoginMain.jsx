@@ -1,12 +1,10 @@
+
 import React from "react";
-
 import { Link } from "react-router-dom";
-
 import "../Login/LoginMain.scss";
 
-import {Logo} from "../../components/index-comp/IndexComp"
-import google from "../../components/Login/img/구글 로그인 버튼.png"
-import facebook from "../../components/Login/img/페이스북 로그인 버튼.png"
+import GoolgeButton from "../../components/Login/GoolgeButton"
+import FacebookButton from "../../components/Login/FacebookButton"
 
 const LoginMainPage = () => {
   return (
@@ -14,11 +12,11 @@ const LoginMainPage = () => {
       <div>
         <div className="main-container">
           <div className="main-wrap">
-            <header>
+
               <div className="logo-wrap">
-                <h1>내잔네잔 로그인</h1>
+                <h1>로그인 페이지</h1>
               </div>
-            </header>
+
 
             <section className="login-input-section-wrap">
               <div className="login-input-wrap">
@@ -54,16 +52,11 @@ const LoginMainPage = () => {
         
             <div className="container">
               <h2>간편 로그인 버튼</h2>
-              <div>
-                <a href="https://accounts.google.com/ServiceLogin?hl=ko&passive=true&continue=https://www.google.co.kr/&ec=GAZAmgQ">
-                  <img className="GoogleButton" src={google} />
-                </a>
-              </div>
-              <div>
-                <a href="https://ko-kr.facebook.com/">
-                  <img className="FacebookButton" src={facebook}  />
-                </a>
-              </div>
+
+              <GoolgeButton />
+
+              <FacebookButton />
+
             </div>
           </div>
         </div>

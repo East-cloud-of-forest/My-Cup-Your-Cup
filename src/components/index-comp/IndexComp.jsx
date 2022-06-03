@@ -1,39 +1,57 @@
-import './IndexComp.scss'
-import React, { useState } from 'react'
-import classNames from 'classnames'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import "./IndexComp.scss";
+import React, { useState, useEffect } from "react";
+import classNames from "classnames";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button, Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style } = props
-  const [ripples, setRipples] = useState(null)
+  const { children, size, icon, style } = props;
+  const [ripples, setRipples] = useState([]);
+  useEffect(() => {
+    if (ripples.length > 0) {
+      const a = setTimeout(() => {
+        setRipples(ripples.filter((e) => e.id !== ripples.length - 1));
+      }, 600);
+      return () => clearTimeout(a);
+    }
+  }, [ripples]);
   const clickanimation = (e) => {
-    let x = e.clientX - e.target.offsetLeft
-    let y = e.clientY - e.target.offsetTop
-    console.log(e)
-    let ripple = React.createElement('span', {style: {left:x + 'px', top: y + 'px'}}, null)
-    setRipples(ripple)
-    setTimeout(() => {
-      setRipples(null)
-    }, 1000)
-  }
+    let x = e.clientX - e.currentTarget.offsetLeft;
+    let y = e.clientY - e.currentTarget.offsetTop;
+    let ripple = React.createElement(
+      "span",
+      {
+        style: { left: x + "px", top: y + "px" },
+        key: ripples.length,
+        className: "ripple-span",
+      },
+      null
+    );
+    setRipples(
+      ripples.concat({
+        element: ripple,
+        id: ripples.length,
+      })
+    );
+  };
   return (
     <button
       style={style}
-      className={classNames('button', size, icon ? 'icon' : '', 'block')}
+      className={classNames("button", size, icon ? "icon" : "", "block")}
       onClick={(e) => {
-        clickanimation(e)
+        clickanimation(e);
       }}
     >
-      {children}
-      {ripples ? ripples : null}
+      <span>{children}</span>
+      {ripples.map((e) => e.element)}
     </button>
-  )
-}
+  );
+};
 
 // 슬라이드 컴포넌트
 export const SliderComp = ({
@@ -176,46 +194,70 @@ export const Logo = ({ style }) => {
       </svg>
     </div>
   );
-}
+};
 
 // 프로필 컴포넌트
+export function ProfileComp(props) {
+  const { imageURL, userName, intro, instaURL, fbURL } = props;
+  return (
+    <div className="profile">
+      <div className="circled_container">
+        <img
+          src="https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg"
+          alt="profile photo"
+        ></img>
+      </div>
+
+      <div className="text">
+        <span id="username">User1</span>
+        <p id="intro">I am User1. My websites are </p>
+        <div className="social">
+          <a href="#">
+            <img src="https://www.svgrepo.com/show/299115/facebook.svg"></img>
+          </a>
+          <a href="#">
+            <img src="https://www.svgrepo.com/show/299116/instagram.svg"></img>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// 모달 컴포넌트
+export const ModalComp2 = ({children, style}) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <div className="ModalComp">
+      <span onClick={handleShow} style={{ width: "200px", display:"flex", aspectRatio: "1", margin: "3px"}}>
+        {children}
+      </span>
+
+      <Modal show={show} onHide={handleClose}>
+        {/* <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header> */}
+        <Modal.Body>{children}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      
+    </div>
+  );
+};
 
 // 모달 컴포넌트
 export const ModalComp = (props) => {
-  const { title, imageURL } = props;
-  const [isOpen, setIsOPen] =useState(false);
-  const handleOpen = () => setIsOPen(!isOpen);
-
-  if (isOpen) {
-    document.body.classList.add('active-modal')
-  } else {
-    document.body.classList.remove('active-modal')
-  }
-  return (
-    <div>
-      <button onClick={handleOpen}>모달</button>
-      {
-        isOpen && (
-          <div className='ModalComp' >
-            <div className='overlay'>
-              <div className='content'>
-                <button className='closeButton' onClick={handleOpen}> X </button>
-                
-                <img src={imageURL} />
-                <h2 className='title'>{title}</h2>
-                
-              </div>
-            </div>
-          </div>
-        )
-      }
-    </div>
-  )
-}
-
-
-// 모달 컴포넌트
-export const ModalComp2 = (props) => {
   const { title, write, designbtn } = props;
   return (
     <div>

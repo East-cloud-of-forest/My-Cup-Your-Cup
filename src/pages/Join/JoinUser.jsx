@@ -14,8 +14,8 @@ const JoinPage = () => {
     <div className="main-signup">
     
         <div>
-          <Link to="" title="로고 이미지">
-            <Logo style={{width:"50%", margin: "50px auto 40px auto"}} />
+          <Link to="/" title="로고 이미지">
+            <Logo style={{width:"50%", margin: "45px auto 40px auto"}} />
           </Link>
         </div>
       
@@ -104,6 +104,35 @@ const JoinPage = () => {
             ></input>
           </span>
         </div>
+
+
+        <div className="inputPhone">
+                <h3 className="text">휴대전화</h3>
+
+                <span className="signup-input">
+                    <select className="signup-country" name="country">
+                        <option value="ko">대한민국 +82</option>
+                    </select>
+                </span>
+
+                <div className="phoneNumber">
+                    <span className="phoneNumberSpan">
+                        <input className="signup-phone" type="text" placeholder="휴대폰 번호 입력"
+                        ></input>
+                    </span>
+                </div>
+        </div>
+
+        <div>
+
+                <div className="signup-btn-wrap">
+                    <button className="signup-btn">가입하기</button>
+                </div>
+        </div>
+
+
+
+
       </section>
     </div>
 </main>
