@@ -127,6 +127,7 @@ body.active-modal {
     align-items: center;
   }
   & .content {
+    z-index: 1000;
     background-color: rgb(255, 254, 206);
     min-width: 20rem;
     width: 600px;
