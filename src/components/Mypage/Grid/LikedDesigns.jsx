@@ -23,7 +23,7 @@ export default function LikedDesigns() {
                     {
                         designs.map( (design) => (
                         <Col xs={6} sm={4} md={2} key={design.id}>
-                            <div className='design_thumb'>
+                            <div className='design-thumb'>
                                 
                             </div>
                             <p>{ design.title }</p>
