@@ -25,6 +25,7 @@
       }
     }
   }
+  
   & #App_subnav {
     min-width: 15%;
 
@@ -33,6 +34,11 @@
       justify-content: space-evenly;
       padding: 0;
       margin: 5px 0;
+
+      & a {
+        text-decoration: none;
+        color: black;
+      }
     }
   }
 }
