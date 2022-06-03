@@ -199,14 +199,10 @@ export const Logo = ({ style }) => {
 
 // 모달 컴포넌트
 export const ModalComp2 = (props) => {
-  const {
-    // title, 
-    // imageURL, 
-    handleOpen,
-    children } = props
+  const { handleOpen, children } = props
   
   return (
-          <div className='Modal' >
+          <div className='ModalComp' >
             <div className='overlay' onClick={handleOpen}>
               <div className='content'>
                 <button className='closeButton' onClick={handleOpen}> X </button>
