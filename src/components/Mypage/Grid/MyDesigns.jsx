@@ -22,13 +22,19 @@ export default function MyDesigns() {
         </div>
 
         <Container fluid="sm">
-            <img src={IMAGES[0].src} alt={IMAGES[0].title} onClick={handleOpen} />
-                { isOpen ? (
-                    <ModalComp2 isOpen={isOpen} handleOpen={handleOpen}>
-                        <img src={IMAGES[0].src} />
-                        <h2 className='title'>{IMAGES[0].title}</h2>
-                    </ModalComp2>
-                ) : null }
+            <Row>
+                {
+                    IMAGES.map( (image, i) => (
+                        <Col>
+                            <ModalComp2 >
+                                <img src={IMAGES[i].src} alt={IMAGES[i].title } />
+                                
+                            </ModalComp2>
+                        </Col>
+                        
+                    ))
+                }
+            </Row>
         </Container>
     </>
     );
