@@ -179,43 +179,11 @@ export const Logo = ({ style }) => {
 }
 
 // 프로필 컴포넌트
-export const ProfileComp = () => {
-  return (
-    <div>
-      <div className="profile-comp">
-            
-            <div className="circled_container">
-                <img src="https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg" alt="profile photo"></img> 
-            </div>
-            
-            <div className="text">
-                <span id='username'>User1</span>
-                <p id='intro'>I am User1. My websites are </p>
-                <div className='social'>
-                    <a href="#">
-                        <img src='https://www.svgrepo.com/show/299115/facebook.svg'></img> 
-                    </a>
-                    <a href="#">
-                        <img src='https://www.svgrepo.com/show/299116/instagram.svg'></img>
-                    </a>
-                </div>
-            </div>
-            
-            
-        </div>
-
-    </div>
-  );
-}
 
 
 // 모달 컴포넌트
 export const ModalComp2 = (props) => {
-  const {
-    // title, 
-    // imageURL, 
-    handleOpen,
-    children } = props
+  const { handleOpen, children } = props
   
   return (
           <div className='Modal' >

@@ -11,7 +11,7 @@ const Header = () => {
         <Logo style={{ width: '80px', margin: '1rem 1.5rem' }} />
       </Link>
       <nav id="App_nav">
-        <ul className='body'>
+        <ul className="body">
           <li>
             <Link to="/">주문제작</Link>
           </li>
@@ -30,18 +30,20 @@ const Header = () => {
         <ul id="main_subnav" className="caption">
           <li>
             <ButtonComp icon>
-              <FontAwesomeIcon icon={solid("magnifying-glass")} size="2x" />
+              <FontAwesomeIcon icon={solid('magnifying-glass')} size="2x" />
             </ButtonComp>
           </li>
           <li>
             <ButtonComp icon>
-              <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
+              <FontAwesomeIcon icon={solid('cart-shopping')} size="2x" />
             </ButtonComp>
           </li>
           <li>
-            <ButtonComp icon>
-              <Link to="/Login"><FontAwesomeIcon icon={solid("user")} size="2x" /></Link>
-            </ButtonComp>
+            <Link to="/Login">
+              <ButtonComp icon>
+                <FontAwesomeIcon icon={solid('user')} size="2x" />
+              </ButtonComp>
+            </Link>
           </li>
         </ul>
       </div>
