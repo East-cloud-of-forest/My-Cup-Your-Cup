@@ -180,42 +180,26 @@ export const Logo = ({ style }) => {
 
 // 프로필 컴포넌트
 
-// 모달 컴포넌트
-export const ModalComp = (props) => {
-  const { title, imageURL } = props;
-  const [isOpen, setIsOPen] =useState(false);
-  const handleOpen = () => setIsOPen(!isOpen);
 
-  if (isOpen) {
-    document.body.classList.add('active-modal')
-  } else {
-    document.body.classList.remove('active-modal')
-  }
+// 모달 컴포넌트
+export const ModalComp2 = (props) => {
+  const { handleOpen, children } = props
+  
   return (
-    <div>
-      <button onClick={handleOpen}>모달</button>
-      {
-        isOpen && (
-          <div className='ModalComp' >
-            <div className='overlay'>
+          <div className='Modal' >
+            <div className='overlay' onClick={handleOpen}>
               <div className='content'>
                 <button className='closeButton' onClick={handleOpen}> X </button>
-                
-                <img src={imageURL} />
-                <h2 className='title'>{title}</h2>
-                
+                {children}
               </div>
             </div>
-          </div>
-        )
-      }
     </div>
   )
 }
 
 
 // 모달 컴포넌트
-export const ModalComp2 = (props) => {
+export const ModalComp = (props) => {
   const { title, write, designbtn } = props;
   return (
     <div>
