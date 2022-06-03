@@ -179,43 +179,59 @@ export const Logo = ({ style }) => {
 }
 
 // 프로필 컴포넌트
-
-// 모달 컴포넌트
-export const ModalComp = (props) => {
-  const { title, imageURL } = props;
-  const [isOpen, setIsOPen] =useState(false);
-  const handleOpen = () => setIsOPen(!isOpen);
-
-  if (isOpen) {
-    document.body.classList.add('active-modal')
-  } else {
-    document.body.classList.remove('active-modal')
-  }
+export const ProfileComp = () => {
   return (
     <div>
-      <button onClick={handleOpen}>모달</button>
-      {
-        isOpen && (
-          <div className='ModalComp' >
-            <div className='overlay'>
+      <div className="profile-comp">
+            
+            <div className="circled_container">
+                <img src="https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg" alt="profile photo"></img> 
+            </div>
+            
+            <div className="text">
+                <span id='username'>User1</span>
+                <p id='intro'>I am User1. My websites are </p>
+                <div className='social'>
+                    <a href="#">
+                        <img src='https://www.svgrepo.com/show/299115/facebook.svg'></img> 
+                    </a>
+                    <a href="#">
+                        <img src='https://www.svgrepo.com/show/299116/instagram.svg'></img>
+                    </a>
+                </div>
+            </div>
+            
+            
+        </div>
+
+    </div>
+  );
+}
+
+
+// 모달 컴포넌트
+export const ModalComp2 = (props) => {
+  const {
+    // title, 
+    // imageURL, 
+    handleOpen,
+    children } = props
+  
+  return (
+          <div className='Modal' >
+            <div className='overlay' onClick={handleOpen}>
               <div className='content'>
                 <button className='closeButton' onClick={handleOpen}> X </button>
-                
-                <img src={imageURL} />
-                <h2 className='title'>{title}</h2>
-                
+                {children}
               </div>
             </div>
-          </div>
-        )
-      }
     </div>
   )
 }
 
 
 // 모달 컴포넌트
-export const ModalComp2 = (props) => {
+export const ModalComp = (props) => {
   const { title, write, designbtn } = props;
   return (
     <div>
