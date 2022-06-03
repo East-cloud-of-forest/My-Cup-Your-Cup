@@ -11,7 +11,7 @@ const JoinPage = () => {
 
 <main className="JoinMain">
 
-    <div className="main-signup">
+    <div className="Joinmain_signup">
     
         <div>
           <Link to="/" title="로고 이미지">
@@ -20,44 +20,44 @@ const JoinPage = () => {
         </div>
       
 
-      <section className="signup-wrap">
-        <div className="id-password-input">
-          <h3 className="text">아이디</h3>
-          <span className="signup-input">
-            <input className="signup-id" type="text"></input>
+      <section className="Joinsignup_wrap">
+        <div className="Joinid_password_input">
+          <h3 className="Jointext">아이디</h3>
+          <span className="Joinsignup_input">
+            <input className="Joinsignup_id" type="text"></input>
           </span>
 
-          <h3 className="text">비밀번호</h3>
-          <span className="signup-input">
-            <input className="signup-pw" type="text"></input>
+          <h3 className="Jointext">비밀번호</h3>
+          <span className="Joinsignup_input">
+            <input className="Joinsignup_pw" type="text"></input>
           </span>
 
-          <h3 className="text">비밀번호 재확인</h3>
-          <span className="signup-input">
-            <input className="signup-pww" type="text"></input>
+          <h3 className="Jointext">비밀번호 재확인</h3>
+          <span className="Joinsignup_input">
+            <input className="Joinsignup_pww" type="text"></input>
           </span>
         </div>
 
-        <div className="name-birth-gender-email">
-          <h3 className="text">이름</h3>
+        <div className="Joinname_birth_gender_email">
+          <h3 className="Jointext">이름</h3>
 
-          <span className="signup-input">
-            <input className="signup-name" type="text"></input>
+          <span className="Joinsignup_input">
+            <input className="Joinsignup_name" type="text"></input>
           </span>
 
-          <h3 className="text">생년월일</h3>
+          <h3 className="Jointext">생년월일</h3>
 
-          <span className="birthOption">
-            <span className="signup-input-birth">
+          <span className="JoinbirthOption">
+            <span className="Joinsignup_input_birth">
               <input
-                className="signup-birth-yy"
+                className="Joinsignup_birth_yy"
                 type="text"
                 placeholder="년(4자)"
               ></input>
             </span>
 
-            <span className="signup-input-birth">
-              <select className="signup-birth-mm" name="month">
+            <span className="Joinsignup_input_birth">
+              <select className="Joinsignup_birth_mm" name="month">
                 <option value="month">월</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -74,31 +74,31 @@ const JoinPage = () => {
               </select>
             </span>
 
-            <span className="signup-input-birth">
+            <span className="Joinsignup_input_birth">
               <input
-                className="signup-birth-dd"
+                className="Joinsignup_birth_dd"
                 type="text"
                 placeholder="일"
               ></input>
             </span>
           </span>
 
-          <h3 className="text">성별</h3>
+          <h3 className="Jointext">성별</h3>
 
-          <span className="signup-input">
-            <select className="signup-gender" name="gender">
+          <span className="Joinsignup_input">
+            <select className="Joinsignup_gender" name="gender">
               <option value="gender">성별</option>
               <option value="man">남자</option>
               <option value="woman">여자</option>
             </select>
           </span>
 
-          <span className="choice">
-            <h3 className="text">본인 확인 이메일</h3>
+          <span className="Joinchoice">
+            <h3 className="Jointext">본인 확인 이메일</h3>
           </span>
-          <span className="signup-input">
+          <span className="Joinsignup_input">
             <input
-              className="signup-email"
+              className="Joinsignup_email"
               type="text"
               placeholder="선택입력"
             ></input>
@@ -106,18 +106,18 @@ const JoinPage = () => {
         </div>
 
 
-        <div className="inputPhone">
-                <h3 className="text">휴대전화</h3>
+        <div className="JoininputPhone">
+                <h3 className="Jointext">휴대전화</h3>
 
-                <span className="signup-input">
-                    <select className="signup-country" name="country">
+                <span className="Joinsignup_input">
+                    <select className="Joinsignup_country" name="country">
                         <option value="ko">대한민국 +82</option>
                     </select>
                 </span>
 
-                <div className="phoneNumber">
-                    <span className="phoneNumberSpan">
-                        <input className="signup-phone" type="text" placeholder="휴대폰 번호 입력"
+                <div className="JoinphoneNumber">
+                    <span className="JoinphoneNumberSpan">
+                        <input className="Joinsignup_phone" type="text" placeholder="휴대폰 번호 입력"
                         ></input>
                     </span>
                 </div>
@@ -125,8 +125,8 @@ const JoinPage = () => {
 
         <div>
 
-                <div className="signup-btn-wrap">
-                    <button className="signup-btn">가입하기</button>
+                <div className="Joinsignup_btn_wrap">
+                    <button className="Joinsignup_btn">가입하기</button>
                 </div>
         </div>
 
