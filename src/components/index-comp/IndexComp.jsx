@@ -203,7 +203,7 @@ export const ModalComp2 = (props) => {
   
   return (
           <div className='ModalComp' >
-            <div className='overlay' onClick={handleOpen}>
+            <div className='overlay'>
               <div className='content'>
                 <button className='closeButton' onClick={handleOpen}> X </button>
                 {children}
