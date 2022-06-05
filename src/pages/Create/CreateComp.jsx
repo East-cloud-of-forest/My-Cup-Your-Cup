@@ -3,12 +3,23 @@ import "./Create.scss";
 import ColorComp from "../../components/createcomp/ColorComp";
 import SelectComp from "../../components/createcomp/SelectComp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
+import { useState } from "react";
 
 const CreateComp =() =>{
 
     const optimg = require("../../components/createcomp/img/1.jpg")
+
+    //아이콘 변경 및 레이어 visible 함수 (faEye는 보이는 상태, faEyeSlash는 안보이는 상태)
+    const [basicIcon,setBasicIcon] = useState(faEye)
+    const changeIcon = () => {
+        if(basicIcon===faEye){
+        setBasicIcon(faEyeSlash)}
+        else {
+            setBasicIcon(faEye)
+        }
+    }
 
     return (
         <div className="cre_all">
@@ -46,7 +57,7 @@ const CreateComp =() =>{
 
 
                 {/**메인이미지 */}
-                <div className="mainImg">
+                <div className="cre_mainImg">
                     <img className="cre_img" src={optimg} alt="" />
 
                     {/**에딧 2 */}
@@ -68,6 +79,17 @@ const CreateComp =() =>{
                             무료 디자인
                         </div>
                     </div>
+
+                    {/**레이어 창*/}
+                    <div className="cre_layer_div">
+                        <div className="cre_layer_title">레이어 관리</div>
+                        <div className="cre_layers">
+                            {/**반복해서 추가 될 레이어 div */}
+                            <div className="cre_layer">레이어1<FontAwesomeIcon icon={basicIcon} className="cre_layer_icon" onClick={changeIcon} />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -77,7 +99,7 @@ const CreateComp =() =>{
 
                 <p>색이름</p>
 
-                <div id="colorDiv">
+                <div className="cre_colorDiv">
                     <ColorComp/>
                 </div>
 

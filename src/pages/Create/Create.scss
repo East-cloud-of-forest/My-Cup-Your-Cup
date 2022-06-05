@@ -12,15 +12,14 @@
 
 .cre_all{
     display: flex;
-    justify-content: space-around;
-    
+    justify-content: center;
     margin: 30px auto;
 }
 
 .cre_result {
     width: 900px;
     height: 500px;
-    margin: 0px 20px 20px 0px;
+    margin: 0px 50px 20px 0px;
 }
 
 .cre_edit{
@@ -42,8 +41,9 @@
     margin: 0 0 5px 0;
 }
 
-.mainImg{
+.cre_mainImg{
     display: flex;
+    align-items: center;
     position: relative;
 }
 
@@ -54,24 +54,64 @@
 
 .cre_edit2{
     position: absolute;
+    left: 85%;
 }
 
 .cre_editdiv2{
-    font-size: 15px;
+    font-size: 13px;
     display: flex;
     flex-direction: column;
     text-align: center;
     cursor: pointer;
-    float: right;
-
+    align-items: center;
+    margin: 20px;
 }
 
 .cre_icon2{
     height: 30px;
+    width: 30px;
     padding: 15px;
     background-color: white;
     border-radius: 50%;
+    margin: 0 0 10px 0;
 }
+
+.cre_layer_div{
+    width: 150px;
+    position: absolute;
+    border-radius: 5px;
+    left: 20px;
+    top: 100px;
+}
+
+.cre_layer_title{
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 5px 0 5px 0;
+}
+
+.cre_layers{
+    background-color: white;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.cre_layer{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.cre_layer_icon{
+    position: absolute;
+    right: 15px;
+}
+
+
+
+
 
 
 .cre_opt{
@@ -98,38 +138,8 @@
     margin: 20px 50px 20px 20px;
 }
 
-.cre_prev {
-    background-color: #9dfad9;
-    color: black;
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 10px;
-}
-
 .cre_savepay{
     display: flex;
-}
-
-.cre_save {
-    background-color: #b89790;
-    color: white;
-    width: 150px;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.cre_pay {
-    
-    background-color: #60ab90;
-    color: white;
-    width: 150px;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
 }
 
 #btn {
