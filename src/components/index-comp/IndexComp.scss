@@ -107,7 +107,72 @@
   z-index: 999;
 }
 
-// 모달
+// 프로필 컴포넌트
+
+.profile {
+  background-color: #FAE8E3;
+  max-width: 21rem;
+  min-width: fit-content;
+  height: 10rem;
+  display: flex;
+  position: relative;
+  
+  .circled_container {
+      margin: 2rem 2rem;
+      overflow: hidden;
+      position: relative;
+      margin: 35px 15px;
+      img {        
+          
+          border-radius: 50%;
+          display: flex;
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+      }
+  }
+  & .text {
+      margin-top: 2rem;
+      margin-left: 0rem;
+      margin-right: 1rem;
+      #username {
+          
+          font-weight: bold;
+      }
+      #intro {
+          margin-top: -0.1rem;
+          font-size: small;
+      }
+      .social {
+          margin-top: 1rem;
+          display: flex;
+          img {
+              width: 30px;
+              height: 30px;
+              padding: 5px;
+          }
+      }
+  }
+  &.icon {
+    background-color: transparent;
+    width: fit-content;
+    height: fit-content;
+    & .circled_container {
+      width: fit-content;
+      height: fit-content;
+    }
+    img {
+      border-radius: 50%;
+      display: flex;
+      width: 35px;
+      height: 35px;
+      object-fit: cover;
+    }
+    .text {
+      display: none;
+    }
+  }
+}
 
 
 

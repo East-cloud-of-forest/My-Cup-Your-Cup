@@ -198,24 +198,24 @@ export const Logo = ({ style }) => {
 
 // 프로필 컴포넌트
 export function ProfileComp(props) {
-  const { imageURL, userName, intro, instaURL, fbURL } = props;
+  const { icon, imageURL, userName, intro, instaURL, fbURL } = props;
   return (
-    <div className="profile">
+    <div className={classNames("profile", icon ? "icon" : "")}>
       <div className="circled_container">
         <img
-          src="https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg"
+          src={imageURL}
           alt="profile photo"
         ></img>
       </div>
 
       <div className="text">
-        <span id="username">User1</span>
-        <p id="intro">I am User1. My websites are </p>
+        <span id="username">{ userName }</span>
+        <p id="intro">{ intro }</p>
         <div className="social">
-          <a href="#">
+          <a href={fbURL} target="blank">
             <img src="https://www.svgrepo.com/show/299115/facebook.svg"></img>
           </a>
-          <a href="#">
+          <a href={instaURL} target="blank">
             <img src="https://www.svgrepo.com/show/299116/instagram.svg"></img>
           </a>
         </div>
@@ -232,15 +232,15 @@ export const ModalComp2 = ({children, style}) => {
   const handleShow = () => setShow(true);
 
   return (
-    <div className="ModalComp">
+    <div className="ModalComp" >
       <span onClick={handleShow} style={{ width: "200px", display:"flex", aspectRatio: "1", margin: "3px"}}>
         {children}
       </span>
 
-      <Modal show={show} onHide={handleClose}>
-        {/* <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header> */}
+      <Modal show={show} onHide={handleClose} >
+        <Modal.Header closeButton >
+          <Modal.Title>{}</Modal.Title>
+        </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
