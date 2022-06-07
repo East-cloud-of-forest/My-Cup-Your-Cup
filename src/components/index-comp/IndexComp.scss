@@ -107,45 +107,72 @@
   z-index: 999;
 }
 
-// 모달
-body.active-modal {
-  overflow-y: hidden;
+// 프로필 컴포넌트
+
+.profile {
+  background-color: #FAE8E3;
+  max-width: 21rem;
+  min-width: fit-content;
+  height: 10rem;
+  display: flex;
+  position: relative;
+  
+  .circled_container {
+      margin: 2rem 2rem;
+      overflow: hidden;
+      position: relative;
+      margin: 35px 15px;
+      img {        
+          
+          border-radius: 50%;
+          display: flex;
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+      }
+  }
+  & .text {
+      margin-top: 2rem;
+      margin-left: 0rem;
+      margin-right: 1rem;
+      #username {
+          
+          font-weight: bold;
+      }
+      #intro {
+          margin-top: -0.1rem;
+          font-size: small;
+      }
+      .social {
+          margin-top: 1rem;
+          display: flex;
+          img {
+              width: 30px;
+              height: 30px;
+              padding: 5px;
+          }
+      }
+  }
+  &.icon {
+    background-color: transparent;
+    width: fit-content;
+    height: fit-content;
+    & .circled_container {
+      width: fit-content;
+      height: fit-content;
+    }
+    img {
+      border-radius: 50%;
+      display: flex;
+      width: 35px;
+      height: 35px;
+      object-fit: cover;
+    }
+    .text {
+      display: none;
+    }
+  }
 }
 
-.ModalComp {
-  & .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  & .content {
-    z-index: 1000;
-    background-color: rgb(255, 254, 206);
-    min-width: 20rem;
-    width: 600px;
-    height: 20rem;
-    padding: 0px;
-    // 이미지 옆에 공간 삭제..
-    display: flex;
-    justify-content: space-between;
-    & .closeButton {
-      position: relative;
-      top: -11em;
-      left: 36em;
-      border: none;
-      background: transparent;
-    }
-    & img {
-      position: inherit;
-      top: 0;
-    }
-  }
-}
+
+

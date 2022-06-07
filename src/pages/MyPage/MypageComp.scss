@@ -1,13 +1,28 @@
-.title {
+.header {
     margin: 1rem 2rem;
     display: flex;
     justify-content: space-between;
-    
+    & .title {
+        display: block ;
+        min-width: fit-content;
+    }
     ul {
-        position: sticky;
-        margin-left: 4px;
+        margin: 80px 0 0 -20px;
         display: flex;
-        li {
+        a {
+            padding: 0.5em 1em 0.5em 1em ;
+            margin: 1em;
+            align-content: center;
+            border-radius: 20%;
+            background-color: #9DFAD9;
+            color: black;
+            text-decoration: none;
         }
+        a:hover { 
+            background-color: #FAE8E3;
+            color:  #B89790;
+            font-weight: 2em;
+        }
+
     }
 }

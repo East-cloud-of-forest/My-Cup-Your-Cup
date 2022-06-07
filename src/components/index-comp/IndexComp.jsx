@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button, Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -27,7 +28,7 @@ export const ButtonComp = (props) => {
       {
         style: { left: x + "px", top: y + "px" },
         key: ripples.length,
-        className: 'ripple-span'
+        className: "ripple-span",
       },
       null
     );
@@ -196,22 +197,64 @@ export const Logo = ({ style }) => {
 };
 
 // 프로필 컴포넌트
+export function ProfileComp(props) {
+  const { icon, imageURL, userName, intro, instaURL, fbURL } = props;
+  return (
+    <div className={classNames("profile", icon ? "icon" : "")}>
+      <div className="circled_container">
+        <img
+          src={imageURL}
+          alt="profile photo"
+        ></img>
+      </div>
+
+      <div className="text">
+        <span id="username">{ userName }</span>
+        <p id="intro">{ intro }</p>
+        <div className="social">
+          <a href={fbURL} target="blank">
+            <img src="https://www.svgrepo.com/show/299115/facebook.svg"></img>
+          </a>
+          <a href={instaURL} target="blank">
+            <img src="https://www.svgrepo.com/show/299116/instagram.svg"></img>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // 모달 컴포넌트
-export const ModalComp2 = (props) => {
-  const { handleOpen, children } = props
-  
+export const ModalComp2 = ({children, style}) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
-          <div className='ModalComp' >
-            <div className='overlay'>
-              <div className='content'>
-                <button className='closeButton' onClick={handleOpen}> X </button>
-                {children}
-              </div>
-            </div>
+    <div className="ModalComp" >
+      <span onClick={handleShow} style={{ width: "200px", display:"flex", aspectRatio: "1", margin: "3px"}}>
+        {children}
+      </span>
+
+      <Modal show={show} onHide={handleClose} >
+        <Modal.Header closeButton >
+          <Modal.Title>{}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{children}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      
     </div>
-  )
-}
+  );
+};
 
 // 모달 컴포넌트
 export const ModalComp = (props) => {
