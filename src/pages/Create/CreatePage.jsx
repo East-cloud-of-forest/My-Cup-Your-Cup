@@ -7,7 +7,7 @@ import { ButtonComp } from '../../components/index-comp/IndexComp'
 import { useState, useRef } from "react";
 import React from "react";
 
-const CreateComp =() =>{
+const CreatePage =() =>{
 
     const optimg = require("../../components/createcomp/img/1.jpg")
 
@@ -156,4 +156,4 @@ const CreateComp =() =>{
     )
 }
 
-export default CreateComp;
+export default CreatePage;

@@ -8,7 +8,8 @@ import MypageComp from "../src/pages/MyPage/MypageComp"
 import LoginMain from "./pages/Login/LoginMain"
 import JoinUser from "./pages/Join/JoinUser"
 import ReviewComp from "./pages/Review/Review";
-import CreateComp from "./pages/Create/CreateComp";
+import CreatePage from "./pages/Create/CreatePage";
+import PayPage from "./pages/Pay/PayPage";
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
             <Route path="/" element={<HomeComp />} />
             <Route path="/mypage" element={<MypageComp />} />
             <Route path="/review" element={<ReviewComp />} />
-            <Route path="/create" element={<CreateComp />} />
+            <Route path="/create" element={<CreatePage />} />
             <Route path="/Login" element={<LoginMain />} />
             <Route path="/Join" element={<JoinUser />} />
+            <Route path="/pay" element={<PayPage/>} />
           </Routes>
         </main>
         <Footer />
