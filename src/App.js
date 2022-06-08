@@ -10,6 +10,7 @@ import JoinUser from "./pages/Join/JoinUser"
 import ReviewComp from "./pages/Review/Review";
 import CreatePage from "./pages/Create/CreatePage";
 import PayPage from "./pages/Pay/PayPage";
+import Search from "./pages/Search/Search";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/Login" element={<LoginMain />} />
             <Route path="/Join" element={<JoinUser />} />
             <Route path="/pay" element={<PayPage/>} />
+            <Route path="/search" element={<Search />} />
           </Routes>
         </main>
         <Footer />
