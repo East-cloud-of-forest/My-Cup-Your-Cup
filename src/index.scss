@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "navi";
+  src: url('./fonts/BMJUA_ttf.ttf')
+}
+
 // 기본 설정
 ul {
   list-style: none;
@@ -7,6 +12,10 @@ ul {
 .subtitle {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.nav {
+  font-size: 1.2rem;
 }
 
 .body {

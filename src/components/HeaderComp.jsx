@@ -2,7 +2,7 @@ import './HeaderComp.scss'
 import { Logo, ButtonComp } from './index-comp/IndexComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -11,18 +11,18 @@ const Header = () => {
         <Logo style={{ width: '80px', margin: '1rem 1.5rem' }} />
       </Link>
       <nav id="App_nav">
-        <ul className="body">
+        <ul className="nav">
           <li>
-            <Link to="/">주문제작</Link>
+            <NavLink to="/">주문제작</NavLink>
           </li>
           <li>
-            <Link to="/">잔디자인</Link>
+            <NavLink to="/">잔디자인</NavLink>
           </li>
           <li>
-            <Link to="/">포토리뷰</Link>
+            <NavLink to="/">포토리뷰</NavLink>
           </li>
           <li>
-            <Link to="/">제품문의</Link>
+            <NavLink to="/">제품문의</NavLink>
           </li>
         </ul>
       </nav>
