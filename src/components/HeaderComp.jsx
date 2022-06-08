@@ -13,7 +13,7 @@ const Header = () => {
       <nav id="App_nav">
         <ul className="nav">
           <li>
-            <NavLink to="/">주문제작</NavLink>
+            <NavLink to="/create">주문제작</NavLink>
           </li>
           <li>
             <NavLink to="/">잔디자인</NavLink>
