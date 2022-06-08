@@ -1,4 +1,3 @@
-
 import "./App.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeComp from "./pages/Home/Home";
@@ -10,6 +9,7 @@ import JoinUser from "./pages/Join/JoinUser"
 import ReviewComp from "./pages/Review/Review";
 import CreateComp from "./pages/Create/CreateComp";
 import Cart from "./pages/Cart/Cart";
+import Search from "./pages/Search/Search";
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
             <Route path="/Join" element={<JoinUser />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/search" element={<Search />} />
           </Routes>
         </main>
         <Footer />

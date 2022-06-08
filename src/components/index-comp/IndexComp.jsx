@@ -10,7 +10,7 @@ import { Button, Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style } = props;
+  const { children, size, icon, style, block } = props;
   const [ripples, setRipples] = useState([]);
   useEffect(() => {
     if (ripples.length > 0) {
@@ -42,7 +42,10 @@ export const ButtonComp = (props) => {
   return (
     <button
       style={style}
-      className={classNames("button", size, icon ? "icon" : "", "block")}
+      className={classNames("button",
+        size,
+        icon ? "icon" : "",
+        block? "block" : "")}
       onClick={(e) => {
         clickanimation(e);
       }}
