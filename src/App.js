@@ -9,6 +9,7 @@ import LoginMain from "./pages/Login/LoginMain"
 import JoinUser from "./pages/Join/JoinUser"
 import ReviewComp from "./pages/Review/Review";
 import CreateComp from "./pages/Create/CreateComp";
+import Search from "./pages/Search/Search";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/create" element={<CreateComp />} />
             <Route path="/Login" element={<LoginMain />} />
             <Route path="/Join" element={<JoinUser />} />
+            <Route path="/search" element={<Search />} />
           </Routes>
         </main>
         <Footer />
