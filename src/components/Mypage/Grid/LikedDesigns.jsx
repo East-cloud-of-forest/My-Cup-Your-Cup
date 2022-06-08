@@ -26,7 +26,8 @@ export default function LikedDesigns() {
             <Container fluid="sm">
                 
                 <Row>
-                    {
+                    {   // { image : url, title: "title", button: button }
+                        // ModalComp안에 {children.image} {children.button} 이런식으로 작성
                         IMAGES.map( (image, i) => (
                             <Col>
                                 <ModalComp2 >
