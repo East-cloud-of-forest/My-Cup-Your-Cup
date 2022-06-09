@@ -7,9 +7,10 @@ import Mypage from "./pages/MyPage/Mypage"
 import LoginMain from "./pages/Login/LoginMain"
 import JoinUser from "./pages/Join/JoinUser"
 import ReviewComp from "./pages/Review/Review";
-import CreateComp from "./pages/Create/CreateComp";
-import Cart from "./pages/Cart/Cart";
+import CreatePage from "./pages/Create/CreatePage";
+import PayPage from "./pages/Pay/PayPage";
 import Search from "./pages/Search/Search";
+import Cart from "./pages/Cart/Cart";
 
 function App() {
   return (
@@ -19,13 +20,14 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomeComp />} />
+            <Route path="/mypage" element={<Mypage />} />
             <Route path="/review" element={<ReviewComp />} />
-            <Route path="/create" element={<CreateComp />} />
+            <Route path="/create" element={<CreatePage />} />
             <Route path="/Login" element={<LoginMain />} />
             <Route path="/Join" element={<JoinUser />} />
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/pay" element={<PayPage/>} />
             <Route path="/search" element={<Search />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>
         <Footer />
