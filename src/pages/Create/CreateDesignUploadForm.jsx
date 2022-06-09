@@ -1,6 +1,6 @@
-import { WriteFormComp } from "../index-comp/IndexComp";
+import { WriteFormComp } from "../../components/index-comp/IndexComp";
 
-const CreateDesignUploadFormComp = () => {
+const CreateDesignUploadForm = () => {
   return (
     <div>
       <WriteFormComp
@@ -10,4 +10,4 @@ const CreateDesignUploadFormComp = () => {
     </div>
   );
 };
-export default CreateDesignUploadFormComp;
+export default CreateDesignUploadForm;
