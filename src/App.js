@@ -11,8 +11,8 @@ import CreatePage from "./pages/Create/CreatePage";
 import PayPage from "./pages/Pay/PayPage";
 import Search from "./pages/Search/Search";
 import Cart from "./pages/Cart/Cart";
-import ReviewFormComp from "./components/Review/ReviewFormComp";
-import CreateDesignUploadFormComp from "./components/Review/CreateDesignUploadFormComp";
+import ReviewWriteForm from "./pages/Review/ReviewWriteForm";
+import CreateDesignUploadForm from "./pages/Create/CreateDesignUploadForm";
 
 function App() {
   return (
@@ -24,12 +24,9 @@ function App() {
             <Route path="/" element={<HomeComp />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/review" element={<ReviewComp />} />
-            <Route path="/review/write" element={<ReviewFormComp />} />
+            <Route path="/review/write" element={<ReviewWriteForm />} />
             <Route path="/create" element={<CreatePage />} />
-            <Route
-              path="/create/write"
-              element={<CreateDesignUploadFormComp />}
-            />
+            <Route path="/create/write" element={<CreateDesignUploadForm />} />
             <Route path="/Login" element={<LoginMain />} />
             <Route path="/Join" element={<JoinUser />} />
             <Route path="/pay" element={<PayPage />} />
