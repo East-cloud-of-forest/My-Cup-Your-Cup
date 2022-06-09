@@ -2,7 +2,7 @@ import { ButtonComp } from '../../components/index-comp/IndexComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Search.scss'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
 
 export const SearchResult = () => {

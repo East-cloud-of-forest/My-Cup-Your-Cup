@@ -5,8 +5,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, Modal } from "react-bootstrap";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -203,20 +204,18 @@ export const Logo = ({ style }) => {
 };
 
 // 프로필 컴포넌트
+// 프로필 아이콘으로 사용할때 컴포넌트태그 안에 icon 작성
 export function ProfileComp(props) {
   const { icon, imageURL, userName, intro, instaURL, fbURL } = props;
   return (
     <div className={classNames("profile", icon ? "icon" : "")}>
       <div className="circled_container">
-        <img
-          src={imageURL}
-          alt="profile photo"
-        ></img>
+      <img src={imageURL} alt="profile photo"></img>
       </div>
 
       <div className="text">
-        <span id="username">{ userName }</span>
-        <p id="intro">{ intro }</p>
+        <span id="username">{userName}</span>
+        <p id="intro">{intro}</p>
         <div className="social">
           <a href={fbURL} target="blank">
             <img src="https://www.svgrepo.com/show/299115/facebook.svg"></img>
@@ -231,33 +230,48 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp2 = ({children, style}) => {
+export const ModalComp2 = ({
+  children,
+  title,
+  text,
+  button
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
-    <div className="ModalComp" >
-      <span onClick={handleShow} style={{ width: "200px", display:"flex", aspectRatio: "1", margin: "3px"}}>
+    <div className="modal-thumb" >
+
+      <span
+        onClick={handleShow}
+        style={{
+          width: "200px",
+          display: "flex",
+          aspectRatio: "1",
+          margin: "3px",
+        }}
+      >
         {children}
       </span>
 
-      <Modal show={show} onHide={handleClose} >
-        <Modal.Header closeButton >
-          <Modal.Title>{}</Modal.Title>
+      <Modal id="opened-modal" show={show} onHide={handleClose} >
+        <Modal.Header closeButton>
         </Modal.Header>
-        <Modal.Body>{children}</Modal.Body>
+        <Modal.Body>
+          {children} 
+          <h2>{title}</h2>
+          <p>{text}</p>
+
+
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+          
+        {button}
+
         </Modal.Footer>
       </Modal>
-      
     </div>
   );
 };
@@ -307,6 +321,124 @@ export const ModalComp = (props) => {
           </li>
         </ul>
       </div>
+    </div>
+  );
+};
+
+// 글쓰기 폼 컴포넌트
+export const WriteFormComp = (props) => {
+  const { title, placeholder, review } = props;
+  return (
+    <div className={classNames("wrtie_form", review ? "review" : "design")}>
+      <form>
+        <h1>{title}</h1>
+        <br />
+        <input
+          type="search"
+          placeholder="제목을 작성해 주세요"
+          size="50"
+        />{" "}
+        <br />
+        <br />
+        <br />
+        <input
+          type="search"
+          placeholder="#태그를 작성해 주세요"
+          size="50"
+        />{" "}
+        <br />
+        <br />
+        <br />
+        <textarea cols="52" rows="10" placeholder={placeholder}></textarea>{" "}
+        {/** 리뷰 폼 */}
+        <div className="review">
+          <ButtonComp
+            style={{
+              backgroundColor: "inherit",
+              color: "black",
+              float: "left",
+            }}
+          >
+            <FontAwesomeIcon icon={solid("plus")} size="2x" />
+          </ButtonComp>
+          <ul className="review_user">
+            <li>
+              <div className="review_user_img">
+                <ButtonComp
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "black",
+                    position: "absolute",
+                    bottom: -20,
+                    right: -20,
+                  }}
+                >
+                  X
+                </ButtonComp>
+              </div>
+            </li>
+            <li>
+              <div className="review_user_img">
+                <ButtonComp
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "black",
+                    position: "absolute",
+                    bottom: -20,
+                    right: -20,
+                  }}
+                >
+                  X
+                </ButtonComp>
+              </div>
+            </li>
+            <li>
+              <div className="review_user_img">
+                <ButtonComp
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "black",
+                    position: "absolute",
+                    bottom: -20,
+                    right: -20,
+                  }}
+                >
+                  X
+                </ButtonComp>
+              </div>
+            </li>
+          </ul>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <p className="rating">
+            <FontAwesomeIcon icon={regular("star")} size="2x" />
+            <FontAwesomeIcon icon={regular("star")} size="2x" />
+            <FontAwesomeIcon icon={regular("star")} size="2x" />
+            <FontAwesomeIcon icon={regular("star")} size="2x" />
+            <FontAwesomeIcon icon={regular("star")} size="2x" />
+          </p>
+        </div>
+        {/** 디자인업로드 폼 */}
+        <div className="design">
+          <br />
+          <br />
+          <div className="design_preview"></div>
+        </div>
+        <br />
+        <br />
+        <ButtonComp type="submit" style={{ float: "right" }}>
+          작성
+        </ButtonComp>
+        <ButtonComp type="submit" style={{ float: "right" }}>
+          취소
+        </ButtonComp>
+      </form>
     </div>
   );
 };
