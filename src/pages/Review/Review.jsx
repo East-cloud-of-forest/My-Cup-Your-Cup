@@ -3,6 +3,10 @@ import "./Review.scss";
 import ReviewModalComp from "../../components/Review/modal/ReviewModalComp";
 import MyPageModalComp from "../../components/Review/modal/MyPageModalComp";
 import { Col, Container, Row } from "react-bootstrap";
+import CardTest from "../../components/Review/grid/CardTest";
+import { ButtonComp } from "../../components/index-comp/IndexComp";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ReviewPage = () => {
   const reviewgrid = [
@@ -13,7 +17,7 @@ const ReviewPage = () => {
   ];
   return (
     <div>
-      <h1>Review</h1>
+      <h1>포토리뷰</h1>
       <Container fluid>
         <Row>
           {reviewgrid.map((r, id) => (
@@ -23,6 +27,16 @@ const ReviewPage = () => {
           ))}
         </Row>
       </Container>
+
+      <CardTest></CardTest>
+
+      <ButtonComp
+        icon
+        style={{ display: "inline", float: "right" }}
+        onClick={() => {}}
+      >
+        <FontAwesomeIcon icon={solid("circle-plus")} size="2x" />
+      </ButtonComp>
 
       <p className="Paging">
         {" "}

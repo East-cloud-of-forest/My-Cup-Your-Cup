@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import './DesignsGrid.scss'
 import { IMAGES } from '../../../images';
 import { useState } from 'react';
@@ -5,16 +6,23 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { ButtonComp, ModalComp2 } from '../../index-comp/IndexComp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+=======
+import "./DesignsGrid.scss";
+import { IMAGES } from "../../../images";
+import { useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { ModalComp2 } from "../../index-comp/IndexComp";
+>>>>>>> 9d09b91a21c644ac23b29612f2fbccb3eb028894
 
 export default function LikedDesigns() {
-    const [isOpen, setIsOPen] =useState(false);
-    const handleOpen = () => setIsOPen(!isOpen);
+  const [isOpen, setIsOPen] = useState(false);
+  const handleOpen = () => setIsOPen(!isOpen);
 
-    if (isOpen) {
-        document.body.classList.add('active-modal')
-    } else {
-        document.body.classList.remove('active-modal')
-    }
+  if (isOpen) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
 
     return (
         <>
