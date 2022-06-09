@@ -2,7 +2,9 @@ import "./DesignsGrid.scss";
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { IMAGES, getImageById } from "../../../images";
-import { ModalComp2 } from "../../index-comp/IndexComp"
+import { ButtonComp, ModalComp2 } from "../../index-comp/IndexComp"
+import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export default function MyDesigns() {
     const [isOpen, setIsOPen] =useState(false);
@@ -26,9 +28,22 @@ export default function MyDesigns() {
                 {
                     IMAGES.map( (image, i) => (
                         <Col>
-                            <ModalComp2 >
-                                <img src={IMAGES[i].src} alt={IMAGES[i].title } />
-                                
+                            <ModalComp2
+                                text={image.title}
+                                title={image.title}
+                                button={ 
+                                    <div>
+                                        <ButtonComp>
+                                            <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                                        </ButtonComp>
+                                        <ButtonComp>
+                                            <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
+                                        </ButtonComp>  
+                                        <ButtonComp>제작하러가기</ButtonComp>
+                                    </div>
+                                    }
+                            >
+                            <img src={image.src}/>
                             </ModalComp2>
                         </Col>
                         

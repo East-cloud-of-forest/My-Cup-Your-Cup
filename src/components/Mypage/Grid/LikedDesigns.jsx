@@ -2,7 +2,9 @@ import './DesignsGrid.scss'
 import { IMAGES } from '../../../images';
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { ModalComp2 } from '../../index-comp/IndexComp';
+import { ButtonComp, ModalComp2 } from '../../index-comp/IndexComp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function LikedDesigns() {
     const [isOpen, setIsOPen] =useState(false);
@@ -26,17 +28,30 @@ export default function LikedDesigns() {
             <Container fluid="sm">
                 
                 <Row>
-                    {   // { image : url, title: "title", button: button }
-                        // ModalComp안에 {children.image} {children.button} 이런식으로 작성
+                    {  
                         IMAGES.map( (image, i) => (
-                            <Col>
-                                <ModalComp2 >
-                                    <img src={IMAGES[i].src} alt={IMAGES[i].title } />
-                                </ModalComp2>
-                            </Col>
-                            
+
+                            <Col key={i}>
+                            <ModalComp2
+                                text={image.title}
+                                title={image.title}
+                                button={ 
+                                    <div>
+                                        <ButtonComp>
+                                            <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                                        </ButtonComp>
+                                        <ButtonComp>
+                                            <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
+                                        </ButtonComp>  
+                                        <ButtonComp>제작하러가기</ButtonComp>
+                                    </div>
+                                }
+                            >
+                            <img src={image.src}/>
+                            </ModalComp2>
+                        </Col>
                         ))
-                    }
+                    } 
                 </Row>
             </Container>
         </>
