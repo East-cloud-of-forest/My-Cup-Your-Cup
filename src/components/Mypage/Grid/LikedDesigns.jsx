@@ -2,7 +2,7 @@ import './DesignsGrid.scss'
 import { IMAGES } from '../../../images';
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { ButtonComp, ModalComp2, ProfileComp } from '../../index-comp/IndexComp';
+import { ButtonComp, ModalComp2 } from '../../index-comp/IndexComp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
@@ -36,14 +36,6 @@ export default function LikedDesigns() {
                             <ModalComp2
                                 text={image.title}
                                 title={image.title}
-                                username={
-                                    <ProfileComp
-                                      icon
-                                      imageURL={
-                                        "https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg"
-                                      }
-                                      userName={"user1"}
-                                    />}
                                 button={ 
                                     <div>
                                         <ButtonComp>
