@@ -1,0 +1,312 @@
+.pay_div{
+    margin: 100px 50px;
+}
+
+.pay_title{
+    padding: 10px 0;
+}
+
+.pay_main_hr{
+    opacity: 1;
+    border: solid 0.05rem black;
+    margin: 5px 0;
+    width: 100%;
+}
+
+
+.pay_list{
+    margin: 10px;
+}
+
+.pay_product{
+    margin: 10px 0;
+    padding: 5px;
+    background-color: rgb(235, 235, 235);
+    display: flex;
+}
+
+.pay_thumb{
+    width: 80px;
+}
+
+.pay_product_content{
+    display: block;
+    text-align: right;
+}
+
+.pay_cost{
+    text-align: right;
+    margin: 20px;
+}
+
+
+
+.pay_address_table{
+    width: 100%;
+}
+
+.pay_address_table_tr{
+    border-bottom: 1px solid lightgray;
+}
+
+.pay_address_table_tr2{
+    height: 70px;
+}
+
+.pay_table_cate{
+    font-weight: bolder;
+    width: 25%;
+    padding: 0 0 0 20px;
+}
+
+.pay_address_input_name {
+    height: 40px;
+    width: 100%;
+    font-size: 15px;
+    border: 0;
+    outline: none;
+    margin: 20px 0;
+    padding: 0 0 0 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+
+.pay_address_input_phone{
+    height: 40px;
+    width: 85px;
+    font-size: 15px;
+    border: 0;
+    outline: none;
+    text-align: center;
+    margin: 20px 0;
+    background-color: rgb(233, 233, 233);
+}
+
+.pay_address_input_phone::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.pay_phone_hy{
+    margin: 0 15px;
+}
+
+
+.pay_address_addressnum{
+    height: 40px;
+    width: 45%;
+    font-size: 15px;
+    border: 0;
+    outline: none;
+    margin: 20px 0 10px 0;
+    background-color: rgb(233, 233, 233);
+    padding: 0 0 0 10px;
+}
+
+.pay_address_addressnum::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.pay_address_address{
+    height: 40px;
+    width: 45%;
+    font-size: 15px;
+    border: 0;
+    outline: none;
+    margin: 10px 10px 20px 0;
+    padding: 0 0 0 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+
+.pay_address_memo{
+    height: 40px;
+    width: 100%;
+    font-size: 15px;
+    border: 0;
+    outline: none;
+    margin: 20px 0;
+    background-color: rgb(233, 233, 233);
+    padding: 0 0 0 10px;
+}
+
+.pay_method_table{
+    width: 100%;
+}
+
+.pay_method_select{
+    margin: 20px 50px 20px 5px;
+}
+
+.pay_method_table_tr{
+    border-bottom: 1px solid lightgray;
+}
+
+.pay_methods_div{
+    margin: 20px 0;
+}
+
+.pay_bank_select{
+    background-color: white;
+    height: 40px;
+    width: 20%;
+    padding:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+    outline: none;
+    border: 1px black solid;
+}
+
+.pay_bankbook_num{
+    margin: 0 10px;
+    height: 40px;
+    width: 30%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    padding: 5px;
+}
+
+.pay_bankbook_num::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.pay_bankbook_p{
+    height: 40px;
+    width: 30%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    padding: 5px;
+}
+
+.pay_card_select{
+    background-color: white;
+    height: 40px;
+    width: 20%;
+    padding:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+    outline: none;
+    border: 1px black solid;
+}
+
+.pay_card_num{
+    margin: 0 10px;
+    height: 40px;
+    width: 30%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    padding: 5px;
+}
+
+.pay_card_num::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.pay_card_password{
+    height: 40px;
+    width: 30%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    padding: 5px;
+}
+
+.pay_card_email{
+    height: 40px;
+    width: 70%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    margin: 20px 0;
+    padding: 0 0 0 10px;
+}
+
+
+
+
+.pay_phone_select{
+    background-color: white;
+    height: 40px;
+    width: 20%;
+    padding:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+    outline: none;
+    border: 1px black solid;
+    margin: 0 20px 0 0;
+}
+
+.pay_phone_num{
+    margin: 0 0 20px 0;
+    height: 40px;
+    width: 20%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    text-align: center;
+}
+
+.pay_phone_num::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.pay_phone_personal_num{
+    height: 40px;
+    width: 20%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    padding: 5px;
+}
+
+.pay_phone_email{
+    height: 40px;
+    width: 70%;
+    font-size: 15px;
+    border: 1px black solid;
+    outline: none;
+    margin: 20px 0;
+    padding: 0 0 0 10px;
+}
+
+.pay_sub_title{
+    margin: 0 20px 0 0;
+}
+
+.pay_all_div{
+    position: relative;
+}
+
+.pay_result {
+    width: 100%;
+    height: 200px;
+    background-color: #FDFDFD;
+    border-top: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position : fixed;
+    bottom: 0%;
+    left: 0%;
+}
+
+.pay_result_cost{
+    font-size: 3rem;
+}
+
+.pay_result_buttons{
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    margin: 0 0 0 5%;
+}
+
+.pay_h1 {
+    text-align: left;
+    margin: 60px 0 0 80px;
+}

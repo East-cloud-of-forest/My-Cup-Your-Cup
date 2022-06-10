@@ -4,7 +4,7 @@ import SelectComp from "../../components/createcomp/SelectComp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
-import { useState, useRef } from "react";
+import { useState } from "react";
 import React from "react";
 
 const CreatePage =() =>{
@@ -22,10 +22,8 @@ const CreatePage =() =>{
     }
 
     //아코디언 버튼
-    const parentRef = React.useRef(null);
-    const childRef = React.useRef(null);
-
-    const [open,setOpen] = useState(false);
+    const parentRef = React.useRef();
+    const childRef = React.useRef();
 
     const openClick=()=>{
         if(parentRef.current.clientWidth>0){
@@ -33,7 +31,6 @@ const CreatePage =() =>{
         }else{
             parentRef.current.style.width=`${childRef.current.clientWidth}px`
         };
-        setOpen(!open);
     }
 
     
