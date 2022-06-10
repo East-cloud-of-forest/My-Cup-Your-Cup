@@ -13,6 +13,7 @@ import Search from "./pages/Search/Search";
 import Cart from "./pages/Cart/Cart";
 import ReviewWriteForm from "./pages/Review/ReviewWriteForm";
 import CreateDesignUploadForm from "./pages/Create/CreateDesignUploadForm";
+import TestPage from "./pages/Review/실험용파일";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/pay" element={<PayPage />} />
             <Route path="/search" element={<Search />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="test" element={<TestPage />} />
           </Routes>
         </main>
         <Footer />

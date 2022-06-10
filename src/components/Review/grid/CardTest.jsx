@@ -35,7 +35,8 @@ const CardTest = () => {
               <Card.Text>★★★★★</Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">조회수 0000회 2022-06-07</small>
+              <small className="text-muted">조회수 0000회 </small>
+              <small className="text-muted"> 2022-06-07</small>
             </Card.Footer>
           </Card>
         </Col>
