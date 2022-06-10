@@ -211,9 +211,9 @@ export const Logo = ({ style }) => {
 // 프로필 컴포넌트
 // 프로필 아이콘으로 사용할때 컴포넌트태그 안에 icon 작성
 export function ProfileComp(props) {
-  const { icon, imageURL, userName, intro, instaURL, fbURL } = props;
+  const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props;
   return (
-    <div className={classNames("profile", icon ? "icon" : "")}>
+    <div className={classNames("profile", icon ? "icon" : "", justName ? "justName" : "")}>
       <div className="circled_container">
         <img src={imageURL} alt="profile photo"></img>
       </div>
@@ -235,34 +235,51 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp2 = ({ children, title, text, button }) => {
+export const ModalComp2 = ({
+  children,
+  title,
+  text,
+  button,
+  // 여기서부터 새로 추가한 props
+  imageSRC,
+  profile,
+  date,
+  rating,
+  view,
+  tag
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
-    <div className="modal-thumb">
-      <span
-        onClick={handleShow}
-        style={{
-          width: "200px",
-          display: "flex",
-          aspectRatio: "1",
-          margin: "3px",
-        }}
-      >
+    <div className="modal-thumb" >
+      
+      <span onClick={handleShow}>
         {children}
       </span>
 
-      <Modal id="opened-modal" show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
+      <Modal id="opened-modal" show={show} onHide={handleClose} >
+        <Modal.Header closeButton >
+        </Modal.Header>
+
         <Modal.Body>
-          {children}
+          <img src={imageSRC}/>
           <h2>{title}</h2>
+          <span>
+            {profile} {/* 지금은 justName scss 수정하는 중이니 임시로 문자열만 넣어서 사용해주세요 */}
+          </span>
+          <span>{date}</span>
+          <span>{view}</span>
+          <span>{rating}</span>
           <p>{text}</p>
+          <span>{tag}</span>
         </Modal.Body>
-        <Modal.Footer>{button}</Modal.Footer>
+
+        <Modal.Footer>
+          {button}
+        </Modal.Footer>
       </Modal>
     </div>
   );

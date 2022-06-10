@@ -6,6 +6,7 @@ import { ButtonComp, ModalComp2 } from '../../index-comp/IndexComp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
+
 export default function LikedDesigns() {
   const [isOpen, setIsOPen] = useState(false);
   const handleOpen = () => setIsOPen(!isOpen);
@@ -46,6 +47,7 @@ export default function LikedDesigns() {
                                         <ButtonComp>제작하러가기</ButtonComp>
                                     </div>
                                 }
+                                imageSRC={image.src}
                             >
                             <img src={image.src}/>
                             </ModalComp2>
