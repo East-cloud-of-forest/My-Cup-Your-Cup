@@ -1,4 +1,4 @@
-import CardTest from "./CardTest";
+import CardTest from "./ReviewComp";
 import { ButtonComp } from "../../index-comp/IndexComp";
 import "./ReviewComp.scss";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -20,8 +20,6 @@ const CardTest2 = () => {
         <Row>
           {review.map((r) => (
             <Col key={r.id}>
-              {/** 올려진 리뷰 */}
-
               {/** 모달 전체 창 */}
               <ModalComp2
                 title={"고객이 작성한 제목"}
@@ -42,10 +40,7 @@ const CardTest2 = () => {
                   </div>
                 }
               >
-                <CardTest>
-                  {/** 모달 콘텐츠 */}
-                  <ModalComp username={"user"}></ModalComp>
-                </CardTest>
+                <CardTest></CardTest>
               </ModalComp2>
             </Col>
           ))}

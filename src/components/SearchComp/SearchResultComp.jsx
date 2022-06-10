@@ -23,9 +23,53 @@ const Error = () => {
 
 const SearchResultComp = () => {
   const { tabkind } = useParams()
-  
+  const tabname = (name) => {
+    switch (name) {
+      case 'tag':
+        return '태그'
+      case 'review':
+        return '리뷰'
+      case 'design':
+        return '디자인'
+      case 'inquiry':
+        return '문의'
+      case 'user':
+        return '사용자'
+    }
+  }
+  const item = []
+  for (let i = 0; i < 15; i++) {
+    item.push(i)
+  }
+
   return (
-    <div>
+    <div className="search_result">
+        <hr />
+        <div className="result_box">
+          <p>{tabname(tabkind)} - 000건</p>
+
+          {item.map((a) => (
+            <div className="result_box_item">
+              <div
+                className="img"
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  backgroundColor: 'orange',
+                }}
+              ></div>
+              <div>
+                <h4>title</h4>
+                <p>text</p>
+              </div>
+            </div>
+          ))}
+
+        </div>
+
+        <div>
+          12345678910
+        </div>
     </div>
   )
 }

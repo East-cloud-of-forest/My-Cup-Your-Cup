@@ -1,9 +1,7 @@
-import ReviewComp from "../../components/Review/grid/ReviewComp";
+import ReviewComp2 from "../../components/Review/grid/ReviewComp2";
 import "./Review.scss";
-import ReviewModalComp from "../../components/Review/modal/ReviewModalComp";
-import MyPageModalComp from "../../components/Review/modal/MyPageModalComp";
 import { Col, Container, Row } from "react-bootstrap";
-import CardTest from "../../components/Review/grid/CardTest";
+import ReviewComp from "../../components/Review/grid/ReviewComp";
 import CardTest2 from "../../components/Review/grid/CardTest2";
 import { ButtonComp, Pagination } from "../../components/index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -29,7 +27,21 @@ const ReviewPage = () => {
         </Row>
       </Container>
 
-      <CardTest></CardTest>
+      <CardTest2 />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <CardTest2 />
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
 
       {/** plus 버튼 누르면 /review/write 페이지 이동 */}
       <ButtonComp
@@ -39,29 +51,10 @@ const ReviewPage = () => {
       >
         <FontAwesomeIcon icon={solid("circle-plus")} size="2x" />
       </ButtonComp>
-
+      <br />
+      <br />
       {/** 페이징 */}
       <Pagination />
-
-      {/** 모달 확인차 임시로 Page에 컴포넌트 입력함 */}
-      <CardTest2 />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <ReviewModalComp />
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <MyPageModalComp />
     </div>
   );
 };

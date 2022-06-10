@@ -285,39 +285,6 @@ export const ModalComp2 = ({
   );
 };
 
-// 모달 컴포넌트
-export const ModalComp = (props) => {
-  const { username } = props;
-  return (
-    <div>
-      <div className="user_review_image"></div>
-      <div>
-        <ul className="review_profile">
-          <li>
-            <ProfileComp icon />
-          </li>
-          <li>{username}</li>
-          <li>조회수 0000</li>
-          <li>2022-05-31</li>
-          <li>★★★★★</li>
-        </ul>{" "}
-        <br />
-        <ul className="hashTag">
-          <li>
-            <a href="">#태그</a>
-          </li>
-          <li>
-            <a href="">#태그</a>
-          </li>
-          <li>
-            <a href="">#태그</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
 // 글쓰기 폼 컴포넌트
 export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props;
