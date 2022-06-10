@@ -1,8 +1,6 @@
-import ReviewComp2 from "../../components/Review/grid/ReviewComp2";
 import "./Review.scss";
 import { Col, Container, Row } from "react-bootstrap";
-import ReviewComp from "../../components/Review/grid/ReviewComp";
-import CardTest2 from "../../components/Review/grid/CardTest2";
+import ReviewModalComp from "../../components/Review/grid/ReviewModalComp";
 import { ButtonComp, Pagination } from "../../components/index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,26 +19,11 @@ const ReviewPage = () => {
         <Row>
           {reviewgrid.map((r, id) => (
             <Col md="3" sm="6" xs="6">
-              <ReviewComp r={r} key={id}></ReviewComp>
+              <ReviewModalComp r={r} key={id}></ReviewModalComp>
             </Col>
           ))}
         </Row>
       </Container>
-
-      <CardTest2 />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <CardTest2 />
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <br />
 
       {/** plus 버튼 누르면 /review/write 페이지 이동 */}
@@ -51,7 +34,6 @@ const ReviewPage = () => {
       >
         <FontAwesomeIcon icon={solid("circle-plus")} size="2x" />
       </ButtonComp>
-      <br />
       <br />
       {/** 페이징 */}
       <Pagination />

@@ -4,7 +4,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-const ReviewComp = () => {
+const ReviewComp2 = () => {
   const [number, setNumber] = useState(0);
 
   return (
@@ -31,4 +31,4 @@ const ReviewComp = () => {
     </div>
   );
 };
-export default ReviewComp;
+export default ReviewComp2;

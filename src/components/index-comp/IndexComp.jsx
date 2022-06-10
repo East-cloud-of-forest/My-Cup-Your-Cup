@@ -213,7 +213,13 @@ export const Logo = ({ style }) => {
 export function ProfileComp(props) {
   const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props;
   return (
-    <div className={classNames("profile", icon ? "icon" : "", justName ? "justName" : "")}>
+    <div
+      className={classNames(
+        "profile",
+        icon ? "icon" : "",
+        justName ? "justName" : ""
+      )}
+    >
       <div className="circled_container">
         <img src={imageURL} alt="profile photo"></img>
       </div>
@@ -235,7 +241,7 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp2 = ({
+export const ModalComp = ({
   children,
   title,
   text,
@@ -246,7 +252,7 @@ export const ModalComp2 = ({
   date,
   rating,
   view,
-  tag
+  tag,
 }) => {
   const [show, setShow] = useState(false);
 
@@ -254,21 +260,18 @@ export const ModalComp2 = ({
   const handleShow = () => setShow(true);
 
   return (
-    <div className="modal-thumb" >
-      
-      <span onClick={handleShow}>
-        {children}
-      </span>
+    <div className="modal-thumb">
+      <span onClick={handleShow}>{children}</span>
 
-      <Modal id="opened-modal" show={show} onHide={handleClose} >
-        <Modal.Header closeButton >
-        </Modal.Header>
+      <Modal id="opened-modal" show={show} onHide={handleClose}>
+        <Modal.Header closeButton></Modal.Header>
 
         <Modal.Body>
-          <img src={imageSRC}/>
+          <img src={imageSRC} />
           <h2>{title}</h2>
           <span>
-            {profile} {/* 지금은 justName scss 수정하는 중이니 임시로 문자열만 넣어서 사용해주세요 */}
+            {profile}{" "}
+            {/* 지금은 justName scss 수정하는 중이니 임시로 문자열만 넣어서 사용해주세요 */}
           </span>
           <span>{date}</span>
           <span>{view}</span>
@@ -277,9 +280,7 @@ export const ModalComp2 = ({
           <span>{tag}</span>
         </Modal.Body>
 
-        <Modal.Footer>
-          {button}
-        </Modal.Footer>
+        <Modal.Footer>{button}</Modal.Footer>
       </Modal>
     </div>
   );

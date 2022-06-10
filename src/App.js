@@ -13,7 +13,6 @@ import Search from "./pages/Search/Search";
 import Cart from "./pages/Cart/Cart";
 import ReviewWriteForm from "./pages/Review/ReviewWriteForm";
 import CreateDesignUploadForm from "./pages/Create/CreateDesignUploadForm";
-import TestPage from "./pages/Review/실험용파일";
 import SearchResultComp from "./components/SearchComp/SearchResultComp";
 
 function App() {
@@ -31,12 +30,11 @@ function App() {
             <Route path="/create/write" element={<CreateDesignUploadForm />} />
             <Route path="/Login" element={<LoginMain />} />
             <Route path="/Join" element={<JoinUser />} />
-            <Route path="/pay" element={<PayPage/>} />
+            <Route path="/pay" element={<PayPage />} />
             <Route path="/search" element={<Search />}>
               <Route path=":tabkind" element={<SearchResultComp />} />
             </Route>
             <Route path="/cart" element={<Cart />} />
-            <Route path="test" element={<TestPage />} />
           </Routes>
         </main>
         <Footer />
