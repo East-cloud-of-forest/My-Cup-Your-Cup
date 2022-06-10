@@ -9,10 +9,9 @@ const CardTest = () => {
   const [number, setNumber] = useState(0);
 
   return (
-    <Row xs={2} md={4} className="g-4">
-      {Array.from({ length: 4 }).map((_, idx) => (
+    <Row xs={2} md={1} className="g-4">
+      {Array.from({ length: 1 }).map((_, idx) => (
         <Col>
-          <h3>부트스트랩 ∨</h3>
           <Card>
             <Card.Img
               variant="top"
@@ -21,13 +20,7 @@ const CardTest = () => {
             <Card.Body>
               <Card.Title>
                 고객이 올린 리뷰 제목
-                <ButtonComp
-                  icon
-                  style={{ display: "inline" }}
-                  onClick={() => {
-                    setNumber(number + 1);
-                  }}
-                >
+                <ButtonComp icon style={{ display: "inline" }}>
                   <FontAwesomeIcon icon={solid("heart")} size="x" />{" "}
                   <span>{number}</span>
                 </ButtonComp>

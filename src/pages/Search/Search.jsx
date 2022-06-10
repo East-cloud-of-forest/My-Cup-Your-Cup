@@ -2,11 +2,48 @@ import { ButtonComp } from '../../components/index-comp/IndexComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Search.scss'
-import { Link } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
+import { Col, Container, Row } from 'react-bootstrap'
+
+export const SearchResult = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
 
 const Search = () => {
+  const searchresult = true
+  const tabs = [
+    {
+      name:'전체',
+      path: ''
+    },
+    {
+      name:'태그',
+      path: '/tag'
+    },
+    {
+      name:'리뷰',
+      path: '/review'
+    },
+    {
+      name:'디자인',
+      path: '/design'
+    },
+    {
+      name:'문의',
+      path: '/inquiry'
+    },
+    {
+      name:'사용자',
+      path: '/user'
+    },
+  ]
+
   return (
-    <div className='search_page'>
+    <div className="search_page">
       <div className="search_input_box">
         <input type="text" />
         <ButtonComp
@@ -18,24 +55,35 @@ const Search = () => {
         >
           <FontAwesomeIcon
             icon={solid('magnifying-glass')}
-            style={{ fontSize: '20px' }}
+            style={{ fontSize: '20px', marginRight: '5px' }}
           />
         </ButtonComp>
       </div>
-
-      <div className='search_error'>
-        <h2>검색결과를 찾을 수 없습니다.</h2>
-        <ul>
-          <li>잘못입력했는지</li>
-          <li>단어의 철자가 정확한지</li>
-          <li>어쩌고 저쩌고 했는지</li>
-          <li>잘 확인했는지</li>
-          <li>검색 좀 잘해보세여</li>
-        </ul>
-        <hr />
-        <p className='caption'>만족스러운 검색결과를 찾지 못하셨다면 아래 기능도 이용해 보세요.</p>
-        <Link to="/">문의하기</Link>
+      <div className="search_tabs">
+        <Container fluid>
+          <Row>
+            {tabs.map(
+              (t, i) => (
+                <Col key={i} sm="2">
+                  <NavLink to={'/search'+t.path} activeclassname="true" end>
+                    <ButtonComp
+                      white
+                      tile
+                      style={{
+                        width: "100%",
+                        margin: 0
+                      }}
+                    >{t.name}</ButtonComp>
+                    <div className='active_bar'></div>
+                  </NavLink>
+                </Col>
+              ),
+            )}
+          </Row>
+        </Container>
       </div>
+
+      <Outlet></Outlet>
     </div>
   )
 }

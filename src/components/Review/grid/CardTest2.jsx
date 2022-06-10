@@ -1,18 +1,19 @@
-import { ButtonComp, ModalComp, ModalComp2 } from "../../index-comp/IndexComp";
-import "./ReviewModal.scss";
-import { Container, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CardTest from "./CardTest";
+import { ButtonComp } from "../../index-comp/IndexComp";
+import "./ReviewComp.scss";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import ReviewComp from "../grid/ReviewComp";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Row, Col } from "react-bootstrap";
+import { ModalComp, ModalComp2 } from "../../index-comp/IndexComp";
+import { Container } from "react-bootstrap";
 
-const ReviewModalComp = () => {
+const CardTest2 = () => {
   const review = [
     { id: 1, name: "dd" },
     { id: 2, name: "dd" },
     { id: 3, name: "dd" },
     { id: 4, name: "dd" },
   ];
-
   return (
     <div>
       <Container fluid="sm">
@@ -41,10 +42,10 @@ const ReviewModalComp = () => {
                   </div>
                 }
               >
-                <ReviewComp>
+                <CardTest>
                   {/** 모달 콘텐츠 */}
                   <ModalComp username={"user"}></ModalComp>
-                </ReviewComp>
+                </CardTest>
               </ModalComp2>
             </Col>
           ))}
@@ -53,4 +54,4 @@ const ReviewModalComp = () => {
     </div>
   );
 };
-export default ReviewModalComp;
+export default CardTest2;

@@ -4,13 +4,13 @@
 
 /* 전체적인 배치 및 배경색 */
 
-.LoginMain {
+.LoginLogin_Main {
 	margin:0;        
 	padding:0;
 }
 
 
-.main-container{
+.Loginmain_container{
 	width:100%;
 	display:flex;
 	flex-direction:column;
@@ -18,42 +18,42 @@
 	margin-top: 47px;
 }
 
-.main-container .main-wrap .sel-lang-wrap
+.Loginmain_container .Loginmain_wrap .Loginsel_lang_wrap
 {
 	width: 96px;
 	height: 30px;
 }
 
-.main-container .main-wrap .logo-wrap{
+.Loginmain_container .Loginmain_wrap .Loginlogo_wrap{
 	padding-top:55px;
 }
 
-.main-container .main-wrap .logo-wrap img
+.Loginmain_container .Loginmain_wrap .Loginlogo_wrap img
 {
 	width: 231px;
 	height: 44px;
 }
 
-.main-container .main-wrap header .sel-lang-wrap{
+.Loginmain_container .Loginmain_wrap header .Loginsel_lang_wrap{
 	display:flex;
 	justify-content:flex-end;
 }
 
-.main-container .logo-wrap{
+.Loginmain_container .Loginlogo_wrap{
 	display:flex;	
 	flex-direction: column;
 	align-items: center;
 }
 
 
-.login-input-section-wrap{  /* 아이디, 비번창 화면중앙으로 */
+.Loginlogin_input_section_wrap{  /* 아이디, 비번창 화면중앙으로 */
 	padding-top: 60px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-.login-input-wrap{  /*아이디, 비번창*/
+.Loginlogin_input_wrap{  /*아이디, 비번창*/
 	width: 260px;
 	height :48px;
 	border: solid 1px lightgrey;
@@ -61,7 +61,7 @@
 	background: white;
 }
 
-.login-input-wrap input{   /*아이디, 비번 입력input창 늘리기*/
+.Loginlogin_input_wrap input{   /*아이디, 비번 입력input창 늘리기*/
 	border: none;
 	width:240px;
 	margin-top: 10px;
@@ -71,16 +71,16 @@
     background-color: white;
 }
 
-.password-wrap{  /*아이디, 비번창 서로 간격 띄우기*/
+.Loginpassword_wrap{  /*아이디, 비번창 서로 간격 띄우기*/
 	margin-top: 13px;
 }
 
 
-.login-button-wrap {   /* 비번창, 로그인버튼 간격 띄우기*/
+.Loginlogin_button_wrap {   /* 비번창, 로그인버튼 간격 띄우기*/
 	padding-top: 20px;
 }
 
-.login-button-wrap button{ /* 로그인 버튼 디자인*/
+.Loginlogin_button_wrap button{ /* 로그인 버튼 디자인*/
 	width: 250px;
 	height :48px;
 	font-size: 18px;
@@ -95,7 +95,7 @@
 
 
 /* 간편 로그인 버튼 중앙배치 */
-.Easy-sgin-in-wrap{ 
+.LoginEasy_sgin_in_wrap{ 
 
     display: flex;
     flex-direction: column;
@@ -104,13 +104,13 @@
 
 }
 /* 간편 로그인 제목 사이즈 */
-.Easy-sgin-in-wrap h2{
+.LoginEasy_sgin_in_wrap h2{
 	font-size: 20px;
 }
 
 
 /* 간편 로그인 버튼 list형태수정 */
-.Easy-sgin-in-wrap .sign-button-list 
+.LoginEasy_sgin_in_wrap .Loginsign_button_list 
 {
 	padding-top:25px;
 	list-style: none;
@@ -122,11 +122,11 @@
 
 
 /* 간편 로그인 버튼 list 설정*/
-.Easy-sgin-in-wrap .sign-button-list li{ 
+.LoginEasy_sgin_in-wrap .Loginsign_button_list li{ 
 	margin-bottom: 10px;  
 
 } /* 간편 로그인 버튼 설정 */
-.Easy-sgin-in-wrap .sign-button-list li button{ 
+.LoginEasy_sgin_in_wrap .Loginsign_button_list li button{ 
     width: 455px;
 	height: 56px;
 	border: solid 1px lightgrey;
@@ -139,48 +139,34 @@
 
 
 /*간편 로그인창 폰트사이즈*/
-.Easy-sgin-in-wrap .sign-button-list li button span{
+.LoginEasy_sgin_in_wrap .Loginsign_button_list li button span{
 	padding-left: 20px;
 	font-size: 18px;    
 }
 
 
-.Easy-sgin-in-wrap .forget-msg{
+.LoginEasy_sgin_in_wrap .Loginforget_msg{
 	font-size: 14px;
 	padding-top: 10px;
 }
 
-.forget-account-a {
+.Loginforget_account_a {
+	background-color: none;
     text-decoration: none;
     color:gray;
     padding-left: 10px;
     padding-right: 10px;
 }
-.forget-account-p{
+.Loginforget_account_p{
     text-align: center;
     margin-top: 17px;
     font-size: 14px;
 }
 
 
-/*footer 위치 조정*/
-footer{
-    margin-top: 195px;
-    background-color:blanchedalmond;
-    padding-top: 10px;
-    padding-bottom: 15px; 
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    width: 768px;
-    font-size: 12px;
-    line-height: 15px;
-}
 
 
-
-.container {
+.Logincontainer {
     display: column;
     justify-content: center;
     text-align: center;
@@ -188,6 +174,7 @@ footer{
     flex-direction: column;
     align-items: center;
     padding-top: 55px;
+	margin-bottom: 50px;
 }
 
 

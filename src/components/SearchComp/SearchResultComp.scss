@@ -1,0 +1,23 @@
+.search_error {
+  max-width: 1000px;
+
+  ul {
+    margin: 2rem 0;
+
+    & li {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -10px;
+        transform: translate(0, -50%);
+        border-radius: 50%;
+        width: 4px;
+        height: 4px;
+        background-color: grey;
+      }
+    }
+  }
+}

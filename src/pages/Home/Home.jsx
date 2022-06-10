@@ -2,7 +2,7 @@ import './Home.scss'
 import { ButtonComp, SliderComp } from '../../components/index-comp/IndexComp'
 import { Col, Container, Row } from 'react-bootstrap'
 
-const HomeComp = () => {
+const Home = () => {
   const circleitem = []
   for (let i = 0; i < 6; i++) {
     circleitem.push('태그 ' + (i + 1))
@@ -72,4 +72,4 @@ const HomeComp = () => {
   )
 }
 
-export default HomeComp
+export default Home

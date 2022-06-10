@@ -11,7 +11,7 @@ import { text } from "@fortawesome/fontawesome-svg-core";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block } = props;
+  const { children, size, icon, style, block, white, tile } = props;
   const [ripples, setRipples] = useState([]);
   useEffect(() => {
     if (ripples.length > 0) {
@@ -22,8 +22,12 @@ export const ButtonComp = (props) => {
     }
   }, [ripples]);
   const clickanimation = (e) => {
-    let x = e.clientX - e.currentTarget.offsetLeft;
-    let y = e.clientY - e.currentTarget.offsetTop;
+    let x =
+      e.clientX -
+      (window.pageXOffset + e.currentTarget.getBoundingClientRect().left);
+    let y =
+      e.clientY -
+      (window.pageYOffset + e.currentTarget.getBoundingClientRect().top);
     let ripple = React.createElement(
       "span",
       {
@@ -47,7 +51,9 @@ export const ButtonComp = (props) => {
         "button",
         size,
         icon ? "icon" : "",
-        block ? "block" : ""
+        block ? "block" : "",
+        white ? "white" : "",
+        tile ? "tile" : ""
       )}
       onClick={(e) => {
         clickanimation(e);
@@ -281,23 +287,21 @@ export const ModalComp2 = ({
 
 // 모달 컴포넌트
 export const ModalComp = (props) => {
-  const { title, write, designbtn } = props;
+  const { username } = props;
   return (
     <div>
       <div className="user_review_image"></div>
       <div>
-        <h1 className="review_h1">{title}</h1>
         <ul className="review_profile">
           <li>
-            <img src="" alt="" />
+            <ProfileComp icon />
           </li>
-          <li>user1</li>
+          <li>{username}</li>
           <li>조회수 0000</li>
           <li>2022-05-31</li>
           <li>★★★★★</li>
         </ul>{" "}
         <br />
-        <p className="review_write">{write}</p>
         <ul className="hashTag">
           <li>
             <a href="">#태그</a>
@@ -309,20 +313,6 @@ export const ModalComp = (props) => {
             <a href="">#태그</a>
           </li>
         </ul>
-        {/** */}
-        <ul className="review_btn">
-          <li>
-            <ButtonComp icon>
-              <FontAwesomeIcon icon={solid("heart")} size="2x" /> <span>5</span>
-            </ButtonComp>
-          </li>
-          <li>
-            <ButtonComp>공유</ButtonComp>
-          </li>
-          <li>
-            <ButtonComp>{designbtn}</ButtonComp>
-          </li>
-        </ul>
       </div>
     </div>
   );
@@ -331,6 +321,8 @@ export const ModalComp = (props) => {
 // 글쓰기 폼 컴포넌트
 export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props;
+  const rating = [1, 2, 3, 4, 5];
+
   return (
     <div className={classNames("wrtie_form", review ? "review" : "design")}>
       <form>
@@ -419,12 +411,19 @@ export const WriteFormComp = (props) => {
           <br />
           <br />
           <br />
-          <p className="rating">
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
+          <p>
+            {rating.map((s) => (
+              <FontAwesomeIcon
+                key={s}
+                icon={solid("star")}
+                size="2x"
+                style={{
+                  color: "lightgray",
+                  cursor: "pointer",
+                  paddingTop: "5px",
+                }}
+              />
+            ))}
           </p>
         </div>
         {/** 디자인업로드 폼 */}
@@ -442,6 +441,36 @@ export const WriteFormComp = (props) => {
           취소
         </ButtonComp>
       </form>
+    </div>
+  );
+};
+
+// 페이지 컴포넌트
+export const Pagination = (props) => {
+  const { total, limit, page, setPage } = props;
+  const numPages = [1, 2, 3, 4]; //Math.ceil(total / limit);
+  return (
+    <div className="pagination">
+      <nav>
+        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
+          <FontAwesomeIcon icon={solid("chevron-left")} />
+        </ButtonComp>
+
+        {numPages.fill().map((_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => setPage(i + 1)}
+            aria-current={page === i + 1 ? "page" : null}
+            style={{ border: "none", margin: "7px" }}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
+          <FontAwesomeIcon icon={solid("chevron-right")} />
+        </ButtonComp>
+      </nav>
     </div>
   );
 };
