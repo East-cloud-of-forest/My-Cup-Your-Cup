@@ -22,8 +22,12 @@ export const ButtonComp = (props) => {
     }
   }, [ripples]);
   const clickanimation = (e) => {
-    let x = e.clientX - (window.pageXOffset + e.currentTarget.getBoundingClientRect().left);
-    let y = e.clientY - (window.pageYOffset + e.currentTarget.getBoundingClientRect().top);
+    let x =
+      e.clientX -
+      (window.pageXOffset + e.currentTarget.getBoundingClientRect().left);
+    let y =
+      e.clientY -
+      (window.pageYOffset + e.currentTarget.getBoundingClientRect().top);
     let ripple = React.createElement(
       "span",
       {
@@ -43,12 +47,13 @@ export const ButtonComp = (props) => {
   return (
     <button
       style={style}
-      className={classNames("button",
+      className={classNames(
+        "button",
         size,
-        icon? "icon" : "",
-        block? "block" : "",
-        white? "white" : "",
-        tile? "tile" : "",
+        icon ? "icon" : "",
+        block ? "block" : "",
+        white ? "white" : "",
+        tile ? "tile" : ""
       )}
       onClick={(e) => {
         clickanimation(e);
@@ -210,7 +215,7 @@ export function ProfileComp(props) {
   return (
     <div className={classNames("profile", icon ? "icon" : "")}>
       <div className="circled_container">
-      <img src={imageURL} alt="profile photo"></img>
+        <img src={imageURL} alt="profile photo"></img>
       </div>
 
       <div className="text">
@@ -230,20 +235,14 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp2 = ({
-  children,
-  title,
-  text,
-  button
-}) => {
+export const ModalComp2 = ({ children, title, text, button }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
-    <div className="modal-thumb" >
-
+    <div className="modal-thumb">
       <span
         onClick={handleShow}
         style={{
@@ -256,21 +255,14 @@ export const ModalComp2 = ({
         {children}
       </span>
 
-      <Modal id="opened-modal" show={show} onHide={handleClose} >
-        <Modal.Header closeButton>
-        </Modal.Header>
+      <Modal id="opened-modal" show={show} onHide={handleClose}>
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          {children} 
+          {children}
           <h2>{title}</h2>
           <p>{text}</p>
-
-
         </Modal.Body>
-        <Modal.Footer>
-          
-        {button}
-
-        </Modal.Footer>
+        <Modal.Footer>{button}</Modal.Footer>
       </Modal>
     </div>
   );
@@ -278,23 +270,21 @@ export const ModalComp2 = ({
 
 // 모달 컴포넌트
 export const ModalComp = (props) => {
-  const { title, write, designbtn } = props;
+  const { username } = props;
   return (
     <div>
       <div className="user_review_image"></div>
       <div>
-        <h1 className="review_h1">{title}</h1>
         <ul className="review_profile">
           <li>
-            <img src="" alt="" />
+            <ProfileComp icon />
           </li>
-          <li>user1</li>
+          <li>{username}</li>
           <li>조회수 0000</li>
           <li>2022-05-31</li>
           <li>★★★★★</li>
         </ul>{" "}
         <br />
-        <p className="review_write">{write}</p>
         <ul className="hashTag">
           <li>
             <a href="">#태그</a>
@@ -306,20 +296,6 @@ export const ModalComp = (props) => {
             <a href="">#태그</a>
           </li>
         </ul>
-        {/** */}
-        <ul className="review_btn">
-          <li>
-            <ButtonComp icon>
-              <FontAwesomeIcon icon={solid("heart")} size="2x" /> <span>5</span>
-            </ButtonComp>
-          </li>
-          <li>
-            <ButtonComp>공유</ButtonComp>
-          </li>
-          <li>
-            <ButtonComp>{designbtn}</ButtonComp>
-          </li>
-        </ul>
       </div>
     </div>
   );
@@ -328,6 +304,8 @@ export const ModalComp = (props) => {
 // 글쓰기 폼 컴포넌트
 export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props;
+  const rating = [1, 2, 3, 4, 5];
+
   return (
     <div className={classNames("wrtie_form", review ? "review" : "design")}>
       <form>
@@ -416,12 +394,19 @@ export const WriteFormComp = (props) => {
           <br />
           <br />
           <br />
-          <p className="rating">
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
-            <FontAwesomeIcon icon={regular("star")} size="2x" />
+          <p>
+            {rating.map((s) => (
+              <FontAwesomeIcon
+                key={s}
+                icon={solid("star")}
+                size="2x"
+                style={{
+                  color: "lightgray",
+                  cursor: "pointer",
+                  paddingTop: "5px",
+                }}
+              />
+            ))}
           </p>
         </div>
         {/** 디자인업로드 폼 */}
@@ -439,6 +424,36 @@ export const WriteFormComp = (props) => {
           취소
         </ButtonComp>
       </form>
+    </div>
+  );
+};
+
+// 페이지 컴포넌트
+export const Pagination = (props) => {
+  const { total, limit, page, setPage } = props;
+  const numPages = [1, 2, 3, 4]; //Math.ceil(total / limit);
+  return (
+    <div className="pagination">
+      <nav>
+        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
+          <FontAwesomeIcon icon={solid("chevron-left")} />
+        </ButtonComp>
+
+        {numPages.fill().map((_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => setPage(i + 1)}
+            aria-current={page === i + 1 ? "page" : null}
+            style={{ border: "none", margin: "7px" }}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
+          <FontAwesomeIcon icon={solid("chevron-right")} />
+        </ButtonComp>
+      </nav>
     </div>
   );
 };

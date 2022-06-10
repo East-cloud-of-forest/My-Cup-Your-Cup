@@ -4,11 +4,11 @@ $blue: blue;
 // 버튼
 @mixin buttonanime($type) {
   & .ripple-span {
-    background-color: if($type == 'icon' or $type == 'white', #000, #fff);
+    background-color: if($type == "icon" or $type == "white", #000, #fff);
     position: absolute;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    animation: if($type == 'icon', buttonanimaicon, buttonanima) 0.6s linear;
+    animation: if($type == "icon", buttonanimaicon, buttonanima) 0.6s linear;
     pointer-events: none;
   }
 
@@ -97,10 +97,10 @@ $blue: blue;
       transition: background-color, 0.3s;
     }
 
-    @include buttonanime('white');
+    @include buttonanime("white");
   }
 
-  @include buttonanime('');
+  @include buttonanime("");
 }
 
 // 슬라이더 화살표
@@ -198,8 +198,8 @@ $blue: blue;
 // 모달컴포넌트 수정필요
 #opened-modal .Modal {
   width: 100vw;
-  
 }
+
 // 글쓰기 폼 컴포넌트
 .wrtie_form {
   display: flex;
@@ -214,6 +214,12 @@ $blue: blue;
       height: 80px;
       width: 80px;
       background-color: gray;
+    }
+
+    .rating_star {
+      padding-top: 5px;
+      color: lightgray;
+      cursor: pointer;
     }
   }
 
@@ -238,4 +244,10 @@ $blue: blue;
     width: 410px;
     background-color: gray;
   }
+}
+
+// 페이지 컴포넌트
+.pagination {
+  display: flex;
+  justify-content: space-around;
 }
