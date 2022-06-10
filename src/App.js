@@ -30,7 +30,7 @@ function App() {
             <Route path="/create/write" element={<CreateDesignUploadForm />} />
             <Route path="/Login" element={<LoginMain />} />
             <Route path="/Join" element={<JoinUser />} />
-            <Route path="/pay" element={<PayPage/>} />
+            <Route path="/pay" element={<PayPage />} />
             <Route path="/search" element={<Search />}>
               <Route path=":tabkind" element={<SearchResultComp />} />
             </Route>

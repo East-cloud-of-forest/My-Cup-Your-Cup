@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 
-const CardTest = () => {
+const ReviewComp = () => {
   const [number, setNumber] = useState(0);
 
   return (
@@ -21,7 +21,7 @@ const CardTest = () => {
               <Card.Title>
                 고객이 올린 리뷰 제목
                 <ButtonComp icon style={{ display: "inline" }}>
-                  <FontAwesomeIcon icon={solid("heart")} size="x" />{" "}
+                  <FontAwesomeIcon icon={solid("heart")} size="x" />
                   <span>{number}</span>
                 </ButtonComp>
               </Card.Title>
@@ -36,4 +36,4 @@ const CardTest = () => {
     </Row>
   );
 };
-export default CardTest;
+export default ReviewComp;
