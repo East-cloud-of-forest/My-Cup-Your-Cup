@@ -11,7 +11,7 @@ import { text } from "@fortawesome/fontawesome-svg-core";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, white, tile } = props;
+  const { children, size, icon, style, block, tile, color } = props;
   const [ripples, setRipples] = useState([]);
   useEffect(() => {
     if (ripples.length > 0) {
@@ -52,8 +52,8 @@ export const ButtonComp = (props) => {
         size,
         icon ? "icon" : "",
         block ? "block" : "",
-        white ? "white" : "",
-        tile ? "tile" : ""
+        tile ? "tile" : "",
+        color
       )}
       onClick={(e) => {
         clickanimation(e);
@@ -213,8 +213,19 @@ export const Logo = ({ style }) => {
 export function ProfileComp(props) {
   const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props;
   return (
+<<<<<<< HEAD
     <div className={classNames("profile", icon ? "icon" : "", justName ? "justName" : "")}>
       <div className="image_container">
+=======
+    <div
+      className={classNames(
+        "profile",
+        icon ? "icon" : "",
+        justName ? "justName" : ""
+      )}
+    >
+      <div className="circled_container">
+>>>>>>> 5c4fea602b8801805d0c26db16ea0f91e3b117ab
         <img src={imageURL} alt="profile photo"></img>
       </div>
 
@@ -235,7 +246,7 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp2 = ({
+export const ModalComp = ({
   children,
   title,
   text,
@@ -246,7 +257,7 @@ export const ModalComp2 = ({
   date,
   rating,
   view,
-  tag
+  tag,
 }) => {
   const [show, setShow] = useState(false);
 
@@ -254,15 +265,11 @@ export const ModalComp2 = ({
   const handleShow = () => setShow(true);
 
   return (
-    <div className="modal-thumb" >
-      
-      <span onClick={handleShow}>
-        {children}
-      </span>
+    <div className="modal-thumb">
+      <span onClick={handleShow}>{children}</span>
 
-      <Modal id="opened-modal" show={show} onHide={handleClose} >
-        <Modal.Header closeButton >
-        </Modal.Header>
+      <Modal id="opened-modal" show={show} onHide={handleClose}>
+        <Modal.Header closeButton></Modal.Header>
 
         <Modal.Body>
           <img className="review-image" src={imageSRC}/>
@@ -282,39 +289,6 @@ export const ModalComp2 = ({
           {button}
         </Modal.Body>
       </Modal>
-    </div>
-  );
-};
-
-// 모달 컴포넌트
-export const ModalComp = (props) => {
-  const { username } = props;
-  return (
-    <div>
-      <div className="user_review_image"></div>
-      <div>
-        <ul className="review_profile">
-          <li>
-            <ProfileComp icon />
-          </li>
-          <li>{username}</li>
-          <li>조회수 0000</li>
-          <li>2022-05-31</li>
-          <li>★★★★★</li>
-        </ul>{" "}
-        <br />
-        <ul className="hashTag">
-          <li>
-            <a href="">#태그</a>
-          </li>
-          <li>
-            <a href="">#태그</a>
-          </li>
-          <li>
-            <a href="">#태그</a>
-          </li>
-        </ul>
-      </div>
     </div>
   );
 };

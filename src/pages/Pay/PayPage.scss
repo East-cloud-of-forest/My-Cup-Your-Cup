@@ -141,8 +141,8 @@
     border-bottom: 1px solid lightgray;
 }
 
-.pay_methods_div{
-    margin: 20px 0;
+.pay_methods_td{
+    padding: 20px 0;
 }
 
 .pay_bank_select{
@@ -293,6 +293,7 @@
     position : fixed;
     bottom: 0%;
     left: 0%;
+    opacity: 0.95;
 }
 
 .pay_result_cost{

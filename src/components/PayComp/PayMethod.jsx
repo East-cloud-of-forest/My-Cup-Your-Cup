@@ -51,16 +51,17 @@ const PayMethod = () => {
                             <td className="pay_table_cate">결제수단선택</td>
                             <td>
                                 <input type="radio" name="pay_method" onChange={changeMethod} value="무통장입금" id="bankbook"/>
-                                <label for="bankbook" className="pay_method_select">무통장입금</label>
+                                <label htmlFor="bankbook" className="pay_method_select">무통장입금</label>
                                 <input type="radio" name="pay_method" onChange={changeMethod} value="카드 결제" id="card"/>
-                                <label for="card" className="pay_method_select">카드 결제</label>
+                                <label htmlFor="card" className="pay_method_select">카드 결제</label>
                                 <input type="radio" name="pay_method" onChange={changeMethod} value="휴대폰 결제" id="phone"/>
-                                <label for="phone" className="pay_method_select">휴대폰 결제</label>
+                                <label htmlFor="phone" className="pay_method_select">휴대폰 결제</label>
                             </td>
                         </tr>
                         <tr>
                             <td className="pay_table_cate">{category}</td>
-                            <div className="pay_methods_div">
+                            
+                            <td className="pay_methods_td">
 
                                 <div className='pay_bankbook' ref={bankbookRef} id="무통장입금" style={bankbookStyle}>
                                     <select defaultValue="select_bank" className="pay_bank_select">
@@ -110,7 +111,7 @@ const PayMethod = () => {
                                     <input type="email" className='pay_card_email' placeholder='이메일을 입력해주세요'/>
                                 </div>
 
-                            </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

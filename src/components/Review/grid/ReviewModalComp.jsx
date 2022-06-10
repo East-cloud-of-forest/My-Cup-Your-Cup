@@ -1,29 +1,21 @@
-import CardTest from "./CardTest";
-import { ButtonComp } from "../../index-comp/IndexComp";
+import ReviewComp from "./ReviewComp";
+import { ButtonComp, ProfileComp, ModalComp } from "../../index-comp/IndexComp";
 import "./ReviewComp.scss";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Row, Col } from "react-bootstrap";
-import { ModalComp, ModalComp2 } from "../../index-comp/IndexComp";
 import { Container } from "react-bootstrap";
 
-const CardTest2 = () => {
-  const review = [
-    { id: 1, name: "dd" },
-    { id: 2, name: "dd" },
-    { id: 3, name: "dd" },
-    { id: 4, name: "dd" },
-  ];
+const ReviewModalComp = () => {
+  const review = [{ id: 1, name: "dd" }];
   return (
     <div>
       <Container fluid="sm">
         <Row>
           {review.map((r) => (
             <Col key={r.id}>
-              {/** 올려진 리뷰 */}
-
               {/** 모달 전체 창 */}
-              <ModalComp2
+              <ModalComp
                 title={"고객이 작성한 제목"}
                 text={
                   "고객이 작성한 리뷰입니다.고객이 작성한 리뷰입니다.고객이 작성한리뷰입니다. 고객이 작성한 리뷰입니다.고객이 작성한 리뷰입니다.고객이작성한 리뷰입니다."
@@ -41,12 +33,24 @@ const CardTest2 = () => {
                     <ButtonComp>디자인 보러가기</ButtonComp>
                   </div>
                 }
+                imageSRC={
+                  "https://cdn.pixabay.com/photo/2022/02/10/03/04/tumbler-7004528_960_720.jpg"
+                }
+                profile={
+                  <ProfileComp
+                    justName
+                    imageURL={
+                      "https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg"
+                    }
+                    userName={"user1"}
+                  />
+                }
+                date={"2022-06-07"}
+                rating={"★★★★★"}
+                view={1234}
               >
-                <CardTest>
-                  {/** 모달 콘텐츠 */}
-                  <ModalComp username={"user"}></ModalComp>
-                </CardTest>
-              </ModalComp2>
+                <ReviewComp></ReviewComp>
+              </ModalComp>
             </Col>
           ))}
         </Row>
@@ -54,4 +58,4 @@ const CardTest2 = () => {
     </div>
   );
 };
-export default CardTest2;
+export default ReviewModalComp;
