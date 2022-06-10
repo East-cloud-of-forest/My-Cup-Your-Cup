@@ -23,25 +23,32 @@ export default function MyDesigns() {
         <a href="#">더보기</a>
       </div>
 
-      <Container fluid="sm">
-        <Row>
-          {IMAGES.map((image, i) => (
-            <Col>
-              <ModalComp
-                text={image.title}
-                title={image.title}
-                button={
-                  <div>
-                    <ButtonComp>
-                      <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
-                    </ButtonComp>
-                    <ButtonComp>
-                      <FontAwesomeIcon
-                        icon={solid("share-nodes")}
-                      ></FontAwesomeIcon>
-                    </ButtonComp>
-                    <ButtonComp>제작하러가기</ButtonComp>
-                  </div>
+        <Container fluid="sm">
+            <Row>
+                {
+                    IMAGES.map( (image, i) => (
+                        <Col>
+                            <ModalComp2
+                                text={image.title}
+                                title={image.title}
+                                button={ 
+                                    <div>
+                                        <ButtonComp>
+                                            <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                                        </ButtonComp>
+                                        <ButtonComp>
+                                            <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
+                                        </ButtonComp>  
+                                        <ButtonComp>제작하러가기</ButtonComp>
+                                    </div>
+                                }
+                                imageSRC={image.src}
+                            >
+                            <img src={image.src}/>
+                            </ModalComp2>
+                        </Col>
+                        
+                    ))
                 }
               >
                 <img src={image.src} />
