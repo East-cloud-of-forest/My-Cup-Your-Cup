@@ -3,7 +3,7 @@
 
 
 /*홈페이지 로고 이미지*/
-.image{
+.Joinimage{
     margin-top: 49px;
     border: 1px dashed burlywood;
     border-radius: 20px;
@@ -11,7 +11,7 @@
 
 
 /* 회원가입 페이지 전체 디자인*/
-.main-signup{
+.Joinmain_signup{
     text-align: center;
     width: 460px;
     margin: auto;
@@ -23,7 +23,7 @@
 }
 
 /* 모든 제목창 디자인 */
-.text{
+.Jointext{
     margin:19px 0px 8px;
     text-align: left;
     font-size: 14px;
@@ -34,12 +34,12 @@
 /*//////////////////////////////////////////////////////////////////////*/
 
 
-.id-password-input {
+.Joinid_password_input {
     margin-top: 30px;
 }
 
 /* 아이디, 비밀번호/재확인 입력창 외부 디자인 */
-.signup-input{
+.Joinsignup_input{
     display:flex;
     padding: 10px;
     border: solid 1px #dadada;
@@ -49,7 +49,7 @@
 }
 
 /* 아이디, 비밀번호/재확인 입력창 내부 디자인 */
-.signup-id, .signup-pw, .signup-pww{
+.Joinsignup_id, .Joinsignup_pw, .Joinsignup_pww{
     
     height: 35px;
     border: none;
@@ -64,12 +64,12 @@
 /*//////////////////////////////////////////////////////////////////////*/
 
 
-.name-birth-gender-email{
+.Joinname_birth_gender_email{
     margin-top: 50px;
 }
 
 /* 이름, 성별, 이메일, 휴대전화 국적/폰번호 입력창*/
-    .signup-name, .signup-gender, .signup-email, .signup-country {
+    .Joinsignup_name, .Joinsignup_gender, .Joinsignup_email, .Joinsignup_country {
     width:100%;
     height: 29px;
     border: none;
@@ -77,22 +77,22 @@
 }
 
 /* 성별 선택창 디자인 */
-.signup-gender{
+.Joinsignup_gender{
     background-color: white;
 }
 
-.signup-country{
+.Joinsignup_country{
     background-color: white;
 }
 
 
-.birthOption {
+.JoinbirthOption {
     display: flex;
 }
 
 
 /* 생년월일 입력창 */
-.signup-input-birth{
+.Joinsignup_input_birth{
     display: block;
     position: relative;
     width: 100%;
@@ -103,7 +103,7 @@
     box-sizing: border-box;
     margin-left: 10px;
 }
-.signup-birth-yy, .signup-birth-mm, .signup-birth-dd{
+.Joinsignup_birth_yy, .Joinsignup_birth_mm, .Joinsignup_birth_dd{
     width: 113px;
     height: 29px;
     border: none;
@@ -114,7 +114,7 @@
 
 
 /*본인 확인 이메일 디자인*/
-.choice{
+.Joinchoice{
     display: flex;
 }
 
@@ -126,8 +126,8 @@
 
 
 /* 가입하기 버튼 외부박스 디자인*/
-.signup-btn-wrap{
-    margin: 31px auto 0px auto;
+.Joinsignup_btn_wrap{
+    margin: 31px auto 50px auto;
     width: 140px;
     height: 41px;
     line-height: 39px;
@@ -141,7 +141,7 @@
 
 
 /* 회원가입 버튼 내부 디자인*/
-.signup-btn{
+.Joinsignup_btn{
     width:100px;
     height: 38px;
     border: none;
@@ -157,13 +157,13 @@
 
 
 // 휴대전화 입력창
-.inputPhone {
+.JoininputPhone {
     margin-top: 35px;
 }
-.phoneNumber {
+.JoinphoneNumber {
     display: flex;
 }
-.phoneNumberSpan {
+.JoinphoneNumberSpan {
     cursor: pointer;
     display:flex;
     padding: 10px;
@@ -173,7 +173,7 @@
     width:100%;
     margin: 10px 0px 0px 0px;
 }
-.signup-phone {
+.Joinsignup_phone {
     width:100%;
     height: 29px;
     border: none;
