@@ -213,10 +213,6 @@ export const Logo = ({ style }) => {
 export function ProfileComp(props) {
   const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props;
   return (
-<<<<<<< HEAD
-    <div className={classNames("profile", icon ? "icon" : "", justName ? "justName" : "")}>
-      <div className="image_container">
-=======
     <div
       className={classNames(
         "profile",
@@ -224,8 +220,7 @@ export function ProfileComp(props) {
         justName ? "justName" : ""
       )}
     >
-      <div className="circled_container">
->>>>>>> 5c4fea602b8801805d0c26db16ea0f91e3b117ab
+      <div className="image_container">
         <img src={imageURL} alt="profile photo"></img>
       </div>
 
@@ -272,7 +267,7 @@ export const ModalComp = ({
         <Modal.Header closeButton></Modal.Header>
 
         <Modal.Body>
-          <img className="review-image" src={imageSRC}/>
+          <img className="image" src={imageSRC}/>
           <h2 className="title-inside-modal">{title}</h2>
           
           <div className="info">
