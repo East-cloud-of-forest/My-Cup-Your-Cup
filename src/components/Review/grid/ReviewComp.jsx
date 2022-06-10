@@ -18,13 +18,7 @@ const ReviewComp = () => {
           />
           <h6 className="review_title">
             고객이 올린 리뷰 제목
-            <ButtonComp
-              icon
-              style={{ display: "inline" }}
-              onClick={() => {
-                setNumber(number + 1);
-              }}
-            >
+            <ButtonComp icon style={{ display: "inline" }}>
               <FontAwesomeIcon icon={solid("heart")} size="x" />{" "}
               <span>{number}</span>
             </ButtonComp>
