@@ -1,34 +1,34 @@
 import "./DesignsGrid.scss";
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { IMAGES, getImageById } from "../../../images";
+import { IMAGES } from "../../../images";
 import { ButtonComp, ModalComp } from "../../index-comp/IndexComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export default function MyDesigns() {
-  const [isOpen, setIsOPen] = useState(false);
-  const handleOpen = () => setIsOPen(!isOpen);
+    const [isOpen, setIsOPen] = useState(false);
+    const handleOpen = () => setIsOPen(!isOpen);
 
-  if (isOpen) {
-    document.body.classList.add("active-modal");
-  } else {
-    document.body.classList.remove("active-modal");
-  }
+    if (isOpen) {
+        document.body.classList.add("active-modal");
+    } else {
+        document.body.classList.remove("active-modal");
+    }
 
-  return (
-    <>
-      <div className="header">
-        <span id="title">나의 디자인</span>
-        <a href="#">더보기</a>
-      </div>
+    return (
+        <>
+        <div className="header">
+            <span id="title">나의 디자인</span>
+            <a href="#">더보기</a>
+        </div>
 
         <Container fluid="sm">
             <Row>
                 {
                     IMAGES.map( (image, i) => (
                         <Col>
-                            <ModalComp2
+                            <ModalComp
                                 text={image.title}
                                 title={image.title}
                                 button={ 
@@ -45,18 +45,12 @@ export default function MyDesigns() {
                                 imageSRC={image.src}
                             >
                             <img src={image.src}/>
-                            </ModalComp2>
+                            </ModalComp>
                         </Col>
-                        
                     ))
                 }
-              >
-                <img src={image.src} />
-              </ModalComp>
-            </Col>
-          ))}
-        </Row>
-      </Container>
+            </Row>
+        </Container>
     </>
-  );
+    );
 }
