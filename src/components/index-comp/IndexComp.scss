@@ -1,11 +1,14 @@
+// 색상
+$blue: blue;
+
 // 버튼
 @mixin buttonanime($type) {
   & .ripple-span {
-    background-color: if($type== 'icon', #000, #fff);
+    background-color: if($type == 'icon' or $type == 'white', #000, #fff);
     position: absolute;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    animation: if($type== 'icon', buttonanimaicon, buttonanima) 0.6s linear;
+    animation: if($type == 'icon', buttonanimaicon, buttonanima) 0.6s linear;
     pointer-events: none;
   }
 
@@ -45,18 +48,19 @@
   justify-content: center;
   cursor: pointer;
   color: white;
-  background-color: blue;
+  background-color: $blue;
   margin: 0.5rem;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
   transition: background-color, 0.3s;
 
-  &:hover{
-    background-color: lighten(blue, 15%);
+  &:hover {
+    background-color: lighten($blue, 15%);
     transition: background-color, 0.3s;
   }
 
+  // 아이콘 버전
   &.icon {
     color: inherit;
     background-color: transparent;
@@ -65,16 +69,35 @@
     height: inherit;
     box-shadow: none;
 
-    &:hover{
+    &:hover {
       background-color: darken(white, 10%);
       transition: background-color, 0.3s;
     }
 
-    @include buttonanime('icon');
+    @include buttonanime("icon");
   }
 
+  // display block
   &.block {
     display: flex;
+  }
+
+  // 타일 - 끝이 뾰족하게
+  &.tile {
+    border-radius: 0;
+  }
+
+  // 화이트 버전
+  &.white {
+    background-color: white;
+    color: $blue;
+
+    &:hover {
+      background-color: darken(white, 10%);
+      transition: background-color, 0.3s;
+    }
+
+    @include buttonanime('white');
   }
 
   @include buttonanime('');
@@ -107,44 +130,112 @@
   z-index: 999;
 }
 
-// 모달
-body.active-modal {
-  overflow-y: hidden;
+// 프로필 컴포넌트
+
+.profile {
+  background-color: #fae8e3;
+  max-width: 21rem;
+  min-width: fit-content;
+  height: 10rem;
+  display: flex;
+  position: relative;
+
+  .circled_container {
+    margin: 2rem 2rem;
+    overflow: hidden;
+    position: relative;
+    margin: 35px 15px;
+    img {
+      border-radius: 50%;
+      display: flex;
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+    }
+  }
+  & .text {
+    margin-top: 2rem;
+    margin-left: 0rem;
+    margin-right: 1rem;
+    #username {
+      font-weight: bold;
+    }
+    #intro {
+      margin-top: -0.1rem;
+      font-size: small;
+    }
+    .social {
+      margin-top: 1rem;
+      display: flex;
+      img {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+      }
+    }
+  }
+  &.icon {
+    background-color: transparent;
+    width: fit-content;
+    height: fit-content;
+    & .circled_container {
+      width: fit-content;
+      height: fit-content;
+    }
+    img {
+      border-radius: 50%;
+      display: flex;
+      width: 35px;
+      height: 35px;
+      object-fit: cover;
+    }
+    .text {
+      display: none;
+    }
+  }
 }
 
-.ModalComp {
-  & .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  & .content {
-    background-color: rgb(255, 254, 206);
-    min-width: 20rem;
-    width: 600px;
-    height: 20rem;
-    padding: 0px;
-    // 이미지 옆에 공간 삭제..
-    display: flex;
-    justify-content: space-between;
-    & .closeButton {
+// 모달컴포넌트 수정필요
+#opened-modal .Modal {
+  width: 100vw;
+  
+}
+// 글쓰기 폼 컴포넌트
+.wrtie_form {
+  display: flex;
+  justify-content: center;
+
+  .review_user li {
+    float: left;
+    margin-right: 10px;
+
+    .review_user_img {
       position: relative;
-      top: -11em;
-      left: 36em;
-      border: none;
-      background: transparent;
+      height: 80px;
+      width: 80px;
+      background-color: gray;
     }
-    & img {
-      position: inherit;
-      top: 0;
-    }
+  }
+
+  .review_form_btn {
+    float: right;
+  }
+
+  .rating {
+    clear: both;
+  }
+
+  &.review .design {
+    display: none;
+  }
+
+  &.design .review {
+    display: none;
+  }
+
+  .design_preview {
+    height: 300px;
+    width: 410px;
+    background-color: gray;
   }
 }

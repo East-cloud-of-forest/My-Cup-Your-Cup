@@ -2,10 +2,9 @@
   display: flex;
   justify-content: space-around;
 
-  li div {
-    background-color: gray;
+  .review_preview {
     height: 200px;
-    width: 240px;
+    width: 300px;
   }
 }
 

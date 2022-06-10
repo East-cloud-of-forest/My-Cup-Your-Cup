@@ -6,11 +6,10 @@
     display: flex;
     justify-content: space-between;
 }
-.design_thumb {
-    width: 10rem;
-    height: 10rem;
-    background-color: rgb(187, 187, 187);
-    display: flex;
-    justify-content: space-between;
-    
+
+#Container {
+    & img {
+        display: flex;
+        width: 200px;
+    }
 }

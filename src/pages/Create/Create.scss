@@ -12,15 +12,14 @@
 
 .cre_all{
     display: flex;
-    justify-content: space-around;
-    
+    justify-content: center;
     margin: 30px auto;
 }
 
 .cre_result {
     width: 900px;
     height: 500px;
-    margin: 0px 20px 20px 0px;
+    margin: 0px 50px 20px 0px;
 }
 
 .cre_edit{
@@ -42,8 +41,9 @@
     margin: 0 0 5px 0;
 }
 
-.mainImg{
+.cre_mainImg{
     display: flex;
+    align-items: center;
     position: relative;
 }
 
@@ -54,24 +54,104 @@
 
 .cre_edit2{
     position: absolute;
+    top: 25%;
+    left: 85%;
 }
 
 .cre_editdiv2{
-    font-size: 15px;
+    font-size: 13px;
     display: flex;
     flex-direction: column;
     text-align: center;
     cursor: pointer;
-    float: right;
-
+    align-items: center;
+    margin: 20px;
 }
+
+
+
+.cre_acc{
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    display: flex;
+}
+
+.cre_acc_click{
+    font-size: 13px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.cre_acc_clicked{
+    display: flex;
+    margin: 0 10px;
+    width: 0;
+    overflow: hidden;
+    transition: 0.5s ease;
+}
+
+.cre_acc_icon{
+    font-size: 13px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.cre_acc_display{
+    display: flex;
+}
+
 
 .cre_icon2{
     height: 30px;
+    width: 30px;
     padding: 15px;
     background-color: white;
     border-radius: 50%;
+    margin: 0 0 10px 0;
 }
+
+.cre_layer_div{
+    width: 150px;
+    position: absolute;
+    border-radius: 5px;
+    left: 20px;
+    top: 100px;
+}
+
+.cre_layer_title{
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 5px 0 5px 0;
+}
+
+.cre_layers{
+    background-color: white;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.cre_layer{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.cre_layer_icon{
+    position: absolute;
+    right: 15px;
+}
+
+
+
+
 
 
 .cre_opt{
@@ -98,38 +178,8 @@
     margin: 20px 50px 20px 20px;
 }
 
-.cre_prev {
-    background-color: #9dfad9;
-    color: black;
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 10px;
-}
-
 .cre_savepay{
     display: flex;
-}
-
-.cre_save {
-    background-color: #b89790;
-    color: white;
-    width: 150px;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.cre_pay {
-    
-    background-color: #60ab90;
-    color: white;
-    width: 150px;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
 }
 
 #btn {
@@ -138,70 +188,3 @@
 }
 
 
-
-
-
-
-
-
-
-
-// @keyframes slide-fade-in-dropdown-animation {
-//     0% {
-//         transform: translateY(-100%);
-//     }
-
-//     100% {
-//         transform: translateY(0);
-//     }
-// }
-
-// .cre_slide-fade-in-dropdown {
-//     overflow: hidden;
-// }
-
-// .cre_slide-fade-in-dropdown > ul {
-//     animation: slide-fade-in-dropdown-animation .4s ease;
-// }
-
-// @keyframes slide-fade-out-dropdown-animation {
-//     0% {
-//         transform: translateY(0);
-//     }
-
-//     100% {
-//         transform: translateY(-100%);
-//     }
-// }
-
-// .cre_slide-fade-out-dropdown {
-//     overflow: hidden;
-// }
-
-// .cre_slide-fade-out-dropdown > ul {
-//     animation: slide-fade-out-dropdown-animation 0.4s ease;
-//     animation-fill-mode: forwards;
-// }
-
-// .cre_components-dropdown > ul {
-//     position: relative;
-//     top: 5px;
-//     margin-top: 0;
-//     margin-bottom: 5px;
-//     padding-left: 0;
-//     list-style: none;
-// }
-
-// .cre_dropdownDiv {
-//     width: 200px;
-//     padding: 10px;
-//     border-radius: 10px;
-//     border: gray solid 1px;
-//     margin: 10px;
-
-// }
-
-// .cre_DdList>li{
-//     text-align: center;
-//     padding: 5px;
-// }
