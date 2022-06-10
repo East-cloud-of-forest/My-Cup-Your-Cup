@@ -41,7 +41,8 @@ export default function MyDesigns() {
                                         </ButtonComp>  
                                         <ButtonComp>제작하러가기</ButtonComp>
                                     </div>
-                                    }
+                                }
+                                imageSRC={image.src}
                             >
                             <img src={image.src}/>
                             </ModalComp2>

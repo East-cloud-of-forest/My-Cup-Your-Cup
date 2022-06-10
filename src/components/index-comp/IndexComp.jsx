@@ -214,7 +214,7 @@ export function ProfileComp(props) {
   const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props;
   return (
     <div className={classNames("profile", icon ? "icon" : "", justName ? "justName" : "")}>
-      <div className="circled_container">
+      <div className="image_container">
         <img src={imageURL} alt="profile photo"></img>
       </div>
 
@@ -265,21 +265,22 @@ export const ModalComp2 = ({
         </Modal.Header>
 
         <Modal.Body>
-          <img src={imageSRC}/>
-          <h2>{title}</h2>
-          <span>
-            {profile} {/* 지금은 justName scss 수정하는 중이니 임시로 문자열만 넣어서 사용해주세요 */}
-          </span>
-          <span>{date}</span>
-          <span>{view}</span>
-          <span>{rating}</span>
+          <img className="review-image" src={imageSRC}/>
+          <h2 className="title-inside-modal">{title}</h2>
+          
+          <div className="info">
+            <span>
+            {profile}
+            </span>
+            <span>{date}</span>
+            <span>{view}</span>
+            <span>{rating}</span>
+          </div>
+          
           <p>{text}</p>
-          <span>{tag}</span>
-        </Modal.Body>
-
-        <Modal.Footer>
+          <span className="hashtag">{tag}</span>
           {button}
-        </Modal.Footer>
+        </Modal.Body>
       </Modal>
     </div>
   );
