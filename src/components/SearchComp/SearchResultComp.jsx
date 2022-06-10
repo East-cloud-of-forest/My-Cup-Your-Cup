@@ -1,5 +1,6 @@
 import './SearchResultComp.scss'
 import { Link, useParams } from 'react-router-dom'
+import { Pagination } from '../index-comp/IndexComp'
 
 const Error = () => {
   return (
@@ -43,33 +44,32 @@ const SearchResultComp = () => {
   }
 
   return (
-    <div className="search_result">
-        <hr />
-        <div className="result_box">
-          <p>{tabname(tabkind)} - 000건</p>
+    <div>
+      <hr />
+      <div className="result_box">
+        <p>{tabname(tabkind)} - 000건</p>
 
-          {item.map((a) => (
-            <div className="result_box_item">
-              <div
-                className="img"
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  backgroundColor: 'orange',
-                }}
-              ></div>
-              <div>
-                <h4>title</h4>
-                <p>text</p>
-              </div>
+        {item.map((a) => (
+          <div className="result_box_item">
+            <div
+              className="img"
+              style={{
+                width: '100px',
+                height: '100px',
+                backgroundColor: 'orange',
+              }}
+            ></div>
+            <div>
+              <h4>title</h4>
+              <p>text</p>
             </div>
-          ))}
+          </div>
+        ))}
+      </div>
 
-        </div>
-
-        <div>
-          12345678910
-        </div>
+      <div style={{marginBottom:"2rem"}}>
+        <Pagination></Pagination>
+      </div>
     </div>
   )
 }
