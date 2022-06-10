@@ -1,7 +1,21 @@
-// 색상
-$blue: blue;
+// 버튼색상
+$blue: #4b93e3;
+$red: #ff8888;
+$orange: #ffb251;
+$green: #5bdb60;
+$brown: #c19d95;
+$darkgreen: #3da982;
+$mint: #4debbb;
+@mixin button($color) {
+  background-color: $color;
 
-// 버튼
+  &:hover {
+    background-color: lighten($color, 10%);
+    transition: background-color, 0.3s;
+  }
+}
+
+// 버튼애니메이션
 @mixin buttonanime($type) {
   & .ripple-span {
     background-color: if($type == "icon" or $type == "white", #000, #fff);
@@ -39,6 +53,7 @@ $blue: blue;
   }
 }
 
+// 버튼
 .button {
   border: none;
   padding: 1rem 1.5rem;
@@ -48,16 +63,29 @@ $blue: blue;
   justify-content: center;
   cursor: pointer;
   color: white;
-  background-color: $blue;
   margin: 0.5rem;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
   transition: background-color, 0.3s;
-
-  &:hover {
-    background-color: lighten($blue, 15%);
-    transition: background-color, 0.3s;
+  @include button($blue);
+  &.red {
+    @include button($red);
+  }
+  &.green {
+    @include button($green);
+  }
+  &.orange {
+    @include button($orange);
+  }
+  &.brown {
+    @include button($brown);
+  }
+  &.darkgreen {
+    @include button($darkgreen);
+  }
+  &.mint {
+    @include button($mint);
   }
 
   // 아이콘 버전
@@ -193,9 +221,9 @@ $blue: blue;
       display: none;
     }
   }
-  & justName {
+  // & justName {
     // 추가 필요
-  }
+  // }
 }
 
 // 모달컴포넌트 수정필요

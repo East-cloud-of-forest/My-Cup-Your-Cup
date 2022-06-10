@@ -12,11 +12,17 @@
 
     & input {
       border-radius: 100px 0 0 100px;
-      border: 1px solid grey;
+      border: 1px solid lightgrey;
       border-right: none;
       font-size: 20px;
       padding: 0.5rem 1rem;
       width: 40%;
+
+      &:focus-visible {
+        border: 1px solid #4debbb;
+        border-right: none;
+        outline: 1px solid #4debbb;
+      }
     }
   }
 
@@ -73,7 +79,7 @@
 
     & .result_box {
       margin-bottom: 5rem;
-      
+
       & .result_box_item {
         padding: 0.3rem 1rem;
         display: flex;

@@ -11,7 +11,7 @@ import { text } from "@fortawesome/fontawesome-svg-core";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, white, tile } = props;
+  const { children, size, icon, style, block, tile, color } = props;
   const [ripples, setRipples] = useState([]);
   useEffect(() => {
     if (ripples.length > 0) {
@@ -52,8 +52,8 @@ export const ButtonComp = (props) => {
         size,
         icon ? "icon" : "",
         block ? "block" : "",
-        white ? "white" : "",
-        tile ? "tile" : ""
+        tile ? "tile" : "",
+        color
       )}
       onClick={(e) => {
         clickanimation(e);
