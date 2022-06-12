@@ -22,7 +22,7 @@ const Header = () => {
     },
     {
       name: "제품문의",
-      path: "/test3",
+      path: "/QnAmenu/FaqPage",
     },
   ];
 

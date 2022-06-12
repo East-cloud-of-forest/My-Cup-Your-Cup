@@ -1,0 +1,29 @@
+
+
+
+    .board {
+        width: 100%;
+        height: 500px;
+    }
+    .in_board {
+    width: 700px;
+    height: 100px;
+    background-color:cornsilk;
+    margin: 20px auto auto auto;
+    }
+    .menu {
+        background-color: rgb(243, 210, 127);
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+    }
+    .contents {
+        text-align: center;
+    }
+    .answer > span {
+        background-color: aliceblue;
+        border: 1px solid black;
+        font-size: 15px;
+    }
+

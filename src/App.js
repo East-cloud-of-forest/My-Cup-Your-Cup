@@ -6,6 +6,7 @@ import Footer from './components/FooterComp'
 import Mypage from './pages/MyPage/Mypage'
 import LoginMain from './pages/Login/LoginMain'
 import JoinUser from './pages/Join/JoinUser'
+import QnAmenu from './pages/QnA/QnAmenu'
 import ReviewComp from './pages/Review/Review'
 import CreatePage from './pages/Create/CreatePage'
 import PayPage from './pages/Pay/PayPage'
@@ -14,6 +15,10 @@ import Cart from './pages/Cart/Cart'
 import ReviewWriteForm from './pages/Review/ReviewWriteForm'
 import CreateDesignUploadForm from './pages/Create/CreateDesignUploadForm'
 import SearchResultComp from './components/SearchComp/SearchResultComp'
+
+import FaqPage from './pages/QnA/FaqPage'
+import MyQuastion from './pages/QnA/MyQuastion'
+import Ask from './pages/QnA/Ask'
 
 function App() {
   return (
@@ -29,6 +34,12 @@ function App() {
           <Route path="/create/write" element={<CreateDesignUploadForm />} />
           <Route path="/Login" element={<LoginMain />} />
           <Route path="/Join" element={<JoinUser />} />
+
+          <Route path="/QnAmenu" element={<QnAmenu />} />
+          <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
+          <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
+          <Route path="/QnAmenu/Ask" element={<Ask />} />
+
           <Route path="/pay" element={<PayPage />} />
           <Route path="/search" element={<Search />}>
             <Route path=":tabkind" element={<SearchResultComp />} />
