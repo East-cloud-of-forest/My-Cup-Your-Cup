@@ -1,0 +1,71 @@
+
+
+    .FAQ_main {
+        list-style: none;
+        text-decoration: none;
+        border-collapse: collapse;
+        margin: 0px;
+        padding: 0px;
+        color: black;
+        width: 100%;
+        height: 660px;
+    }
+
+    .FAQmain_header {
+        display: block;
+        width: 100%;
+        height: 290px;
+        background-color: aliceblue;
+        text-align: center;
+    }
+    .FAQmain_header > h1, h4 {
+        padding-top: 16px;
+    }
+    .FAQmain_header > h1 {
+        font-size: 45px;
+    }
+    .FAQmain_header > h4 {
+        padding-top: 15px;
+        font-size: 20px;
+    }
+
+    .chat_button {
+        width: 250px;
+        height: 40px;
+        border: 1px solid rgb(240, 191, 157);
+        border-radius: 17px;
+        background-color: rgb(240, 217, 186);
+        margin: 26px auto auto auto;
+        padding-top: 35px;
+        color: rgb(90, 90, 90);
+    }
+    .chat_button > span {
+        position: relative;
+        top: -27px;
+        cursor: pointer;
+    }
+
+    .FAQ_contents {
+        width: 600px;
+        height: 270px;
+        background-color: gainsboro;
+        margin: 20px auto auto auto;
+        padding-top: 5px;
+    }
+    .FAQ_contents > span, p {
+        display: inline-block;
+        cursor: pointer;
+    }
+    .FAQ_contents > p {
+        padding-left: 30px;
+        margin-bottom: 0;
+    }
+    .FAQ_contents > span {
+        padding-left: 21px;
+    }
+    .FAQ_contents > hr {
+        width: 575px;
+        margin: 15px;
+    }
+
+
