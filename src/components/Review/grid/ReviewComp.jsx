@@ -12,7 +12,7 @@ const ReviewComp = () => {
     <Row xs={2} md={1} className="g-4">
       {Array.from({ length: 1 }).map((_, idx) => (
         <Col>
-          <Card>
+          <Card id="review_card">
             <Card.Img
               variant="top"
               src="https://cdn.pixabay.com/photo/2022/02/10/03/04/tumbler-7004528_960_720.jpg"

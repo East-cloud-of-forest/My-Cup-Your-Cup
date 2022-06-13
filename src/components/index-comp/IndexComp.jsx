@@ -5,9 +5,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Button, Modal } from "react-bootstrap";
-import { text } from "@fortawesome/fontawesome-svg-core";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -292,7 +291,7 @@ export const WriteFormComp = (props) => {
   const rating = [1, 2, 3, 4, 5];
 
   return (
-    <div className={classNames("wrtie_form", review ? "review" : "design")}>
+    <div className={classNames("write_form", review ? "review" : "design")}>
       <form>
         <h1>{title}</h1>
         <br />
