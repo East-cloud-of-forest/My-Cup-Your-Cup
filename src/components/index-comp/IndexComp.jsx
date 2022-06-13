@@ -10,7 +10,7 @@ import { Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, white, tile } = props;
+  const { children, size, icon, style, block, tile, color } = props;
   const [ripples, setRipples] = useState([]);
   useEffect(() => {
     if (ripples.length > 0) {
@@ -51,8 +51,8 @@ export const ButtonComp = (props) => {
         size,
         icon ? "icon" : "",
         block ? "block" : "",
-        white ? "white" : "",
-        tile ? "tile" : ""
+        tile ? "tile" : "",
+        color
       )}
       onClick={(e) => {
         clickanimation(e);
@@ -219,7 +219,7 @@ export function ProfileComp(props) {
         justName ? "justName" : ""
       )}
     >
-      <div className="circled_container">
+      <div className="image_container">
         <img src={imageURL} alt="profile photo"></img>
       </div>
 
@@ -266,20 +266,22 @@ export const ModalComp = ({
         <Modal.Header closeButton></Modal.Header>
 
         <Modal.Body>
-          <img src={imageSRC} />
-          <h2>{title}</h2>
-          <span>
-            {profile}{" "}
-            {/* 지금은 justName scss 수정하는 중이니 임시로 문자열만 넣어서 사용해주세요 */}
-          </span>
-          <span>{date}</span>
-          <span>{view}</span>
-          <span>{rating}</span>
+          <img className="image" src={imageSRC}/>
+          <h2 className="title-inside-modal">{title}</h2>
+          
+          <div className="info">
+            <span>
+            {profile}
+            </span>
+            <span>{date}</span>
+            <span>{view}</span>
+            <span>{rating}</span>
+          </div>
+          
           <p>{text}</p>
-          <span>{tag}</span>
+          <span className="hashtag">{tag}</span>
+          {button}
         </Modal.Body>
-
-        <Modal.Footer>{button}</Modal.Footer>
       </Modal>
     </div>
   );

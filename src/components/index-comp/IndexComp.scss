@@ -1,7 +1,21 @@
-// 색상
-$blue: blue;
+// 버튼색상
+$blue: #4b93e3;
+$red: #ff8888;
+$orange: #ffb251;
+$green: #5bdb60;
+$brown: #c19d95;
+$darkgreen: #3da982;
+$mint: #4debbb;
+@mixin button($color) {
+  background-color: $color;
 
-// 버튼
+  &:hover {
+    background-color: lighten($color, 10%);
+    transition: background-color, 0.3s;
+  }
+}
+
+// 버튼애니메이션
 @mixin buttonanime($type) {
   & .ripple-span {
     background-color: if($type == "icon" or $type == "white", #000, #fff);
@@ -39,6 +53,7 @@ $blue: blue;
   }
 }
 
+// 버튼
 .button {
   border: none;
   padding: 1rem 1.5rem;
@@ -48,16 +63,29 @@ $blue: blue;
   justify-content: center;
   cursor: pointer;
   color: white;
-  background-color: $blue;
   margin: 0.5rem;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
   transition: background-color, 0.3s;
-
-  &:hover {
-    background-color: lighten($blue, 15%);
-    transition: background-color, 0.3s;
+  @include button($blue);
+  &.red {
+    @include button($red);
+  }
+  &.green {
+    @include button($green);
+  }
+  &.orange {
+    @include button($orange);
+  }
+  &.brown {
+    @include button($brown);
+  }
+  &.darkgreen {
+    @include button($darkgreen);
+  }
+  &.mint {
+    @include button($mint);
   }
 
   // 아이콘 버전
@@ -140,7 +168,7 @@ $blue: blue;
   display: flex;
   position: relative;
 
-  .circled_container {
+  .image_container {
     margin: 2rem 2rem;
     overflow: hidden;
     position: relative;
@@ -174,19 +202,40 @@ $blue: blue;
       }
     }
   }
+  &.justName {
+    width : fit-content;
+    background-color: transparent;
+    height: fit-content;
+    .image_container {
+      margin: 0;
+    }
+    img {
+      border-radius: 50%;
+      display: flex;
+      width: 25px;
+      height: 25px;
+      object-fit: cover;
+    }
+    .text {
+      margin: 0;
+      margin-left: 5px;
+      #intro { display: none ; }
+    }
+    .social { display: none; }
+  }
   &.icon {
     background-color: transparent;
     width: fit-content;
     height: fit-content;
-    & .circled_container {
+    & .image_container {
       width: fit-content;
       height: fit-content;
     }
     img {
       border-radius: 50%;
       display: flex;
-      width: 35px;
-      height: 35px;
+      width: 25px;
+      height: 25px;
       object-fit: cover;
     }
     .text {
@@ -196,16 +245,36 @@ $blue: blue;
 }
 
 // 모달컴포넌트 수정필요
-#opened-modal 
-  // .modal-fade .modal-dialoge{
-  //   justify-content: center;
-  // }
-  // .modal-content {
-  //   width: 900px;
-  //   position: relative;
-  //}
+.modal-backdrop {
+  display: none;
+}
+#opened-modal .modal-content {
+  width: 700px;
+  border: none;
   
-
+  & .modal-body {
+    
+    .image {
+      float: left;
+      // 임시로 지정한 너비와 높이
+      height: 300px;
+      width: 300px;
+    }
+    .title-inside-modal {
+      position: relative;
+    }
+    .info {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+    .hashtag {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 70px;
+    }
+  }
+}
 
 // 글쓰기 폼 컴포넌트
 .write_form {

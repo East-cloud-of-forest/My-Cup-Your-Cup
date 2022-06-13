@@ -1,0 +1,33 @@
+
+
+    .QnAmain_header {
+        display: flex;
+        background-color:antiquewhite;
+        width: 100%;
+        height: 170px;
+    }
+
+    .QnAmain_header .FAQ, .my_quastion, .ask{
+        margin: auto;
+        cursor: pointer;
+    }
+
+    .QnAmain_header span {
+        font-size: 14px;
+    }
+    .FAQ, .my_quastion, .ask{
+        text-align: center;
+        line-height: 100px;
+        width: 110px;
+        height: 110px;
+        background-color:chocolate;
+        border: 1px solid darkgray;
+        border-radius: 40px;
+        text-decoration: none;
+        color:aliceblue;
+    }
+
+    .FAQ:hover, .my_quastion:hover, .ask:hover {
+        color:aliceblue;
+    }
+

@@ -2,14 +2,17 @@ import { ButtonComp } from '../../components/index-comp/IndexComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Search.scss'
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation, useParams } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
-
-export const SearchResult = () => {
-  return <div></div>
-}
+import { useEffect } from 'react'
 
 const Search = () => {
+  // 검색창 내에서 이동시 맨 위로
+  const location = useLocation()
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[location])
+
   const params = useParams()
 
   const tabs = [
@@ -46,6 +49,7 @@ const Search = () => {
       <div className="search_input_box">
         <input type="text" />
         <ButtonComp
+          color="mint"
           style={{
             margin: 0,
             borderRadius: '0 100px 100px 0',
@@ -65,7 +69,7 @@ const Search = () => {
               <Col key={i} sm="2">
                 <NavLink to={'/search' + t.path} activeclassname="true" end>
                   <ButtonComp
-                    white
+                    color="white"
                     tile
                     style={{
                       width: '100%',
