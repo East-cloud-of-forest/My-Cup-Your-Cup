@@ -9,9 +9,9 @@ import { useEffect } from 'react'
 const Search = () => {
   // 검색창 내에서 이동시 맨 위로
   const location = useLocation()
-  useEffect(()=>{
-    window.scrollTo(0, 0);
-  },[location])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
 
   const params = useParams()
 
@@ -66,7 +66,7 @@ const Search = () => {
         <Container fluid>
           <Row>
             {tabs.map((t, i) => (
-              <Col key={i} sm="2">
+              <Col key={i} lg="2" md="6" sm="6" style={{margin: "5px 0"}}>
                 <NavLink to={'/search' + t.path} activeclassname="true" end>
                   <ButtonComp
                     color="white"
