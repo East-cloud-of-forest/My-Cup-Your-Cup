@@ -30,7 +30,6 @@ const ReviewModalComp = () => {
                         icon={solid("share-nodes")}
                       ></FontAwesomeIcon>
                     </ButtonComp>
-                    <ButtonComp>디자인 보러가기</ButtonComp>
                   </div>
                 }
                 imageSRC={
