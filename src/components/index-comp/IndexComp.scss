@@ -6,12 +6,21 @@ $green: #5bdb60;
 $brown: #c19d95;
 $darkgreen: #3da982;
 $mint: #4debbb;
+$facebook: #475a96;
+
 @mixin button($color) {
   background-color: $color;
 
-  &:hover {
-    background-color: lighten($color, 10%);
-    transition: background-color, 0.3s;
+  @if($color == $facebook) {
+    &:hover {
+      opacity: 0.8;
+      transition: opacity, 0.3s;
+    }
+  } @else {
+    &:hover {
+      background-color: lighten($color, 10%);
+      transition: background-color, 0.3s;
+    }
   }
 }
 
@@ -86,6 +95,9 @@ $mint: #4debbb;
   }
   &.mint {
     @include button($mint);
+  }
+  &.facebook {
+    @include button($facebook);
   }
 
   // 아이콘 버전

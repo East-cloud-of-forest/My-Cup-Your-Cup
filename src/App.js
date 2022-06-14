@@ -1,5 +1,5 @@
 import "./App.scss";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import HomeComp from "./pages/Home/Home";
 import Header from "./components/HeaderComp";
 import Footer from "./components/FooterComp";
@@ -22,9 +22,19 @@ import Ask from "./pages/QnA/Ask";
 import Design from "./pages/Design/Design";
 
 function App() {
+  const location = useLocation()
+  const hideHeader = (location) => {
+    switch (location) {
+      case '/login' :
+        return false
+      default : return true
+    }
+  }
   return (
     <div className="App">
-      <Header />
+      {
+        hideHeader(location.pathname) ? <Header /> : null
+      }
       <main>
         <Routes>
           <Route index element={<HomeComp />} />
@@ -34,8 +44,8 @@ function App() {
           <Route path="/review/write" element={<ReviewWriteForm />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/create/write" element={<CreateDesignUploadForm />} />
-          <Route path="/Login" element={<LoginMain />} />
-          <Route path="/Join" element={<JoinUser />} />
+          <Route path="/login" element={<LoginMain />} />
+          <Route path="/join" element={<JoinUser />} />
 
           <Route path="/QnAmenu" element={<QnAmenu />} />
           <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
@@ -49,7 +59,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </main>
-      <Footer />
+      {
+        hideHeader(location.pathname) ? <Footer />: null
+      }
     </div>
   );
 }
