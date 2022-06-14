@@ -1,27 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import React from "react";
 
-const SelectComp = () => {
-    
-    const [metSelect,setMetSelect] = useState(0)
-    
+const SelectComp = ({material, getTypeData}) => {
+
+    const [metSelect,setMetSelect] = useState(0);
+    const [tumMetType,setTumMetType] = useState("");
+
     const changeMet = (e)=>{
         setMetSelect(e.target.value);
+        const metWord = e.target.value.split("_");
+        setTumMetType(metWord[1]);
     }
 
-    const [sizeSelect,setSizeSelect] = useState(0)
+    const [sizeSelect,setSizeSelect] = useState(0);
+    const [tumSizeType,setTumSizeType] = useState("");
 
     const changeSize = (e)=>{
         setSizeSelect(e.target.value);
+        const sizeWord = e.target.value.split("_");
+        setTumSizeType(sizeWord[1]);
     }
     
-    const [strawSelect,setStrawSelect] = useState(0)
+    const [strawSelect,setStrawSelect] = useState(0);
+    const [tumStrawType,setTumStrawType] = useState("");
 
     const changeStraw = (e)=>{
         setStrawSelect(e.target.value);
+        const strawWord = e.target.value.split("_");
+        setTumStrawType(strawWord[1]);
     }
 
     const summa =  parseInt(metSelect)+parseInt(sizeSelect)+parseInt(strawSelect)
 
+    useEffect(()=>{
+        material=tumMetType;
+        getTypeData(material);
+    });
     
     return (
         <div>
@@ -41,7 +55,7 @@ const SelectComp = () => {
             <select defaultValue="0_none" className="cre_selectbox" onChange={changeStraw}>
                 <option value="0_none">빨대</option>
                 <option value="2000_use">사용</option>
-                <option value="0_none">미사용</option>
+                <option value="0_unuse">미사용</option>
             </select>
 
             <div className="cre_calc">

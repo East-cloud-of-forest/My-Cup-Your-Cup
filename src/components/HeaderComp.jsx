@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
-  const a = ["주문제작"];
-  console.log(a[0][0]);
   const navlink = [
     {
       name: "주문제작",
@@ -14,7 +12,7 @@ const Header = () => {
     },
     {
       name: "잔디자인",
-      path: "/test1",
+      path: "/design",
     },
     {
       name: "포토리뷰",
@@ -61,7 +59,7 @@ const Header = () => {
             </ButtonComp>
           </li>
           <li>
-            <Link to="/Login">
+            <Link to="/login">
               <ButtonComp icon>
                 <FontAwesomeIcon icon={solid("user")} size="2x" />
               </ButtonComp>

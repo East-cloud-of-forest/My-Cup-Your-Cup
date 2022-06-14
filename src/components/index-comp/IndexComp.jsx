@@ -5,9 +5,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Button, Modal } from "react-bootstrap";
-import { text } from "@fortawesome/fontawesome-svg-core";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -267,18 +266,16 @@ export const ModalComp = ({
         <Modal.Header closeButton></Modal.Header>
 
         <Modal.Body>
-          <img className="image" src={imageSRC}/>
+          <img className="image" src={imageSRC} />
           <h2 className="title-inside-modal">{title}</h2>
-          
+
           <div className="info">
-            <span>
-            {profile}
-            </span>
+            <span>{profile}</span>
             <span>{date}</span>
             <span>{view}</span>
             <span>{rating}</span>
           </div>
-          
+
           <p>{text}</p>
           <span className="hashtag">{tag}</span>
           {button}
@@ -292,26 +289,79 @@ export const ModalComp = ({
 export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props;
   const rating = [1, 2, 3, 4, 5];
+  const [tagItem, setTagItem] = useState("");
+  const [tagList, setTagList] = useState([]);
+
+  const onKeyPress = (e) => {
+    e.preventDefault();
+    if (e.target.value.length !== 0 && e.key === "Enter") {
+      submitTagItem();
+    }
+  };
+
+  const submitTagItem = () => {
+    let updatedTagList = [...tagList];
+    updatedTagList.push(tagItem);
+    setTagList(updatedTagList);
+    setTagItem("");
+  };
+
+  /**
+   * const deleteTagItem = (e) => {
+    const deleteTagItem = e.target.parentElement.firstChild.innerText;
+    const filteredTagList = tagList.filter(
+      (tagItem) => tagItem !== deleteTagItem
+    );
+    setTagList(filteredTagList);
+  };
+   */
+  const onRemove = (index) => {
+    const newTagList = tagList.filter((tagitem) => tagitem.index !== index);
+    setTagList(newTagList);
+  };
 
   return (
-    <div className={classNames("wrtie_form", review ? "review" : "design")}>
+    <div className={classNames("write_form", review ? "review" : "design")}>
       <form>
         <h1>{title}</h1>
         <br />
         <input
+          className="write_title"
           type="search"
           placeholder="제목을 작성해 주세요"
           size="50"
         />{" "}
         <br />
         <br />
-        <br />
-        <input
-          type="search"
-          placeholder="#태그를 작성해 주세요"
-          size="50"
-        />{" "}
-        <br />
+        <div>
+          <div className="hashtag_box">
+            {tagList.map((tagItem, index) => {
+              return (
+                <div className="hashtag_item" key={index}>
+                  #{tagItem}{" "}
+                  <button
+                    onClick={() => {
+                      onRemove(index);
+                    }}
+                    className="hashtag_btn"
+                  >
+                    X
+                  </button>
+                </div>
+              );
+            })}
+            <input
+              className="write_hashtag"
+              type="search"
+              placeholder="#태그를 작성해 주세요"
+              tabIndex={2}
+              onChange={(e) => setTagItem(e.target.value)}
+              value={tagItem}
+              onKeyPress={onKeyPress}
+              size="50"
+            />
+          </div>
+        </div>
         <br />
         <br />
         <textarea cols="52" rows="10" placeholder={placeholder}></textarea>{" "}
@@ -404,10 +454,10 @@ export const WriteFormComp = (props) => {
         </div>
         <br />
         <br />
-        <ButtonComp type="submit" style={{ float: "right" }}>
+        <ButtonComp type="submit" style={{ float: "right" }} color="brown">
           작성
         </ButtonComp>
-        <ButtonComp type="submit" style={{ float: "right" }}>
+        <ButtonComp type="submit" style={{ float: "right" }} color="brown">
           취소
         </ButtonComp>
       </form>

@@ -6,12 +6,21 @@ $green: #5bdb60;
 $brown: #c19d95;
 $darkgreen: #3da982;
 $mint: #4debbb;
+$facebook: #475a96;
+
 @mixin button($color) {
   background-color: $color;
 
-  &:hover {
-    background-color: lighten($color, 10%);
-    transition: background-color, 0.3s;
+  @if($color == $facebook) {
+    &:hover {
+      opacity: 0.8;
+      transition: opacity, 0.3s;
+    }
+  } @else {
+    &:hover {
+      background-color: lighten($color, 10%);
+      transition: background-color, 0.3s;
+    }
   }
 }
 
@@ -86,6 +95,9 @@ $mint: #4debbb;
   }
   &.mint {
     @include button($mint);
+  }
+  &.facebook {
+    @include button($facebook);
   }
 
   // 아이콘 버전
@@ -203,7 +215,7 @@ $mint: #4debbb;
     }
   }
   &.justName {
-    width : fit-content;
+    width: fit-content;
     background-color: transparent;
     height: fit-content;
     .image_container {
@@ -219,9 +231,13 @@ $mint: #4debbb;
     .text {
       margin: 0;
       margin-left: 5px;
-      #intro { display: none ; }
+      #intro {
+        display: none;
+      }
     }
-    .social { display: none; }
+    .social {
+      display: none;
+    }
   }
   &.icon {
     background-color: transparent;
@@ -242,8 +258,6 @@ $mint: #4debbb;
       display: none;
     }
   }
-  
-
 }
 
 // 모달컴포넌트 수정필요
@@ -253,9 +267,8 @@ $mint: #4debbb;
 #opened-modal .modal-content {
   width: 700px;
   border: none;
-  
+
   & .modal-body {
-    
     .image {
       float: left;
       // 임시로 지정한 너비와 높이
@@ -279,9 +292,57 @@ $mint: #4debbb;
 }
 
 // 글쓰기 폼 컴포넌트
-.wrtie_form {
+.write_form {
   display: flex;
   justify-content: center;
+
+  .write_title {
+    border-style: none;
+    border-bottom: 2px solid black;
+  }
+
+  .hashtag_box {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 2px solid black;
+  }
+
+  .write_hashtag {
+    display: inline-flex;
+    max-width: 200px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: text;
+  }
+  input:focus {
+    outline: none;
+  }
+
+  .hashtag_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #9dfad9;
+    border-radius: 5px;
+    font-size: 13px;
+  }
+
+  .hashtag_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+    background-color: white;
+    border-style: hidden;
+    border-radius: 50%;
+    color: black;
+    font-weight: bold;
+  }
 
   .review_user li {
     float: left;
