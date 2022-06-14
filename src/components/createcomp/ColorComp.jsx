@@ -1,17 +1,25 @@
-const ColorComp = (props) =>{
+const ColorComp = ({colorData,getColorData}) =>{
 
     const colors =[
         {code:"#FFFFFF",name:"white"},
-        {code:"#FF0000",name:"red"},
-        {code:"#0000FF",name:"blue"},
-        {code:"#000000",name:"black"},
-        {code:"#FFFF00",name:"yellow"},
-        {code:"#00FF00",name:"green"},
+        {code:"#ff8e8e",name:"red"},
+        {code:"#5555ff",name:"blue"},
+        {code:"#333333",name:"black"},
+        {code:"#ffff80",name:"yellow"},
+        {code:"#8aff8a",name:"green"},
     ];
+
+    const colorSelect = (e) =>{
+        getColorData(e.target.id);
+    }
 
     return (
         <div className="cre_colorDiv">
-            {colors.map(color=>(<div className="cre_color" key={color.code} style={{backgroundColor:color.code}}></div>))}
+            {
+                colors.map(color=>(
+                    <div className="cre_color" id={color.code} key={color.code} style={{backgroundColor:color.code}} onClick={colorSelect}></div>
+                ))
+            }
         </div>
     )
 }

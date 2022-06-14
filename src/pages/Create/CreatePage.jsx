@@ -28,7 +28,11 @@ const CreatePage =() =>{
         setMaterial(material);
     };
 
-    const [color,setColor] = useState("")
+    //컬러 props
+    const [colorData,setColorData] = useState("");
+    const getColorData = (colorData) =>{
+        setColorData(colorData);
+    }
 
     //아코디언 버튼
     const parentRef = React.useRef();
@@ -147,7 +151,11 @@ const CreatePage =() =>{
 
                 {/**메인이미지 */}
                 <div className="cre_mainImg">
-                    <img className="cre_img" src={optimg} alt="" />
+                    <img 
+                    className="cre_img" 
+                    src={optimg}
+                    style={{filter:`opacity(0.5) drop-shadow(0 0 0 ${colorData}) brightness(65%) contrast(400%)`}}
+                    />
 
                     {/**에딧 2 */}
                     <div className="cre_acc">
@@ -202,10 +210,10 @@ const CreatePage =() =>{
                 <p>색이름</p>
 
                 <div className="cre_colorDiv">
-                    <ColorComp/>
+                    <ColorComp colorData={colorData} getColorData={getColorData} />
                 </div>
 
-                <SelectComp name={material} getTypeData={getTypeData}/>
+                <SelectComp material={material} getTypeData={getTypeData}/>
 
                 <div id="btn">
                     <ButtonComp>미리보기</ButtonComp>
