@@ -14,7 +14,7 @@ const Header = () => {
     },
     {
       name: "잔디자인",
-      path: "/test1",
+      path: "/design",
     },
     {
       name: "포토리뷰",

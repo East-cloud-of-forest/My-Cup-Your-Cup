@@ -4,7 +4,7 @@ import React from "react";
 const PayMethod = () => {
 
     const [bankbookStyle,setBankbookStyle] = useState({
-        display:"none"
+        display:""
     });
     const [cardStyle,setcardStyle] = useState({
         display:"none"
@@ -17,7 +17,7 @@ const PayMethod = () => {
     const cardRef = React.useRef();
     const phoneRef = React.useRef();
 
-    const [category,setCategory] = useState("")
+    const [category,setCategory] = useState("무통장입금")
 
     const changeMethod =(e)=>{
 
@@ -50,7 +50,7 @@ const PayMethod = () => {
                         <tr className="pay_method_table_tr">
                             <td className="pay_table_cate">결제수단선택</td>
                             <td>
-                                <input type="radio" name="pay_method" onChange={changeMethod} value="무통장입금" id="bankbook"/>
+                                <input type="radio" name="pay_method" onChange={changeMethod} defaultChecked value="무통장입금" id="bankbook"/>
                                 <label htmlFor="bankbook" className="pay_method_select">무통장입금</label>
                                 <input type="radio" name="pay_method" onChange={changeMethod} value="카드 결제" id="card"/>
                                 <label htmlFor="card" className="pay_method_select">카드 결제</label>

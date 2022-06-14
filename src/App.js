@@ -1,24 +1,25 @@
-import './App.scss'
-import { Route, Routes } from 'react-router-dom'
-import HomeComp from './pages/Home/Home'
-import Header from './components/HeaderComp'
-import Footer from './components/FooterComp'
-import Mypage from './pages/MyPage/Mypage'
-import LoginMain from './pages/Login/LoginMain'
-import JoinUser from './pages/Join/JoinUser'
-import QnAmenu from './pages/QnA/QnAmenu'
-import ReviewComp from './pages/Review/Review'
-import CreatePage from './pages/Create/CreatePage'
-import PayPage from './pages/Pay/PayPage'
-import Search from './pages/Search/Search'
-import Cart from './pages/Cart/Cart'
-import ReviewWriteForm from './pages/Review/ReviewWriteForm'
-import CreateDesignUploadForm from './pages/Create/CreateDesignUploadForm'
-import SearchResultComp from './components/SearchComp/SearchResultComp'
+import "./App.scss";
+import { Route, Routes } from "react-router-dom";
+import HomeComp from "./pages/Home/Home";
+import Header from "./components/HeaderComp";
+import Footer from "./components/FooterComp";
+import Mypage from "./pages/MyPage/Mypage";
+import LoginMain from "./pages/Login/LoginMain";
+import JoinUser from "./pages/Join/JoinUser";
+import QnAmenu from "./pages/QnA/QnAmenu";
+import ReviewComp from "./pages/Review/Review";
+import CreatePage from "./pages/Create/CreatePage";
+import PayPage from "./pages/Pay/PayPage";
+import Search from "./pages/Search/Search";
+import Cart from "./pages/Cart/Cart";
+import ReviewWriteForm from "./pages/Review/ReviewWriteForm";
+import CreateDesignUploadForm from "./pages/Create/CreateDesignUploadForm";
+import SearchResultComp from "./components/SearchComp/SearchResultComp";
 
-import FaqPage from './pages/QnA/FaqPage'
-import MyQuastion from './pages/QnA/MyQuastion'
-import Ask from './pages/QnA/Ask'
+import FaqPage from "./pages/QnA/FaqPage";
+import MyQuastion from "./pages/QnA/MyQuastion";
+import Ask from "./pages/QnA/Ask";
+import Design from "./pages/Design/Design";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <main>
         <Routes>
           <Route index element={<HomeComp />} />
+          <Route path="/design" element={<Design />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/review" element={<ReviewComp />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
@@ -49,7 +51,7 @@ function App() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
