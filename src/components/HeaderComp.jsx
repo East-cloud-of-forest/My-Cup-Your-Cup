@@ -48,19 +48,19 @@ const Header = () => {
         <ul id="main_subnav" className="caption">
           <li>
             <Link to="/search">
-              <ButtonComp icon>
+              <ButtonComp icon style={{width:"45px"}}>
                 <FontAwesomeIcon icon={solid("magnifying-glass")} size="2x" />
               </ButtonComp>
             </Link>
           </li>
           <li>
-            <ButtonComp icon>
+            <ButtonComp icon style={{width:"45px"}}>
               <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
             </ButtonComp>
           </li>
           <li>
             <Link to="/login">
-              <ButtonComp icon>
+              <ButtonComp icon style={{width:"45px"}}>
                 <FontAwesomeIcon icon={solid("user")} size="2x" />
               </ButtonComp>
             </Link>
