@@ -296,6 +296,7 @@ export const WriteFormComp = (props) => {
   const rating = [1, 2, 3, 4, 5];
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
+  const [post, setPost] = useState("");
 
   const onChange = (e) => {
     const { value } = e.target;
@@ -330,8 +331,10 @@ export const WriteFormComp = (props) => {
     setTagList((prevState) => prevState.filter((tag, i) => i !== index));
   };
 
-  const preventSubmit = (e) => {
+  const preventSubmit = async (e) => {
     e.preventDefault();
+    //await db.collection("posts").add({ tag: tagItem, createdAt: Date.now() });
+    //setPost("");
   };
 
   return (
