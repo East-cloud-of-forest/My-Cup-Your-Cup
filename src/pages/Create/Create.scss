@@ -1,5 +1,5 @@
 .cre_color{
-    border: solid black 1px;
+    border: solid black 2px;
     height: 30px;
     width: 30px;
     border-radius: 50%;
@@ -58,8 +58,8 @@
 
 .cre_edit2{
     position: absolute;
-    top: 25%;
-    left: 85%;
+    top: 28%;
+    left: 84.5%;
 }
 
 .cre_editdiv2{
@@ -129,6 +129,9 @@
     background-color: white;
     border-radius: 50%;
     margin: 0 0 10px 0;
+    border: 2px solid #60ab90;
+    color: #60ab90;
+    opacity: 0.9;
 }
 
 .cre_layer_div{
