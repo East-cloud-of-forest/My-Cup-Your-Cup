@@ -1,7 +1,6 @@
 import { ButtonComp } from '../index-comp/IndexComp'
 
 function BrandButton({children, src, color}) {
-  console.log(color)
   return (
     <div>
       <ButtonComp

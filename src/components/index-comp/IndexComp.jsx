@@ -10,7 +10,7 @@ import { Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, tile, color } = props;
+  const { children, size, icon, style, block, tile, color, onClick } = props;
   const [ripples, setRipples] = useState([]);
   useEffect(() => {
     if (ripples.length > 0) {
@@ -56,6 +56,7 @@ export const ButtonComp = (props) => {
       )}
       onClick={(e) => {
         clickanimation(e);
+        onClick()
       }}
     >
       <span>{children}</span>
