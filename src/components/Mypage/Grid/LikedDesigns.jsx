@@ -45,7 +45,7 @@ export default function LikedDesigns() {
                 }
                 imageSRC={image.src}
               >
-                <img src={image.src} />
+                <img src={image.src} style={{ width: "200px", aspectRation: "1", marginBottom: "10px"}}/>
               </ModalComp>
             </Col>
           ))}
