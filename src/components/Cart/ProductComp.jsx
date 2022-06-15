@@ -1,15 +1,22 @@
 import './ProductComp.scss'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
 
 function ProductComp() {
+    const [ quantity, setQuantity ] = useState(1);
+    const [ price, setPrice ] = useState(15000);
+    let formatter = new Intl.NumberFormat('ko-KR', {
+        style: 'currency',
+        currency: 'KRW',
+    });
+
     return (
         <div className="product-container">
-            
+
                 {/* 임시 체크박스 수정할 것 */}
-            <input id='itemCheckbox' type="checkbox"></input>
+            <input id='itemCheckbox' type="checkbox" ></input>
             <img src='https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg' alt='product-preview'></img>
             <div className='product-text'>
                 <h4 className='product-title'>Product Title</h4>
@@ -17,27 +24,35 @@ function ProductComp() {
 
                 <div className="product-quantity">
                         <ButtonComp icon>
-                            <FontAwesomeIcon icon={solid("minus")} />
+                            <FontAwesomeIcon icon={solid("minus")} onClick={() => {
+                                setQuantity(quantity - 1);
+                            }}/>
                         </ButtonComp>
-                        <input id="qtyForm" type="text" required />{/* input form으로 바꿀것 */}
+                        <input id="qtyForm" type="number" required placeholder={quantity} min="1"/>
                         <ButtonComp icon>
-                            <FontAwesomeIcon icon={solid("plus")} />
+                            <FontAwesomeIcon icon={solid("plus")} onClick={() => {
+                                setQuantity(quantity + 1);
+                            }}/>
                         </ButtonComp>
                     
                 </div>
             </div>
-
             <div className='mdButtons'>
-                <ButtonComp icon>
-                    <FontAwesomeIcon icon={solid("pen-to-square")} />
-                </ButtonComp>
-                <ButtonComp icon>
-                    <FontAwesomeIcon icon={solid("trash-can")} />
-                </ButtonComp>
+                    <ButtonComp icon>
+                        <FontAwesomeIcon icon={solid("pen-to-square")} />
+                    </ButtonComp>
+                    <ButtonComp icon>
+                        <FontAwesomeIcon icon={solid("trash-can")} />
+                    </ButtonComp>
             </div>
-            
-            <p className='product-price'>80,000 원</p>
-            
+                
+            {/* 
+                quantity 증가될때 가격도 같이 올라가도록 설정하기 
+
+                
+            */}
+            <p className='product-price'>{ formatter.format(price) }</p>
+                
         </div>
     );
 }
