@@ -65,6 +65,10 @@ export const ButtonComp = (props) => {
   );
 };
 
+ButtonComp.defaultProps = {
+  onClick: function(){}
+}
+
 // 슬라이드 컴포넌트
 export const SliderComp = ({
   dots,
