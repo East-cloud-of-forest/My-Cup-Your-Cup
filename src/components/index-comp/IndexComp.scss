@@ -31,32 +31,18 @@ $facebook: #475a96;
     position: absolute;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    animation: if($type == "icon", buttonanimaicon, buttonanima) 0.6s linear;
+    animation: buttonanima 0.6s linear;
     pointer-events: none;
+    aspect-ratio: 1 / 1;
   }
 
   @keyframes buttonanima {
     0% {
       width: 0;
-      height: 0;
       opacity: 0.5;
     }
     100% {
-      width: 500px;
-      height: 500px;
-      opacity: 0;
-    }
-  }
-
-  @keyframes buttonanimaicon {
-    0% {
-      width: 0;
-      height: 0;
-      opacity: 0.5;
-    }
-    100% {
-      width: 200px;
-      height: 200px;
+      width: 400%;
       opacity: 0;
     }
   }
@@ -108,6 +94,7 @@ $facebook: #475a96;
     border-radius: 50%;
     height: inherit;
     box-shadow: none;
+    aspect-ratio: 1 / 1;
 
     &:hover {
       background-color: darken(white, 10%);
@@ -199,6 +186,7 @@ $facebook: #475a96;
     margin-right: 1rem;
     #username {
       font-weight: bold;
+      display: block;
     }
     #intro {
       margin-top: -0.1rem;
@@ -299,47 +287,45 @@ $facebook: #475a96;
   .write_title {
     border-style: none;
     border-bottom: 2px solid black;
+    padding: 12px;
   }
 
-  .hashtag_box {
+  .tag_container {
     display: flex;
-    flex-wrap: wrap;
     border-bottom: 2px solid black;
+    color: black;
   }
 
-  .write_hashtag {
-    display: inline-flex;
-    max-width: 200px;
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: text;
-  }
   input:focus {
     outline: none;
   }
 
-  .hashtag_item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 5px;
-    padding: 5px;
-    border: 1px solid #9dfad9;
-    border-radius: 5px;
-    font-size: 13px;
+  .tag_container input {
+    border: none;
+    padding: 12px;
+    padding-left: 12px;
   }
 
-  .hashtag_btn {
+  .tag {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 15px;
-    height: 15px;
-    margin-left: 5px;
-    background-color: white;
-    border-style: hidden;
-    border-radius: 50%;
+    margin: 7px 0;
+    margin-right: 10px;
+    padding: 0 15px;
+    border: 1px solid #9dfad9;
+    border-radius: 28px;
+    background-color: #9dfad9;
+    white-space: nowrap;
+    color: black;
+    font-weight: bold;
+  }
+
+  .tag button {
+    display: flex;
+    padding: 6px;
+    border: none;
+    background-color: unset;
+    cursor: pointer;
     color: black;
     font-weight: bold;
   }

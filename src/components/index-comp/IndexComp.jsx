@@ -10,7 +10,7 @@ import { Modal } from "react-bootstrap";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, tile, color } = props;
+  const { children, size, icon, style, block, tile, color, onClick } = props;
   const [ripples, setRipples] = useState([]);
   useEffect(() => {
     if (ripples.length > 0) {
@@ -56,6 +56,7 @@ export const ButtonComp = (props) => {
       )}
       onClick={(e) => {
         clickanimation(e);
+        onClick()
       }}
     >
       <span>{children}</span>
@@ -63,6 +64,10 @@ export const ButtonComp = (props) => {
     </button>
   );
 };
+
+ButtonComp.defaultProps = {
+  onClick: function(){}
+}
 
 // 슬라이드 컴포넌트
 export const SliderComp = ({
@@ -291,80 +296,80 @@ export const WriteFormComp = (props) => {
   const rating = [1, 2, 3, 4, 5];
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
+  const [post, setPost] = useState("");
 
-  const onKeyPress = (e) => {
-    e.preventDefault();
-    if (e.target.value.length !== 0 && e.key === "Enter") {
-      submitTagItem();
+  const onChange = (e) => {
+    const { value } = e.target;
+    setTagItem(value);
+  };
+
+  const onKeyDown = (e) => {
+    const { key } = e;
+    const trimmedInput = tagItem.trim();
+
+    if (
+      key === "Enter" &&
+      trimmedInput.length &&
+      !tagList.includes(trimmedInput)
+    ) {
+      e.preventDefault();
+      setTagList((prevState) => [...prevState, trimmedInput]);
+      setTagItem("");
+    }
+
+    if (key === "Backspace" && !tagItem.length && tagList.length) {
+      e.preventDefault();
+      const tagListCopy = [...tagList];
+      const poppedTag = tagListCopy.pop();
+
+      setTagList(tagListCopy);
+      setTagItem(poppedTag);
     }
   };
 
-  const submitTagItem = () => {
-    let updatedTagList = [...tagList];
-    updatedTagList.push(tagItem);
-    setTagList(updatedTagList);
-    setTagItem("");
+  const deleteTagItem = (index) => {
+    setTagList((prevState) => prevState.filter((tag, i) => i !== index));
   };
 
-  /**
-   * const deleteTagItem = (e) => {
-    const deleteTagItem = e.target.parentElement.firstChild.innerText;
-    const filteredTagList = tagList.filter(
-      (tagItem) => tagItem !== deleteTagItem
-    );
-    setTagList(filteredTagList);
-  };
-   */
-  const onRemove = (index) => {
-    const newTagList = tagList.filter((tagitem) => tagitem.index !== index);
-    setTagList(newTagList);
+  const preventSubmit = async (e) => {
+    e.preventDefault();
+    //await db.collection("posts").add({ tag: tagItem, createdAt: Date.now() });
+    //setPost("");
   };
 
   return (
     <div className={classNames("write_form", review ? "review" : "design")}>
-      <form>
+      <form onSubmit={preventSubmit}>
         <h1>{title}</h1>
         <br />
         <input
           className="write_title"
           type="search"
           placeholder="제목을 작성해 주세요"
-          size="50"
+          size="54"
         />{" "}
         <br />
         <br />
-        <div>
-          <div className="hashtag_box">
-            {tagList.map((tagItem, index) => {
-              return (
-                <div className="hashtag_item" key={index}>
-                  #{tagItem}{" "}
-                  <button
-                    onClick={() => {
-                      onRemove(index);
-                    }}
-                    className="hashtag_btn"
-                  >
-                    X
-                  </button>
-                </div>
-              );
-            })}
-            <input
-              className="write_hashtag"
-              type="search"
-              placeholder="#태그를 작성해 주세요"
-              tabIndex={2}
-              onChange={(e) => setTagItem(e.target.value)}
-              value={tagItem}
-              onKeyPress={onKeyPress}
-              size="50"
-            />
-          </div>
+        {/** 해시태그 기능 */}
+        <div className="tag_container">
+          {tagList.map((tag, index) => (
+            <div className="tag">
+              {tag}
+              <button onClick={() => deleteTagItem(index)}>x</button>
+            </div>
+          ))}
+          <input
+            className="tag_input"
+            value={tagItem}
+            placeholder="태그를 작성해 주세요"
+            onKeyDown={onKeyDown}
+            onChange={onChange}
+            size="53"
+          />
         </div>
         <br />
         <br />
-        <textarea cols="52" rows="10" placeholder={placeholder}></textarea>{" "}
+        <textarea cols="57" rows="10" placeholder={placeholder}></textarea>{" "}
         {/** 리뷰 폼 */}
         <div className="review">
           <ButtonComp
