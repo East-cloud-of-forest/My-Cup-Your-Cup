@@ -56,13 +56,13 @@ const LoginMainPage = () => {
                 <span className="icon">
                   <FontAwesomeIcon icon={regular('user')} />
                 </span>
-                <input placeholder="아이디을 입력하세요" type="text" />
+                <input placeholder="아이디을 입력해주세요" type="text" />
               </div>
               <div className="Loginlogin_input_wrap password_wrap">
                 <span className="icon">
                   <FontAwesomeIcon icon={solid('unlock-keyhole')} />
                 </span>
-                <input placeholder="비밀번호를 입력하세요" type="password" />
+                <input placeholder="비밀번호를 입력해주세요" type="password" />
               </div>
               <section className="Loginforget_account_p caption">
                 <button className="Loginforget_account_a" onClick={openWindow}>
@@ -74,9 +74,9 @@ const LoginMainPage = () => {
                 >
                   비밀번호 찾기
                 </button>
-                <a href="Join" className="Loginforget_account_a">
+                <Link to="/agree" className="Loginforget_account_a">
                   회원가입
-                </a>
+                </Link>
               </section>
               <SearchID open={searchID} close={closeWindow} />
               <SearchPassword open={searchPassword} close={closeWindowPS} />

@@ -15,12 +15,12 @@ import Cart from "./pages/Cart/Cart";
 import ReviewWriteForm from "./pages/Review/ReviewWriteForm";
 import CreateDesignUploadForm from "./pages/Create/CreateDesignUploadForm";
 import SearchResultComp from "./components/SearchComp/SearchResultComp";
-
 import FaqPage from "./pages/QnA/FaqPage";
 import MyQuastion from "./pages/QnA/MyQuastion";
 import Ask from "./pages/QnA/Ask";
 import Design from "./pages/Design/Design";
 import { DataProvider } from "./modules/cupInfo";
+import Agreement from "./pages/Agreement/Agreement";
 
 function App() {
   const location = useLocation()
@@ -48,7 +48,7 @@ function App() {
           <Route path="/create/write" element={<CreateDesignUploadForm />} />
           <Route path="/login" element={<LoginMain />} />
           <Route path="/join" element={<JoinUser />} />
-
+          <Route path="/agree" element={<Agreement />} />
           <Route path="/QnAmenu" element={<QnAmenu />} />
           <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
           <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
