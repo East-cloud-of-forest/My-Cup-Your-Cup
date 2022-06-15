@@ -4,11 +4,8 @@
   justify-content: space-between;
   border-bottom: 1px solid grey;
 
-  & h1 {
-    width: 15%;
-  }
   & nav {
-    width: 70%;
+    flex: 10;
 
     &#App_nav ul {
       display: flex;
@@ -94,8 +91,6 @@
   }
 
   & #App_subnav {
-    min-width: 15%;
-
     & #main_subnav {
       display: flex;
       justify-content: space-evenly;

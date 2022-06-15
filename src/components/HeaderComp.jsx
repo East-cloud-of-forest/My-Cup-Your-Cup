@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
-  const a = ["주문제작"];
-  console.log(a[0][0]);
   const navlink = [
     {
       name: "주문제작",
@@ -50,19 +48,19 @@ const Header = () => {
         <ul id="main_subnav" className="caption">
           <li>
             <Link to="/search">
-              <ButtonComp icon>
+              <ButtonComp icon style={{width:"45px"}}>
                 <FontAwesomeIcon icon={solid("magnifying-glass")} size="2x" />
               </ButtonComp>
             </Link>
           </li>
           <li>
-            <ButtonComp icon>
+            <ButtonComp icon style={{width:"45px"}}>
               <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
             </ButtonComp>
           </li>
           <li>
-            <Link to="/Login">
-              <ButtonComp icon>
+            <Link to="/login">
+              <ButtonComp icon style={{width:"45px"}}>
                 <FontAwesomeIcon icon={solid("user")} size="2x" />
               </ButtonComp>
             </Link>
