@@ -4,24 +4,22 @@ import ReviewModalComp from "../../components/Review/grid/ReviewModalComp";
 import { ButtonComp, Pagination } from "../../components/index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+import ReviewModalContainer from "../../containers/Review/ReviewModalContainer";
 
 const ReviewPage = () => {
-  const reviewgrid = [
-    { id: 1, name: "dd" },
-    { id: 2, name: "dd" },
-    { id: 3, name: "dd" },
-    { id: 4, name: "dd" },
-  ];
+  const navigate = useNavigate();
+  const goReviewWrite = () => {
+    navigate("/review/write");
+  };
   return (
     <div>
       <h1>포토리뷰</h1>
       <Container fluid>
         <Row>
-          {reviewgrid.map((r, id) => (
-            <Col md="3" sm="6" xs="6">
-              <ReviewModalComp r={r} key={id}></ReviewModalComp>
-            </Col>
-          ))}
+          <Col md="3" sm="6" xs="6">
+            <ReviewModalContainer />
+          </Col>
         </Row>
       </Container>
       <br />
@@ -30,7 +28,7 @@ const ReviewPage = () => {
       <ButtonComp
         icon
         style={{ display: "inline", float: "right" }}
-        onClick={() => {}}
+        onClick={goReviewWrite}
       >
         <FontAwesomeIcon icon={solid("circle-plus")} size="2x" />
       </ButtonComp>

@@ -18,9 +18,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
 // cloud Firestore 초기화
-export const db = getFirestore(app);
+const dbService = getFirestore();
 
 const analytics = getAnalytics(app);
+
+export { app, dbService };
