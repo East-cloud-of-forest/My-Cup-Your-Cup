@@ -59,7 +59,7 @@ const Header = () => {
             </ButtonComp>
           </li>
           <li>
-            <Link to="/login">
+            <Link to="/enteruser/login">
               <ButtonComp icon style={{width:"45px"}}>
                 <FontAwesomeIcon icon={solid("user")} size="2x" />
               </ButtonComp>

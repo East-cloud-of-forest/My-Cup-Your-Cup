@@ -4,8 +4,8 @@ import HomeComp from "./pages/Home/Home";
 import Header from "./components/HeaderComp";
 import Footer from "./components/FooterComp";
 import Mypage from "./pages/MyPage/Mypage";
-import LoginMain from "./pages/Login/LoginMain";
-import JoinUser from "./pages/Join/JoinUser";
+import LoginMain from "./pages/EnterUser/Login/LoginMain";
+import JoinUser from "./pages/EnterUser/Join/JoinUser";
 import QnAmenu from "./pages/QnA/QnAmenu";
 import Review from "./pages/Review/Review";
 import CreatePage from "./pages/Create/CreatePage";
@@ -20,13 +20,16 @@ import MyQuastion from "./pages/QnA/MyQuastion";
 import Ask from "./pages/QnA/Ask";
 import Design from "./pages/Design/Design";
 import { DataProvider } from "./modules/cupInfo";
-import Agreement from "./pages/Agreement/Agreement";
+import EnterUser from "./pages/EnterUser/EnterUser";
+import Agreement from "./pages/EnterUser/Agreement/Agreement";
 
 function App() {
   const location = useLocation();
   const hideHeader = (location) => {
     switch (location) {
-      case "/login":
+      case "/enteruser/login":
+      case "/enteruser/agree":
+      case "/enteruser/join":
         return false;
       default:
         return true;
@@ -45,9 +48,11 @@ function App() {
           <Route path="/review/write" element={<ReviewWriteForm />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/create/write" element={<CreateDesignUploadForm />} />
-          <Route path="/login" element={<LoginMain />} />
-          <Route path="/join" element={<JoinUser />} />
-          <Route path="/agree" element={<Agreement />} />
+          <Route path="/enteruser" element={<EnterUser />} >
+            <Route path="/enteruser/login" element={<LoginMain />} />
+            <Route path="/enteruser/join" element={<JoinUser />} />
+            <Route path="/enteruser/agree" element={<Agreement />} />
+          </Route>
           <Route path="/QnAmenu" element={<QnAmenu />} />
           <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
           <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
