@@ -21,17 +21,29 @@ const CreatePage =() =>{
         }
     }
     
-    //재질 prop 받아오는 함수
+    //재질 props 받아오는 함수
     const [material,setMaterial] = useState("")
     
     const getTypeData = (material) =>{
         setMaterial(material);
     };
-
+    
     //컬러 props
-    const [colorData,setColorData] = useState("");
+    const [colorData,setColorData] = useState("#FFFFFF");
     const getColorData = (colorData) =>{
         setColorData(colorData);
+    }
+    
+
+    //상품명과 색상명 props 받아오는 함수
+    const [productName,setProductName] =useState("상품명");
+    const getProductName = (productName) =>{
+        setProductName(productName)
+    }
+    
+    const [colorName,setColorName] =useState("흰색");
+    const getColorName = (colorName) =>{
+        setColorName(colorName)
     }
 
     //아코디언 버튼
@@ -65,13 +77,31 @@ const CreatePage =() =>{
     //아코디언 내용 변경
     const [tumType,setTumType] = useState("");
 
-    const [pic,setPic] = useState("1")
+    const [pic,setPic] = useState("1");
+
+    //텀블러 변경 및 텀블러 이름값 가져오기
+    const [tumShape,setTumShape]= useState("");
 
     const changeTum=(e)=>{
-        setPic(e.currentTarget.id)
+        setPic(e.currentTarget.id);
         // console.log(e.target)
         // console.log(e.currentTarget)
+        switch (e.currentTarget.id.split("_")[1]) {
+            case "1":
+                setTumShape("기본형");
+                break;
+            case "2":
+                setTumShape("원통형");
+                break;
+            case "3":
+                setTumShape("컵형");
+                break;
+            default:
+                setTumShape("")
+                break;
+        }
     }
+
 
     useEffect(()=>{
         if(material==="pla"){
@@ -79,11 +109,11 @@ const CreatePage =() =>{
                 <div className="cre_acc_display" ref={childRef}>
                     <div className="cre_acc_icon" id="pla_1" onClick={changeTum}>
                         <FontAwesomeIcon icon={fa1} className="cre_icon2" />
-                        플라스틱1
+                        기본형
                     </div>
                     <div className="cre_acc_icon" id="pla_2" onClick={changeTum}>
                         <FontAwesomeIcon icon={fa2} className="cre_icon2" />
-                        플라스틱2
+                        원통형
                     </div>
                 </div>
             );
@@ -93,23 +123,24 @@ const CreatePage =() =>{
                 <div className="cre_acc_display" ref={childRef}>
                     <div className="cre_acc_icon" id="stain_1" onClick={changeTum}>
                         <FontAwesomeIcon icon={fa1} className="cre_icon2" />
-                        스테인리스1
+                        기본형
                     </div>
                     <div className="cre_acc_icon" id="stain_2" onClick={changeTum}>
                         <FontAwesomeIcon icon={fa2} className="cre_icon2" />
-                        스테인리스2
+                        원통형
                     </div>
                     <div className="cre_acc_icon" id="stain_3" onClick={changeTum}>
                         <FontAwesomeIcon icon={fa3} className="cre_icon2" />
-                        스테인리스3
+                        컵형
                     </div>
                 </div>
             );
-            setPic("stain_1")
+            setPic("stain_1");
         }else{
-            setTumType("")
-        }
-    },[material])
+            setTumType("");
+            setPic("1");
+        };
+    },[material]);
 
     //메인이미지 선언
     const optimg = require(`../../components/createcomp/img/${pic}.png`)
@@ -205,15 +236,16 @@ const CreatePage =() =>{
 
 
             <div className="cre_opt">
-                <h2>상품명</h2>
+                <h2>{productName}</h2>
+                <h2>{tumShape}</h2>
 
-                <p>색이름</p>
+                <p>{colorName}</p>
 
                 <div className="cre_colorDiv">
-                    <ColorComp colorData={colorData} getColorData={getColorData} />
+                    <ColorComp getColorName={getColorName} getColorData={getColorData} />
                 </div>
 
-                <SelectComp material={material} getTypeData={getTypeData}/>
+                <SelectComp getProductName={getProductName} material={material} getTypeData={getTypeData}/>
 
                 <div id="btn">
                     <ButtonComp>미리보기</ButtonComp>
