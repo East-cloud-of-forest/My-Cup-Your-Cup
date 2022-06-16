@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import queryString from 'query-string'
 
 import "../Join/JoinUser.scss";
 
@@ -7,6 +8,10 @@ import {Logo} from "../../components/index-comp/IndexComp"
 
 
 const JoinPage = () => {
+  const {search} = useLocation()
+  const agreeObj = queryString.parse(search)
+  console.log(agreeObj)
+
   return (
 
 <main className="JoinMain">

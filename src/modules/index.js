@@ -10,4 +10,5 @@ const rootReducer = combineReducers({
   boardReducer,
 });
 
+
 export default rootReducer;
