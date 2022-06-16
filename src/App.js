@@ -7,7 +7,7 @@ import Mypage from "./pages/MyPage/Mypage";
 import LoginMain from "./pages/Login/LoginMain";
 import JoinUser from "./pages/Join/JoinUser";
 import QnAmenu from "./pages/QnA/QnAmenu";
-import ReviewComp from "./pages/Review/Review";
+import Review from "./pages/Review/Review";
 import CreatePage from "./pages/Create/CreatePage";
 import PayPage from "./pages/Pay/PayPage";
 import Search from "./pages/Search/Search";
@@ -23,26 +23,25 @@ import { DataProvider } from "./modules/cupInfo";
 import Agreement from "./pages/Agreement/Agreement";
 
 function App() {
-  const location = useLocation()
+  const location = useLocation();
   const hideHeader = (location) => {
     switch (location) {
-      case '/login' :
-        return false
-      default : return true
+      case "/login":
+        return false;
+      default:
+        return true;
     }
-  }
+  };
   return (
     <div className="App">
-      {
-        hideHeader(location.pathname) ? <Header /> : null
-      }
+      {hideHeader(location.pathname) ? <Header /> : null}
       <main>
         <DataProvider>
         <Routes>
           <Route index element={<HomeComp />} />
           <Route path="/design" element={<Design />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/review" element={<ReviewComp />} />
+          <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/create/write" element={<CreateDesignUploadForm />} />
@@ -62,9 +61,7 @@ function App() {
         </Routes>
         </DataProvider>
       </main>
-      {
-        hideHeader(location.pathname) ? <Footer />: null
-      }
+      {hideHeader(location.pathname) ? <Footer /> : null}
     </div>
   );
 }

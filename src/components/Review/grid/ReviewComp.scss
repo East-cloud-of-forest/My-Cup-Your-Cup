@@ -1,33 +1,13 @@
-.row {
-  margin-right: 35px;
-}
-
 #review_card {
   min-width: 300px;
+  margin-right: 30px;
+  margin-bottom: 45px;
   .card-img-top {
     height: 170px;
-  }
-  .card-title {
-    margin-top: -20px;
-  }
-}
-
-.review_image {
-  display: flex;
-  justify-content: space-around;
-
-  .review_preview {
-    height: 200px;
     width: 300px;
   }
-}
-
-.review_title {
-  position: right;
-}
-
-.heart_btn {
-  text-align: right;
-  border: none;
-  background-color: inherit;
+  .card-title {
+    display: flex;
+    justify-content: space-between;
+  }
 }

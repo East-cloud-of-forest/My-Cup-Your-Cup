@@ -11,7 +11,7 @@ $facebook: #475a96;
 @mixin button($color) {
   background-color: $color;
 
-  @if($color == $facebook) {
+  @if ($color == $facebook) {
     &:hover {
       opacity: 0.8;
       transition: opacity, 0.3s;
@@ -294,6 +294,8 @@ $facebook: #475a96;
     display: flex;
     border-bottom: 2px solid black;
     color: black;
+    flex-wrap: wrap;
+    width: 454px;
   }
 
   input:focus {
@@ -304,6 +306,7 @@ $facebook: #475a96;
     border: none;
     padding: 12px;
     padding-left: 12px;
+    min-width: 200px;
   }
 
   .tag {
@@ -339,12 +342,6 @@ $facebook: #475a96;
       height: 80px;
       width: 80px;
       background-color: gray;
-    }
-
-    .rating_star {
-      padding-top: 5px;
-      color: lightgray;
-      cursor: pointer;
     }
   }
 

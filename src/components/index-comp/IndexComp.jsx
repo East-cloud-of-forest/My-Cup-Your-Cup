@@ -7,6 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Modal } from "react-bootstrap";
+import StarComp from "../Review/star/StarComp";
+import { useNavigate } from "react-router-dom";
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -56,7 +58,7 @@ export const ButtonComp = (props) => {
       )}
       onClick={(e) => {
         clickanimation(e);
-        onClick()
+        onClick();
       }}
     >
       <span>{children}</span>
@@ -66,8 +68,8 @@ export const ButtonComp = (props) => {
 };
 
 ButtonComp.defaultProps = {
-  onClick: function(){}
-}
+  onClick: function () {},
+};
 
 // 슬라이드 컴포넌트
 export const SliderComp = ({
@@ -293,10 +295,13 @@ export const ModalComp = ({
 // 글쓰기 폼 컴포넌트
 export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props;
-  const rating = [1, 2, 3, 4, 5];
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
-  const [post, setPost] = useState("");
+  //const [post, setPost] = useState("");
 
   const onChange = (e) => {
     const { value } = e.target;
@@ -331,7 +336,7 @@ export const WriteFormComp = (props) => {
     setTagList((prevState) => prevState.filter((tag, i) => i !== index));
   };
 
-  const preventSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     //await db.collection("posts").add({ tag: tagItem, createdAt: Date.now() });
     //setPost("");
@@ -339,7 +344,7 @@ export const WriteFormComp = (props) => {
 
   return (
     <div className={classNames("write_form", review ? "review" : "design")}>
-      <form onSubmit={preventSubmit}>
+      <form onSubmit={onSubmit}>
         <h1>{title}</h1>
         <br />
         <input
@@ -364,7 +369,6 @@ export const WriteFormComp = (props) => {
             placeholder="태그를 작성해 주세요"
             onKeyDown={onKeyDown}
             onChange={onChange}
-            size="53"
           />
         </div>
         <br />
@@ -437,18 +441,7 @@ export const WriteFormComp = (props) => {
           <br />
           <br />
           <p>
-            {rating.map((s) => (
-              <FontAwesomeIcon
-                key={s}
-                icon={solid("star")}
-                size="2x"
-                style={{
-                  color: "lightgray",
-                  cursor: "pointer",
-                  paddingTop: "5px",
-                }}
-              />
-            ))}
+            <StarComp />
           </p>
         </div>
         {/** 디자인업로드 폼 */}
@@ -462,7 +455,12 @@ export const WriteFormComp = (props) => {
         <ButtonComp type="submit" style={{ float: "right" }} color="brown">
           작성
         </ButtonComp>
-        <ButtonComp type="submit" style={{ float: "right" }} color="brown">
+        <ButtonComp
+          type="submit"
+          style={{ float: "right" }}
+          color="brown"
+          onClick={goBack}
+        >
           취소
         </ButtonComp>
       </form>
