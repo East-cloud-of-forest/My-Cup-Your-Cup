@@ -1,39 +1,35 @@
-import { ButtonComp } from "../../index-comp/IndexComp";
 import "./ReviewComp.scss";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Container } from "react-bootstrap";
 
-const ReviewComp = () => {
+const ReviewComp = ({ boardImage, boardTitle, boardRating }) => {
   const [number, setNumber] = useState(0);
 
   return (
-    <Row xs={2} md={1} className="g-4">
-      {Array.from({ length: 1 }).map((_, idx) => (
-        <Col>
+    <Container fluid="xs">
+      <Row>
+        <Col md="12" sm="6" xs="6">
           <Card id="review_card">
-            <Card.Img
-              variant="top"
-              src="https://cdn.pixabay.com/photo/2022/02/10/03/04/tumbler-7004528_960_720.jpg"
-            />
+            <Card.Img variant="top" src={boardImage} />
             <Card.Body>
               <Card.Title>
-                고객이 올린 리뷰 제목
-                <ButtonComp icon style={{ display: "inline" }}>
+                {boardTitle}
+                <div className="heart_span">
                   <FontAwesomeIcon icon={solid("heart")} size="x" />
                   <span>{number}</span>
-                </ButtonComp>
+                </div>
               </Card.Title>
-              <Card.Text>★★★★★</Card.Text>
+              <Card.Text>{boardRating}</Card.Text>
             </Card.Body>
             <Card.Footer>
               <small className="text-muted">조회수 0000회 2022-06-07</small>
             </Card.Footer>
           </Card>
         </Col>
-      ))}
-    </Row>
+      </Row>
+    </Container>
   );
 };
 export default ReviewComp;

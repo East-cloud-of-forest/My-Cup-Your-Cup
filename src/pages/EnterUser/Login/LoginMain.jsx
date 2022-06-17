@@ -1,23 +1,17 @@
 import { React, useState } from 'react'
 import { Link } from 'react-router-dom'
-import '../Login/LoginMain.scss'
-
-import BrandButton from '../../components/Login/BrandButton'
-
-import SearchID from '../../components/Login/SearchID/SearchID'
-import SearchPassword from '../../components/Login/SearchPassword/SearchPassword'
-import { ButtonComp, Logo } from '../../components/index-comp/IndexComp'
-
+import './LoginMain.scss'
+import BrandButton from '../../../components/Login/BrandButton'
+import SearchID from '../../../components/Login/SearchID/SearchID'
+import SearchPassword from '../../../components/Login/SearchPassword/SearchPassword'
+import { ButtonComp } from '../../../components/index-comp/IndexComp'
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import Googlelogo from '../../components/Login/img/googleicon.svg'
-import Facebooklogo from '../../components/Login/img/facebookicon.svg'
+import Googlelogo from '../../../components/Login/img/googleicon.svg'
+import Facebooklogo from '../../../components/Login/img/facebookicon.svg'
 
 const LoginMainPage = () => {
-  {
     /*아이디찾기 모달창 기능*/
-  }
   const [searchID, setSearchID] = useState(false)
 
   const openWindow = () => {
@@ -28,9 +22,7 @@ const LoginMainPage = () => {
     setSearchID(false)
   }
 
-  {
     /*아이디찾기 모달창 기능*/
-  }
   const [searchPassword, setSearchPassword] = useState(false)
 
   const openWindowPS = () => {
@@ -46,11 +38,6 @@ const LoginMainPage = () => {
       <div>
         <div className="Loginmain_container">
           <div className="Loginmain_wrap">
-            <div className="Loginlogo_wrap">
-              <Link to="/">
-                <Logo style={{ width: '200px' }} />
-              </Link>
-            </div>
             <section className="Loginlogin_input_section_wrap">
               <div className="Loginlogin_input_wrap">
                 <span className="icon">
@@ -74,7 +61,7 @@ const LoginMainPage = () => {
                 >
                   비밀번호 찾기
                 </button>
-                <Link to="/agree" className="Loginforget_account_a">
+                <Link to="/enteruser/agree" className="Loginforget_account_a">
                   회원가입
                 </Link>
               </section>

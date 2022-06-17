@@ -59,7 +59,7 @@ const SelectComp = ({material, getTypeData, getProductName, onPaymentClick}) => 
     const summa =  parseInt(metSelect)+parseInt(sizeSelect)+parseInt(strawSelect)
 
     const aaa = () => {
-        //setCupInfo({...cupInfo,material: setTumMetType, size:tumSizeName , strow:tumSizeType , price: summa})
+        setCupInfo({...cupInfo,material: setTumMetType, size:tumSizeName , strow:tumSizeType , price: summa})
         console.log(cupInfo)
     }
 
