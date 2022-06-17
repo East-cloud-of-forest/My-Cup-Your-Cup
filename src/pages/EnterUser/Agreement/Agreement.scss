@@ -123,6 +123,18 @@ $realmint: #d5fff2;
     font-size: 0.85rem;
   }
 
+  & .noagree {
+    color: #ff8888;
+    text-align: center;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 3rem ;
+
+    & p {
+     margin: 0;
+    }
+  }
+
   & .btn_block {
     display: flex;
     justify-content: space-between;

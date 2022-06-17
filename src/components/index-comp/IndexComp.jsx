@@ -1,3 +1,4 @@
+
 import "./IndexComp.scss";
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
@@ -15,64 +16,60 @@ import ImageUpload from "../Review/imageUpload/ImageUpload";
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, tile, color, onClick } = props;
-  const [ripples, setRipples] = useState([]);
+  const { children, size, icon, style, block, tile, color, onClick } = props
+  const [ripples, setRipples] = useState([])
   useEffect(() => {
     if (ripples.length > 0) {
       const a = setTimeout(() => {
-        setRipples(ripples.filter((e) => e.id !== ripples.length - 1));
-      }, 600);
-      return () => clearTimeout(a);
+        setRipples(ripples.filter((e) => e.id !== ripples.length - 1))
+      }, 600)
+      return () => clearTimeout(a)
     }
-  }, [ripples]);
+  }, [ripples])
   const clickanimation = (e) => {
-    let x =
-      e.clientX -
-      (window.pageXOffset + e.currentTarget.getBoundingClientRect().left);
-    let y =
-      e.clientY -
-      (window.pageYOffset + e.currentTarget.getBoundingClientRect().top);
+    let x = e.clientX - e.currentTarget.getBoundingClientRect().left
+    let y = e.clientY - e.currentTarget.getBoundingClientRect().top
     let ripple = React.createElement(
-      "span",
+      'span',
       {
-        style: { left: x + "px", top: y + "px" },
+        style: { left: x + 'px', top: y + 'px' },
         key: ripples.length,
-        className: "ripple-span",
+        className: 'ripple-span',
       },
-      null
-    );
+      null,
+    )
     setRipples(
       ripples.concat({
         element: ripple,
         id: ripples.length,
-      })
-    );
-  };
+      }),
+    )
+  }
   return (
     <button
       style={style}
       className={classNames(
-        "button",
+        'button',
         size,
-        icon ? "icon" : "",
-        block ? "block" : "",
-        tile ? "tile" : "",
-        color
+        icon ? 'icon' : '',
+        block ? 'block' : '',
+        tile ? 'tile' : '',
+        color,
       )}
       onClick={(e) => {
-        clickanimation(e);
-        onClick();
+        clickanimation(e)
+        onClick()
       }}
     >
       <span>{children}</span>
       {ripples.map((e) => e.element)}
     </button>
-  );
-};
+  )
+}
 
 ButtonComp.defaultProps = {
   onClick: function () {},
-};
+}
 
 // 슬라이드 컴포넌트
 export const SliderComp = ({
@@ -92,10 +89,10 @@ export const SliderComp = ({
         style={{ ...style }}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={solid("caret-right")} size="3x" />
+        <FontAwesomeIcon icon={solid('caret-right')} size="3x" />
       </div>
-    );
-  };
+    )
+  }
 
   const PrevArrow = ({ style, onClick }) => {
     return (
@@ -104,10 +101,10 @@ export const SliderComp = ({
         style={{ ...style }}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={solid("caret-left")} size="3x" />
+        <FontAwesomeIcon icon={solid('caret-left')} size="3x" />
       </div>
-    );
-  };
+    )
+  }
 
   const settings = {
     dots: dots,
@@ -119,14 +116,14 @@ export const SliderComp = ({
     autoplay: autoplay,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-  };
+  }
 
   return (
     <div>
       <Slider {...settings}>{children}</Slider>
     </div>
-  );
-};
+  )
+}
 
 SliderComp.defaultProps = {
   dots: true,
@@ -136,7 +133,7 @@ SliderComp.defaultProps = {
   slidesToScroll: 1,
   arrows: true,
   autoplay: false,
-};
+}
 
 // 로고 컴포넌트
 export const Logo = ({ style }) => {
@@ -214,19 +211,19 @@ export const Logo = ({ style }) => {
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 // 프로필 컴포넌트
 // 프로필 아이콘으로 사용할때 컴포넌트태그 안에 icon 작성
 export function ProfileComp(props) {
-  const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props;
+  const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props
   return (
     <div
       className={classNames(
-        "profile",
-        icon ? "icon" : "",
-        justName ? "justName" : ""
+        'profile',
+        icon ? 'icon' : '',
+        justName ? 'justName' : '',
       )}
     >
       <div className="image_container">
@@ -246,7 +243,7 @@ export function ProfileComp(props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 // 모달 컴포넌트
@@ -263,10 +260,10 @@ export const ModalComp = ({
   view,
   tag,
 }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <div className="modal-thumb">
@@ -292,14 +289,15 @@ export const ModalComp = ({
         </Modal.Body>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 // 글쓰기 폼 컴포넌트
 export const WriteFormComp = (props) => {
-  const { title, placeholder, review } = props;
-  const navigate = useNavigate();
+  const { title, placeholder, review } = props
+  const navigate = useNavigate()
   const goBack = () => {
+
     navigate(-1);
   };
   const [tagItem, setTagItem] = useState("");
@@ -317,40 +315,42 @@ export const WriteFormComp = (props) => {
 
   const addImage = () => {};
 
+
   const onChange = (e) => {
-    const { value } = e.target;
-    setTagItem(value);
-  };
+    const { value } = e.target
+    setTagItem(value)
+  }
 
   const onKeyDown = (e) => {
-    const { key } = e;
-    const trimmedInput = tagItem.trim();
+    const { key } = e
+    const trimmedInput = tagItem.trim()
 
     if (
-      key === "Enter" &&
+      key === 'Enter' &&
       trimmedInput.length &&
       !tagList.includes(trimmedInput)
     ) {
-      e.preventDefault();
-      setTagList((prevState) => [...prevState, trimmedInput]);
-      setTagItem("");
+      e.preventDefault()
+      setTagList((prevState) => [...prevState, trimmedInput])
+      setTagItem('')
     }
 
-    if (key === "Backspace" && !tagItem.length && tagList.length) {
-      e.preventDefault();
-      const tagListCopy = [...tagList];
-      const poppedTag = tagListCopy.pop();
+    if (key === 'Backspace' && !tagItem.length && tagList.length) {
+      e.preventDefault()
+      const tagListCopy = [...tagList]
+      const poppedTag = tagListCopy.pop()
 
-      setTagList(tagListCopy);
-      setTagItem(poppedTag);
+      setTagList(tagListCopy)
+      setTagItem(poppedTag)
     }
-  };
+  }
 
   const deleteTagItem = (index) => {
-    setTagList((prevState) => prevState.filter((tag, i) => i !== index));
-  };
+    setTagList((prevState) => prevState.filter((tag, i) => i !== index))
+  }
 
   const onSubmit = async (e) => {
+
     e.preventDefault();
     let timeStamp = Date.now();
     await addDoc(collection(dbService, "Test"), {
@@ -366,8 +366,9 @@ export const WriteFormComp = (props) => {
     setPost(value);
   };
 
+
   return (
-    <div className={classNames("write_form", review ? "review" : "design")}>
+    <div className={classNames('write_form', review ? 'review' : 'design')}>
       <form onSubmit={onSubmit}>
         <h1>{title}</h1>
         <br />
@@ -376,7 +377,7 @@ export const WriteFormComp = (props) => {
           type="search"
           placeholder="제목을 작성해 주세요"
           size="54"
-        />{" "}
+        />{' '}
         <br />
         <br />
         {/** 해시태그 기능 */}
@@ -398,6 +399,7 @@ export const WriteFormComp = (props) => {
         </div>
         <br />
         <br />
+
         <textarea
           cols="57"
           rows="10"
@@ -405,6 +407,7 @@ export const WriteFormComp = (props) => {
           value={post}
           onChange={onChangePost}
         ></textarea>{" "}
+
         {/** 리뷰 폼 */}
         <div className="review">
           {/**
@@ -415,14 +418,15 @@ export const WriteFormComp = (props) => {
 
           <ButtonComp
             style={{
-              backgroundColor: "inherit",
-              color: "black",
-              float: "left",
+              backgroundColor: 'inherit',
+              color: 'black',
+              float: 'left',
             }}
           >
             <FontAwesomeIcon icon={solid("plus")} size="2x">
               <input type="file" />
             </FontAwesomeIcon>
+
           </ButtonComp>
            */}
           {/**
@@ -437,9 +441,9 @@ export const WriteFormComp = (props) => {
                 <ButtonComp
                   type="submit"
                   style={{
-                    backgroundColor: "transparent",
-                    color: "black",
-                    position: "absolute",
+                    backgroundColor: 'transparent',
+                    color: 'black',
+                    position: 'absolute',
                     bottom: -20,
                     right: -20,
                   }}
@@ -453,9 +457,9 @@ export const WriteFormComp = (props) => {
                 <ButtonComp
                   type="submit"
                   style={{
-                    backgroundColor: "transparent",
-                    color: "black",
-                    position: "absolute",
+                    backgroundColor: 'transparent',
+                    color: 'black',
+                    position: 'absolute',
                     bottom: -20,
                     right: -20,
                   }}
@@ -469,9 +473,9 @@ export const WriteFormComp = (props) => {
                 <ButtonComp
                   type="submit"
                   style={{
-                    backgroundColor: "transparent",
-                    color: "black",
-                    position: "absolute",
+                    backgroundColor: 'transparent',
+                    color: 'black',
+                    position: 'absolute',
                     bottom: -20,
                     right: -20,
                   }}
@@ -521,11 +525,12 @@ export const WriteFormComp = (props) => {
           color="brown"
           onClick={() => onSubmit}
         >
+
           작성
         </ButtonComp>
         <ButtonComp
           type="submit"
-          style={{ float: "right" }}
+          style={{ float: 'right' }}
           color="brown"
           onClick={goBack}
         >
@@ -533,35 +538,35 @@ export const WriteFormComp = (props) => {
         </ButtonComp>
       </form>
     </div>
-  );
-};
+  )
+}
 
 // 페이지 컴포넌트
 export const Pagination = (props) => {
-  const { total, limit, page, setPage } = props;
-  const numPages = [1, 2, 3, 4]; //Math.ceil(total / limit);
+  const { total, limit, page, setPage } = props
+  const numPages = [1, 2, 3, 4] //Math.ceil(total / limit);
   return (
     <div className="pagination">
       <nav>
-        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
-          <FontAwesomeIcon icon={solid("chevron-left")} />
+        <ButtonComp style={{ backgroundColor: 'transparent', color: 'black' }}>
+          <FontAwesomeIcon icon={solid('chevron-left')} />
         </ButtonComp>
 
         {numPages.fill().map((_, i) => (
           <button
             key={i + 1}
             onClick={() => setPage(i + 1)}
-            aria-current={page === i + 1 ? "page" : null}
-            style={{ border: "none", margin: "7px" }}
+            aria-current={page === i + 1 ? 'page' : null}
+            style={{ border: 'none', margin: '7px' }}
           >
             {i + 1}
           </button>
         ))}
 
-        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
-          <FontAwesomeIcon icon={solid("chevron-right")} />
+        <ButtonComp style={{ backgroundColor: 'transparent', color: 'black' }}>
+          <FontAwesomeIcon icon={solid('chevron-right')} />
         </ButtonComp>
       </nav>
     </div>
-  );
-};
+  )
+}

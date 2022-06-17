@@ -118,6 +118,7 @@ const CreatePage =() =>{
                 </div>
             );
             setPic("pla_1");
+            setTumShape("기본형");
         }else if(material==="stain"){
             setTumType (
                 <div className="cre_acc_display" ref={childRef}>
@@ -136,9 +137,11 @@ const CreatePage =() =>{
                 </div>
             );
             setPic("stain_1");
+            setTumShape("기본형");
         }else{
             setTumType("");
             setPic("1");
+            setTumShape("");
         };
     },[material]);
 

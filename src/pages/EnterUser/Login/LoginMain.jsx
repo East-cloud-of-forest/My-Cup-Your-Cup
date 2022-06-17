@@ -1,23 +1,17 @@
 import { React, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './LoginMain.scss'
-
 import BrandButton from '../../../components/Login/BrandButton'
-
 import SearchID from '../../../components/Login/SearchID/SearchID'
 import SearchPassword from '../../../components/Login/SearchPassword/SearchPassword'
-import { ButtonComp, Logo } from '../../../components/index-comp/IndexComp'
-
+import { ButtonComp } from '../../../components/index-comp/IndexComp'
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import Googlelogo from '../../../components/Login/img/googleicon.svg'
 import Facebooklogo from '../../../components/Login/img/facebookicon.svg'
 
 const LoginMainPage = () => {
-  {
     /*아이디찾기 모달창 기능*/
-  }
   const [searchID, setSearchID] = useState(false)
 
   const openWindow = () => {
@@ -28,9 +22,7 @@ const LoginMainPage = () => {
     setSearchID(false)
   }
 
-  {
     /*아이디찾기 모달창 기능*/
-  }
   const [searchPassword, setSearchPassword] = useState(false)
 
   const openWindowPS = () => {

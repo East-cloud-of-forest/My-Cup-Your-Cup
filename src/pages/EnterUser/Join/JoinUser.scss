@@ -1,182 +1,86 @@
-
-
-
-
-/*홈페이지 로고 이미지*/
-.Joinimage{
-    margin-top: 49px;
-    border: 1px dashed burlywood;
-    border-radius: 20px;
-}
-
-
 /* 회원가입 페이지 전체 디자인*/
-.Joinmain_signup{
-    text-align: center;
-    width: 460px;
-    margin: auto;
-}
+.Joinmain_signup {
+  text-align: center;
+  width: 460px;
+  margin: auto;
 
-/* 모든 input 입력창에 마우스 올리면 포인터 전환*/
-.JoinMain input{
-    cursor: pointer;
-}
-
-/* 모든 제목창 디자인 */
-.Jointext{
-    margin:19px 0px 8px;
+  /* 모든 제목창 디자인 */
+  & .Jointext {
+    margin: 1rem 0px 0.5rem;
     text-align: left;
     font-size: 14px;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
 
-
-/*//////////////////////////////////////////////////////////////////////*/
-
-
-.Joinid_password_input {
-    margin-top: 30px;
-}
-
-/* 아이디, 비밀번호/재확인 입력창 외부 디자인 */
-.Joinsignup_input{
-    display:flex;
+  /* 아이디, 비밀번호/재확인 입력창 외부 디자인 */
+  & .Joinsignup_input,
+  & .JoinphoneNumberSpan {
+    display: flex;
     padding: 10px;
     border: solid 1px #dadada;
-    border-radius: 15px;
+    border-radius: 7px;
     background: #fff;
-    cursor: pointer;
-}
-
-/* 아이디, 비밀번호/재확인 입력창 내부 디자인 */
-.Joinsignup_id, .Joinsignup_pw, .Joinsignup_pww{
-    
-    height: 35px;
-    border: none;
-    outline:none;
     width: 100%;
-    border: solid 1px lightgrey;
-    border-radius: 11px;
+
+    // 입력 창 디자인
+    & input,
+    select {
+      width: 100%;
+      height: 29px;
+      border: none;
+      outline: none;
+    }
+  }
+
+  & .Joinname_birth_gender_email {
+    margin-top: 3rem;
+  
+    & .JoinbirthOption {
+      display: flex;
+      justify-content: space-between;
+  
+      & .Joinsignup_input_birth {
+        display: block;
+        position: relative;
+        width: 31%;
+        height: 51px;
+        border: solid 1px #dadada;
+        padding: 10px;
+        background: #fff;
+        box-sizing: border-box;
+        border-radius: 7px;
+  
+        /* 생년월일 입력창 */
+        & .Joinsignup_birth_yy,
+        & .Joinsignup_birth_mm,
+        & .Joinsignup_birth_dd {
+          width: 113px;
+          height: 29px;
+          border: none;
+          outline: none;
+        }
+      }
+    }
+  }
+  
+  // 휴대전화 입력창
+  & .JoininputPhone {
+    margin-top: 2rem;
+  
+    & .JoinphoneNumberSpan {
+      margin-top: 1rem;
+    }
+  }
+
+  & .btn_box {
+    margin:4rem 0;
+
+    & button {
+        width: 70%;
+        border-radius: 100px;
+    }
+  }
 }
 
-
-
-/*//////////////////////////////////////////////////////////////////////*/
-
-
-.Joinname_birth_gender_email{
-    margin-top: 50px;
-}
-
-/* 이름, 성별, 이메일, 휴대전화 국적/폰번호 입력창*/
-    .Joinsignup_name, .Joinsignup_gender, .Joinsignup_email, .Joinsignup_country {
-    width:100%;
-    height: 29px;
-    border: none;
-    outline:none;
-}
-
-/* 성별 선택창 디자인 */
-.Joinsignup_gender{
-    background-color: white;
-}
-
-.Joinsignup_country{
-    background-color: white;
-}
-
-
-.JoinbirthOption {
-    display: flex;
-}
-
-
-/* 생년월일 입력창 */
-.Joinsignup_input_birth{
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 51px;
-    border: solid 1px #dadada;
-    padding: 10px;
-    background: #fff;
-    box-sizing: border-box;
-    margin-left: 10px;
-}
-.Joinsignup_birth_yy, .Joinsignup_birth_mm, .Joinsignup_birth_dd{
-    width: 113px;
-    height: 29px;
-    border: none;
-    outline:none;
-}
-
-
-
-
-/*본인 확인 이메일 디자인*/
-.Joinchoice{
-    display: flex;
-}
-
-
-
-
-/* /////////////////////////////////////////////////////////////// */
-
-
-
-/* 가입하기 버튼 외부박스 디자인*/
-.Joinsignup_btn_wrap{
-    margin: 31px auto 50px auto;
-    width: 140px;
-    height: 41px;
-    line-height: 39px;
-    border: solid 1px lightblue;
-    border-radius: 50px;
-    background-color:azure;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-
-/* 회원가입 버튼 내부 디자인*/
-.Joinsignup_btn{
-    width:100px;
-    height: 38px;
-    border: none;
-    background-color:azure;
-    font-size: 16px;
-    outline: none;
-    cursor: pointer;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-
-/*//////////////////////////////////////////////////////////////////////*/
-
-
-// 휴대전화 입력창
-.JoininputPhone {
-    margin-top: 35px;
-}
-.JoinphoneNumber {
-    display: flex;
-}
-.JoinphoneNumberSpan {
-    cursor: pointer;
-    display:flex;
-    padding: 10px;
-    border: solid 1px #dadada;
-    border-radius: 15px;
-    background: #fff;
-    width:100%;
-    margin: 10px 0px 0px 0px;
-}
-.Joinsignup_phone {
-    width:100%;
-    height: 29px;
-    border: none;
-    outline:none;
-}
 
