@@ -9,6 +9,9 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Modal } from "react-bootstrap";
 import StarComp from "../Review/star/StarComp";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { dbService } from "../../datasources/firebase";
+import ImageUpload from "../Review/imageUpload/ImageUpload";
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -301,7 +304,18 @@ export const WriteFormComp = (props) => {
   };
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
-  //const [post, setPost] = useState("");
+  const [post, setPost] = useState("");
+  const [reviewWrite, setReviewWrite] = useState([
+    { reviewTitle: "", tagArr: "", content: "", rating: "" },
+  ]);
+
+  const [rating, setRating] = useState("");
+  const getRating = (star) => {
+    setRating(star);
+    console.log(rating);
+  };
+
+  const addImage = () => {};
 
   const onChange = (e) => {
     const { value } = e.target;
@@ -338,8 +352,18 @@ export const WriteFormComp = (props) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    //await db.collection("posts").add({ tag: tagItem, createdAt: Date.now() });
-    //setPost("");
+    let timeStamp = Date.now();
+    await addDoc(collection(dbService, "Test"), {
+      text: post,
+      createdAt: new Date(timeStamp),
+    });
+    setPost("");
+  };
+  const onChangePost = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setPost(value);
   };
 
   return (
@@ -364,6 +388,7 @@ export const WriteFormComp = (props) => {
             </div>
           ))}
           <input
+            type="search"
             className="tag_input"
             value={tagItem}
             placeholder="태그를 작성해 주세요"
@@ -373,9 +398,21 @@ export const WriteFormComp = (props) => {
         </div>
         <br />
         <br />
-        <textarea cols="57" rows="10" placeholder={placeholder}></textarea>{" "}
+        <textarea
+          cols="57"
+          rows="10"
+          placeholder={placeholder}
+          value={post}
+          onChange={onChangePost}
+        ></textarea>{" "}
         {/** 리뷰 폼 */}
         <div className="review">
+          {/**
+           * <input type="file" className="image_input" style={{ display: "hidden" }}>
+            <label htmlFor="file-input">
+              <button></button>
+            </label>          </input>
+
           <ButtonComp
             style={{
               backgroundColor: "inherit",
@@ -383,8 +420,17 @@ export const WriteFormComp = (props) => {
               float: "left",
             }}
           >
-            <FontAwesomeIcon icon={solid("plus")} size="2x" />
+            <FontAwesomeIcon icon={solid("plus")} size="2x">
+              <input type="file" />
+            </FontAwesomeIcon>
           </ButtonComp>
+           */}
+          {/**
+           * <label for="img_file" className="img_label">
+            <FontAwesomeIcon icon={solid("plus")} size="2x"></FontAwesomeIcon>
+          </label>
+          <input type="file" id="img_file" style={{ display: "none" }} />
+
           <ul className="review_user">
             <li>
               <div className="review_user_img">
@@ -434,15 +480,32 @@ export const WriteFormComp = (props) => {
                 </ButtonComp>
               </div>
             </li>
+            <li>
+              <div className="review_user_img">
+                <ButtonComp
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "black",
+                    position: "absolute",
+                    bottom: -20,
+                    right: -20,
+                  }}
+                >
+                  X
+                </ButtonComp>
+              </div>
+            </li>
           </ul>
+           * 
+           */}
+          <ImageUpload />
           <br />
           <br />
           <br />
           <br />
           <br />
-          <p>
-            <StarComp />
-          </p>
+          <StarComp onClick={getRating} />
         </div>
         {/** 디자인업로드 폼 */}
         <div className="design">
@@ -452,7 +515,12 @@ export const WriteFormComp = (props) => {
         </div>
         <br />
         <br />
-        <ButtonComp type="submit" style={{ float: "right" }} color="brown">
+        <ButtonComp
+          type="submit"
+          style={{ float: "right" }}
+          color="brown"
+          onClick={() => onSubmit}
+        >
           작성
         </ButtonComp>
         <ButtonComp

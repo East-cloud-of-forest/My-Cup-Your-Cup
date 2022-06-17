@@ -4,7 +4,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useState } from "react";
 import "./StarComp.scss";
 
-const StarComp = () => {
+const StarComp = ({ onClick }) => {
   const rating = [0, 1, 2, 3, 4];
   const [clicked, setClicked] = useState([false, false, false, false, false]);
 
@@ -34,8 +34,11 @@ const StarComp = () => {
       {rating.map((s) => (
         <button
           key={s}
-          onClick={() => starClicked(s)}
-          className={clicked[s] && "yellowStar"}
+          onClick={() => {
+            starClicked(s);
+            onClick(clicked);
+          }}
+          className={clicked[s] ? "yellowStar" : ""}
         >
           <FontAwesomeIcon icon={solid("star")} size="2x" />
         </button>
