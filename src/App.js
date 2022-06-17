@@ -19,7 +19,6 @@ import FaqPage from "./pages/QnA/FaqPage";
 import MyQuastion from "./pages/QnA/MyQuastion";
 import Ask from "./pages/QnA/Ask";
 import Design from "./pages/Design/Design";
-import { DataProvider } from "./modules/cupInfo";
 import Agreement from "./pages/Agreement/Agreement";
 
 function App() {
@@ -37,7 +36,6 @@ function App() {
         hideHeader(location.pathname) ? <Header /> : null
       }
       <main>
-        <DataProvider>
         <Routes>
           <Route index element={<HomeComp />} />
           <Route path="/design" element={<Design />} />
@@ -60,7 +58,6 @@ function App() {
           </Route>
           <Route path="/cart" element={<Cart />} />
         </Routes>
-        </DataProvider>
       </main>
       {
         hideHeader(location.pathname) ? <Footer />: null

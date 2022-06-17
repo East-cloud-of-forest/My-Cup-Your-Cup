@@ -3,13 +3,10 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
-import { useContext } from 'react';
-import DataContext from '../../modules/cupInfo';
 
-function ProductComp({ title, options, price, image }) {
+function ProductComp({ item, id, onDelete }) {
     const [ quantity, setQuantity ] = useState(1);
-    const data = useContext(DataContext)
-
+    //const totalPrice = data.state.price*quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
         style: 'currency',
         currency: 'KRW',
@@ -25,16 +22,14 @@ function ProductComp({ title, options, price, image }) {
 
     return (
         <div className="product-container">
-
-                {/* 임시 체크박스 수정할 것 */}
             <input id='itemCheckbox' type="checkbox" ></input>
-            <img src='https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg' alt='product-preview'></img>
+            <img src={item.image} alt="product-pic"></img>
             <div className='product-text'>
                 <h4 className='product-title'>Product Title</h4>
                 <p>
-                    재질: {data.state.material}<br/>
-                    용량: {data.state.size}<br/> 
-                    빨대: {data.state.strow}</p>
+                    재질: {item.material}<br/>
+                    용량: {item.size}<br/> 
+                    빨대: {item.strow}</p>
 
                 <div className="product-quantity">
                         <ButtonComp icon>
@@ -55,7 +50,7 @@ function ProductComp({ title, options, price, image }) {
                         <FontAwesomeIcon icon={solid("trash-can")} />
                     </ButtonComp>
             </div>
-            <p className='product-price'>{ formatter.format(data.state.price*quantity) }</p>
+            <p className='product-price'>{ formatter.format(item.price) }</p>
         </div>
     );
 }

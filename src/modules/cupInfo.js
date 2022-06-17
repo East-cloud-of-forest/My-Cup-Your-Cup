@@ -1,27 +1,27 @@
 // material, size, strow, price, image 
+import { createSlice } from "@reduxjs/toolkit";
 
-import { useState, createContext } from "react"
+/*
+const cupInfo = { 
+    material : tumMetType, 
+    size : tumSizeType, 
+    strow : tumStrawType,
+    price : summa
+}
+*/
 
-export const DataContext = createContext();
-
-const DataProvider = ({ children }) => {
-    const [ cupInfo, setCupInfo] = useState({
-        material : "플라스틱",
-        size : "중",
-        strow : "사용",
-        price : 20000,
-        image : null
-    })
-    const value = {
-        state : cupInfo,
-        action : setCupInfo
-    }
-
-    return <DataContext.Provider value={value}>{ children }</DataContext.Provider>
+const initialState = {
+    material : "플라스틱",
+    size : "중",
+    strow : "사용",
+    price : 20000,
+    image : null
 }
 
-const { Consumer : DataConsumer } = DataContext;
-
-export { DataProvider, DataConsumer };
-export default DataContext;
-
+export const cupInfo = createSlice({
+    name: 'cupInfo',
+    initialState,
+    reducers : {
+        storeCupInfo: (state) => state
+    }
+})

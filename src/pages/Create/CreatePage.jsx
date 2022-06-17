@@ -1,6 +1,6 @@
 import "./Create.scss";
 import ColorComp from "../../components/createcomp/ColorComp";
-import SelectComp from "../../components/createcomp/SelectComp";
+import SelectComp from "../../components/createcomp/SelectComp copy";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar, faEye, faEyeSlash,fa1,fa2,fa3 } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
@@ -9,7 +9,11 @@ import React from "react";
 import classNames from "classnames";
 import { useEffect } from "react";
 
-const CreatePage =() =>{
+const CreatePage =() => {
+    // 결제버튼 클릭 시 실행
+    const onPaymentClick = (cupInfo) => {
+        
+    }
     
     //아이콘 변경 및 레이어 visible 함수 (faEye는 보이는 상태, faEyeSlash는 안보이는 상태)
     const [basicIcon,setBasicIcon] = useState(faEye)
@@ -245,13 +249,13 @@ const CreatePage =() =>{
                     <ColorComp getColorName={getColorName} getColorData={getColorData} />
                 </div>
 
-                <SelectComp getProductName={getProductName} material={material} getTypeData={getTypeData}/>
+                <SelectComp getProductName={getProductName} material={material} getTypeData={getTypeData} onPaymentClick={onPaymentClick}/>
 
                 <div id="btn">
                     <ButtonComp>미리보기</ButtonComp>
                 <div className="cre_savepay">
                     <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
-                    <ButtonComp style={{width:'100%'}}>결제</ButtonComp>
+                    <ButtonComp style={{width:'100%'}} onClick={onPaymentClick}>결제</ButtonComp>
                 </div>
                 </div>
             </div>
