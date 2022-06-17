@@ -1,11 +1,8 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import queryString from 'query-string'
 
-import "../Join/JoinUser.scss";
-
-import {Logo} from "../../components/index-comp/IndexComp"
-
+import "./JoinUser.scss";
 
 const JoinPage = () => {
   const {search} = useLocation()
@@ -17,14 +14,6 @@ const JoinPage = () => {
 <main className="JoinMain">
 
     <div className="Joinmain_signup">
-    
-        <div>
-          <Link to="/" title="로고 이미지">
-            <Logo style={{width:"50%", margin: "45px auto 40px auto"}} />
-          </Link>
-        </div>
-      
-
       <section className="Joinsignup_wrap">
         <div className="Joinid_password_input">
           <h3 className="Jointext">아이디</h3>

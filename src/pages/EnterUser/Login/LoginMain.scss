@@ -7,13 +7,6 @@
 
     & .Loginmain_wrap {
 			width: 327px;
-      // 로고
-      & .Loginlogo_wrap {
-        margin: 6rem 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
 
 			// 아이디 비밀번호 입력창
       & .Loginlogin_input_section_wrap {
@@ -27,7 +20,7 @@
 					border: solid 1px lightgrey;
           border-radius: 7px;
 					display: flex;
-					margin-top: 1rem;
+					margin-bottom: 1rem;
 					align-items: center;
 
           & input {
@@ -55,7 +48,7 @@
 				// 아이디 비밀번호 찾기 및 회원가입
 				& .Loginforget_account_p {
 					text-align: center;
-					margin:1rem 0;
+					margin-bottom: 1rem;
 					width: 100%;
 					display: flex;
 					justify-content: space-around;
