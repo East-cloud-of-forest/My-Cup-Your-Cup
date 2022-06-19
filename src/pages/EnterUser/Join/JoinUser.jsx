@@ -1,34 +1,73 @@
-import React from 'react'
+
+import { React, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
 import './JoinUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
 
+
+// 파이어베이스 인증, 가입 기능 가져오기
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+
+
 const JoinPage = () => {
   const { search } = useLocation()
   // 동의서
   const agreeObj = queryString.parse(search)
+
+
+  //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
+  const auth = getAuth();
+
+  const [emailInput, setEmailInput] = useState('')
+  const [password, setPassword] = useState('')
+  const InputEmail = (e) => {
+    setEmailInput(e.target.value)
+}
+const signupPassword = (e) => {
+  setPassword(e.target.value)
+}
+function Join(emailInput, password) {
+  signupEmail(emailInput, password)
+  .then((result) => {
+      const user = result.user;
+      loginSuccess(user.email, user.uid);
+  })
+  .catch(() => {
+      alert('회원가입 실패')
+  })
+}
+const signupEmail = () => {
+  return createUserWithEmailAndPassword(auth, emailInput, password)
+};
+
+const loginSuccess = () => {
+  alert('회원가입 성공')
+}
+  
+  //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
+
 
   return (
     <main className="JoinMain">
       <div className="Joinmain_signup">
         <section className="Joinsignup_wrap">
           <div className="Joinid_password_input">
-            <h3 className="Jointext">아이디</h3>
+            <h3 className="Jointext">이메일</h3>
             <span className="Joinsignup_input">
-              <input className="Joinsignup_id" type="text"></input>
+              <input onChange={InputEmail} className="Joinsignup_id" type="email"></input>
             </span>
 
             <h3 className="Jointext">비밀번호</h3>
             <span className="Joinsignup_input">
-              <input className="Joinsignup_pw" type="text"></input>
+              <input onChange={signupPassword} className="Joinsignup_pw" type="text"></input>
             </span>
 
-            <h3 className="Jointext">비밀번호 재확인</h3>
+            {/* <h3 className="Jointext">비밀번호 재확인</h3>
             <span className="Joinsignup_input">
               <input className="Joinsignup_pww" type="text"></input>
-            </span>
+            </span> */}
           </div>
 
           <div className="Joinname_birth_gender_email">
@@ -86,8 +125,8 @@ const JoinPage = () => {
               </select>
             </span>
 
-            <span className="Joinchoice">
-              <h3 className="Jointext">본인 확인 이메일</h3>
+            {/* <span className="Joinchoice">
+              <h3 className="Jointext">본인 확인 이메일 (불필요, 삭제)</h3>
             </span>
             <span className="Joinsignup_input">
               <input
@@ -95,7 +134,7 @@ const JoinPage = () => {
                 type="text"
                 placeholder="선택입력"
               ></input>
-            </span>
+            </span> */}
           </div>
 
           <div className="JoininputPhone">
@@ -119,7 +158,7 @@ const JoinPage = () => {
           </div>
 
           <div className='btn_box'>
-            <ButtonComp color="mint">
+            <ButtonComp color="mint" onClick={Join}>
               <h4 style={{padding:0, margin:0}}>가입하기</h4>
             </ButtonComp>
           </div>
