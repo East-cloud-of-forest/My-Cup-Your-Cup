@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 
-const SelectComp = ({material, getTypeData, getProductName, onPaymentClick}) => {
+const SelectComp = ({material, getTypeData, getProductName}) => {
 
     
     //총 가격을 계산하기위한 useState
@@ -64,7 +64,7 @@ const SelectComp = ({material, getTypeData, getProductName, onPaymentClick}) => 
     }
 
     // 결제버튼 누를시 실행될 함수
-    onPaymentClick(cupInfo)
+
 
     useEffect(()=>{
         material=tumMetType;

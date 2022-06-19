@@ -19,7 +19,6 @@ import FaqPage from "./pages/QnA/FaqPage";
 import MyQuastion from "./pages/QnA/MyQuastion";
 import Ask from "./pages/QnA/Ask";
 import Design from "./pages/Design/Design";
-import { DataProvider } from "./modules/cupInfo";
 import EnterUser from "./pages/EnterUser/EnterUser";
 import Agreement from "./pages/EnterUser/Agreement/Agreement";
 

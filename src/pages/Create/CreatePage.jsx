@@ -8,12 +8,17 @@ import { useState } from "react";
 import React from "react";
 import classNames from "classnames";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const CreatePage =() => {
-    // 결제버튼 클릭 시 실행
-    const onPaymentClick = (cupInfo) => {
-        
-    }
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
+    // // 결제버튼 클릭 시 실행
+    // const onPaymentClick = (cupInfo) => {
+    //     navigate('/cart');
+    //     dispatch()
+    // }
     
     //아이콘 변경 및 레이어 visible 함수 (faEye는 보이는 상태, faEyeSlash는 안보이는 상태)
     const [basicIcon,setBasicIcon] = useState(faEye)
@@ -252,13 +257,13 @@ const CreatePage =() => {
                     <ColorComp getColorName={getColorName} getColorData={getColorData} />
                 </div>
 
-                <SelectComp getProductName={getProductName} material={material} getTypeData={getTypeData} onPaymentClick={onPaymentClick}/>
+                <SelectComp getProductName={getProductName} material={material} getTypeData={getTypeData} />
 
                 <div id="btn">
                     <ButtonComp>미리보기</ButtonComp>
                 <div className="cre_savepay">
                     <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
-                    <ButtonComp style={{width:'100%'}} onClick={onPaymentClick}>결제</ButtonComp>
+                    <ButtonComp style={{width:'100%'}} >결제</ButtonComp>
                 </div>
                 </div>
             </div>
