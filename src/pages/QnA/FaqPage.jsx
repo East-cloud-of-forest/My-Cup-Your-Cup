@@ -18,11 +18,7 @@ const FaqPage = () => {
             <h1>FAQ</h1>
 
             <h4>FAQ(자주 묻는 질문)을 참고하시면 빠른 문의 해결이 가능합니다.</h4>
-            <h4>1:1 채팅 상담을 원하시나요? 아래의 버튼을 클릭해주세요</h4>
 
-            <div className="chat_button">
-                <span>1:1 채팅 상담 요청</span>
-            </div>
         </div>
 
         <div className="FAQ_contents">
