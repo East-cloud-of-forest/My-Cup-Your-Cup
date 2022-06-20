@@ -157,8 +157,8 @@ const CreatePage =() =>{
         let start = {x:0,y:0}, offset = {x: canvas.offsetLeft, y: canvas.offsetTop},mouseDown = false, selection = false;
 
         const textSelection = function(x, y, text){
-            const tx = text.x, ty = text.y, tWidth = text.width, tHeight = text.height;
             console.log(x, y)
+            const tx = text.x, ty = text.y, tWidth = text.width, tHeight = text.height;
             return (x >= tx - tWidth/2 && x <= tx + tWidth/2 && y >= ty - tHeight && y <= ty);
         }
         /*Canvas 내 filltext 추가 함수*/
@@ -176,9 +176,8 @@ const CreatePage =() =>{
             e.preventDefault();
             e.stopPropagation();
             const winScrollTop = window.scrollY;
-            start.x = parseInt(e.clientX - offset.x);
-            start.y = parseInt(e.clientY - offset.y + winScrollTop);
-            console.log(e)
+            start.x = parseInt(e.clientX - e.currentTarget.getBoundingClientRect().left);
+            start.y = parseInt(e.clientY - e.currentTarget.getBoundingClientRect().top);
             console.log(textSelection(start.x, start.y, text))
             if(textSelection(start.x, start.y, text)){
                 selection = true;
@@ -190,8 +189,8 @@ const CreatePage =() =>{
             e.preventDefault();
             if(mouseDown && selection){
                 const winScrollTop = window.scrollY,
-                        mouseX = parseInt(e.clientX - offset.x),
-                        mouseY = parseInt(e.clientY - offset.y + winScrollTop);
+                        mouseX = parseInt(e.clientX - e.currentTarget.getBoundingClientRect().left),
+                        mouseY = parseInt(e.clientY - e.currentTarget.getBoundingClientRect().top);
                 const dx = mouseX - start.x, dy = mouseY - start.y;
                     
                 start.x = mouseX;
