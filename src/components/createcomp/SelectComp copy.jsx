@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 
-const SelectComp = ({material, getTypeData, getProductName}) => {
+const SelectComp = ({material, getTypeData, getProductName, getCupInfo}) => {
 
     
     //총 가격을 계산하기위한 useState
@@ -13,20 +13,27 @@ const SelectComp = ({material, getTypeData, getProductName}) => {
     // 컵 정보를 담은 state
     const [ cupInfo, setCupInfo ] = useState({
         id: 1,
+        color: "",
         material: "",
         size: "",
         strow: "",
         price: 0
     })
-    
+
+    const aaa = () => {
+        setCupInfo({...cupInfo, material: tumMetType, size:tumSizeName, strow:tumStrawType, price: summa})
+        getCupInfo(cupInfo)
+        console.log(cupInfo)
+    }
 
     const changeMet = (e)=>{
         setMetSelect(e.target.value);
         
         const metWord = e.target.value.split("_");
         setTumMetType(metWord[1]);
-        setCupInfo({...cupInfo, material: metWord[1]}) //임의로 추가한 코드
-        console.log(cupInfo)
+        setCupInfo(()=>({...cupInfo, material: metWord[1]})) //임의로 추가한 코드
+        console.log(tumMetType)
+        getCupInfo(cupInfo)
     }
 
     //총가격용
@@ -42,7 +49,8 @@ const SelectComp = ({material, getTypeData, getProductName}) => {
         setTumSizeType(sizeWord[1]);
 
         setCupInfo({...cupInfo, size: sizeWord[1], price: summa}) //임의로 추가한 코드
-        console.log(cupInfo)
+        console.log(tumSizeType);
+        getCupInfo(cupInfo);
     }
 
     const [strawSelect,setStrawSelect] = useState(0);
@@ -53,17 +61,12 @@ const SelectComp = ({material, getTypeData, getProductName}) => {
         const strawWord = e.target.value.split("_");
         setTumStrawType(strawWord[1])
         setCupInfo({...cupInfo, strow: strawWord[1], price: summa}) //임의로 추가한 코드
-        console.log(cupInfo)
+        console.log(tumStrawType);
+        getCupInfo(cupInfo);
     }
 
     const summa =  parseInt(metSelect)+parseInt(sizeSelect)+parseInt(strawSelect)
 
-    const aaa = () => {
-        setCupInfo({...cupInfo,material: setTumMetType, size:tumSizeName , strow:tumSizeType , price: summa})
-        console.log(cupInfo)
-    }
-
-    // 결제버튼 누를시 실행될 함수
 
 
     useEffect(()=>{
@@ -120,7 +123,7 @@ const SelectComp = ({material, getTypeData, getProductName}) => {
                 <p>총 가격</p>
                 <h3>{summa.toLocaleString()}원</h3>
             </div>
-            <button onClick={aaa}>aaa</button>
+            <button onClick={aaa}>컵정보확인</button>
         </div>
     )
 

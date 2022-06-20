@@ -7,19 +7,29 @@ import { ButtonComp } from '../../components/index-comp/IndexComp'
 import { useState } from "react";
 import React from "react";
 import classNames from "classnames";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../modules/addCart";
 
 const CreatePage =() => {
-    // const navigate = useNavigate();
-    // const dispatch = useDispatch();
-    // // 결제버튼 클릭 시 실행
-    // const onPaymentClick = (cupInfo) => {
-    //     navigate('/cart');
-    //     dispatch()
-    // }
-    
+    const items = useSelector((state)=>state.cartReducer.items)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [cupInfo, setCupInfo] = useState();
+    const onAddItem = useCallback( (item)=>dispatch(addItem(item)), [dispatch]);
+
+    const getCupInfo = (mycup) => {
+        setCupInfo(mycup)
+        }
+    const toCart = () => {
+        onAddItem(cupInfo);
+        navigate('/cart');
+        console.log(cupInfo);
+        console.log(items);
+    }
+
     //아이콘 변경 및 레이어 visible 함수 (faEye는 보이는 상태, faEyeSlash는 안보이는 상태)
     const [basicIcon,setBasicIcon] = useState(faEye)
     const changeIcon = () => {
@@ -257,13 +267,15 @@ const CreatePage =() => {
                     <ColorComp getColorName={getColorName} getColorData={getColorData} />
                 </div>
 
-                <SelectComp getProductName={getProductName} material={material} getTypeData={getTypeData} />
+                <SelectComp getCupInfo={getCupInfo} getProductName={getProductName} material={material} getTypeData={getTypeData} />
 
                 <div id="btn">
                     <ButtonComp>미리보기</ButtonComp>
                 <div className="cre_savepay">
                     <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
-                    <ButtonComp style={{width:'100%'}} >결제</ButtonComp>
+                    <ButtonComp style={{width:'100%'}} 
+                        onClick={toCart}
+                    >결제</ButtonComp>
                 </div>
                 </div>
             </div>

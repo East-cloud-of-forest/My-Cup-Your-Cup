@@ -6,21 +6,22 @@ const DELETE_ITEM ='addCart/DELETE_ITEM';
 const SELECT_ITEM ='addCart/SELECT_ITEM';
 const initialState = {
     items : [
-        { 
-            id: 1, 
-            material: "스테인리스", 
-            size: "대", 
-            strow: "사용", 
-            price: 20000, 
-            selected: false, 
-            image: 'https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg'
-        },
-        { id: 2, material: "스테인리스", size: "중", strow: "사용", price: 15000, selected: false, image: 'https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg'},
+        // { 
+        //     id: 1, 
+        //     color : "pink",
+        //     material: "스테인리스", 
+        //     size: "대", 
+        //     strow: "사용", 
+        //     price: 20000, 
+        //     selected: true, 
+        //     image: 'https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg'
+        // },
+        // { id: 2, color: "white", material: "스테인리스", size: "중", strow: "사용", price: 15000, selected: true, image: 'https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg'},
     ]
 }
 
 //액션함수
-let id = 3;
+let id = 1;
 export const addItem = (item) => ({
     type : ADD_ITEM,
     item : {
