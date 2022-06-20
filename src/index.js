@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from './modules'
+// import './datasources/firebase'
 
 const store = createStore(rootReducer);
 const root = ReactDOM.createRoot(document.getElementById('root'))

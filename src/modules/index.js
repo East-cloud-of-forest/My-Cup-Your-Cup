@@ -4,10 +4,13 @@ import { combineReducers } from "redux";
 import cartReducer from "./addCart";
 // import quantityReducer from "./setQuantity";
 import boardReducer from "./Review/boardReducer";
+import enteruser from './enteruser'
+
 const rootReducer = combineReducers({
   cartReducer,
   // quantityReducer,
   boardReducer,
+  enteruser
 });
 
 
