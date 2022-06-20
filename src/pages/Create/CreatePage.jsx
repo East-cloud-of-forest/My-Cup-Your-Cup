@@ -4,10 +4,9 @@ import SelectComp from "../../components/createcomp/SelectComp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar, faEye, faEyeSlash,fa1,fa2,fa3 } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
-import { useState } from "react";
-import React from "react";
+import React, { useRef ,useState, useEffect } from "react";
 import classNames from "classnames";
-import { useEffect } from "react";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 const CreatePage =() =>{
     
@@ -102,7 +101,7 @@ const CreatePage =() =>{
         }
     }
 
-
+    //재질변경에 따른 내용 변경
     useEffect(()=>{
         if(material==="pla"){
             setTumType (
@@ -144,6 +143,82 @@ const CreatePage =() =>{
             setTumShape("");
         };
     },[material]);
+
+    //캔버스
+    const canvasRef = useRef(null);
+
+    //캔버스에 대한 useEffect
+    useEffect(()=>{
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        canvas.width = "500"
+        canvas.height = "300"
+
+        let start = {x:0,y:0}, offset = {x: canvas.offsetLeft, y: canvas.offsetTop},mouseDown = false, selection = false;
+
+        const textSelection = function(x, y, text){
+            const tx = text.x, ty = text.y, tWidth = text.width, tHeight = text.height;
+            console.log(x, y)
+            return (x >= tx - tWidth/2 && x <= tx + tWidth/2 && y >= ty - tHeight && y <= ty);
+        }
+        /*Canvas 내 filltext 추가 함수*/
+        const drawText = function(text){
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = text.fillStyle;
+            ctx.font = text.font;
+            ctx.textAlign = "center";
+            ctx.fillText(text.text, text.x, text.y);
+            text.width = Number(ctx.measureText(text.text).width.toFixed(0));
+        }
+
+        canvas.addEventListener("mousedown", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            const winScrollTop = window.scrollY;
+            start.x = parseInt(e.clientX - offset.x);
+            start.y = parseInt(e.clientY - offset.y + winScrollTop);
+            console.log(e)
+            console.log(textSelection(start.x, start.y, text))
+            if(textSelection(start.x, start.y, text)){
+                selection = true;
+            }
+            mouseDown = true;
+        });
+
+        canvas.addEventListener("mousemove", function(e){
+            e.preventDefault();
+            if(mouseDown && selection){
+                const winScrollTop = window.scrollY,
+                        mouseX = parseInt(e.clientX - offset.x),
+                        mouseY = parseInt(e.clientY - offset.y + winScrollTop);
+                const dx = mouseX - start.x, dy = mouseY - start.y;
+                    
+                start.x = mouseX;
+                start.y = mouseY;
+                
+                text.x += Number(dx.toFixed(0));
+                text.y += Number(dy.toFixed(0));
+                drawText(text);
+            }
+        });
+
+        canvas.addEventListener("mouseup", function(e){
+            mouseDown = false;
+            selection = false;
+        });
+
+        const text = {
+            text: "임의의값",
+            font: "26px nanumBold",
+            fillStyle: "#ff0000",
+            x: canvas.width/2,
+            y: canvas.height/2,
+            width: 0,
+            height: 26
+        }
+        drawText(text);
+    },[])
 
     //메인이미지 선언
     const optimg = require(`../../components/createcomp/img/${pic}.png`)
@@ -190,6 +265,8 @@ const CreatePage =() =>{
                     src={optimg}
                     style={{filter:`opacity(0.5) drop-shadow(0 0 0 ${colorData}) brightness(65%) contrast(400%)`}}
                     />
+
+                    <canvas ref={canvasRef} className="cre_canvas" />
 
                     {/**에딧 2 */}
                     <div className="cre_acc">
