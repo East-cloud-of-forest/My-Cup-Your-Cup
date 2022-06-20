@@ -333,6 +333,12 @@ $facebook: #475a96;
     font-weight: bold;
   }
 
+  .img_label {
+    & svg {
+      cursor: pointer;
+    }
+  }
+
   .review_user li {
     float: left;
     margin-right: 10px;
