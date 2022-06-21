@@ -11,7 +11,7 @@ import { Modal } from "react-bootstrap";
 import StarComp from "../Review/star/StarComp";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
-import { dbService } from "../../datasources/firebase";
+import { db } from "../../datasources/firebase";
 import ImageUpload from "../Review/imageUpload/ImageUpload";
 
 // 버튼
@@ -353,7 +353,7 @@ export const WriteFormComp = (props) => {
 
     e.preventDefault();
     let timeStamp = Date.now();
-    await addDoc(collection(dbService, "Test"), {
+    await addDoc(collection(db, "Test"), {
       text: post,
       createdAt: new Date(timeStamp),
     });
