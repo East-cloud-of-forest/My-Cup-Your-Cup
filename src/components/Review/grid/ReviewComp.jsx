@@ -1,35 +1,43 @@
-import "./ReviewComp.scss";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { Card, Row, Col, Container } from "react-bootstrap";
+import './ReviewComp.scss'
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import { Card, Row, Col, Container } from 'react-bootstrap'
+import { StarRating } from '../../index-comp/IndexComp'
 
 const ReviewComp = ({ boardImage, boardTitle, boardRating }) => {
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(0)
 
   return (
-    <Container fluid="xs">
-      <Row>
-        <Col md="12" sm="6" xs="6">
-          <Card id="review_card">
-            <Card.Img variant="top" src={boardImage} />
-            <Card.Body>
-              <Card.Title>
-                {boardTitle}
-                <div className="heart_span">
-                  <FontAwesomeIcon icon={solid("heart")} size="x" />
-                  <span>{number}</span>
-                </div>
-              </Card.Title>
-              <Card.Text>{boardRating}</Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <small className="text-muted">조회수 0000회 2022-06-07</small>
-            </Card.Footer>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
-export default ReviewComp;
+    <div>
+      <Card id="review_card">
+        <Card.Img variant="top" src={boardImage} />
+
+        <Card.Body>
+          <div className="review_top">
+            <StarRating rating={boardRating}></StarRating>
+            <div className="review_heart">
+              <i>
+                <FontAwesomeIcon icon={solid('heart')} size="sm" />
+              </i>
+              <span>{number}</span>
+            </div>
+          </div>
+
+          <div className="review_body">
+            <Card.Title>{boardTitle}</Card.Title>
+            <p className="review_text">어쩌고 저쩌고</p>
+          </div>
+
+          <hr />
+
+          <div className="caption review_footer">
+            <span>2022-06-01</span>
+            <span>userID</span>
+          </div>
+        </Card.Body>
+      </Card>
+    </div>
+  )
+}
+export default ReviewComp

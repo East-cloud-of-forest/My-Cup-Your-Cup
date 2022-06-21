@@ -25,12 +25,13 @@ const ReviewContainer = () => {
         flexWrap: "wrap",
       }}
     >
-      {boards.map((row) => (
+      {boards.map((row, i) => (
         <ReviewComp
           boardId={row.boardId}
           boardImage={row.boardImage}
           boardTitle={row.boardTitle}
           boardRating={row.boardRating}
+          key={i}
         />
       ))}
     </div>

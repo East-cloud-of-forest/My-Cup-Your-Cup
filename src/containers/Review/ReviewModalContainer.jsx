@@ -18,13 +18,14 @@ const ReviewModalContainer = () => {
 
   return (
     <div>
-      {boards.map((row) => (
+      {boards.map((row, i) => (
         <ReviewModalComp
           boardId={row.boardId}
           boardImage={row.boardImage}
           boardTitle={row.boardTitle}
           boardRating={row.boardRating}
           boardContent={row.boardContent}
+          key={i}
         />
       ))}
     </div>

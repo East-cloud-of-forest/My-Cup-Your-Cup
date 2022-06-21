@@ -2,11 +2,47 @@
   min-width: 300px;
   margin-right: 30px;
   margin-bottom: 45px;
-  .card-img-top {
+
+  & p {
+    margin: 0;
+  }
+
+  & .card-img-top {
     height: 170px;
     width: 300px;
   }
-  .card-title {
+
+  & .review_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    & .review_heart {
+      display: flex;
+      justify-content: end;
+
+      & i {
+        margin: 0 0.3rem;
+        color: #ff8888;
+      }
+
+      & span {
+        font-size: 0.9rem;
+        color: grey;
+      }
+    }
+  }
+
+  & .review_body {
+    & .review_text {
+      color: grey;
+      font-size: 0.9rem;
+    }
+  }
+
+  & .review_footer {
+    color: grey;
     display: flex;
     justify-content: space-between;
   }

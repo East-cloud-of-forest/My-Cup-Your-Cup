@@ -379,3 +379,23 @@ $facebook: #475a96;
   display: flex;
   justify-content: space-around;
 }
+
+// 별점
+
+.star_rating {
+  position: relative;
+  color: orange;
+
+  & .star_grey {
+    display: flex;
+  }
+  
+  & .star_full {
+    overflow: hidden;
+    width: 0%;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+}

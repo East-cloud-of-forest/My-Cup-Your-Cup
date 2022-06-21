@@ -1,18 +1,17 @@
-
-import "./IndexComp.scss";
-import React, { useState, useEffect } from "react";
-import classNames from "classnames";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Modal } from "react-bootstrap";
-import StarComp from "../Review/star/StarComp";
-import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../datasources/firebase";
-import ImageUpload from "../Review/imageUpload/ImageUpload";
+import './IndexComp.scss'
+import React, { useState, useEffect } from 'react'
+import classNames from 'classnames'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { Modal } from 'react-bootstrap'
+import StarComp from '../Review/star/StarComp'
+import { useNavigate } from 'react-router-dom'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../../datasources/firebase'
+import ImageUpload from '../Review/imageUpload/ImageUpload'
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -297,24 +296,22 @@ export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props
   const navigate = useNavigate()
   const goBack = () => {
-
-    navigate(-1);
-  };
-  const [tagItem, setTagItem] = useState("");
-  const [tagList, setTagList] = useState([]);
-  const [post, setPost] = useState("");
+    navigate(-1)
+  }
+  const [tagItem, setTagItem] = useState('')
+  const [tagList, setTagList] = useState([])
+  const [post, setPost] = useState('')
   const [reviewWrite, setReviewWrite] = useState([
-    { reviewTitle: "", tagArr: "", content: "", rating: "" },
-  ]);
+    { reviewTitle: '', tagArr: '', content: '', rating: '' },
+  ])
 
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState('')
   const getRating = (star) => {
-    setRating(star);
-    console.log(rating);
-  };
+    setRating(star)
+    console.log(rating)
+  }
 
-  const addImage = () => {};
-
+  const addImage = () => {}
 
   const onChange = (e) => {
     const { value } = e.target
@@ -350,22 +347,20 @@ export const WriteFormComp = (props) => {
   }
 
   const onSubmit = async (e) => {
-
-    e.preventDefault();
-    let timeStamp = Date.now();
-    await addDoc(collection(db, "Test"), {
+    e.preventDefault()
+    let timeStamp = Date.now()
+    await addDoc(collection(db, 'Test'), {
       text: post,
       createdAt: new Date(timeStamp),
-    });
-    setPost("");
-  };
+    })
+    setPost('')
+  }
   const onChangePost = (e) => {
     const {
       target: { value },
-    } = e;
-    setPost(value);
-  };
-
+    } = e
+    setPost(value)
+  }
 
   return (
     <div className={classNames('write_form', review ? 'review' : 'design')}>
@@ -399,15 +394,13 @@ export const WriteFormComp = (props) => {
         </div>
         <br />
         <br />
-
         <textarea
           cols="57"
           rows="10"
           placeholder={placeholder}
           value={post}
           onChange={onChangePost}
-        ></textarea>{" "}
-
+        ></textarea>{' '}
         {/** 리뷰 폼 */}
         <div className="review">
           {/**
@@ -521,11 +514,10 @@ export const WriteFormComp = (props) => {
         <br />
         <ButtonComp
           type="submit"
-          style={{ float: "right" }}
+          style={{ float: 'right' }}
           color="brown"
           onClick={() => onSubmit}
         >
-
           작성
         </ButtonComp>
         <ButtonComp
@@ -567,6 +559,28 @@ export const Pagination = (props) => {
           <FontAwesomeIcon icon={solid('chevron-right')} />
         </ButtonComp>
       </nav>
+    </div>
+  )
+}
+
+// 별점
+export const StarRating = ({ rating }) => {
+  return (
+    <div className="star_rating">
+      <span className="star_grey">
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+      </span>
+      <span className="star_full" style={{ width: rating * 20 + '%' }}>
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+      </span>
     </div>
   )
 }
