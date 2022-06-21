@@ -66,13 +66,21 @@ const initialState = {
       boardContent: "내용내용내용5",
       boardRating: "4",
     },
+    {
+      boardId: 6,
+      boardImage:
+        "https://cdn.pixabay.com/photo/2022/02/10/03/04/tumbler-7004528_960_720.jpg",
+      boardTitle: "제목6",
+      boardContent: "내용내용내용6",
+      boardRating: "3.5",
+    },
   ],
-  lastId: 5,
+  lastId: 6,
   selectRowData: {},
 };
 
 // 리듀서 함수
-function boardReducer(state = initialState, action) {
+function reviewReducer(state = initialState, action) {
   switch (
     action.type // 클릭한 boardId 를 가지지 않은 data 만 return
   ) {
@@ -118,4 +126,4 @@ function boardReducer(state = initialState, action) {
   }
 }
 
-export default boardReducer;
+export default reviewReducer;
