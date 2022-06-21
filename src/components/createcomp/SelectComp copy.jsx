@@ -1,8 +1,15 @@
-import { useEffect, useState } from "react";
-import React from "react";
+import { useEffect, useState, useCallback } from "react";
+import { ButtonComp } from '../../components/index-comp/IndexComp'
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../modules/addCart";
 
-const SelectComp = ({material, getTypeData, getProductName, getCupInfo}) => {
+const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorName}) => {
+    const items = useSelector( (state)=> state.cartReducer.items );
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    const onAddItem = useCallback( (item)=>dispatch(addItem(item)), [dispatch]);
     
     //총 가격을 계산하기위한 useState
     const [metSelect,setMetSelect] = useState(0);
@@ -13,16 +20,25 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo}) => {
     // 컵 정보를 담은 state
     const [ cupInfo, setCupInfo ] = useState({
         id: 1,
-        color: "",
+        name: "", // CreatePage 에서 받아온 prop
+        color: colorName,
         material: "",
         size: "",
         strow: "",
         price: 0
     })
 
-    const aaa = () => {
-        setCupInfo({...cupInfo, material: tumMetType, size:tumSizeName, strow:tumStrawType, price: summa})
-        getCupInfo(cupInfo)
+    const sendCupInfo = () => {
+        setCupInfo({...cupInfo,name: tumMetName+tumSizeName,color: colorName, material: tumMetType, size:tumSizeName, strow:tumStrawType, price: summa})
+        getCupInfo(cupInfo) // 부모컴포넌트로 컵정보 보내주는 함수
+        console.log(cupInfo)
+    }
+
+    // 결제버튼 클릭시 실행될 함수
+    const toCart = (e) => {
+        e.preventDefault();
+        onAddItem(cupInfo);
+        navigate('/cart');
         console.log(cupInfo)
     }
 
@@ -31,9 +47,8 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo}) => {
         
         const metWord = e.target.value.split("_");
         setTumMetType(metWord[1]);
-        setCupInfo(()=>({...cupInfo, material: metWord[1]})) //임의로 추가한 코드
-        console.log(tumMetType)
-        getCupInfo(cupInfo)
+        setCupInfo(()=>({...cupInfo, name: tumMetName+tumSizeName, material: metWord[1], price: summa})) //임의로 추가한 코드
+        // getCupInfo(cupInfo)
     }
 
     //총가격용
@@ -48,9 +63,8 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo}) => {
         const sizeWord = e.target.value.split("_");
         setTumSizeType(sizeWord[1]);
 
-        setCupInfo({...cupInfo, size: sizeWord[1], price: summa}) //임의로 추가한 코드
-        console.log(tumSizeType);
-        getCupInfo(cupInfo);
+        setCupInfo({...cupInfo, name: tumMetName+tumSizeName, size: sizeWord[1], price: summa}) //임의로 추가한 코드
+        // getCupInfo(cupInfo);
     }
 
     const [strawSelect,setStrawSelect] = useState(0);
@@ -60,9 +74,8 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo}) => {
         setStrawSelect(e.target.value);
         const strawWord = e.target.value.split("_");
         setTumStrawType(strawWord[1])
-        setCupInfo({...cupInfo, strow: strawWord[1], price: summa}) //임의로 추가한 코드
-        console.log(tumStrawType);
-        getCupInfo(cupInfo);
+        setCupInfo({...cupInfo, name: tumMetName+tumSizeName, strow: strawWord[1], price: summa}) //임의로 추가한 코드
+        // getCupInfo(cupInfo);
     }
 
     const summa =  parseInt(metSelect)+parseInt(sizeSelect)+parseInt(strawSelect)
@@ -100,30 +113,43 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo}) => {
 
     return (
         <div>
-            <select defaultValue="0_none" className="cre_selectbox" onChange={changeMet}>
-                <option value="0_none">재질을 선택하세요</option>
-                <option value="20000_stain">스테인리스</option>
-                <option value="10000_pla">플라스틱</option>
-            </select>
+            <form onSubmit={toCart}>
+                <select defaultValue="0_none" className="cre_selectbox" onChange={changeMet}>
+                    <option value="0_none">재질을 선택하세요</option>
+                    <option value="20000_stain">스테인리스</option>
+                    <option value="10000_pla">플라스틱</option>
+                </select>
 
-            <select defaultValue="0_none" className="cre_selectbox" onChange={changeSize}>
-                <option value="0_none">용량</option>
-                <option value="10000_big">950ml</option>
-                <option value="6000_mid">500ml</option>
-                <option value="4000_small">350ml</option>
-            </select>
+                <select defaultValue="0_none" className="cre_selectbox" onChange={changeSize}>
+                    <option value="0_none">용량</option>
+                    <option value="10000_big">950ml</option>
+                    <option value="6000_mid">500ml</option>
+                    <option value="4000_small">350ml</option>
+                </select>
 
-            <select defaultValue="0_none" className="cre_selectbox" onChange={changeStraw}>
-                <option value="0_none">빨대</option>
-                <option value="4000_use">사용</option>
-                <option value="0_unuse">미사용</option>
-            </select>
+                <select defaultValue="0_none" className="cre_selectbox" onChange={changeStraw}>
+                    <option value="0_none">빨대</option>
+                    <option value="4000_use">사용</option>
+                    <option value="0_unuse">미사용</option>
+                </select>
 
-            <div className="cre_calc">
-                <p>총 가격</p>
-                <h3>{summa.toLocaleString()}원</h3>
-            </div>
-            <button onClick={aaa}>컵정보확인</button>
+                <div className="cre_calc">
+                    <p>총 가격</p>
+                    <h3>{summa.toLocaleString()}원</h3>
+                </div>
+
+                <div id="btn">
+                        <ButtonComp>미리보기</ButtonComp>
+                    <div className="cre_savepay">
+                        <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
+                        <ButtonComp style={{width:'100%'}} 
+                            type="submit" onClick={sendCupInfo} 
+                            // 왜인지는 모르겠으나 버튼에도 온클릭이벤트에 setCupInfo 함수를 넣어주니
+                            // 결제버튼 하나만 눌러도 컵 정보가 전달되었다..
+                        >결제</ButtonComp>
+                    </div>
+                </div>
+            </form>
         </div>
     )
 

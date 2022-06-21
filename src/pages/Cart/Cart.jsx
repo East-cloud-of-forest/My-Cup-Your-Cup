@@ -5,18 +5,20 @@ import TotalPriceComp from '../../components/Cart/TotalPriceComp';
 import { ButtonComp } from '../../components/index-comp/IndexComp';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteItem, selectItem } from "../../modules/addCart"
+import { useNavigate } from 'react-router-dom';
 
 function Cart() { 
     const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const onDeleteItem = useCallback( (id)=>dispatch(deleteItem(id)), [dispatch]);
     const onSelectItem = useCallback( (id)=>dispatch(selectItem(id)), [dispatch]);
     
     // 총상품가격 받아오기
-    const [ prices, setPrices ] = useState();
-    const getPrice = (price) => {
-
-
+    const getPrice = (id, price) => {
+        // 각 컴포넌트에서 받아온 가격을 어디다 저장해둬야하는데..
+        // 컴포넌트에 해당하는 상품의 아이디와 총 가격을 인수로 받아오면 ?? 어디에저장...?
     }
 
     // const selectAll = (selectAll) => {
@@ -46,7 +48,6 @@ function Cart() {
                             key={item.id}
                             onDeleteItem={onDeleteItem}
                             onSelectItem={onSelectItem}
-                            getPrice={getPrice}
                             // selectAll={selectAll}
                         /> 
                     ))
@@ -59,7 +60,10 @@ function Cart() {
                 {/* 가격 출력되는 곳 */}
                 <TotalPriceComp />
                 <div className='buttons'>
-                    <ButtonComp color="mint">이전</ButtonComp>
+                    {/* 이전에 저장된 데이터 뜨게 하려면?? -> 수정 버튼에서 구현 */}
+                    <ButtonComp color="mint" onClick={()=> navigate(-1)}>
+                        이전
+                    </ButtonComp>
                     <ButtonComp color="red">결제하기</ButtonComp>
                 </div>
                 

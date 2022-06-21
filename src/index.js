@@ -6,11 +6,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-
-import { configureStore } from "@reduxjs/toolkit"
-import { createStore } from "redux";
 import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import rootReducer from './modules'
+// import './datasources/firebase'
+import { configureStore } from "@reduxjs/toolkit"
+
 const store = createStore(rootReducer);
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

@@ -25,7 +25,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, getPrice }) {
         onSelectItem(item.id);
         console.log(item)
         if (item.selected == true) {
-            getPrice(totalPrice);
+            getPrice(item.id, totalPrice);
         } else { getPrice(0) }
     };
 
@@ -45,9 +45,9 @@ function ProductComp({ item, onDeleteItem, onSelectItem, getPrice }) {
                 ></input>
             <img src={item.image} alt="product-pic"></img>
             <div className='product-text'>
-                <h4 className='product-title'>주문상품 {item.id} </h4>
+                <h4 className='product-title'> {`${item.id}. ${item.name}`} </h4>
                 <p>
-                    색상: {item.color}
+                    색상: {item.color} <br/>
                     재질: {item.material} <br/>
                     용량: {item.size} <br/> 
                     빨대: {item.strow} </p>
