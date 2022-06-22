@@ -176,10 +176,11 @@ $facebook: #475a96;
       border-radius: 50%;
       display: flex;
       width: 70px;
-      height: 70px;
+      aspect-ratio: 1/1;
       object-fit: cover;
     }
   }
+
   & .text {
     margin-top: 2rem;
     margin-left: 0rem;
@@ -197,12 +198,13 @@ $facebook: #475a96;
       display: flex;
       img {
         width: 30px;
-        height: 30px;
+        aspect-ratio: 1/1;
         padding: 5px;
       }
     }
   }
-  & .justName {
+
+  &.justName {
     width: fit-content;
     background-color: transparent;
     height: fit-content;
@@ -213,7 +215,7 @@ $facebook: #475a96;
       border-radius: 50%;
       display: flex;
       width: 25px;
-      height: 25px;
+      aspect-ratio: 1/1;
       object-fit: cover;
     }
     .text {
@@ -231,24 +233,27 @@ $facebook: #475a96;
     background-color: transparent;
     width: fit-content;
     height: fit-content;
+
     & .image_container {
       width: fit-content;
       height: fit-content;
     }
+
     img {
       border-radius: 50%;
       display: flex;
       width: 25px;
-      height: 25px;
+      aspect-ratio: 1/1;
       object-fit: cover;
     }
+
     .text {
       display: none;
     }
   }
 }
 
-// 모달컴포넌트 수정필요
+// 모달컴포넌트
 .opened_modal {
   width: 90%;
   max-width: 1200px;
@@ -259,19 +264,18 @@ $facebook: #475a96;
 
     & .img_block {
       width: 50%;
-      aspect-ratio: 1/1;
       background-color: black;
       display: flex;
       align-items: center;
 
-      & .image {
+      & img {
         width: 100%;
       }
     }
 
     & .content_block {
       width: 50%;
-      height: 100%;
+      aspect-ratio: 1/1;
       overflow: auto;
       padding: 1rem;
     }

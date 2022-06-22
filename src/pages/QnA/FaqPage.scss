@@ -17,16 +17,16 @@
         height: 190px;
         background-color: aliceblue;
         text-align: center;
-    }
-    .FAQmain_header > h1, h4 {
-        padding-top: 16px;
-    }
-    .FAQmain_header > h1 {
-        font-size: 45px;
-    }
-    .FAQmain_header > h4 {
-        padding-top: 15px;
-        font-size: 20px;
+        h1, h4 {
+            padding-top: 16px;
+        }
+        h1 {
+            font-size: 45px;
+        }
+        h4 {
+            padding-top: 15px;
+            font-size: 20px;
+        }
     }
 
     .chat_button {
@@ -39,10 +39,12 @@
         padding-top: 35px;
         color: rgb(90, 90, 90);
     }
-    .chat_button > span {
-        position: relative;
-        top: -27px;
-        cursor: pointer;
+    .chat_button {
+        span{    
+            position: relative;
+            top: -27px;
+            cursor: pointer;
+        }
     }
 
     .FAQ_contents {
@@ -52,20 +54,28 @@
         margin: 30px auto auto auto;
         padding-top: 5px;
     }
-    .FAQ_contents > span, p {
-        display: inline-block;
-        cursor: pointer;
+    .FAQ_contents {
+        span, p {
+            display: inline-block;
+            cursor: pointer;
+        }
     }
-    .FAQ_contents > p {
-        padding-left: 30px;
-        margin-bottom: 0;
+    .FAQ_contents {
+        p {
+            padding-left: 30px;
+            margin-bottom: 0;
+        }
     }
-    .FAQ_contents > span {
-        padding-left: 21px;
+    .FAQ_contents {
+        span{
+            padding-left: 21px;
+        }
     }
-    .FAQ_contents > hr {
-        width: 575px;
-        margin: 15px;
+    .FAQ_contents {
+        hr {
+            width: 575px;
+            margin: 15px;
+        }
     }
 
 

@@ -216,31 +216,48 @@ export const Logo = ({ style }) => {
 // 프로필 컴포넌트
 // 프로필 아이콘으로 사용할때 컴포넌트태그 안에 icon 작성
 export function ProfileComp(props) {
-  const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props
+  const {
+    icon,
+    justName,
+    imageURL,
+    userName,
+    intro,
+    instaURL,
+    fbURL,
+    size,
+  } = props
   return (
     
       <div className={classNames(
         "profile",
         icon ? 'icon' : '',
         justName ? 'justName' : '',
-      )}>
-      
-      <div className="image_container">
+      )}
+    >
+      <div className={classNames('image_container', size)}>
         <img src={imageURL} alt="profile photo"></img>
       </div>
 
-      <div className="text">
-        <span id="username">{userName}</span>
-        <p id="intro">{intro}</p>
-        <div className="social">
-          <a href={fbURL} target="blank">
-            <img src="https://www.svgrepo.com/show/299115/facebook.svg"></img>
-          </a>
-          <a href={instaURL} target="blank">
-            <img src="https://www.svgrepo.com/show/299116/instagram.svg"></img>
-          </a>
+      {justName && (
+        <div className="text">
+          <span id="username">{userName}</span>
         </div>
-      </div>
+      )}
+
+      {!icon && !justName && (
+        <div className="text">
+          <span id="username">{userName}</span>
+          <p id="intro">{intro}</p>
+          <div className="social">
+            <a href={fbURL} target="blank">
+              <img src="https://www.svgrepo.com/show/299115/facebook.svg"></img>
+            </a>
+            <a href={instaURL} target="blank">
+              <img src="https://www.svgrepo.com/show/299116/instagram.svg"></img>
+            </a>
+          </div>
+        </div>
+      )}
     </div>
 
     
@@ -248,12 +265,7 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp = ({
-  children,
-  button,
-  imageSRC,
-  className
-}) => {
+export const ModalComp = ({ children, button, image, className }) => {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
@@ -265,18 +277,14 @@ export const ModalComp = ({
 
       <Modal
         centered
-        dialogClassName={classNames("opened_modal", className)}
+        dialogClassName={classNames('opened_modal', className)}
         show={show}
         onHide={handleClose}
       >
         <Modal.Body>
-          <div className="img_block">
-            <img className="image" src={imageSRC} />
-          </div>
+          <div className="img_block">{image}</div>
 
-          <div className="content_block">
-            {children}
-          </div>
+          <div className="content_block">{children}</div>
         </Modal.Body>
       </Modal>
     </div>
