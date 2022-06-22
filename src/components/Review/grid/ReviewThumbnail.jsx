@@ -1,13 +1,13 @@
-import "./ReviewThumbnail.scss";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { Card } from "react-bootstrap";
-import { StarRating } from "../../index-comp/IndexComp";
+import './ReviewThumbnail.scss'
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import { Card } from 'react-bootstrap'
+import { StarRating } from '../../index-comp/IndexComp'
 
 const ReviewThumbnail = (props) => {
-  const [number, setNumber] = useState(0);
-  const { boardImage, boardTitle, boardRating } = props.board
+  const [number, setNumber] = useState(0)
+  const { boardImage, boardTitle, boardRating, boardContent } = props.board
   return (
     <Card id="review_card">
       <Card.Img variant="top" src={boardImage} />
@@ -17,7 +17,7 @@ const ReviewThumbnail = (props) => {
           <StarRating rating={boardRating}></StarRating>
           <div className="review_heart">
             <i>
-              <FontAwesomeIcon icon={solid("heart")} size="sm" />
+              <FontAwesomeIcon icon={solid('heart')} size="sm" />
             </i>
             <span>{number}</span>
           </div>
@@ -25,7 +25,7 @@ const ReviewThumbnail = (props) => {
 
         <div className="review_body">
           <p className="card_title">{boardTitle}</p>
-          <p className="review_text">어쩌고 저쩌고</p>
+          <p className="review_text">{boardContent}</p>
         </div>
 
         <hr />
@@ -36,6 +36,6 @@ const ReviewThumbnail = (props) => {
         </div>
       </Card.Body>
     </Card>
-  );
-};
-export default ReviewThumbnail;
+  )
+}
+export default ReviewThumbnail

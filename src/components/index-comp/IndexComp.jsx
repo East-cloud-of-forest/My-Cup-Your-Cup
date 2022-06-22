@@ -248,16 +248,9 @@ export function ProfileComp(props) {
 // 모달 컴포넌트
 export const ModalComp = ({
   children,
-  title,
-  text,
   button,
-  // 여기서부터 새로 추가한 props
   imageSRC,
-  profile,
-  date,
-  rating,
-  view,
-  tag,
+  className
 }) => {
   const [show, setShow] = useState(false)
 
@@ -265,26 +258,23 @@ export const ModalComp = ({
   const handleShow = () => setShow(true)
 
   return (
-    <div className="modal-thumb">
-      <span onClick={handleShow}>{children}</span>
+    <div>
+      <span onClick={handleShow}>{button}</span>
 
-      <Modal id="opened-modal" show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
-
+      <Modal
+        centered
+        dialogClassName={classNames("opened_modal", className)}
+        show={show}
+        onHide={handleClose}
+      >
         <Modal.Body>
-          <img className="image" src={imageSRC} />
-          <h2 className="title-inside-modal">{title}</h2>
-
-          <div className="info">
-            <span>{profile}</span>
-            <span>{date}</span>
-            <span>{view}</span>
-            <span>{rating}</span>
+          <div className="img_block">
+            <img className="image" src={imageSRC} />
           </div>
 
-          <p>{text}</p>
-          <span className="hashtag">{tag}</span>
-          {button}
+          <div className="content_block">
+            {children}
+          </div>
         </Modal.Body>
       </Modal>
     </div>
