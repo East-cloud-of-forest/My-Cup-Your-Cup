@@ -3,7 +3,7 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { Card } from 'react-bootstrap'
-import { StarRating } from '../../index-comp/IndexComp'
+import { ProfileComp, StarRating } from '../../index-comp/IndexComp'
 
 const ReviewThumbnail = (props) => {
   const [number, setNumber] = useState(0)
@@ -24,7 +24,6 @@ const ReviewThumbnail = (props) => {
         </div>
 
         <div className="review_body">
-          <p className="card_title">{boardTitle}</p>
           <p className="review_text">{boardContent}</p>
         </div>
 
@@ -32,7 +31,15 @@ const ReviewThumbnail = (props) => {
 
         <div className="caption review_footer">
           <span>2022-06-01</span>
-          <span>userID</span>
+          <span>
+            <ProfileComp
+              justName
+              imageURL={
+                'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'
+              }
+              userName='user1'
+            ></ProfileComp>
+          </span>
         </div>
       </Card.Body>
     </Card>
