@@ -16,13 +16,9 @@ const CreatePage =() => {
     // const dispatch = useDispatch();
     // const navigate = useNavigate();
 
-    const [cupInfo, setCupInfo] = useState();
+    // const [cupInfo, setCupInfo] = useState();
     // const onAddItem = useCallback( (item)=>dispatch(addItem(item)), [dispatch]);
 
-    const getCupInfo = (mycup) => {
-        setCupInfo(mycup)
-        
-        }
 
     //아이콘 변경 및 레이어 visible 함수 (faEye는 보이는 상태, faEyeSlash는 안보이는 상태)
     const [basicIcon,setBasicIcon] = useState(faEye)
@@ -338,7 +334,7 @@ const CreatePage =() => {
                     <ColorComp getColorName={getColorName} getColorData={getColorData} />
                 </div>
 
-                <SelectComp getCupInfo={getCupInfo} colorName={colorName} getProductName={getProductName} material={material} getTypeData={getTypeData} />
+                <SelectComp colorName={colorName} getProductName={getProductName} material={material} getTypeData={getTypeData} />
 
                 {/* 
                 아래 코드는 SelectComp 에 작성했습니다

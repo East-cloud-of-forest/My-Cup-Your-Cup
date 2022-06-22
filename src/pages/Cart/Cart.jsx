@@ -13,13 +13,14 @@ function Cart() {
     const navigate = useNavigate();
 
     const onDeleteItem = useCallback( (id)=>dispatch(deleteItem(id)), [dispatch]);
-    const onSelectItem = useCallback( (id)=>dispatch(selectItem(id)), [dispatch]);
+    const onSelectItem = useCallback( (id, total)=>dispatch(selectItem(id, total)), [dispatch]);
     
-    // 총상품가격 받아오기
-    const getPrice = (id, price) => {
-        // 해당하는 상품의 아이디와 총 가격을 인수로 받아오면 items 배열에 덮어쓰기
-        
-    }
+    // 총상품가격 - items 중 selected==true 인 객체의 total을 가져와 전부 더하기
+    let selected = items.filter( item => item.selected == true );
+    console.log(selected); // 선택된 애들만 배열로 들어옴
+    let sum = 0;
+    selected.forEach( item => sum += item );
+    console.log(sum.toString()); 
 
     // const selectAll = (selectAll) => {
     //     const checkboxes = document.getElementByName('checkbox')
@@ -48,7 +49,6 @@ function Cart() {
                             key={item.id}
                             onDeleteItem={onDeleteItem}
                             onSelectItem={onSelectItem}
-                            getPrice={getPrice}
                             // selectAll={selectAll}
                         /> 
                     ))

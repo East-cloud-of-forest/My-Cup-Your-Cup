@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
 import { useEffect } from 'react';
 
-function ProductComp({ item, onDeleteItem, onSelectItem, getPrice }) {
+function ProductComp({ item, onDeleteItem, onSelectItem }) {
     const [ quantity, setQuantity ] = useState(1);
     const price = item.price;
     const totalPrice = price*quantity;
@@ -16,14 +16,13 @@ function ProductComp({ item, onDeleteItem, onSelectItem, getPrice }) {
     
     const plus = () => {
         setQuantity(quantity + 1);;
-    }
+    };
     const minus = () => {
         setQuantity(quantity - 1);
         
-    }
+    };
     const onSelect = () => {
             onSelectItem(item.id, totalPrice);
-            console.log(item.total); // undefined 왜???
     };
     const deleteItem = ()=> {
         let id = item.id

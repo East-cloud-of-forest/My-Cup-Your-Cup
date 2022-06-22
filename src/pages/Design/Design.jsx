@@ -18,7 +18,7 @@ const Design = () => {
               <Col xs="6" md="3" key={i}>
                 <ModalComp 
                 button={<img id="preview-image" src={cup_pic.src} alt={cup_pic.title}/>}
-                imageSRC={cup_pic.src}
+                image={<img src={cup_pic.src} alt={cup_pic.title}/>}
                 className={"design_modal"}
                 >
                   <div className="modal_top">
@@ -26,7 +26,8 @@ const Design = () => {
                       <ProfileComp 
                         justName 
                         userName={"user1"} 
-                        imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}/>
+                        imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
+                      />
 
                     <div className="text_block">
                       <h2>제목</h2>

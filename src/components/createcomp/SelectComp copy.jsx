@@ -27,13 +27,21 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
         strow: "",
         price: 0,
         selected: true,
-        total: 0
+        total: 0,
+        quantity: 1
     })
 
     const sendCupInfo = () => {
-        setCupInfo({...cupInfo,name: tumMetName+tumSizeName,color: colorName, material: tumMetType, size:tumSizeName, strow:tumStrawType, price: summa})
-        //getCupInfo(cupInfo) // 부모컴포넌트로 컵정보 보내주는 함수
-        
+        setCupInfo({
+            ...cupInfo,
+            name: tumMetName+tumSizeName,
+            color: colorName, 
+            material: tumMetType, 
+            size:tumSizeName, 
+            strow:tumStrawType, 
+            price: summa,
+            total: summa
+        })
     }
 
     // 결제버튼 클릭시 실행될 함수
@@ -43,7 +51,7 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
         navigate('/cart');
     }
     
-    //장바구니아이템 로컬스토리지에 저장
+    //장바구니아이템 로컬스토리지에 저장 >> 한박자 느림..왜???
     useEffect(()=> {
         window.localStorage.setItem('cart', JSON.stringify(items))
     }, [items]);
@@ -53,8 +61,14 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
         
         const metWord = e.target.value.split("_");
         setTumMetType(metWord[1]);
-        setCupInfo(()=>({...cupInfo, name: tumMetName+tumSizeName, material: metWord[1], price: summa})) //임의로 추가한 코드
-        // getCupInfo(cupInfo)
+        // 임의로 추가한 코드
+        setCupInfo(()=>({
+            ...cupInfo, 
+            name: tumMetName+tumSizeName, 
+            material: metWord[1], 
+            price: summa, 
+            total: summa
+        })) 
     }
 
     //총가격용
@@ -68,9 +82,15 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
         setSizeSelect(e.target.value);
         const sizeWord = e.target.value.split("_");
         setTumSizeType(sizeWord[1]);
+        // 임의로 추가한 코드
+        setCupInfo({
+            ...cupInfo, 
+            name: tumMetName+tumSizeName, 
+            size: sizeWord[1], 
+            price: summa,
+            total: summa
+        }) 
 
-        setCupInfo({...cupInfo, name: tumMetName+tumSizeName, size: sizeWord[1], price: summa}) //임의로 추가한 코드
-        // getCupInfo(cupInfo);
     }
 
     const [strawSelect,setStrawSelect] = useState(0);
@@ -80,8 +100,15 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
         setStrawSelect(e.target.value);
         const strawWord = e.target.value.split("_");
         setTumStrawType(strawWord[1])
-        setCupInfo({...cupInfo, name: tumMetName+tumSizeName, strow: strawWord[1], price: summa}) //임의로 추가한 코드
-        // getCupInfo(cupInfo);
+        // 임의로 추가한 코드
+        setCupInfo({
+            ...cupInfo, 
+            name: tumMetName+tumSizeName, 
+            strow: strawWord[1], 
+            price: summa,
+            total: summa
+        }) 
+
     }
 
     const summa =  parseInt(metSelect)+parseInt(sizeSelect)+parseInt(strawSelect)

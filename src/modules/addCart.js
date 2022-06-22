@@ -1,25 +1,13 @@
-
-// 리덕스
 // 액션
 const ADD_ITEM = 'addCart/ADD_ITEM';
 const DELETE_ITEM ='addCart/DELETE_ITEM';
 const SELECT_ITEM ='addCart/SELECT_ITEM';
 const EDIT_ITEM = 'addCart/EDIT_ITEM';
+const PLUS_ONE = 'addCart/PLUS_ONE';
+const MINUS_ONE = 'addCart/MINUS_ONE';
 
 const initialState = {
-    items : [
-        // { 
-        //     id: 1, 
-        //     color : "pink",
-        //     material: "스테인리스", 
-        //     size: "대", 
-        //     strow: "사용", 
-        //     price: 20000, 
-        //     selected: true, 
-        //     image: 'https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg'
-        // },
-        // { id: 2, color: "white", material: "스테인리스", size: "중", strow: "사용", price: 15000, selected: true, image: 'https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg'},
-    ]
+    items : []
 }
 
 //액션함수
@@ -44,6 +32,15 @@ export const editItem = (id) => ({
     type : EDIT_ITEM,
     id
 })
+export const plusOne = (id) => ({
+    type : PLUS_ONE,
+    id
+})
+export const minusOne = (id) => ({
+    type : MINUS_ONE,
+    id
+})
+
 function cartReducer( state = initialState, action ) {
     switch (action.type) {
         case ADD_ITEM :
@@ -55,26 +52,20 @@ function cartReducer( state = initialState, action ) {
                 items : state.items.map( item => item.id === action.id ? 
                     { ...item, selected: !item.selected, total: action.total } : item )
                 }
+        case PLUS_ONE :
+            return {
+                items : state.items.map( item => item.id == action.id ?
+                    { ...item, quantity : item.quantity += 1 } : item
+                )
+            }
+        case MINUS_ONE :
+            return {
+                items : state.items.map( item => item.id == action.id ?
+                    { ...item, quantity : item.quantity -= 1 } : item
+                )
+            }
         default :
             return state;
     }
 }
 export default cartReducer;
-
-// const cartSlice = createSlice({
-//     name : 'addCart',
-//     initialState,
-//     reducers : {
-//         addItem: (state, action) => {
-//             action.payload.id += state.items[1].id;
-//             state.items.concat(action.payload);
-            
-//         },
-//         deleteItem: (state, action ) => {
-//             state.items.filter( (item) => item.id !== action.payload.id )
-//         }
-//     }
-// })
-
-// export const { addItem, deleteItem } = cartSlice.actions;
-// export default cartSlice.reducer;
