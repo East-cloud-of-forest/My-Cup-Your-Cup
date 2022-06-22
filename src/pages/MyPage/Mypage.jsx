@@ -23,7 +23,7 @@ const Mypage = () => {
           </ul>
         </div>
         <ProfileComp
-          // icon
+          //icon
           // justName
           imageURL={
             "https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg"

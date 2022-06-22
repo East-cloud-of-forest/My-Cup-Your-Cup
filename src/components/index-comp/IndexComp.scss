@@ -248,7 +248,7 @@ $facebook: #475a96;
   }
 }
 
-// 모달컴포넌트 수정필요
+// 모달컴포넌트
 .modal-backdrop {
   display: none;
 }
@@ -265,16 +265,24 @@ $facebook: #475a96;
     }
     .title-inside-modal {
       position: relative;
+      left: 10px;
     }
     .info {
       display: flex;
       justify-content: space-around;
+      margin-left: 5px;
       margin-bottom: 20px;
     }
+    p { margin-left: 15px;}
     .hashtag {
       display: flex;
       justify-content: center;
       margin-bottom: 70px;
+    }
+    .button {
+      #like-btn { background-color: $red;}
+      #share-btn { background-color: $facebook;}
+      #create-btn { background-color: $mint;}
     }
   }
 }

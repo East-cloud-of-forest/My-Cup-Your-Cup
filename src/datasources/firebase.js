@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { getFirestore } from 'firebase/firestore'
+import { getFirestore, getDocs, collection } from 'firebase/firestore'
 import {
   getAuth,
   signInWithPopup,
@@ -18,11 +18,7 @@ const firebaseConfig = {
   measurementId: 'G-F8RG45WD8Q',
 }
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig)
-// cloud Firestore 초기화
-const dbService = getFirestore()
-
 const analytics = getAnalytics(app)
 
 // 인증 초기화
@@ -34,4 +30,10 @@ const googleLoginPopup = () => signInWithPopup(auth, provider)
 // 이메일 로그인
 const emailLogin = (email, password) => signInWithEmailAndPassword(auth, email, password)
 
-export { app, dbService, googleLoginPopup, emailLogin, auth }
+// cloud Firestore 초기화
+const db = getFirestore()
+const getFirebaseData = async (name) => {
+  return await getDocs(collection(db, name))
+}
+
+export { app, db, getFirebaseData, googleLoginPopup, emailLogin, auth }

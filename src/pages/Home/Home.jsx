@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 
 const Home = () => {
   const aaa = useSelector(a=>a)
-  console.log(aaa.enteruser.user)
-
+  console.log(aaa)
+  
   const circleitem = []
   for (let i = 0; i < 6; i++) {
     circleitem.push('태그 ' + (i + 1))
@@ -40,8 +40,8 @@ const Home = () => {
       <Container fluid>
         <Row>
           {circleitem.map((e) => (
-            <Col md="2" sm="4" xs="4" className="main_circlemenu">
-              <div key={e} className="main_circleitem">
+            <Col key={e} md="2" sm="4" xs="4" className="main_circlemenu">
+              <div className="main_circleitem">
                 {e}
               </div>
             </Col>
@@ -52,8 +52,8 @@ const Home = () => {
       <Container fluid>
         <Row>
           {reviewitem.map((e) => (
-            <Col md="3" sm="6" xs="6" className="main_review">
-              <div key={e} className="main_review_item">
+            <Col key={e} md="3" sm="6" xs="6" className="main_review">
+              <div className="main_review_item">
                 {e}
               </div>
             </Col>
@@ -64,8 +64,8 @@ const Home = () => {
       <Container fluid>
         <Row>
           {designitem.map((e) => (
-            <Col md="3" sm="6" xs="6" className="main_design">
-              <div key={e} className="main_design_item">
+            <Col key={e} md="3" sm="6" xs="6" className="main_design">
+              <div className="main_design_item">
                 {e}
               </div>
             </Col>

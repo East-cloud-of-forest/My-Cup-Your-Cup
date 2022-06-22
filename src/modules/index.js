@@ -4,11 +4,13 @@ import { combineReducers } from "redux";
 import cartReducer from "./addCart";
 import boardReducer from "./Review/boardReducer";
 import enteruser from './enteruser'
+import firebaseData from './firebaseData'
 
 const rootReducer = combineReducers({
   cartReducer,
   boardReducer,
-  enteruser
+  enteruser,
+  firebaseData
 });
 
 
