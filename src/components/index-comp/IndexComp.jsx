@@ -1,18 +1,17 @@
-
-import "./IndexComp.scss";
-import React, { useState, useEffect } from "react";
-import classNames from "classnames";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Modal } from "react-bootstrap";
-import StarComp from "../Review/star/StarComp";
-import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../datasources/firebase";
-import ImageUpload from "../Review/imageUpload/ImageUpload";
+import './IndexComp.scss'
+import React, { useState, useEffect } from 'react'
+import classNames from 'classnames'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { Modal } from 'react-bootstrap'
+import StarComp from '../Review/star/StarComp'
+import { useNavigate } from 'react-router-dom'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../../datasources/firebase'
+import ImageUpload from '../Review/imageUpload/ImageUpload'
 
 // 버튼
 export const ButtonComp = (props) => {
@@ -219,13 +218,13 @@ export const Logo = ({ style }) => {
 export function ProfileComp(props) {
   const { icon, justName, imageURL, userName, intro, instaURL, fbURL } = props
   return (
-    <div
-      className={classNames(
-        'profile',
+    
+      <div className={classNames(
+        "profile",
         icon ? 'icon' : '',
         justName ? 'justName' : '',
-      )}
-    >
+      )}>
+      
       <div className="image_container">
         <img src={imageURL} alt="profile photo"></img>
       </div>
@@ -243,21 +242,17 @@ export function ProfileComp(props) {
         </div>
       </div>
     </div>
+
+    
   )
 }
 
 // 모달 컴포넌트
 export const ModalComp = ({
   children,
-  title,
-  text,
   button,
   imageSRC,
-  profile,
-  date,
-  rating,
-  view,
-  tag,
+  className
 }) => {
   const [show, setShow] = useState(false)
 
@@ -265,26 +260,23 @@ export const ModalComp = ({
   const handleShow = () => setShow(true)
 
   return (
-    <div className="modal-thumb">
-      <span onClick={handleShow}>{children}</span>
+    <div>
+      <span onClick={handleShow}>{button}</span>
 
-      <Modal id="opened-modal" show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
-
+      <Modal
+        centered
+        dialogClassName={classNames("opened_modal", className)}
+        show={show}
+        onHide={handleClose}
+      >
         <Modal.Body>
-          <img className="image" src={imageSRC} />
-          <h2 className="title-inside-modal">{title}</h2>
-
-          <div className="info">
-            <span>{profile}</span>
-            <span>{date}</span>
-            <span>{view}</span>
-            <span>{rating}</span>
+          <div className="img_block">
+            <img className="image" src={imageSRC} />
           </div>
 
-          <p>{text}</p>
-          <span className="hashtag">{tag}</span>
-          {button}
+          <div className="content_block">
+            {children}
+          </div>
         </Modal.Body>
       </Modal>
     </div>
@@ -296,24 +288,22 @@ export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props
   const navigate = useNavigate()
   const goBack = () => {
-
-    navigate(-1);
-  };
-  const [tagItem, setTagItem] = useState("");
-  const [tagList, setTagList] = useState([]);
-  const [post, setPost] = useState("");
+    navigate(-1)
+  }
+  const [tagItem, setTagItem] = useState('')
+  const [tagList, setTagList] = useState([])
+  const [post, setPost] = useState('')
   const [reviewWrite, setReviewWrite] = useState([
-    { reviewTitle: "", tagArr: "", content: "", rating: "" },
-  ]);
+    { reviewTitle: '', tagArr: '', content: '', rating: '' },
+  ])
 
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState('')
   const getRating = (star) => {
-    setRating(star);
-    console.log(rating);
-  };
+    setRating(star)
+    console.log(rating)
+  }
 
-  const addImage = () => {};
-
+  const addImage = () => {}
 
   const onChange = (e) => {
     const { value } = e.target
@@ -349,22 +339,20 @@ export const WriteFormComp = (props) => {
   }
 
   const onSubmit = async (e) => {
-
-    e.preventDefault();
-    let timeStamp = Date.now();
-    await addDoc(collection(db, "Test"), {
+    e.preventDefault()
+    let timeStamp = Date.now()
+    await addDoc(collection(db, 'Test'), {
       text: post,
       createdAt: new Date(timeStamp),
-    });
-    setPost("");
-  };
+    })
+    setPost('')
+  }
   const onChangePost = (e) => {
     const {
       target: { value },
-    } = e;
-    setPost(value);
-  };
-
+    } = e
+    setPost(value)
+  }
 
   return (
     <div className={classNames('write_form', review ? 'review' : 'design')}>
@@ -398,15 +386,13 @@ export const WriteFormComp = (props) => {
         </div>
         <br />
         <br />
-
         <textarea
           cols="57"
           rows="10"
           placeholder={placeholder}
           value={post}
           onChange={onChangePost}
-        ></textarea>{" "}
-
+        ></textarea>{' '}
         {/** 리뷰 폼 */}
         <div className="review">
           {/**
@@ -520,11 +506,10 @@ export const WriteFormComp = (props) => {
         <br />
         <ButtonComp
           type="submit"
-          style={{ float: "right" }}
+          style={{ float: 'right' }}
           color="brown"
           onClick={() => onSubmit}
         >
-
           작성
         </ButtonComp>
         <ButtonComp
@@ -566,6 +551,28 @@ export const Pagination = (props) => {
           <FontAwesomeIcon icon={solid('chevron-right')} />
         </ButtonComp>
       </nav>
+    </div>
+  )
+}
+
+// 별점
+export const StarRating = ({ rating }) => {
+  return (
+    <div className="star_rating">
+      <span className="star_grey">
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+      </span>
+      <span className="star_full" style={{ width: rating * 20 + '%' }}>
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+      </span>
     </div>
   )
 }

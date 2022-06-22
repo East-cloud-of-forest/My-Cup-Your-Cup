@@ -4,6 +4,8 @@
 const ADD_ITEM = 'addCart/ADD_ITEM';
 const DELETE_ITEM ='addCart/DELETE_ITEM';
 const SELECT_ITEM ='addCart/SELECT_ITEM';
+const EDIT_ITEM = 'addCart/EDIT_ITEM';
+
 const initialState = {
     items : [
         // { 
@@ -29,12 +31,17 @@ export const addItem = (item) => ({
         id: id++, // 다음 아이템 추가부터 +1
     }
 })
-export const selectItem = (id) => ({
+export const selectItem = (id, total) => ({
     type : SELECT_ITEM,
-    id
+    id,
+    total
 })
 export const deleteItem = (id) => ({
     type : DELETE_ITEM,
+    id
+})
+export const editItem = (id) => ({
+    type : EDIT_ITEM,
     id
 })
 function cartReducer( state = initialState, action ) {
@@ -46,7 +53,7 @@ function cartReducer( state = initialState, action ) {
         case SELECT_ITEM :
             return { 
                 items : state.items.map( item => item.id === action.id ? 
-                    { ...item, selected: !item.selected } : item )
+                    { ...item, selected: !item.selected, total: action.total } : item )
                 }
         default :
             return state;

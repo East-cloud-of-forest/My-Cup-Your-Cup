@@ -27,7 +27,7 @@ $facebook: #475a96;
 // 버튼애니메이션
 @mixin buttonanime($type) {
   & .ripple-span {
-    background-color: if($type == "icon" or $type == "white", #000, #fff);
+    background-color: if($type == 'icon' or $type == 'white', #000, #fff);
     position: absolute;
     transform: translate(-50%, -50%);
     border-radius: 50%;
@@ -101,7 +101,7 @@ $facebook: #475a96;
       transition: background-color, 0.3s;
     }
 
-    @include buttonanime("icon");
+    @include buttonanime('icon');
   }
 
   // display block
@@ -124,10 +124,10 @@ $facebook: #475a96;
       transition: background-color, 0.3s;
     }
 
-    @include buttonanime("white");
+    @include buttonanime('white');
   }
 
-  @include buttonanime("");
+  @include buttonanime('');
 }
 
 // 슬라이더 화살표
@@ -202,7 +202,7 @@ $facebook: #475a96;
       }
     }
   }
-  &.justName {
+  & .justName {
     width: fit-content;
     background-color: transparent;
     height: fit-content;
@@ -227,7 +227,7 @@ $facebook: #475a96;
       display: none;
     }
   }
-  &.icon {
+  & .icon {
     background-color: transparent;
     width: fit-content;
     height: fit-content;
@@ -248,36 +248,32 @@ $facebook: #475a96;
   }
 }
 
-// 모달컴포넌트
-.modal-backdrop {
-  display: none;
-}
-#opened-modal .modal-content {
-  width: 700px;
-  border: none;
+// 모달컴포넌트 수정필요
+.opened_modal {
+  width: 90%;
+  max-width: 1200px;
 
   & .modal-body {
-    .image {
-      float: left;
-      // 임시로 지정한 너비와 높이
-      height: 300px;
-      width: 300px;
-    }
-    .title-inside-modal {
-      position: relative;
-      left: 10px;
-    }
-    .info {
+    display: flex;
+    padding: 0;
+
+    & .img_block {
+      width: 50%;
+      aspect-ratio: 1/1;
+      background-color: black;
       display: flex;
-      justify-content: space-around;
-      margin-left: 5px;
-      margin-bottom: 20px;
+      align-items: center;
+
+      & .image {
+        width: 100%;
+      }
     }
-    p { margin-left: 15px;}
-    .hashtag {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 70px;
+
+    & .content_block {
+      width: 50%;
+      height: 100%;
+      overflow: auto;
+      padding: 1rem;
     }
     .button {
       #like-btn { background-color: $red;}
@@ -386,4 +382,24 @@ $facebook: #475a96;
 .pagination {
   display: flex;
   justify-content: space-around;
+}
+
+// 별점
+
+.star_rating {
+  position: relative;
+  color: orange;
+
+  & .star_grey {
+    display: flex;
+  }
+
+  & .star_full {
+    overflow: hidden;
+    width: 0%;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
 }

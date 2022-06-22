@@ -17,8 +17,8 @@ function Cart() {
     
     // 총상품가격 받아오기
     const getPrice = (id, price) => {
-        // 각 컴포넌트에서 받아온 가격을 어디다 저장해둬야하는데..
-        // 컴포넌트에 해당하는 상품의 아이디와 총 가격을 인수로 받아오면 ?? 어디에저장...?
+        // 해당하는 상품의 아이디와 총 가격을 인수로 받아오면 items 배열에 덮어쓰기
+        
     }
 
     // const selectAll = (selectAll) => {
@@ -27,7 +27,7 @@ function Cart() {
     //         checkbox.checked = selectAll.checked;
     //     })
     // }
-    console.log(items)
+
     return (
         <div className='cart-container'>
             <div className="item">
@@ -48,6 +48,7 @@ function Cart() {
                             key={item.id}
                             onDeleteItem={onDeleteItem}
                             onSelectItem={onSelectItem}
+                            getPrice={getPrice}
                             // selectAll={selectAll}
                         /> 
                     ))
@@ -58,7 +59,7 @@ function Cart() {
             </div> 
             <div className="item">
                 {/* 가격 출력되는 곳 */}
-                <TotalPriceComp />
+                <TotalPriceComp items={items} />
                 <div className='buttons'>
                     {/* 이전에 저장된 데이터 뜨게 하려면?? -> 수정 버튼에서 구현 */}
                     <ButtonComp color="mint" onClick={()=> navigate(-1)}>

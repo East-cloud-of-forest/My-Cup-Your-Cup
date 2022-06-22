@@ -1,4 +1,11 @@
-h1 {
-  text-align: center;
-  margin: 50px 0 50px 0;
+.review_page {
+  & h1 {
+    text-align: center;
+    margin: 50px 0 50px 0;
+  }
+
+  & .review_card {
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
 }

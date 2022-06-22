@@ -8,12 +8,12 @@ $darkgreen: #3da982;
 $mint: #4debbb;
 $facebook: #475a96;
 
+
+
 #Container {
-    justify-content: space-around;
-    align-content: space-around;
     & img {
         display: flex;
-        min-width: 260px;
+        width: 200px;
     }
 }
 

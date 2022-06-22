@@ -1,25 +1,49 @@
 import "./Review.scss";
 import { Col, Container, Row } from "react-bootstrap";
-import ReviewModalComp from "../../components/Review/grid/ReviewModalComp";
+import ReviewAndModalComp from "../../components/Review/grid/ReviewAndModalComp";
 import { ButtonComp, Pagination } from "../../components/index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import ReviewModalContainer from "../../containers/Review/ReviewModalContainer";
+import { useSelector } from "react-redux";
 
 const ReviewPage = () => {
   const navigate = useNavigate();
   const goReviewWrite = () => {
     navigate("/review/write");
   };
+  const { boards } = useSelector((state) => state.review);
+
   return (
-    <div>
+    <div className="review_page">
       <h1>포토리뷰</h1>
       <Container fluid>
         <Row>
-          <Col md="3" sm="6" xs="6">
-            <ReviewModalContainer />
-          </Col>
+          {boards.map((board, i) => (
+            <Col lg="2" md="4" key={i} className="review_card">
+              <ReviewAndModalComp board={board} />
+            </Col>
+          ))}
+          {boards.map((board, i) => (
+            <Col lg="2" md="4" key={i} className="review_card">
+              <ReviewAndModalComp board={board} />
+            </Col>
+          ))}
+          {boards.map((board, i) => (
+            <Col lg="2" md="4" key={i} className="review_card">
+              <ReviewAndModalComp board={board} />
+            </Col>
+          ))}
+          {boards.map((board, i) => (
+            <Col lg="2" md="4" key={i} className="review_card">
+              <ReviewAndModalComp board={board} />
+            </Col>
+          ))}
+          {boards.map((board, i) => (
+            <Col lg="2" md="4" key={i} className="review_card">
+              <ReviewAndModalComp board={board} />
+            </Col>
+          ))}
         </Row>
       </Container>
       <br />

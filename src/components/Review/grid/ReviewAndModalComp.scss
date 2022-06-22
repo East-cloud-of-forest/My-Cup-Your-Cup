@@ -1,0 +1,28 @@
+.review_modal {
+
+  .modal_top {
+    display: flex;
+
+    .profile_block {
+      display: flex;
+      align-items: center;
+
+      div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+
+        p {
+          margin: 0;
+
+          &:nth-child(1) {
+            font-weight: 900;
+            font-size: 1.1rem;
+          }
+          &:nth-child(2) {
+            color: grey;
+          }
+        }
+      }
+    }
+  }
+}

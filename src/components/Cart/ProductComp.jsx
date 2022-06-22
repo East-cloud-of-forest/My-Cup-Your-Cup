@@ -21,26 +21,21 @@ function ProductComp({ item, onDeleteItem, onSelectItem, getPrice }) {
         setQuantity(quantity - 1);
         
     }
-    const onChange = () => {
-        onSelectItem(item.id);
-        console.log(item)
-        if (item.selected == true) {
-            getPrice(item.id, totalPrice);
-        } else { getPrice(0) }
+    const onSelect = () => {
+            onSelectItem(item.id, totalPrice);
+            console.log(item.total); // undefined 왜???
     };
-
-    useEffect( () => {
-        if(item.selected == true) {
-            getPrice(totalPrice)
-        }
-    }, [totalPrice])
-
+    const deleteItem = ()=> {
+        let id = item.id
+        onDeleteItem(id)
+        window.localStorage.removeItem('cart', JSON.stringify(item[id]))
+    }
 
     return (
         <div className="product-container">
             <input id='itemCheckbox' 
                 type="checkbox" 
-                onChange={onChange}
+                onChange={onSelect}
                 checked={item.selected}
                 ></input>
             <img src={item.image} alt="product-pic"></img>
@@ -68,7 +63,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, getPrice }) {
                     <ButtonComp icon>
                         <FontAwesomeIcon icon={solid("pen-to-square")} />
                     </ButtonComp>
-                    <ButtonComp icon onClick={()=> onDeleteItem(item.id)}>
+                    <ButtonComp icon onClick={deleteItem}>
                         <FontAwesomeIcon icon={solid("trash-can")} />
                     </ButtonComp>
             </div>

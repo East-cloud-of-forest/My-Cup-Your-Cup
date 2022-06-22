@@ -32,7 +32,7 @@ const initialState = {
         "https://cdn.pixabay.com/photo/2022/02/10/03/04/tumbler-7004528_960_720.jpg",
       boardTitle: "제목1",
       boardContent: "내용내용내용1",
-      boardRating: "⭐⭐⭐⭐⭐",
+      boardRating: "5",
     },
     {
       boardId: 2,
@@ -40,7 +40,7 @@ const initialState = {
         "https://cdn.pixabay.com/photo/2021/07/08/04/49/tumbler-6395841_960_720.jpg",
       boardTitle: "제목2",
       boardContent: "내용내용내용2",
-      boardRating: "⭐⭐⭐⭐",
+      boardRating: "4",
     },
     {
       boardId: 3,
@@ -48,7 +48,7 @@ const initialState = {
         "https://cdn.pixabay.com/photo/2021/11/11/02/49/tumbler-6785273_960_720.jpg",
       boardTitle: "제목3",
       boardContent: "내용내용내용3",
-      boardRating: "⭐⭐⭐",
+      boardRating: "3",
     },
     {
       boardId: 4,
@@ -56,7 +56,7 @@ const initialState = {
         "https://cdn.pixabay.com/photo/2016/06/24/12/29/starbuck-1477160_960_720.jpg",
       boardTitle: "제목4",
       boardContent: "내용내용내용4",
-      boardRating: "⭐⭐",
+      boardRating: "2",
     },
     {
       boardId: 5,
@@ -64,15 +64,23 @@ const initialState = {
         "https://cdn.pixabay.com/photo/2016/06/24/12/29/starbuck-1477160_960_720.jpg",
       boardTitle: "제목5",
       boardContent: "내용내용내용5",
-      boardRating: "⭐⭐⭐⭐",
+      boardRating: "4",
+    },
+    {
+      boardId: 6,
+      boardImage:
+        "https://cdn.pixabay.com/photo/2022/02/10/03/04/tumbler-7004528_960_720.jpg",
+      boardTitle: "제목6",
+      boardContent: "내용내용내용6",
+      boardRating: "3.5",
     },
   ],
-  lastId: 5,
+  lastId: 6,
   selectRowData: {},
 };
 
 // 리듀서 함수
-function boardReducer(state = initialState, action) {
+function reviewReducer(state = initialState, action) {
   switch (
     action.type // 클릭한 boardId 를 가지지 않은 data 만 return
   ) {
@@ -118,4 +126,4 @@ function boardReducer(state = initialState, action) {
   }
 }
 
-export default boardReducer;
+export default reviewReducer;

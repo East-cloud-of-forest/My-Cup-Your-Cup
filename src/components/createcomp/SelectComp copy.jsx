@@ -25,13 +25,15 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
         material: "",
         size: "",
         strow: "",
-        price: 0
+        price: 0,
+        selected: true,
+        total: 0
     })
 
     const sendCupInfo = () => {
         setCupInfo({...cupInfo,name: tumMetName+tumSizeName,color: colorName, material: tumMetType, size:tumSizeName, strow:tumStrawType, price: summa})
-        getCupInfo(cupInfo) // 부모컴포넌트로 컵정보 보내주는 함수
-        console.log(cupInfo)
+        //getCupInfo(cupInfo) // 부모컴포넌트로 컵정보 보내주는 함수
+        
     }
 
     // 결제버튼 클릭시 실행될 함수
@@ -39,8 +41,12 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
         e.preventDefault();
         onAddItem(cupInfo);
         navigate('/cart');
-        console.log(cupInfo)
     }
+    
+    //장바구니아이템 로컬스토리지에 저장
+    useEffect(()=> {
+        window.localStorage.setItem('cart', JSON.stringify(items))
+    }, [items]);
 
     const changeMet = (e)=>{
         setMetSelect(e.target.value);
