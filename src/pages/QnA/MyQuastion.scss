@@ -21,9 +21,11 @@
     .contents {
         text-align: center;
     }
-    .answer > span {
-        background-color: aliceblue;
-        border: 1px solid black;
-        font-size: 15px;
+    .answer {
+        span{
+            background-color: aliceblue;
+            border: 1px solid black;
+            font-size: 15px;
+        }
     }
 
