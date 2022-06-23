@@ -1,23 +1,8 @@
-import { useEffect } from "react";
-import { IMAGES } from "../../images";
 import React from "react";
 
-const PayOrderList = ({items, cost, getData}) => {
+const PayOrderList = ({items, totalPrice}) => {
+    const selected = items.filter( item => item.selected === true );
 
-    let payCost = 0;
-
-    const paySumRef = React.useRef();
-
-    // useEffect(()=>{
-    //     IMAGES.map((image,i)=>{
-    //         for (let index = 0; index < IMAGES.length; index++) {
-    //             payCost = payCost + IMAGES[index].id*10000/IMAGES.length;
-    //         }
-    //         cost=payCost;
-    //         getData(cost);
-    //         paySumRef.current.innerHTML=`${payCost}`;
-    //     })
-    // })
 
     return (
         <div>
@@ -26,12 +11,13 @@ const PayOrderList = ({items, cost, getData}) => {
                 <hr className="pay_main_hr"/>
                     <div className="pay_list">
                         {
-                            items.map( (item, i) => (
+                            selected.map( (item, i) => (
                                 <div className="pay_product" key={i}>
                                     <img className="pay_thumb" src={item.image} alt={item.name }/>
                                     <div className="pay_product_content">
-                                        <p>[상품명] {`${item.name} [옵션] ${item.material} ${item.size} 빨대 ${item.strow}`}</p>
-                                        <p>{item.total}</p>
+                                        <p>[상품명] {`${item.name} [옵션] ${item.material} /${item.size} /빨대유무${item.strow}`}</p>
+                                        
+                                        <p>{item.total.toLocaleString()}</p>
                                     </div>
                                 </div>
                             ))
@@ -47,7 +33,7 @@ const PayOrderList = ({items, cost, getData}) => {
                         }
                     </div>
                 <hr className="pay_main_hr"/>
-                <h4 className="pay_cost">총 <span ref={paySumRef}></span> 원</h4>
+                <h4 className="pay_cost">총 <span>{totalPrice.toLocaleString()}</span> 원</h4>
             </div>
         </div>
     );

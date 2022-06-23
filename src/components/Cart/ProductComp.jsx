@@ -3,12 +3,10 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
-import { useEffect } from 'react';
-import { snapshotEqual } from 'firebase/firestore';
+
 
 function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput }) {
-    const [ q, setQ ] = useState(1);
-    const price = item.price;
+    const [q, setQ] = useState();
     const quantity= item.quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
         style: 'currency',
@@ -49,16 +47,12 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
 
                 <div className="product-quantity">
                         <ButtonComp icon>
-                            <FontAwesomeIcon icon={solid("minus")} onClick={()=> {
-                                minus();
-                            }}/>
+                            <FontAwesomeIcon icon={solid("minus")} onClick={minus}/>
                         </ButtonComp>
-                        <input id="qtyForm" type="text" value={quantity} required  
-                            onChange={()=> setQ(quantity) } min="1" />
+                        <input id="qtyForm" type="number" value={quantity} required="required" 
+                            onChange={()=> setQ(quantity) } pattern="(500|([1-9][0-9][0-9])|([1-9][0-9])|[1-9])" min="1" />
                         <ButtonComp  icon>
-                            <FontAwesomeIcon icon={solid("plus")} onClick={()=> {
-                                plus()
-                            }}/>
+                            <FontAwesomeIcon icon={solid("plus")} onClick={plus}/>
                         </ButtonComp>
                     
                 </div>

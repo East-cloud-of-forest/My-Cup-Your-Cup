@@ -1,20 +1,18 @@
 import React from 'react';
 import './TotalPriceComp.scss'
-import { useSelector } from 'react-redux';
 
-function TotalPriceComp() {
+function TotalPriceComp({ items }) {
     let formatter = new Intl.NumberFormat('ko-KR', {
         style: 'currency',
         currency: 'KRW',
     });
-    const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
-    console.log(items)
+    // 총 금액
     const selected = items.filter( item => item.selected === true );
     const totals = selected.map( s => s.total )
-    // console.log(totals)
+
     let sum = 0;
     const totalPrice = totals.reduce( (prev, curr) => prev + curr, sum )
-    console.log(totalPrice);
+
     return (
         <div className='price-container'>
             <p style={{ display: "block"}}>총 배송비 <br /> 
