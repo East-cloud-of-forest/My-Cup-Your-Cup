@@ -1,3 +1,6 @@
+import PopupPostCode from './address/PopupPostCode';
+import { ModalComp, AddressModalComp } from '../index-comp/IndexComp';
+
 const PayAddress = () => {
     return (
         <div>
@@ -26,7 +29,10 @@ const PayAddress = () => {
                         <tr className="pay_address_table_tr">
                             <td className="pay_table_cate">배송 주소</td>
                             <td>
-                                <input type="number" placeholder="우편번호" className="pay_address_addressnum" /> <button>검색</button><br />
+                                <input type="number" placeholder="우편번호" className="pay_address_addressnum" />
+                                <AddressModalComp button={<button>검색</button>}>
+                                    <PopupPostCode />
+                                </AddressModalComp><br />
                                 <input type="text" className="pay_address_address" /><input type="text" className="pay_address_address" />
                             </td>
                         </tr>

@@ -291,6 +291,37 @@ export const ModalComp = ({ children, button, image, className }) => {
   )
 }
 
+//주소 모달 컴포넌트
+export const AddressModalComp = ({ children, button, className }) => {
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  
+  const modalStyle = {
+    width: "600px",
+    height: "600px",
+  } 
+
+  const cloneChild = React.cloneElement(children, {'onSelect':handleClose})
+
+  return (
+    <div>
+      <span onClick={handleShow}>{button}</span>
+
+      <Modal
+        centered
+        dialogClassName={classNames('opened_modal', className)}
+        show={show}
+        onHide={handleClose}
+      >
+          <div className="content_block" style={modalStyle}>{cloneChild}</div>
+      </Modal>
+    </div>
+  )
+}
+
+
 // 글쓰기 폼 컴포넌트
 export const WriteFormComp = (props) => {
   const { title, placeholder, review } = props
