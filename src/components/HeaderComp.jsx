@@ -44,18 +44,25 @@ const Header = () => {
   }
 
   const onBlur = () => {
-    mouseDown?setSearchActive(true):setSearchActive(false)
+    mouseDown ? setSearchActive(true) : setSearchActive(false)
   }
 
   const searchClick = () => {
+    console.log(searchActive)
     if (searchActive) {
       setSearchActive(false)
-      navi('/search?keyword='+searchKeyword)
+      navi('/search?keyword=' + searchKeyword)
       setSearchKeyword('')
     } else {
       setSearchActive(true)
       searchInput.current.focus()
     }
+  }
+
+  const onSubmit = (e) => {
+    console.log(searchActive)
+    e.preventDefault()
+    searchClick()
   }
 
   return (
@@ -81,19 +88,16 @@ const Header = () => {
       <div id="App_subnav">
         <ul id="main_subnav" className="caption">
           <li>
-            {/* <Link to="/search">
-              <ButtonComp icon style={{width:"45px"}}>
-                <FontAwesomeIcon icon={solid("magnifying-glass")} size="2x" />
-              </ButtonComp>
-            </Link> */}
             <div className={classNames('search', searchActive && 'active')}>
-              <input
-                type="text"
-                value={searchKeyword}
-                onBlur={onBlur}
-                onChange={onChange}
-                ref={searchInput}
-              />
+              <form onSubmit={onSubmit}>
+                <input
+                  type="text"
+                  value={searchKeyword}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  ref={searchInput}
+                />
+              </form>
               <div onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
                 <ButtonComp
                   icon
