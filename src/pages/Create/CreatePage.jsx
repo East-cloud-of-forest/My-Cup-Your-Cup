@@ -1,15 +1,25 @@
 import "./Create.scss";
 import ColorComp from "../../components/createcomp/ColorComp";
-import SelectComp from "../../components/createcomp/SelectComp";
+import SelectComp from "../../components/createcomp/SelectComp copy";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar, faEye, faEyeSlash,fa1,fa2,fa3 } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
-import React, { useRef ,useState, useEffect } from "react";
+import React, { useRef ,useState, useEffect, useCallback } from "react";
 import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../modules/addCart";
 import { text } from "@fortawesome/fontawesome-svg-core";
 
-const CreatePage =() =>{
-    
+const CreatePage =() => {
+    // const items = useSelector((state)=>state.cartReducer.items)
+    // const dispatch = useDispatch();
+    // const navigate = useNavigate();
+
+    // const [cupInfo, setCupInfo] = useState();
+    // const onAddItem = useCallback( (item)=>dispatch(addItem(item)), [dispatch]);
+
+
     //아이콘 변경 및 레이어 visible 함수 (faEye는 보이는 상태, faEyeSlash는 안보이는 상태)
     const [basicIcon,setBasicIcon] = useState(faEye)
     const changeIcon = () => {
@@ -324,15 +334,21 @@ const CreatePage =() =>{
                     <ColorComp getColorName={getColorName} getColorData={getColorData} />
                 </div>
 
-                <SelectComp getProductName={getProductName} material={material} getTypeData={getTypeData}/>
+                <SelectComp colorName={colorName} getProductName={getProductName} material={material} getTypeData={getTypeData} />
+
+                {/* 
+                아래 코드는 SelectComp 에 작성했습니다
 
                 <div id="btn">
                     <ButtonComp>미리보기</ButtonComp>
                 <div className="cre_savepay">
                     <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
-                    <ButtonComp style={{width:'100%'}}>결제</ButtonComp>
+                    <ButtonComp style={{width:'100%'}} 
+                        onClick={toCart}
+                    >결제</ButtonComp>
                 </div>
                 </div>
+                */}
             </div>
         </div>
     )

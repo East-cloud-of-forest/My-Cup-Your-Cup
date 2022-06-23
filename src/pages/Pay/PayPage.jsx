@@ -4,10 +4,12 @@ import PayAddress from '../../components/PayComp/PayAddress';
 import PayOrderList from '../../components/PayComp/PayOrderList';
 import PayMethod from '../../components/PayComp/PayMethod';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PayFixed from '../../components/PayComp/PayFixed';
 
 const PayPage = () => {
-
+    const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
+    
     const [cost,setCost] = useState(0)
 
     const getData = (cost) =>{
@@ -20,7 +22,7 @@ const PayPage = () => {
             
             {/**주문목록 */}
             <div>
-                <PayOrderList cost={cost} getData={getData}/>
+                <PayOrderList items={items} cost={cost} getData={getData}/>
             </div>
 
             {/**배송지정보 */}

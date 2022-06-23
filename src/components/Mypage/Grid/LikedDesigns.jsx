@@ -28,25 +28,23 @@ export default function LikedDesigns() {
           {IMAGES.map((image, i) => (
             <Col key={i}>
               <ModalComp
-                text={image.title}
-                title={image.title}
-                button={
-                  <div>
-                    <ButtonComp>
-                      <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
-                    </ButtonComp>
-                    <ButtonComp>
-                      <FontAwesomeIcon
-                        icon={solid("share-nodes")}
-                      ></FontAwesomeIcon>
-                    </ButtonComp>
-                    <ButtonComp>제작하러가기</ButtonComp>
-                  </div>
-                }
+                button={<img src={image.src} alt={image.title} />}
                 imageSRC={image.src}
               >
-                <img src={image.src} style={{ width: "200px", aspectRation: "1", marginBottom: "10px"}}/>
-              </ModalComp>
+                <h2>{image.title}</h2>
+                <p>{image.title}</p>
+                    <div>
+                      <ButtonComp>
+                        <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                      </ButtonComp>
+                      <ButtonComp>
+                        <FontAwesomeIcon
+                          icon={solid("share-nodes")}
+                        ></FontAwesomeIcon>
+                      </ButtonComp>
+                      <ButtonComp>제작하러가기</ButtonComp>
+                    </div>
+                  </ModalComp>
             </Col>
           ))}
         </Row>

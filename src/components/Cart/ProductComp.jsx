@@ -3,46 +3,62 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
-import { useContext } from 'react';
-import DataContext from '../../modules/cupInfo';
+import { useEffect } from 'react';
+import { snapshotEqual } from 'firebase/firestore';
 
-function ProductComp({ title, options, price, image }) {
-    const [ quantity, setQuantity ] = useState(1);
-    const data = useContext(DataContext)
-
+function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput }) {
+    const [ q, setQ ] = useState(1);
+    const price = item.price;
+    const quantity= item.quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
         style: 'currency',
         currency: 'KRW',
     });
     
     const plus = () => {
-        setQuantity(quantity + 1);;
-    }
+        onPlusOne(item.id);
+    };
     const minus = () => {
-        setQuantity(quantity - 1);
-        
+        onMinusOne(item.id);
+    };
+
+    const onSelect = () => {
+            onSelectItem(item.id);
+    };
+    const onDelete = ()=> {
+        let id = item.id;
+        onDeleteItem(id);
+        window.localStorage.removeItem('cart', JSON.stringify(item[id]));
     }
 
     return (
         <div className="product-container">
-
-                {/* 임시 체크박스 수정할 것 */}
-            <input id='itemCheckbox' type="checkbox" ></input>
-            <img src='https://cdn.pixabay.com/photo/2021/04/06/03/07/souvenir-6155134__340.jpg' alt='product-preview'></img>
+            <input id='itemCheckbox' 
+                type="checkbox" 
+                onChange={onSelect}
+                checked={item.selected}
+                ></input>
+            <img src={item.image} alt="product-pic"></img>
             <div className='product-text'>
-                <h4 className='product-title'>Product Title</h4>
+                <h4 className='product-title'> {`${item.id}. ${item.name}`} </h4>
                 <p>
-                    재질: {data.state.material}<br/>
-                    용량: {data.state.size}<br/> 
-                    빨대: {data.state.strow}</p>
+                    색상: {item.color} <br/>
+                    재질: {item.material} <br/>
+                    용량: {item.size} <br/> 
+                    빨대: {item.strow} </p>
 
                 <div className="product-quantity">
                         <ButtonComp icon>
-                            <FontAwesomeIcon icon={solid("minus")} onClick={minus}/>
+                            <FontAwesomeIcon icon={solid("minus")} onClick={()=> {
+                                minus();
+                            }}/>
                         </ButtonComp>
-                        <input id="qtyForm" type="number" required value={quantity} min="1" />
+                        <input id="qtyForm" type="text" value={quantity} required  
+                            onChange={()=> setQ(quantity) } min="1" />
                         <ButtonComp  icon>
-                            <FontAwesomeIcon icon={solid("plus")} onClick={plus}/>
+                            <FontAwesomeIcon icon={solid("plus")} onClick={()=> {
+                                plus()
+                            }}/>
                         </ButtonComp>
                     
                 </div>
@@ -51,11 +67,11 @@ function ProductComp({ title, options, price, image }) {
                     <ButtonComp icon>
                         <FontAwesomeIcon icon={solid("pen-to-square")} />
                     </ButtonComp>
-                    <ButtonComp icon>
+                    <ButtonComp icon onClick={onDelete}>
                         <FontAwesomeIcon icon={solid("trash-can")} />
                     </ButtonComp>
             </div>
-            <p className='product-price'>{ formatter.format(data.state.price*quantity) }</p>
+            <p className='product-price'>{ formatter.format(item.total) }</p>
         </div>
     );
 }

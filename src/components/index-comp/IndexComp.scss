@@ -229,7 +229,6 @@ $facebook: #475a96;
       display: none;
     }
   }
-
   & .icon {
     background-color: transparent;
     width: fit-content;
@@ -279,6 +278,11 @@ $facebook: #475a96;
       aspect-ratio: 1/1;
       overflow: auto;
       padding: 1rem;
+    }
+    .button {
+      #like-btn { background-color: $red;}
+      #share-btn { background-color: $facebook;}
+      #create-btn { background-color: $mint;}
     }
   }
 }

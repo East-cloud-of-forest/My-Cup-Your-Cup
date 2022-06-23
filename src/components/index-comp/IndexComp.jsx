@@ -227,9 +227,9 @@ export function ProfileComp(props) {
     size,
   } = props
   return (
-    <div
-      className={classNames(
-        'profile',
+    
+      <div className={classNames(
+        "profile",
         icon ? 'icon' : '',
         justName ? 'justName' : '',
       )}
@@ -259,6 +259,8 @@ export function ProfileComp(props) {
         </div>
       )}
     </div>
+
+    
   )
 }
 
