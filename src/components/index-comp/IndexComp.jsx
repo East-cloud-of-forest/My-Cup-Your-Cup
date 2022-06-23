@@ -227,9 +227,9 @@ export function ProfileComp(props) {
     size,
   } = props
   return (
-    
-      <div className={classNames(
-        "profile",
+    <div
+      className={classNames(
+        'profile',
         icon ? 'icon' : '',
         justName ? 'justName' : '',
       )}
@@ -259,68 +259,61 @@ export function ProfileComp(props) {
         </div>
       )}
     </div>
-
-    
   )
 }
 
 // 모달 컴포넌트
-export const ModalComp = ({ children, button, image, className }) => {
+export const ModalComp = ({ children, button, image, className, Address }) => {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  return (
-    <div>
-      <span onClick={handleShow}>{button}</span>
-
-      <Modal
-        centered
-        dialogClassName={classNames('opened_modal', className)}
-        show={show}
-        onHide={handleClose}
-      >
-        <Modal.Body>
-          <div className="img_block">{image}</div>
-
-          <div className="content_block">{children}</div>
-        </Modal.Body>
-      </Modal>
-    </div>
-  )
-}
-
-//주소 모달 컴포넌트
-export const AddressModalComp = ({ children, button, className }) => {
-  const [show, setShow] = useState(false)
-
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-  
   const modalStyle = {
-    width: "600px",
-    height: "600px",
-  } 
+    width: '600px',
+    height: '600px',
+  }
 
-  const cloneChild = React.cloneElement(children, {'onSelect':handleClose})
+  const cloneChild = React.cloneElement(children, { onSelect: handleClose })
 
   return (
     <>
-      <span onClick={handleShow}> {button}</span>
+      {Address ? (
+        <>
+          <span onClick={handleShow}>{button}</span>
 
-      <Modal
-        centered
-        dialogClassName={classNames('opened_modal', className)}
-        show={show}
-        onHide={handleClose}
-      >
-          <div className="content_block" style={modalStyle}>{cloneChild}</div>
-      </Modal>
+          <Modal
+            centered
+            dialogClassName={classNames('opened_modal', className)}
+            show={show}
+            onHide={handleClose}
+          >
+            <div className="content_block" style={modalStyle}>
+              {cloneChild}
+            </div>
+          </Modal>
+        </>
+      ) : (
+        <div>
+          <span onClick={handleShow}>{button}</span>
+
+          <Modal
+            centered
+            dialogClassName={classNames('opened_modal', className)}
+            show={show}
+            onHide={handleClose}
+          >
+            <Modal.Body>
+              <div className="img_block">{image}</div>
+
+              <div className="content_block">{children}</div>
+            </Modal.Body>
+          </Modal>
+        </div>
+      )}
     </>
   )
 }
-
 
 // 글쓰기 폼 컴포넌트
 export const WriteFormComp = (props) => {
