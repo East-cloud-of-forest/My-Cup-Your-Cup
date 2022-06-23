@@ -4,30 +4,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
 import { useEffect } from 'react';
+import { snapshotEqual } from 'firebase/firestore';
 
-function ProductComp({ item, onDeleteItem, onSelectItem }) {
-    const [ quantity, setQuantity ] = useState(1);
+function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput }) {
+    const [ q, setQ ] = useState(1);
     const price = item.price;
-    const totalPrice = price*quantity;
+    const quantity= item.quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
         style: 'currency',
         currency: 'KRW',
     });
     
     const plus = () => {
-        setQuantity(quantity + 1);;
+        onPlusOne(item.id);
     };
     const minus = () => {
-        setQuantity(quantity - 1);
-        
+        onMinusOne(item.id);
     };
+
     const onSelect = () => {
-            onSelectItem(item.id, totalPrice);
+            onSelectItem(item.id);
     };
-    const deleteItem = ()=> {
-        let id = item.id
-        onDeleteItem(id)
-        window.localStorage.removeItem('cart', JSON.stringify(item[id]))
+    const onDelete = ()=> {
+        let id = item.id;
+        onDeleteItem(id);
+        window.localStorage.removeItem('cart', JSON.stringify(item[id]));
     }
 
     return (
@@ -48,12 +49,16 @@ function ProductComp({ item, onDeleteItem, onSelectItem }) {
 
                 <div className="product-quantity">
                         <ButtonComp icon>
-                            <FontAwesomeIcon icon={solid("minus")} onClick={minus}/>
+                            <FontAwesomeIcon icon={solid("minus")} onClick={()=> {
+                                minus();
+                            }}/>
                         </ButtonComp>
-                        <input id="qtyForm" type="number" value={quantity} required  
-                            onChange={ ()=> setQuantity(quantity)} min="1" />
+                        <input id="qtyForm" type="text" value={quantity} required  
+                            onChange={()=> setQ(quantity) } min="1" />
                         <ButtonComp  icon>
-                            <FontAwesomeIcon icon={solid("plus")} onClick={plus}/>
+                            <FontAwesomeIcon icon={solid("plus")} onClick={()=> {
+                                plus()
+                            }}/>
                         </ButtonComp>
                     
                 </div>
@@ -62,11 +67,11 @@ function ProductComp({ item, onDeleteItem, onSelectItem }) {
                     <ButtonComp icon>
                         <FontAwesomeIcon icon={solid("pen-to-square")} />
                     </ButtonComp>
-                    <ButtonComp icon onClick={deleteItem}>
+                    <ButtonComp icon onClick={onDelete}>
                         <FontAwesomeIcon icon={solid("trash-can")} />
                     </ButtonComp>
             </div>
-            <p className='product-price'>{ formatter.format(totalPrice) }</p>
+            <p className='product-price'>{ formatter.format(item.total) }</p>
         </div>
     );
 }

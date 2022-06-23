@@ -21,14 +21,16 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
     const [ cupInfo, setCupInfo ] = useState({
         id: 1,
         name: "", // CreatePage 에서 받아온 prop
+        image: null,
         color: colorName,
         material: "",
         size: "",
         strow: "",
         price: 0,
-        selected: true,
+        selected: false,
         total: 0,
-        quantity: 1
+        quantity: 1,
+        
     })
 
     const sendCupInfo = () => {
@@ -175,6 +177,7 @@ const SelectComp = ({material, getTypeData, getProductName, getCupInfo, colorNam
                         <ButtonComp>미리보기</ButtonComp>
                     <div className="cre_savepay">
                         <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
+                        <ButtonComp style={{width:'100%'}}>장바구니</ButtonComp>
                         <ButtonComp style={{width:'100%'}} 
                             type="submit" onClick={sendCupInfo} 
                             // 왜인지는 모르겠으나 버튼에도 온클릭이벤트에 setCupInfo 함수를 넣어주니

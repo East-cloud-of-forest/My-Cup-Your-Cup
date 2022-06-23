@@ -5,6 +5,7 @@ const SELECT_ITEM ='addCart/SELECT_ITEM';
 const EDIT_ITEM = 'addCart/EDIT_ITEM';
 const PLUS_ONE = 'addCart/PLUS_ONE';
 const MINUS_ONE = 'addCart/MINUS_ONE';
+const NUMBER_INPUT = 'addCart/NUMBER_INPUT';
 
 const initialState = {
     items : []
@@ -38,8 +39,13 @@ export const plusOne = (id) => ({
 })
 export const minusOne = (id) => ({
     type : MINUS_ONE,
-    id
+    id,
 })
+// export const numberInput = (id, number) => ({
+//     type : NUMBER_INPUT,
+//     id,
+//     number
+// })
 
 function cartReducer( state = initialState, action ) {
     switch (action.type) {
@@ -50,20 +56,25 @@ function cartReducer( state = initialState, action ) {
         case SELECT_ITEM :
             return { 
                 items : state.items.map( item => item.id === action.id ? 
-                    { ...item, selected: !item.selected, total: action.total } : item )
+                    { ...item, selected: !item.selected, total: item.quantity * item.price } : item )
                 }
         case PLUS_ONE :
             return {
-                items : state.items.map( item => item.id == action.id ?
-                    { ...item, quantity : item.quantity += 1 } : item
+                items : state.items.map( item => item.id === action.id ?
+                    { ...item, quantity : item.quantity += 1, total: item.quantity * item.price } : item
                 )
             }
         case MINUS_ONE :
             return {
-                items : state.items.map( item => item.id == action.id ?
-                    { ...item, quantity : item.quantity -= 1 } : item
+                items : state.items.map( item => item.id === action.id ?
+                    { ...item, quantity : item.quantity -= 1, total: item.quantity * item.price } : item
                 )
             }
+        // case NUMBER_INPUT :
+        //     return {
+        //         items : state.items.map( item => item.id === action.id ?
+        //             { ...item, quantity: action.number } : item )
+        //     }
         default :
             return state;
     }
