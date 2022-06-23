@@ -1,0 +1,25 @@
+// 버튼색상
+$blue: #4b93e3;
+$red: #ff8888;
+$orange: #ffb251;
+$green: #5bdb60;
+$brown: #c19d95;
+$darkgreen: #3da982;
+$mint: #4debbb;
+$facebook: #475a96;
+
+
+
+#Container {
+    & img {
+        display: flex;
+        width: 200px;
+    }
+}
+
+#preview-image {
+    width: 200px;
+    aspect-ratio: 1;
+    margin-bottom: 10px;
+}
+
