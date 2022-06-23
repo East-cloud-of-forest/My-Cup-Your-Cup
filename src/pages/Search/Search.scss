@@ -10,18 +10,22 @@
     margin: 3rem 0 3rem 0;
     width: 100%;
 
-    & input {
-      border-radius: 100px 0 0 100px;
-      border: 1px solid lightgrey;
-      border-right: none;
-      font-size: 20px;
-      padding: 0.5rem 1rem;
-      width: 40%;
+    form {
+      width: 30%;
 
-      &:focus-visible {
-        border: 1px solid #4debbb;
+      input {
+        border-radius: 100px 0 0 100px;
+        border: 1px solid lightgrey;
         border-right: none;
-        outline: 1px solid #4debbb;
+        font-size: 20px;
+        padding: 0.5rem 1rem;
+        width: 100%;
+
+        &:focus-visible {
+          border: 1px solid #4debbb;
+          border-right: none;
+          outline: 1px solid #4debbb;
+        }
       }
     }
   }

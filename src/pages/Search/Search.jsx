@@ -1,86 +1,99 @@
-import { ButtonComp } from '../../components/index-comp/IndexComp'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './Search.scss'
-import { Link, NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { Col, Container, Row } from 'react-bootstrap'
-import { useEffect } from 'react'
-import queryString from 'query-string'
-import { useState } from 'react'
+import { ButtonComp } from "../../components/index-comp/IndexComp";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./Search.scss";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
+import { useEffect } from "react";
+import queryString from "query-string";
+import { useState } from "react";
 
 const Search = () => {
-  const navi = useNavigate()
+  const navi = useNavigate();
 
   // 검색창 내에서 이동시 맨 위로
-  const location = useLocation()
+  const location = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location])
+    window.scrollTo(0, 0);
+  }, [location]);
 
   // prams 및 query 데이터
-  const params = useParams()
-  const { search } = useLocation()
-  const { keyword } = queryString.parse(search)
+  const params = useParams();
+  const { search } = useLocation();
+  const { keyword } = queryString.parse(search);
 
   useEffect(() => {
-    setSearchKeyword(keyword)
-  }, [keyword])
+    setSearchKeyword(keyword);
+  }, [keyword]);
 
   // 검색창 입력
-  const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState("");
+  // 검색 버튼 클릭
   const onChange = (e) => {
-    setSearchKeyword(e.target.value)
-  }
-
-  const onSearch = () => {
-    navi('/search?keyword='+searchKeyword)
-  }
+    setSearchKeyword(e.target.value);
+  };
+  // 검색 엔터
+  const onSearch = (e) => {
+    if (e !== undefined) {
+      e.preventDefault()
+    }
+    navi("/search?keyword=" + searchKeyword);
+  };
 
   const tabs = [
     {
-      name: '전체',
-      path: '',
+      name: "전체",
+      path: "",
     },
     {
-      name: '태그',
-      path: '/tag',
+      name: "태그",
+      path: "/tag",
     },
     {
-      name: '리뷰',
-      path: '/review',
+      name: "리뷰",
+      path: "/review",
     },
     {
-      name: '디자인',
-      path: '/design',
+      name: "디자인",
+      path: "/design",
     },
     {
-      name: '문의',
-      path: '/inquiry',
+      name: "문의",
+      path: "/inquiry",
     },
     {
-      name: '사용자',
-      path: '/user',
+      name: "사용자",
+      path: "/user",
     },
-  ]
+  ];
 
-  const resultdata = [1, 2, 3]
+  const resultdata = [1, 2, 3];
 
   return (
     <div className="search_page">
       <div className="search_input_box">
-        <input type="text" onChange={onChange} value={searchKeyword} />
+        <form onSubmit={onSearch}>
+          <input type="text" onChange={onChange} value={searchKeyword} />
+        </form>
         <ButtonComp
           color="mint"
           style={{
             margin: 0,
-            borderRadius: '0 100px 100px 0',
-            padding: '0 1rem',
+            borderRadius: "0 100px 100px 0",
+            padding: "0 1rem",
           }}
           onClick={onSearch}
         >
           <FontAwesomeIcon
-            icon={solid('magnifying-glass')}
-            style={{ fontSize: '20px', marginRight: '5px' }}
+            icon={solid("magnifying-glass")}
+            style={{ fontSize: "20px", marginRight: "5px" }}
           />
         </ButtonComp>
       </div>
@@ -88,13 +101,17 @@ const Search = () => {
         <Container fluid>
           <Row>
             {tabs.map((t, i) => (
-              <Col key={i} lg="2" md="6" sm="6" style={{ margin: '5px 0' }}>
-                <NavLink to={'/search' + t.path + '?keyword=' + searchKeyword} activeclassname="true" end>
+              <Col key={i} lg="2" md="6" sm="6" style={{ margin: "5px 0" }}>
+                <NavLink
+                  to={"/search" + t.path + "?keyword=" + searchKeyword}
+                  activeclassname="true"
+                  end
+                >
                   <ButtonComp
                     color="white"
                     tile
                     style={{
-                      width: '100%',
+                      width: "100%",
                       margin: 0,
                     }}
                   >
@@ -118,7 +135,7 @@ const Search = () => {
           <div>
             <hr />
             {tabs
-              .filter((a) => a.name !== '전체')
+              .filter((a) => a.name !== "전체")
               .map((a) => (
                 <div className="result_box">
                   <p>{a.name} - 000건</p>
@@ -128,9 +145,9 @@ const Search = () => {
                       <div
                         className="img"
                         style={{
-                          width: '100px',
-                          height: '100px',
-                          backgroundColor: 'orange',
+                          width: "100px",
+                          height: "100px",
+                          backgroundColor: "orange",
                         }}
                       ></div>
                       <div>
@@ -140,14 +157,14 @@ const Search = () => {
                     </div>
                   ))}
                   <hr />
-                  <Link to={'/search' + a.path}>+ 더보기</Link>
+                  <Link to={"/search" + a.path}>+ 더보기</Link>
                 </div>
               ))}
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;
