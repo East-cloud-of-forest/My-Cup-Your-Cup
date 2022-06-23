@@ -104,10 +104,6 @@ const LoginMainPage = () => {
   }
 
 
-  const [visible, setVisible] = useState(false);
-
-
-
   return (
     <main className="LoginLogin_Main">
       <div>
@@ -156,23 +152,17 @@ const LoginMainPage = () => {
                 </ButtonComp>
               </div>
 
-
-            <div className="Alert">
-              {/* <button onClick={() => {setVisible(!visible)}}>
-                {visible ? "숨기기" : "보이기"}
-                </button> */}
+          <div className="Alert">
               {emailAlert && (
               <div>
                 <p><strong>이메일</strong>을 입력해주세요</p>
               </div>
-
               )}
               {passwordAlert && (
               <div>
                 <p><strong>비밀번호</strong>를 입력해주세요</p>
               </div>
               )}
-
               {emailAndPasswordAlert && (
               <div>
               <p><strong>이메일</strong> 또는 <strong>비밀번호</strong>를 잘못 입력하셨습니다.
@@ -181,8 +171,7 @@ const LoginMainPage = () => {
                 </p>
                 </div>
                 )}
-
-            </div>
+          </div>
 
             </section>
             <div className="Logincontainer">
