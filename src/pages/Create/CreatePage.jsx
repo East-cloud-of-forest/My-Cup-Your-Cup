@@ -336,19 +336,6 @@ const CreatePage =() => {
 
                 <SelectComp colorName={colorName} getProductName={getProductName} material={material} getTypeData={getTypeData} />
 
-                {/* 
-                아래 코드는 SelectComp 에 작성했습니다
-
-                <div id="btn">
-                    <ButtonComp>미리보기</ButtonComp>
-                <div className="cre_savepay">
-                    <ButtonComp style={{width:'100%'}}>저장</ButtonComp>
-                    <ButtonComp style={{width:'100%'}} 
-                        onClick={toCart}
-                    >결제</ButtonComp>
-                </div>
-                </div>
-                */}
             </div>
         </div>
     )

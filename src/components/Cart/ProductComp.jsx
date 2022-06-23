@@ -50,10 +50,18 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                 <div className="product-quantity">
                         <ButtonComp icon>
                             <FontAwesomeIcon icon={solid("minus")} onClick={()=> {
-                                minus();
+                                if(quantity>1){
+                                    minus();
+                                }
                             }}/>
                         </ButtonComp>
-                        <input id="qtyForm" type="text" value={quantity} required  
+                        <input
+                            disabled
+                            style={{border:0, fontWeight:'bold'}} 
+                            id="qtyForm"
+                            type="text"
+                            value={quantity} 
+                            required  
                             onChange={()=> setQ(quantity) } min="1" />
                         <ButtonComp  icon>
                             <FontAwesomeIcon icon={solid("plus")} onClick={()=> {
