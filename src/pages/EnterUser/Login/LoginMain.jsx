@@ -12,6 +12,8 @@ import Googlelogo from '../../../components/Login/img/googleicon.svg'
 import Facebooklogo from '../../../components/Login/img/facebookicon.svg'
 import { loginUserModule } from '../../../modules/enteruser'
 import { emailLogin, googleLoginPopup } from '../../../datasources/firebase'
+
+
 const LoginMainPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -42,17 +44,41 @@ const LoginMainPage = () => {
         console.log(e)
       })
   }
+
+  // 이메일, 비밀번호 미입력시 출력
+  const [emailAlert,setEmailAlert] = useState(false);
+  const [passwordAlert,setPasswordAlert] = useState(false);
+  const [emailAndPasswordAlert,setEmailAndPasswordAlert] = useState(false);
+
   // 이메일 로그인
   function emailLoginClick() {
+
+    if (email ==''){
+      // alert("이메일을 입력하세요")
+      setEmailAlert(true)
+      setPasswordAlert(false)
+      setEmailAndPasswordAlert(false)
+    }
+    else if (password ==''){
+      // alert("비밀번호를 입력하세요")
+      setPasswordAlert(true)
+      setEmailAlert(false)
+      setEmailAndPasswordAlert(false)
+    }
+
+    else if (password !=='') {
     emailLogin(email, password)
       .then((result) => {
         loginUser(result.user)
         navi('/')
       })
       .catch((e) => {
-        alert('이메일 로그인 실패')
+        // alert(`이메일 또는 비밀번호를 잘못 입력하셨습니다, 입력하신 내용을 다시 확인해주세요.`)
+        setEmailAlert(false)
+        setPasswordAlert(false)
+        setEmailAndPasswordAlert(true)
         console.log(e)
-      })
+      })}
   }
 
   /*아이디찾기 모달창 기능*/
@@ -77,6 +103,7 @@ const LoginMainPage = () => {
     setSearchPassword(false)
   }
 
+
   return (
     <main className="LoginLogin_Main">
       <div>
@@ -99,7 +126,7 @@ const LoginMainPage = () => {
                 </span>
                 <input
                   placeholder="비밀번호를 입력해주세요"
-                  type="password"
+                  type="text"
                   onChange={inputPassword}
                 />
               </div>
@@ -124,6 +151,28 @@ const LoginMainPage = () => {
                   로그인
                 </ButtonComp>
               </div>
+
+          <div className="Alert">
+              {emailAlert && (
+              <div>
+                <p><strong>이메일</strong>을 입력해주세요</p>
+              </div>
+              )}
+              {passwordAlert && (
+              <div>
+                <p><strong>비밀번호</strong>를 입력해주세요</p>
+              </div>
+              )}
+              {emailAndPasswordAlert && (
+              <div>
+              <p><strong>이메일</strong> 또는 <strong>비밀번호</strong>를 잘못 입력하셨습니다.
+              <br />
+                입력하신 내용을 다시 확인해주세요.
+                </p>
+                </div>
+                )}
+          </div>
+
             </section>
             <div className="Logincontainer">
               <div className="or_box">

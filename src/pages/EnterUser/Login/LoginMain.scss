@@ -1,3 +1,15 @@
+
+// 이메일, 비밀번호 미입력시 알림
+.Alert {
+	text-align: center;
+	height: 50px;
+	margin: 12px auto 0px auto;
+	font-size: 12px;
+	color: crimson;
+	line-height: 20px;
+}
+
+
 .LoginLogin_Main {
   & .Loginmain_container {
     width: 100%;
@@ -90,6 +102,7 @@
 
 				& .or_box {
 					margin: 2rem 0;
+					margin-top: 0px;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
