@@ -1,7 +1,23 @@
-import PopupPostCode from './address/PopupPostCode';
-import { ModalComp, AddressModalComp } from '../index-comp/IndexComp';
+import PayPopupPostCode from './PayPopupPostCode';
+import { AddressModalComp } from '../index-comp/IndexComp';
+import { useState } from 'react';
 
 const PayAddress = () => {
+    
+    //우편번호 가져오는 함수
+    const [addressNum,setAddressNum] = useState("")
+    
+    const getNumData = (addressNum) => {
+        setAddressNum(addressNum);
+    }
+
+    //주소 가져오는 함수
+    const [addresslen,setAddresslen] = useState("")
+    
+    const getAddData = (addresslen) => {
+        setAddresslen(addresslen);
+    }
+
     return (
         <div>
             <div className="pay_div">
@@ -29,11 +45,21 @@ const PayAddress = () => {
                         <tr className="pay_address_table_tr">
                             <td className="pay_table_cate">배송 주소</td>
                             <td>
-                                <input type="number" placeholder="우편번호" className="pay_address_addressnum" />
-                                <AddressModalComp button={<button>검색</button>}>
-                                    <PopupPostCode />
+                                <input type="text" placeholder="우편번호" className="pay_address_addressnum" defaultValue={addressNum} />
+                                <AddressModalComp button={
+                                    <button
+                                        style={{
+                                            height:"40px", 
+                                            width:"80px",
+                                            color: "black",
+                                            border: "#c9c9c9 solid 3px"
+                                        }}
+                                    >검색</button>
+                                }>
+                                    <PayPopupPostCode getNumData={getNumData} getAddData={getAddData} />
                                 </AddressModalComp><br />
-                                <input type="text" className="pay_address_address" /><input type="text" className="pay_address_address" />
+                                <input type="text" className="pay_address_address" placeholder="주소" defaultValue={addresslen} /><br />
+                                <input type="text" className="pay_address_address" placeholder="나머지 주소" />
                             </td>
                         </tr>
 

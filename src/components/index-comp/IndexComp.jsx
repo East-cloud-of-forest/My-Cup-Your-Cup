@@ -306,8 +306,8 @@ export const AddressModalComp = ({ children, button, className }) => {
   const cloneChild = React.cloneElement(children, {'onSelect':handleClose})
 
   return (
-    <div>
-      <span onClick={handleShow}>{button}</span>
+    <>
+      <span onClick={handleShow}> {button}</span>
 
       <Modal
         centered
@@ -317,7 +317,7 @@ export const AddressModalComp = ({ children, button, className }) => {
       >
           <div className="content_block" style={modalStyle}>{cloneChild}</div>
       </Modal>
-    </div>
+    </>
   )
 }
 
