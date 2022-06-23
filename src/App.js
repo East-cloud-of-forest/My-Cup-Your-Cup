@@ -21,9 +21,6 @@ import Ask from "./pages/QnA/Ask";
 import Design from "./pages/Design/Design";
 import EnterUser from "./pages/EnterUser/EnterUser";
 import Agreement from "./pages/EnterUser/Agreement/Agreement";
-import { useDispatch } from "react-redux";
-import { dataResultModule } from "./modules/firebaseData";
-import { useEffect } from "react";
 
 function App() {
   const location = useLocation();
@@ -37,9 +34,6 @@ function App() {
         return true;
     }
   };
-
-  const dispatch = useDispatch()
-  useEffect(()=>{dispatch(dataResultModule())},[])
   
   return (
     <div className="App">
