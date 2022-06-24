@@ -109,6 +109,10 @@
           font-size: 1.05rem;
           padding: 0;
           transition:  width 0.7s, padding 0.7s, opacity 0.3s;
+
+          &:focus-visible {
+            outline: none;
+          }
         }
 
         button {

@@ -1,5 +1,5 @@
 import PayPopupPostCode from './PayPopupPostCode';
-import { AddressModalComp } from '../index-comp/IndexComp';
+import { ModalComp } from '../index-comp/IndexComp';
 import { useState } from 'react';
 
 const PayAddress = () => {
@@ -46,7 +46,7 @@ const PayAddress = () => {
                             <td className="pay_table_cate">배송 주소</td>
                             <td>
                                 <input type="text" placeholder="우편번호" className="pay_address_addressnum" defaultValue={addressNum} />
-                                <AddressModalComp button={
+                                <ModalComp Address button={
                                     <button
                                         style={{
                                             height:"40px", 
@@ -57,7 +57,7 @@ const PayAddress = () => {
                                     >검색</button>
                                 }>
                                     <PayPopupPostCode getNumData={getNumData} getAddData={getAddData} />
-                                </AddressModalComp><br />
+                                </ModalComp><br />
                                 <input type="text" className="pay_address_address" placeholder="주소" defaultValue={addresslen} /><br />
                                 <input type="text" className="pay_address_address" placeholder="나머지 주소" />
                             </td>
