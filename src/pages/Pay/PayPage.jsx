@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./PayPage.scss";
 import PayAddress from '../../components/PayComp/PayAddress';
 import PayOrderList from '../../components/PayComp/PayOrderList';
@@ -10,13 +10,11 @@ const PayPage = () => {
     const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
     const selectedItems = items.filter( item => item.selected === true );
     
-    // 총 금액
-    const selected = items.filter( item => item.selected === true );
-    const totals = selected.map( s => s.total )
-d
-    let sum = 0;
-    const totalPrice = totals.reduce( (prev, curr) => prev + curr, sum )
+    const [cost,setCost] = useState(0)
 
+    const getData = (cost) =>{
+        setCost(cost);
+    }
 
     return (
         <div className='pay_all_div'>
@@ -39,7 +37,7 @@ d
 
             {/**픽스 div */}
             <div>
-                <PayFixed totalPrice={totalPrice} />
+                <PayFixed cost={cost} />
             </div>
         </div>
     );
