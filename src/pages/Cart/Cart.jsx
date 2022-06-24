@@ -42,8 +42,8 @@ function Cart() {
                 /> 전체선택
                 {
                     items.length >=1 ? (
-                    items.map( (item) => ( 
-                        <ProductComp 
+                    items.map( (item, i) => ( 
+                        <ProductComp
                             item={item}
                             key={item.id}
                             onDeleteItem={onDeleteItem}
@@ -51,7 +51,8 @@ function Cart() {
                             onPlusOne={onPlusOne}
                             onMinusOne={onMinusOne}
                             //onInput={onInput}
-                        /> 
+                            idx={i}
+                        />
                     ))
                     ) : (
                         <p style={{ margin: "50px 0 0 50px" }}>장바구니가 비어있습니다.</p>

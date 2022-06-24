@@ -50,24 +50,25 @@ export const minusOne = (id) => ({
 function cartReducer( state = initialState, action ) {
     switch (action.type) {
         case ADD_ITEM :
+
             return { items : state.items.concat(action.item) };
         case DELETE_ITEM :
             return { items : state.items.filter( item => item.id !== action.id )};
         case SELECT_ITEM :
             return { 
                 items : state.items.map( item => item.id === action.id ? 
-                    { ...item, selected: !item.selected, total: item.quantity * item.price } : item )
+                    { ...item, selected: !item.selected, total: item.quantity * item.price + (item.strow === 'use' ? 4000 : 0) } : item )
                 }
         case PLUS_ONE :
             return {
                 items : state.items.map( item => item.id === action.id ?
-                    { ...item, quantity : item.quantity += 1, total: item.quantity * item.price } : item
+                    { ...item, quantity : item.quantity += 1, total: item.quantity * item.price + (item.strow === 'use' ? 4000 : 0)} : item
                 )
             }
         case MINUS_ONE :
             return {
                 items : state.items.map( item => item.id === action.id ?
-                    { ...item, quantity : item.quantity -= 1, total: item.quantity * item.price } : item
+                    { ...item, quantity : item.quantity -= 1, total: item.quantity * item.price + (item.strow === 'use' ? 4000 : 0)} : item
                 )
             }
         // case NUMBER_INPUT :
@@ -79,4 +80,5 @@ function cartReducer( state = initialState, action ) {
             return state;
     }
 }
+
 export default cartReducer;

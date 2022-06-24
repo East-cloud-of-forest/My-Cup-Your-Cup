@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
 
 
-function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput }) {
+function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput, idx }) {
     const [q, setQ] = useState();
     const quantity= item.quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
@@ -38,7 +38,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                 ></input>
             <img src={item.image} alt="product-pic"></img>
             <div className='product-text'>
-                <h4 className='product-title'> {`${item.id}. ${item.name}`} </h4>
+                <h4 className='product-title'> {`${idx+1}. ${item.name}`} </h4>
                 <p>
                     색상: {item.color} <br/>
                     재질: {item.material} <br/>

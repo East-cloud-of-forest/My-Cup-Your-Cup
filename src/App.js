@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import HomeComp from "./pages/Home/Home";
 import Header from "./components/HeaderComp";
 import Footer from "./components/FooterComp";
-import Mypage from "./pages/MyPage/Mypage";
+import MyDesign from "./pages/MyDesign/MyDesign";
 import LoginMain from "./pages/EnterUser/Login/LoginMain";
 import JoinUser from "./pages/EnterUser/Join/JoinUser";
 import QnAmenu from "./pages/QnA/QnAmenu";
@@ -42,7 +42,7 @@ function App() {
         <Routes>
           <Route index element={<HomeComp />} />
           <Route path="/design" element={<Design />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mydesign" element={<MyDesign />} />
           <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
           <Route path="/create" element={<CreatePage />} />
