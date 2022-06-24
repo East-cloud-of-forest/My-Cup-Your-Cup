@@ -3,12 +3,11 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
-import { useEffect } from 'react';
-import { snapshotEqual } from 'firebase/firestore';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput }) {
-    const [ q, setQ ] = useState(1);
-    const price = item.price;
+
+function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput, idx }) {
+    const [q, setQ] = useState();
     const quantity= item.quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
         style: 'currency',
@@ -23,13 +22,17 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
     };
 
     const onSelect = () => {
-            onSelectItem(item.id);
+        console.log(item.selected)
+        onSelectItem(item.id);
     };
     const onDelete = ()=> {
         let id = item.id;
         onDeleteItem(id);
         window.localStorage.removeItem('cart', JSON.stringify(item[id]));
     }
+
+    const navigate = useNavigate();
+
 
     return (
         <div className="product-container">
@@ -40,7 +43,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                 ></input>
             <img src={item.image} alt="product-pic"></img>
             <div className='product-text'>
-                <h4 className='product-title'> {`${item.id}. ${item.name}`} </h4>
+                <h4 className='product-title'> {`${idx+1}. ${item.name}`} </h4>
                 <p>
                     색상: {item.color} <br/>
                     재질: {item.material} <br/>
@@ -64,15 +67,13 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                             required  
                             onChange={()=> setQ(quantity) } min="1" />
                         <ButtonComp  icon>
-                            <FontAwesomeIcon icon={solid("plus")} onClick={()=> {
-                                plus()
-                            }}/>
+                            <FontAwesomeIcon icon={solid("plus")} onClick={plus}/>
                         </ButtonComp>
                     
                 </div>
             </div>
             <div className='mdButtons'>
-                    <ButtonComp icon>
+                    <ButtonComp icon onClick={()=>{navigate(-1)}}>
                         <FontAwesomeIcon icon={solid("pen-to-square")} />
                     </ButtonComp>
                     <ButtonComp icon onClick={onDelete}>

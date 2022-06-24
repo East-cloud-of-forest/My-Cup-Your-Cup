@@ -1,10 +1,10 @@
-import "./Mypage.scss";
+import "./MyDesign.scss";
 import { ProfileComp } from "../../components/index-comp/IndexComp";
 import MyDesigns from "../../components/Mypage/Grid/MyDesigns";
 import LikedDesigns from "../../components/Mypage/Grid/LikedDesigns";
 import { Link } from "react-router-dom";
 
-const Mypage = () => {
+const MyDesign = () => {
   return (
     <>
       <div className="header">
@@ -40,4 +40,4 @@ const Mypage = () => {
     </>
   );
 };
-export default Mypage;
+export default MyDesign;
