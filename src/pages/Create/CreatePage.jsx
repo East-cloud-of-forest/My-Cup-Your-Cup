@@ -1,6 +1,6 @@
 import "./Create.scss";
 import ColorComp from "../../components/createcomp/ColorComp";
-import SelectComp from "../../components/createcomp/SelectComp copy";
+import SelectComp from "../../components/createcomp/SelectComp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRotateBack, faArrowRotateForward, faArrowsAltV,faArrowsAltH, faTrash,faPaintBrush, faWhiskeyGlass, faFileArrowUp, faFont, faStar, faEye, faEyeSlash,fa1,fa2,fa3 } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
