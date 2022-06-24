@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCYX6ARJoL4o85wYhRK9vtTzsXiOBhhk1w',
@@ -34,6 +35,11 @@ const emailLogin = (email, password) => signInWithEmailAndPassword(auth, email, 
 const db = getFirestore()
 const getFirebaseData = async (name) => {
   return await getDocs(collection(db, name))
+}
+
+const storage = getStorage(app)
+const uploadFirestorage = async (path ,img) => {
+  const storageRef = storage.ref(storage, path+'/'+img)
 }
 
 export { app, db, getFirebaseData, googleLoginPopup, emailLogin, auth }

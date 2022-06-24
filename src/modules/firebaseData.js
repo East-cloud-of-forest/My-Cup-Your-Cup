@@ -23,10 +23,10 @@ const initalState = []
 const firebaseData = (state = initalState, action) => {
   switch (action.type) {
     case DATA_RESULT:
-      return [
+      return {
         ...state,
-        action.payload
-      ]
+        review: action.payload
+      }
     default:
       return state
   }

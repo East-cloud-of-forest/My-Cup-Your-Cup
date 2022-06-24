@@ -5,7 +5,9 @@ import { ButtonComp, Pagination } from "../../components/index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
+import { dataResultModule } from "../../modules/firebaseData";
 
 const ReviewPage = () => {
   const navigate = useNavigate();
@@ -13,6 +15,10 @@ const ReviewPage = () => {
     navigate("/review/write");
   };
   const { boards } = useSelector((state) => state.review);
+
+  const dispatch = useDispatch()
+  const aaa = useCallback(()=>dispatch(dataResultModule()),[dispatch])
+  aaa()
 
   return (
     <div className="review_page">
