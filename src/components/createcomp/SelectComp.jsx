@@ -84,11 +84,11 @@ const SelectComp = ({
     dispatch,
   ])
   const sendCupInfo = () => {
-    if (tumMet === '상품명') {
+    if (tumMet.met === 'none') {
       alert('컵 재질을 선택해주세요')
-    } else if (tumSize === '') {
+    } else if (tumSize.size === '') {
       alert('컵 사이즈를 선택해주세요')
-    } else if (tumStraw === 'none') {
+    } else if (tumStraw.use === 'none') {
       alert('빨대사용 여부를 선택해 주세요')
     } else {
       onAddItem({
