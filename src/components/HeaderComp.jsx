@@ -1,11 +1,12 @@
 import "./HeaderComp.scss";
-import { Logo, ButtonComp } from "./index-comp/IndexComp";
+import { Logo, ButtonComp, ModalComp } from "./index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import classNames from "classnames";
 import { useRef } from "react";
+import CartPopUp from "./Cart/CartPopUp";
 
 const Header = () => {
   const [searchActive, setSearchActive] = useState(false);
@@ -110,11 +111,14 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <Link to='/cart'>
+            <ModalComp button={
               <ButtonComp icon style={{ width: "45px" }}>
                 <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
-              </ButtonComp>
-            </Link>
+              </ButtonComp>}
+              className="cart_popup"
+            >
+              <CartPopUp />
+            </ModalComp>
           </li>
           <li>
             <Link to="/enteruser/login">

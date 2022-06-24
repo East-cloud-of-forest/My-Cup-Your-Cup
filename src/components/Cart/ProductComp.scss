@@ -63,3 +63,24 @@
         font-weight: bolder;
     }
 }
+
+.popup_container {
+    display: flex;
+    & .popup_img {
+        width: 100px;
+        aspect-ratio: 1;
+        object-fit: cover;
+    }
+    & .popup_title {
+        font-weight: bold;
+    }
+    & .popup_options p {
+        font-size: 8px;
+        color: gray;
+    }
+    .popup_price {
+        color: #60AB90;
+        font-weight: bold;
+    }
+    
+}
