@@ -57,7 +57,6 @@ const Header = () => {
     } else {
       setSearchActive(true);
       searchInput.current.focus();
-      console.log(searchActive);
     }
   };
   // 검색 엔터

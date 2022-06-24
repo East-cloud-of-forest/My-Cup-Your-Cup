@@ -20,27 +20,27 @@ const ReviewPage = () => {
       <Container fluid>
         <Row>
           {boards.map((board, i) => (
-            <Col lg="2" md="4" key={i} className="review_card">
+            <Col xl="2" lg="3" md="4" key={i} className="review_card">
               <ReviewAndModalComp board={board} />
             </Col>
           ))}
           {boards.map((board, i) => (
-            <Col lg="2" md="4" key={i} className="review_card">
+            <Col xl="2" lg="3" md="4" key={i} className="review_card">
               <ReviewAndModalComp board={board} />
             </Col>
           ))}
           {boards.map((board, i) => (
-            <Col lg="2" md="4" key={i} className="review_card">
+            <Col xl="2" lg="3" md="4" key={i} className="review_card">
               <ReviewAndModalComp board={board} />
             </Col>
           ))}
           {boards.map((board, i) => (
-            <Col lg="2" md="4" key={i} className="review_card">
+            <Col xl="2" lg="3" md="4" key={i} className="review_card">
               <ReviewAndModalComp board={board} />
             </Col>
           ))}
           {boards.map((board, i) => (
-            <Col lg="2" md="4" key={i} className="review_card">
+            <Col xl="2" lg="3" md="4" key={i} className="review_card">
               <ReviewAndModalComp board={board} />
             </Col>
           ))}
