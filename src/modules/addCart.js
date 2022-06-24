@@ -5,7 +5,6 @@ const SELECT_ITEM = 'addCart/SELECT_ITEM'
 const EDIT_ITEM = 'addCart/EDIT_ITEM'
 const PLUS_ONE = 'addCart/PLUS_ONE'
 const MINUS_ONE = 'addCart/MINUS_ONE'
-const NUMBER_INPUT = 'addCart/NUMBER_INPUT'
 
 const initialState = {
   items: [],
@@ -18,14 +17,13 @@ export const addItem = (item) => (console.log(item),{
   item: {
     ...item,
     id: id++,
-    selected: false,
+    selected: true,
     total: item.price * item.quantity,
   },
 })
-export const selectItem = (id, total) => ({
+export const selectItem = (id) => ({
   type: SELECT_ITEM,
   id,
-  total,
 })
 export const deleteItem = (id) => ({
   type: DELETE_ITEM,
@@ -43,11 +41,6 @@ export const minusOne = (id) => ({
   type: MINUS_ONE,
   id,
 })
-// export const numberInput = (id, number) => ({
-//     type : NUMBER_INPUT,
-//     id,
-//     number
-// })
 
 function cartReducer(state = initialState, action) {
   switch (action.type) {
@@ -91,11 +84,6 @@ function cartReducer(state = initialState, action) {
             : item,
         ),
       }
-    // case NUMBER_INPUT :
-    //     return {
-    //         items : state.items.map( item => item.id === action.id ?
-    //             { ...item, quantity: action.number } : item )
-    //     }
     default:
       return state
   }

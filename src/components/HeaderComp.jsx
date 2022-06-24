@@ -110,9 +110,11 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <ButtonComp icon style={{ width: "45px" }}>
-              <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
-            </ButtonComp>
+            <Link to='/cart'>
+              <ButtonComp icon style={{ width: "45px" }}>
+                <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
+              </ButtonComp>
+            </Link>
           </li>
           <li>
             <Link to="/enteruser/login">

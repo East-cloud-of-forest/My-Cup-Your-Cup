@@ -11,12 +11,6 @@ const SelectComp = ({
 }) => {
   // 뭔지 모름
   const items = useSelector((state) => state.cartReducer.items)
-  //장바구니아이템 로컬스토리지에 저장 >> 한박자 느림..왜???
-  useEffect(() => {
-    window.localStorage.setItem('cart', JSON.stringify(items))
-  }, [items])
-  //
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -83,7 +77,8 @@ const SelectComp = ({
   const onAddItem = useCallback((tumblur) => dispatch(addItem(tumblur)), [
     dispatch,
   ])
-  const sendCupInfo = () => {
+  // 결제버튼 클릭시
+  const sendCupInfoPay = () => {
     if (tumMet.met === 'none') {
       alert('컵 재질을 선택해주세요')
     } else if (tumSize.size === '') {
@@ -100,7 +95,31 @@ const SelectComp = ({
         strow: tumStraw.use,
         price: tumMet.price + tumSize.price + tumStraw.price,
         quantity: 1,
+
       })
+
+      navigate('/pay')
+    }
+  }
+  // 장바구니버튼 클릭시
+  const sendCupInfoCart = () => {
+    if (tumMet.met === 'none') {
+      alert('컵 재질을 선택해주세요')
+    } else if (tumSize.size === '') {
+      alert('컵 사이즈를 선택해주세요')
+    } else if (tumStraw.use === 'none') {
+      alert('빨대사용 여부를 선택해 주세요')
+    } else {
+      onAddItem({
+        image: null,
+        name: tumMet.name + tumSize.name,
+        color: colorName,
+        material: tumMet.met,
+        size: tumSize.size,
+        strow: tumStraw.use,
+        price: tumMet.price + tumSize.price + tumStraw.price,
+        quantity: 1,
+      });
       navigate('/cart')
     }
   }
@@ -154,12 +173,15 @@ const SelectComp = ({
         <ButtonComp>미리보기</ButtonComp>
         <div className="cre_savepay">
           <ButtonComp style={{ width: '100%' }}>저장</ButtonComp>
-          <ButtonComp style={{ width: '100%' }}>장바구니</ButtonComp>
+          <ButtonComp 
+            style={{ width: '100%' }}
+            onClick={sendCupInfoCart}>
+              장바구니
+            </ButtonComp>
           <ButtonComp
             style={{ width: '100%' }}
-            onClick={sendCupInfo}
-          >
-            결제
+            onClick={sendCupInfoPay}>
+              결제
           </ButtonComp>
         </div>
       </div>

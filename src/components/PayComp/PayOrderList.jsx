@@ -1,9 +1,6 @@
 import React from "react";
 
-const PayOrderList = ({items, totalPrice}) => {
-    const selected = items.filter( item => item.selected === true );
-
-
+const PayOrderList = ({selected, totalPrice}) => {
     return (
         <div>
             <div className="pay_div">
@@ -21,19 +18,10 @@ const PayOrderList = ({items, totalPrice}) => {
                                     </div>
                                 </div>
                             ))
-                            // IMAGES.map((image,i)=>(
-                            //     <div className="pay_product" key={i}>
-                            //         <img className="pay_thumb" src={IMAGES[i].src} alt={IMAGES[i].title }/>
-                            //         <div className="pay_product_content">
-                            //             <p>스테인리스, 용량 대, 빨대 사용</p>
-                            //             <p>{IMAGES[i].id*10000}</p>
-                            //         </div>
-                            //     </div>
-                            // ))
                         }
                     </div>
                 <hr className="pay_main_hr"/>
-                <h4 className="pay_cost">총 <span>{totalPrice.toLocaleString()}</span> 원</h4>
+                <h4 className="pay_cost">총 <span>{(totalPrice + 2500).toLocaleString()}</span> 원</h4>
             </div>
         </div>
     );

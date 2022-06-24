@@ -3,7 +3,6 @@ import "./PayPage.scss";
 import PayAddress from '../../components/PayComp/PayAddress';
 import PayOrderList from '../../components/PayComp/PayOrderList';
 import PayMethod from '../../components/PayComp/PayMethod';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PayFixed from '../../components/PayComp/PayFixed';
 
@@ -24,7 +23,7 @@ const PayPage = () => {
             
             {/**주문목록 */}
             <div>
-                <PayOrderList items={items} totalPrice={totalPrice} />
+                <PayOrderList selected={selected} totalPrice={totalPrice} />
             </div>
 
             {/**배송지정보 */}

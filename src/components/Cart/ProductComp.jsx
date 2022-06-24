@@ -3,6 +3,7 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { ButtonComp } from '../index-comp/IndexComp';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput, idx }) {
@@ -21,13 +22,17 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
     };
 
     const onSelect = () => {
-            onSelectItem(item.id);
+        console.log(item.selected)
+        onSelectItem(item.id);
     };
     const onDelete = ()=> {
         let id = item.id;
         onDeleteItem(id);
         window.localStorage.removeItem('cart', JSON.stringify(item[id]));
     }
+
+    const navigate = useNavigate();
+
 
     return (
         <div className="product-container">
@@ -68,7 +73,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                 </div>
             </div>
             <div className='mdButtons'>
-                    <ButtonComp icon>
+                    <ButtonComp icon onClick={()=>{navigate(-1)}}>
                         <FontAwesomeIcon icon={solid("pen-to-square")} />
                     </ButtonComp>
                     <ButtonComp icon onClick={onDelete}>
