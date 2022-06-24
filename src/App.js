@@ -29,6 +29,7 @@ function App() {
       case "/enteruser/login":
       case "/enteruser/agree":
       case "/enteruser/join":
+      case "/review/write" :
         return false;
       default:
         return true;
