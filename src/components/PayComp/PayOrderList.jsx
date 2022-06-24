@@ -1,23 +1,17 @@
 import { useEffect } from "react";
-import { IMAGES } from "../../images";
 import React from "react";
 
 const PayOrderList = ({items, cost, getData}) => {
 
-    let payCost = 0;
-
-    const paySumRef = React.useRef();
-
-    // useEffect(()=>{
-    //     IMAGES.map((image,i)=>{
-    //         for (let index = 0; index < IMAGES.length; index++) {
-    //             payCost = payCost + IMAGES[index].id*10000/IMAGES.length;
-    //         }
-    //         cost=payCost;
-    //         getData(cost);
-    //         paySumRef.current.innerHTML=`${payCost}`;
-    //     })
-    // })
+    let payCost = 0
+    for (let i = 0; i < items.length; i++) {
+        payCost=payCost+items[i].total;
+    };
+    
+    useEffect(()=>{
+        cost=payCost;
+        getData(cost);
+    },[payCost])
 
     return (
         <div>
@@ -35,19 +29,10 @@ const PayOrderList = ({items, cost, getData}) => {
                                     </div>
                                 </div>
                             ))
-                            // IMAGES.map((image,i)=>(
-                            //     <div className="pay_product" key={i}>
-                            //         <img className="pay_thumb" src={IMAGES[i].src} alt={IMAGES[i].title }/>
-                            //         <div className="pay_product_content">
-                            //             <p>스테인리스, 용량 대, 빨대 사용</p>
-                            //             <p>{IMAGES[i].id*10000}</p>
-                            //         </div>
-                            //     </div>
-                            // ))
                         }
                     </div>
                 <hr className="pay_main_hr"/>
-                <h4 className="pay_cost">총 <span ref={paySumRef}></span> 원</h4>
+                <h4 className="pay_cost">총 {payCost+2500} 원</h4>
             </div>
         </div>
     );

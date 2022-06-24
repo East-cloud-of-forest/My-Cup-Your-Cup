@@ -9,6 +9,7 @@ import PayFixed from '../../components/PayComp/PayFixed';
 
 const PayPage = () => {
     const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
+    const selectedItems = items.filter( item => item.selected === true );
     
     const [cost,setCost] = useState(0)
 
@@ -22,7 +23,7 @@ const PayPage = () => {
             
             {/**주문목록 */}
             <div>
-                <PayOrderList items={items} cost={cost} getData={getData}/>
+                <PayOrderList items={selectedItems} cost={cost} getData={getData}/>
             </div>
 
             {/**배송지정보 */}
