@@ -66,6 +66,9 @@
 
 .popup_container {
     display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin: 10px;
     & .popup_img {
         width: 100px;
         aspect-ratio: 1;
@@ -74,8 +77,8 @@
     & .popup_title {
         font-weight: bold;
     }
-    & .popup_options p {
-        font-size: 8px;
+    & .popup_options {
+        font-size: 9px;
         color: gray;
     }
     .popup_price {
