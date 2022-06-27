@@ -1,7 +1,7 @@
 import "./MyDesign.scss";
 import { ProfileComp } from "../../components/index-comp/IndexComp";
-import MyDesigns from "../../components/Mypage/Grid/MyDesigns";
-import LikedDesigns from "../../components/Mypage/Grid/LikedDesigns";
+import MyDesigns from "../../components/MyDesignComp/Grid/MyDesigns";
+import LikedDesigns from "../../components/MyDesignComp/Grid/LikedDesigns";
 import { Link } from "react-router-dom";
 
 const MyDesign = () => {

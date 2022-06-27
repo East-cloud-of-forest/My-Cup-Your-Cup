@@ -20,8 +20,9 @@ function Cart() {
     
     // 로컬스토리지에 저장 - 최상위컴포넌트에 작성할 것
     useEffect(() => {
-    window.localStorage.setItem('cart', JSON.stringify(items))
+        window.localStorage.setItem('cart', JSON.stringify(items))
     }, [])
+        // JSON.parse( window.localStorage.getItem('cart'))
 
     return (
         <div className='cart-container'>
@@ -34,6 +35,22 @@ function Cart() {
                 {/* 상품 출력되는 곳 */}
                 <input type="checkbox" style={{ margin: "50px 0 0 50px" }}
                 /> 전체선택
+                {
+                    // itemsInStorage.length >=1 ? (
+                    //     itemsInStorage.map( (item, i) => (
+                    //         <ProductComp
+                    //         item={item}
+                    //         key={item.id}
+                    //         onDeleteItem={onDeleteItem}
+                    //         onSelectItem={onSelectItem}
+                    //         onPlusOne={onPlusOne}
+                    //         onMinusOne={onMinusOne}
+                    //         //onInput={onInput}
+                    //         idx={i}
+                    //     />
+                    //     ))
+                    // ) : (<p style={{ margin: "50px 0 50px 50px" }}>장바구니가 비어있습니다.</p>)
+                }
                 {
                     items.length >=1 ? (
                     items.map( (item, i) => ( 

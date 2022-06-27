@@ -250,7 +250,7 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp = ({ children, button, image, className, Address }) => {
+export const ModalComp = ({ children, button, image, className, Address, PopUp }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -259,8 +259,8 @@ export const ModalComp = ({ children, button, image, className, Address }) => {
   const modalStyle = {
     width: "600px",
     height: "600px",
-  };
-
+  }
+  
   const cloneChild = React.cloneElement(children, { onSelect: handleClose });
 
   return (
@@ -276,6 +276,21 @@ export const ModalComp = ({ children, button, image, className, Address }) => {
             onHide={handleClose}
           >
             <div className="content_block" style={modalStyle}>
+              {cloneChild}
+            </div>
+          </Modal>
+        </>
+      ) : PopUp ? (
+        <>
+          <span onClick={handleShow}>{button}</span>
+
+          <Modal
+            centered
+            dialogClassName={classNames("opened_modal", className)}
+            show={show}
+            onHide={handleClose}
+          >
+            <div className="content_block" >
               {cloneChild}
             </div>
           </Modal>
