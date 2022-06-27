@@ -12,7 +12,7 @@ const initialState = {
 
 //액션함수
 let id = 1
-export const addItem = (item) => (console.log(item),{
+export const addItem = (item) => ({
   type: ADD_ITEM,
   item: {
     ...item,

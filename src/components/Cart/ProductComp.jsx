@@ -6,7 +6,7 @@ import { ButtonComp } from '../index-comp/IndexComp';
 import { useNavigate } from 'react-router-dom';
 
 
-function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput, idx, PopUp }) {
+function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, idx, PopUp }) {
     const [q, setQ] = useState();
     const quantity= item.quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
@@ -25,7 +25,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
         console.log(item.selected)
         onSelectItem(item.id);
     };
-    const onDelete = ()=> {
+    const onDelete = () => {
         let id = item.id;
         onDeleteItem(id);
         //window.localStorage.removeItem('cart', JSON.stringify(item[id-1]));
@@ -50,7 +50,13 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                                 수량: {item.quantity}
                             </p>
                         </div>
-                        <p className='popup_price'>{ formatter.format(item.total) }</p>
+                        
+                        <div>
+                            <p className='popup_price'>{ formatter.format(item.total) }</p>
+                            <ButtonComp icon onClick={onDelete}>
+                                <FontAwesomeIcon icon={solid("trash-can")} />
+                            </ButtonComp>
+                        </div>
                 </div>
             ) : (
             <div className="product-container">

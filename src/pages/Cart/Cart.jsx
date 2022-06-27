@@ -3,7 +3,7 @@ import './Cart.scss'
 import ProductComp from '../../components/Cart/ProductComp';
 import TotalPriceComp from '../../components/Cart/TotalPriceComp';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteItem, minusOne, plusOne, selectItem, numberInput } from "../../modules/addCart"
+import { deleteItem, minusOne, plusOne, selectItem } from "../../modules/addCart"
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -61,7 +61,6 @@ function Cart() {
                             onSelectItem={onSelectItem}
                             onPlusOne={onPlusOne}
                             onMinusOne={onMinusOne}
-                            //onInput={onInput}
                             idx={i}
                         />
                     ))

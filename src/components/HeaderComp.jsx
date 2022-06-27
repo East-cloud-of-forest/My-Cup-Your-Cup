@@ -1,17 +1,26 @@
 import "./HeaderComp.scss";
-import { Logo, ButtonComp, ModalComp } from "./index-comp/IndexComp";
+import { Logo, ButtonComp } from "./index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
-import { useRef } from "react";
 import CartPopUp from "./Cart/CartPopUp";
+import { Overlay, Popover } from "react-bootstrap";
+import { useSelector } from "react-redux/es/exports";
+import { useMemo } from "react";
+
 
 const Header = () => {
   const [searchActive, setSearchActive] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [mouseDown, setMouseDown] = useState(false);
+  // 팝업
+  const {items} = useSelector( (state)=>state.cartReducer.items );
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
+
   const navi = useNavigate();
   const searchInput = useRef();
   const navlink = [
@@ -65,6 +74,17 @@ const Header = () => {
     searchClick()
     e.preventDefault();
   };
+  // 팝업 열기
+  const handleClick = (e) => {
+    setShow(!show);
+    setTarget(e.target);
+  };
+  const updatedItems = useMemo(() => {
+    return items;
+  })
+  useEffect(()=> {
+    setShow(!show)
+  }, [updatedItems])
 
   return (
     <header id="App_header" className="text-center">
@@ -111,14 +131,25 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <ModalComp PopUp button={
-              <ButtonComp icon style={{ width: "45px" }}>
+            <div ref={ref}>
+              <ButtonComp icon style={{ width: "45px" }} onClick={handleClick}>
                 <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
-              </ButtonComp>}
-              className="cart_popup"
-            >
-              <CartPopUp />
-            </ModalComp>
+              </ButtonComp>
+
+              <Overlay
+                show={show}
+                target={target}
+                placement="bottom"
+                container={ref}
+                containerPadding={20}
+                rootClose
+                onHide={()=>setShow(false)} // 바깥클릭시 창닫힘
+              >
+                <Popover id="cart_popup">
+                  <CartPopUp/> 
+                </Popover>
+              </Overlay>
+            </div>
           </li>
           <li>
             <Link to="/enteruser/login">
