@@ -46,7 +46,7 @@ const PayAddress = () => {
                             <td className="pay_table_cate">배송 주소</td>
                             <td>
                                 <input type="text" placeholder="우편번호" className="pay_address_addressnum" defaultValue={addressNum} />
-                                <ModalComp Address button={
+                                <ModalComp button={
                                     <button
                                         style={{
                                             height:"40px", 
@@ -55,7 +55,7 @@ const PayAddress = () => {
                                             border: "#c9c9c9 solid 3px"
                                         }}
                                     >검색</button>
-                                }>
+                                }height='80vh'>
                                     <PayPopupPostCode getNumData={getNumData} getAddData={getAddData} />
                                 </ModalComp><br />
                                 <input type="text" className="pay_address_address" placeholder="주소" defaultValue={addresslen} /><br />

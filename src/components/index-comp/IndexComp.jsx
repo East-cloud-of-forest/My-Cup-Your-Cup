@@ -1,69 +1,69 @@
-import "./IndexComp.scss";
-import React, { useState, useEffect } from "react";
-import classNames from "classnames";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Modal } from "react-bootstrap";
+import './IndexComp.scss'
+import React, { useState, useEffect } from 'react'
+import classNames from 'classnames'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { Modal } from 'react-bootstrap'
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, tile, color, onClick } = props;
-  const [ripples, setRipples] = useState([]);
+  const { children, size, icon, style, block, tile, color, onClick } = props
+  const [ripples, setRipples] = useState([])
   useEffect(() => {
     if (ripples.length > 0) {
       const a = setTimeout(() => {
-        setRipples(ripples.filter((e) => e.id !== ripples.length - 1));
-      }, 600);
-      return () => clearTimeout(a);
+        setRipples(ripples.filter((e) => e.id !== ripples.length - 1))
+      }, 600)
+      return () => clearTimeout(a)
     }
-  }, [ripples]);
+  }, [ripples])
   const clickanimation = (e) => {
-    let x = e.clientX - e.currentTarget.getBoundingClientRect().left;
-    let y = e.clientY - e.currentTarget.getBoundingClientRect().top;
+    let x = e.clientX - e.currentTarget.getBoundingClientRect().left
+    let y = e.clientY - e.currentTarget.getBoundingClientRect().top
     let ripple = React.createElement(
-      "span",
+      'span',
       {
-        style: { left: x + "px", top: y + "px" },
+        style: { left: x + 'px', top: y + 'px' },
         key: ripples.length,
-        className: "ripple-span",
+        className: 'ripple-span',
       },
-      null
-    );
+      null,
+    )
     setRipples(
       ripples.concat({
         element: ripple,
         id: ripples.length,
-      })
-    );
-  };
+      }),
+    )
+  }
   return (
     <button
       style={style}
       className={classNames(
-        "button",
+        'button',
         size,
-        icon ? "icon" : "",
-        block ? "block" : "",
-        tile ? "tile" : "",
-        color
+        icon ? 'icon' : '',
+        block ? 'block' : '',
+        tile ? 'tile' : '',
+        color,
       )}
       onClick={(e) => {
-        clickanimation(e);
-        onClick();
+        clickanimation(e)
+        onClick()
       }}
     >
       <span>{children}</span>
       {ripples.map((e) => e.element)}
     </button>
-  );
-};
+  )
+}
 
 ButtonComp.defaultProps = {
   onClick: function () {},
-};
+}
 
 // 슬라이드 컴포넌트
 export const SliderComp = ({
@@ -83,10 +83,10 @@ export const SliderComp = ({
         style={{ ...style }}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={solid("caret-right")} size="3x" />
+        <FontAwesomeIcon icon={solid('caret-right')} size="3x" />
       </div>
-    );
-  };
+    )
+  }
 
   const PrevArrow = ({ style, onClick }) => {
     return (
@@ -95,10 +95,10 @@ export const SliderComp = ({
         style={{ ...style }}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={solid("caret-left")} size="3x" />
+        <FontAwesomeIcon icon={solid('caret-left')} size="3x" />
       </div>
-    );
-  };
+    )
+  }
 
   const settings = {
     dots: dots,
@@ -110,14 +110,14 @@ export const SliderComp = ({
     autoplay: autoplay,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-  };
+  }
 
   return (
     <div>
       <Slider {...settings}>{children}</Slider>
     </div>
-  );
-};
+  )
+}
 
 SliderComp.defaultProps = {
   dots: true,
@@ -127,7 +127,7 @@ SliderComp.defaultProps = {
   slidesToScroll: 1,
   arrows: true,
   autoplay: false,
-};
+}
 
 // 로고 컴포넌트
 export const Logo = ({ style }) => {
@@ -205,23 +205,31 @@ export const Logo = ({ style }) => {
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 // 프로필 컴포넌트
 // 프로필 아이콘으로 사용할때 컴포넌트태그 안에 icon 작성
 export function ProfileComp(props) {
-  const { icon, justName, imageURL, userName, intro, instaURL, fbURL, size } =
-    props;
+  const {
+    icon,
+    justName,
+    imageURL,
+    userName,
+    intro,
+    instaURL,
+    fbURL,
+    size,
+  } = props
   return (
     <div
       className={classNames(
-        "profile",
-        icon ? "icon" : "",
-        justName ? "justName" : ""
+        'profile',
+        icon ? 'icon' : '',
+        justName ? 'justName' : '',
       )}
     >
-      <div className={classNames("image_container", size)}>
+      <div className={classNames('image_container', size)}>
         <img src={imageURL} alt="profile photo"></img>
       </div>
 
@@ -246,106 +254,70 @@ export function ProfileComp(props) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
 // 모달 컴포넌트
-export const ModalComp = ({ children, button, image, className, Address, PopUp }) => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const modalStyle = {
-    width: "600px",
-    height: "600px",
-  }
-  
-  const cloneChild = React.cloneElement(children, { onSelect: handleClose });
-
+export const ModalComp = ({ children, button, image, className,height }) => {
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  const cloneChild = React.cloneElement(children, { onSelect: handleClose })
   return (
     <>
-      {Address ? (
-        <>
-          <span onClick={handleShow}>{button}</span>
-
-          <Modal
-            centered
-            dialogClassName={classNames("opened_modal", className)}
-            show={show}
-            onHide={handleClose}
-          >
-            <div className="content_block" style={modalStyle}>
-              {cloneChild}
-            </div>
-          </Modal>
-        </>
-      ) : PopUp ? (
-        <>
-          <span onClick={handleShow}>{button}</span>
-
-          <Modal
-            centered
-            dialogClassName={classNames("opened_modal", className)}
-            show={show}
-            onHide={handleClose}
-          >
-            <div className="content_block" >
-              {cloneChild}
-            </div>
-          </Modal>
-        </>
-      ) : (
-        <div>
-          <span onClick={handleShow}>{button}</span>
-
-          <Modal
-            centered
-            dialogClassName={classNames("opened_modal", className)}
-            show={show}
-            onHide={handleClose}
-          >
-            <Modal.Body>
+      {/* 모달 open 버튼 */}
+      <span onClick={handleShow}>{button}</span>
+      {/* 모달 창 내용 */}
+      <Modal
+        centered
+        dialogClassName={classNames('opened_modal', className)}
+        show={show}
+        onHide={handleClose}
+      >
+        <Modal.Body>
+          {image ? (
+            <>
               <div className="img_block">{image}</div>
-
               <div className="content_block">{children}</div>
-            </Modal.Body>
-          </Modal>
-        </div>
-      )}
+            </>
+          ) : (
+            <div className="noimg_content_block" style={{height:height}}>{cloneChild}</div>
+          )}
+        </Modal.Body>
+      </Modal>
     </>
-  );
-};
+  )
+}
 
 // 페이지 컴포넌트
 export const Pagination = (props) => {
-  const { total, limit, page, setPage } = props;
-  const numPages = [1, 2, 3, 4]; //Math.ceil(total / limit);
+  const { total, limit, page, setPage } = props
+  const numPages = [1, 2, 3, 4] //Math.ceil(total / limit);
   return (
     <div className="pagination">
       <nav>
-        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
-          <FontAwesomeIcon icon={solid("chevron-left")} />
+        <ButtonComp style={{ backgroundColor: 'transparent', color: 'black' }}>
+          <FontAwesomeIcon icon={solid('chevron-left')} />
         </ButtonComp>
 
         {numPages.fill().map((_, i) => (
           <button
             key={i + 1}
             onClick={() => setPage(i + 1)}
-            aria-current={page === i + 1 ? "page" : null}
-            style={{ border: "none", margin: "7px" }}
+            aria-current={page === i + 1 ? 'page' : null}
+            style={{ border: 'none', margin: '7px' }}
           >
             {i + 1}
           </button>
         ))}
 
-        <ButtonComp style={{ backgroundColor: "transparent", color: "black" }}>
-          <FontAwesomeIcon icon={solid("chevron-right")} />
+        <ButtonComp style={{ backgroundColor: 'transparent', color: 'black' }}>
+          <FontAwesomeIcon icon={solid('chevron-right')} />
         </ButtonComp>
       </nav>
     </div>
-  );
-};
+  )
+}
 
 // 별점
 export const StarRating = ({ rating, onClick, onMouseOver, onMouseOut }) => {
@@ -357,19 +329,19 @@ export const StarRating = ({ rating, onClick, onMouseOver, onMouseOut }) => {
       onMouseOut={onMouseOut}
     >
       <span className="star_grey">
-        <FontAwesomeIcon icon={regular("star")} size="sm" />
-        <FontAwesomeIcon icon={regular("star")} size="sm" />
-        <FontAwesomeIcon icon={regular("star")} size="sm" />
-        <FontAwesomeIcon icon={regular("star")} size="sm" />
-        <FontAwesomeIcon icon={regular("star")} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
+        <FontAwesomeIcon icon={regular('star')} size="sm" />
       </span>
-      <span className="star_full" style={{ width: rating * 20 + "%" }}>
-        <FontAwesomeIcon icon={solid("star")} size="sm" />
-        <FontAwesomeIcon icon={solid("star")} size="sm" />
-        <FontAwesomeIcon icon={solid("star")} size="sm" />
-        <FontAwesomeIcon icon={solid("star")} size="sm" />
-        <FontAwesomeIcon icon={solid("star")} size="sm" />
+      <span className="star_full" style={{ width: rating * 20 + '%' }}>
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
+        <FontAwesomeIcon icon={solid('star')} size="sm" />
       </span>
     </div>
-  );
-};
+  )
+}

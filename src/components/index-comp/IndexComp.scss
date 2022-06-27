@@ -258,26 +258,31 @@ $facebook: #475a96;
   width: 90%;
   max-width: 1200px;
 
-  & .modal-body {
+  .modal-body {
     display: flex;
     padding: 0;
 
-    & .img_block {
+    .img_block {
       width: 50%;
       background-color: black;
       display: flex;
       align-items: center;
 
-      & img {
+      img {
         width: 100%;
       }
     }
 
-    & .content_block {
+    .content_block {
       width: 50%;
       aspect-ratio: 1/1;
       overflow: auto;
       padding: 1rem;
+    }
+
+    .noimg_content_block {
+      width: 100%;
+      min-height: 400px;
     }
   }
 }

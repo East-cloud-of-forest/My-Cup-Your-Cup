@@ -69,58 +69,83 @@
     width: 100%;
     margin: 2rem 0;
   }
-  
+
   > h4 {
     text-align: center;
   }
 
-  .write_title {
-    border-style: none;
-    border-bottom: 2px solid black;
-    padding: 12px;
-  }
-
   .tag_container {
     display: flex;
-    border-bottom: 2px solid black;
     color: black;
     flex-wrap: wrap;
-    width: 454px;
-  }
-
-  input:focus {
-    outline: none;
-  }
-
-  .tag_container input {
-    border: none;
-    padding: 12px;
-    padding-left: 12px;
-    min-width: 200px;
-  }
-
-  .tag {
-    display: flex;
+    width: 100%;
     align-items: center;
-    margin: 7px 0;
-    margin-right: 10px;
-    padding: 0 15px;
-    border: 1px solid #9dfad9;
-    border-radius: 28px;
-    background-color: #9dfad9;
-    white-space: nowrap;
-    color: black;
-    font-weight: bold;
+
+    hr {
+      margin: 1rem 0;
+    }
+
+    input {
+      border: none;
+      padding: 12px;
+      padding-left: 12px;
+      min-width: 190px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .tag {
+      display: flex;
+      align-items: center;
+      margin: 7px 0.5rem 7px 0;
+      padding: 0 1rem;
+      background-color: rgba(0,0,0,0.06);
+      border-radius: 500px;
+      white-space: nowrap;
+      color: #3da982;
+      font-weight: 0;
+      height: 34px;
+      cursor: pointer;
+
+      &::before {
+        content: '#';
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
-  .tag button {
-    display: flex;
-    padding: 6px;
-    border: none;
-    background-color: unset;
-    cursor: pointer;
-    color: black;
-    font-weight: bold;
+  .review_form {
+    position: relative;
+    border: 1px solid grey;
+    padding-bottom: 1rem;
+    margin: 1rem 0;
+    border-radius: 7px;
+
+    textarea {
+      padding: 0.5rem;
+      width: 100%;
+      overflow: hidden;
+      resize: none;
+      border: none;
+      border-radius: 7px;
+  
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    span {
+      position: absolute;
+      right: 4px;
+      bottom: 2px;
+      color: grey;
+      font-size: 0.9rem;
+    }
   }
 
   .img_label {
