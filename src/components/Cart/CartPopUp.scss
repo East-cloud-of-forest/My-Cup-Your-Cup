@@ -1,0 +1,10 @@
+.popup_content{
+    h4 {
+        margin: 20px;
+    }
+
+    & .btn_block {
+        display: flex;
+        justify-content: center;
+    }
+}
