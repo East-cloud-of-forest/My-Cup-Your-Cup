@@ -32,7 +32,7 @@ const PayOrderList = ({items, cost, getData}) => {
                         }
                     </div>
                 <hr className="pay_main_hr"/>
-                <h4 className="pay_cost">총 {payCost+2500} 원</h4>
+                <h4 className="pay_cost">총 {(payCost+2500).toLocaleString()} 원</h4>
             </div>
         </div>
     );
