@@ -6,7 +6,7 @@ import { ButtonComp } from '../index-comp/IndexComp';
 import { useNavigate } from 'react-router-dom';
 
 
-function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput, idx, popUp }) {
+function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, onInput, idx, PopUp }) {
     const [q, setQ] = useState();
     const quantity= item.quantity;
     let formatter = new Intl.NumberFormat('ko-KR', {
@@ -37,21 +37,20 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
     return (
         <>
         {
-            popUp ? (
+            PopUp ? (
                 <div className="popup_container">
                     <img className='popup_img' src="https://images.unsplash.com/photo-1544003484-3cd181d17917?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt={item.name} />
-                    
-                        <p className="popup_title">{item.name}</p>
-                        <p className="popup_options">
-                            색상: {item.color} <br/>
-                            재질: {item.material} <br/>
-                            용량: {item.size} <br/> 
-                            빨대: {item.strow} <br/>
-                            수량: {item.quantity}
-                        </p>
+                        <div className='popup_text'>
+                            <p className="popup_title">{item.name}</p>
+                            <p className="popup_options">
+                                색상: {item.color} <br/>
+                                재질: {item.material} <br/>
+                                용량: {item.size} <br/> 
+                                빨대: {item.strow} <br/>
+                                수량: {item.quantity}
+                            </p>
+                        </div>
                         <p className='popup_price'>{ formatter.format(item.total) }</p>
-                    
-                    
                 </div>
             ) : (
             <div className="product-container">

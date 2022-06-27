@@ -111,7 +111,7 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <ModalComp button={
+            <ModalComp PopUp button={
               <ButtonComp icon style={{ width: "45px" }}>
                 <FontAwesomeIcon icon={solid("cart-shopping")} size="2x" />
               </ButtonComp>}
