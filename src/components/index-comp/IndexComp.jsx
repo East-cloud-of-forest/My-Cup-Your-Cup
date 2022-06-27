@@ -51,13 +51,8 @@ export const ButtonComp = (props) => {
         color,
       )}
       onClick={(e) => {
-<<<<<<< HEAD
         clickanimation(e);
         onClick(e);
-=======
-        clickanimation(e)
-        onClick()
->>>>>>> fbaba38b2358577eb10a69696506d8cc12ad18c5
       }}
     >
       <span>{children}</span>
