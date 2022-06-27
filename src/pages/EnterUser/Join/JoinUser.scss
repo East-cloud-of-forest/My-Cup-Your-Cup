@@ -1,3 +1,11 @@
+
+  // input type="number" 우측 화살표 버튼 제거
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    
 /* 회원가입 페이지 전체 디자인*/
 .Joinmain_signup {
   text-align: center;

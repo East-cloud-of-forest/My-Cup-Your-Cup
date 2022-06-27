@@ -13,6 +13,10 @@ import Facebooklogo from '../../../components/Login/img/facebookicon.svg'
 import { loginUserModule } from '../../../modules/enteruser'
 import { emailLogin, googleLoginPopup } from '../../../datasources/firebase'
 
+import { getAuth } from "firebase/auth";
+const auth = getAuth();
+
+
 const LoginMainPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -31,11 +35,17 @@ const LoginMainPage = () => {
   const loginUser = useCallback((user) => dispatch(loginUserModule(user)), [
     dispatch,
   ])
+
+  // 로그인 유저 정보 가져오기 기능
+  const userInfo = auth.currentUser;
+
   // 구글 로그인 버튼 클릭시 구글 로그인
   function GoogleLoginClick() {
     googleLoginPopup()
       .then((result) => {
         loginUser(result.user)
+        const hiGoogleUser = userInfo.displayName;
+        alert(`환영합니다 ${hiGoogleUser}님, 구글 로그인 되었습니다.`)
         navi('/')
       })
       .catch((e) => {
@@ -65,6 +75,8 @@ const LoginMainPage = () => {
       emailLogin(email, password)
         .then((result) => {
           loginUser(result.user)
+          const hiEmailUser = userInfo.email;
+          alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`)
           navi('/')
         })
         .catch((e) => {
