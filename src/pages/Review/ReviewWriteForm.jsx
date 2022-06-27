@@ -1,7 +1,9 @@
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ButtonComp, StarRating } from '../../components/index-comp/IndexComp'
-import ImageUpload from '../../components/Review/imageUpload/ImageUpload'
+import { postFirebaseData } from '../../datasources/firebase'
 import './ReviewWriteForm.scss'
 
 const ReviewWriteForm = () => {
@@ -115,20 +117,42 @@ const ReviewWriteForm = () => {
     }
   }
 
+  // 파일 업로드 클릭
+  const fileRef = useRef()
+  const fileUpload = () => {
+    fileRef.current.click()
+  }
+  // 파일 저장
+  const [files, setFiles] = useState([])
+  const saveFileImage = (e) => {
+    if (files.length + e.target.files.length <= 8) {
+      Array.from(e.target.files).forEach((file, i) => {
+        file.url = URL.createObjectURL(file)
+        file.id = file.lastModified + String(files.length)
+      })
+      setFiles([...files, ...e.target.files])
+    } else {
+      alert('최대 사진의 개수는 8개 입니다.')
+    }
+  }
+  // 파일 삭제
+  const deleteFileImage = (id) => {
+    setFiles(Array.from(files).filter((file) => file.id != id))
+  }
+
+  // 취소
   const navigate = useNavigate()
   const goBack = () => {
     navigate(-1)
   }
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault()
-  //   let timeStamp = Date.now()
-  //   await addDoc(collection(db, 'Test'), {
-  //     text: post,
-  //     createdAt: new Date(timeStamp),
-  //   })
-  //   setPost('')
-  // }
+  // 작성완료
+  const compliteReview = () => {
+    let timeStamp = Date.now()
+    postFirebaseData('Review', {
+      reviewContent: review,
+      createdAt: new Date(timeStamp),
+    }).then(r=>console.log(r))
+  }
 
   return (
     <div className="review_write_page">
@@ -185,20 +209,48 @@ const ReviewWriteForm = () => {
         </span>
       </div>
 
-      <div className="review">
-        <ImageUpload />
-      </div>
-      <div>
-        <ButtonComp type="submit" style={{ float: 'right' }} color="brown">
-          작성
+      <div className="addimage">
+        <ButtonComp color="white" onClick={fileUpload}>
+          <FontAwesomeIcon icon={solid('camera-retro')} />
+          사진 첨부하기
         </ButtonComp>
-        <ButtonComp
-          type="submit"
-          style={{ float: 'right' }}
-          color="brown"
-          onClick={goBack}
-        >
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          id="img_file"
+          ref={fileRef}
+          hidden
+          onChange={saveFileImage}
+        />
+        {files.length === 0 ? (
+          <>
+            <p>구입하신 상품을 사용해본 사진을 올려주세요.</p>
+            <span>제품이 잘 보이도록 다양한 각도의 사진을</span>
+            <span>올려주시면 너무 좋아요.</span>
+          </>
+        ) : (
+          <div className="img_block">
+            {files.map((file) => (
+              <div className="img_div" key={file.id}>
+                <img src={file.url} className="review_user_img"></img>
+                <div
+                  onClick={() => deleteFileImage(file.id)}
+                  className="remove_img"
+                >
+                  <FontAwesomeIcon icon={solid('xmark')} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="review_form_btn">
+        <ButtonComp color="red" onClick={goBack}>
           취소
+        </ButtonComp>
+        <ButtonComp color="green" onClick={compliteReview}>
+          작성
         </ButtonComp>
       </div>
     </div>
