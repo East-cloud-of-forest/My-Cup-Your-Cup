@@ -22,9 +22,9 @@ function TotalPriceComp({ items }) {
     }
 
     return (
-        <>
-        
         <div className='price_container'>
+        
+        <div className='text_container'>
             <p style={{ display: "block"}}>총 배송비 <br /> 
             <span className='price'>{formatter.format(2500)}</span> </p>
             <p>총 상품가격 <br />
@@ -40,7 +40,7 @@ function TotalPriceComp({ items }) {
                 </ButtonComp>
                 <ButtonComp onClick={toPayment} color="red">결제하기</ButtonComp>
             </div>
-        </>
+        </div>
     );
 }
 

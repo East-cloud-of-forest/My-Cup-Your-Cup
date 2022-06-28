@@ -79,12 +79,12 @@ const Header = () => {
     setShow(!show);
     setTarget(e.target);
   };
-  const updatedItems = useMemo(() => {
-    return items;
-  })
-  useEffect(()=> {
-    setShow(!show)
-  }, [updatedItems])
+  // const updatedItems = useMemo(() => {
+  //   return items;
+  // })
+  // useEffect(()=> {
+  //   setShow(!show)
+  // }, [updatedItems])
 
   return (
     <header id="App_header" className="text-center">
@@ -146,7 +146,7 @@ const Header = () => {
                 onHide={()=>setShow(false)} // 바깥클릭시 창닫힘
               >
                 <Popover id="cart_popup">
-                  <CartPopUp/> 
+                  <CartPopUp openCartPop={handleClick}/> 
                 </Popover>
               </Overlay>
             </div>
