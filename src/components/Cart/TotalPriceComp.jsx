@@ -22,9 +22,9 @@ function TotalPriceComp({ items }) {
     }
 
     return (
-        <>
-        
         <div className='price_container'>
+        
+        <div className='text_container'>
             <p style={{ display: "block"}}>총 배송비 <br /> 
             <span className='price'>{formatter.format(2500)}</span> </p>
             <p>총 상품가격 <br />
@@ -35,12 +35,12 @@ function TotalPriceComp({ items }) {
         </div>
             <div className='buttons'>
                 {/* 이전에 저장된 데이터 뜨게 하려면?? -> 수정 버튼에서 구현 */}
-                <ButtonComp color="mint" onClick={()=> navigate('/')}>
+                <ButtonComp color="red" onClick={()=> navigate('/')}>
                     취소
                 </ButtonComp>
-                <ButtonComp onClick={toPayment} color="red">결제하기</ButtonComp>
+                <ButtonComp color="green" onClick={toPayment}>결제하기</ButtonComp>
             </div>
-        </>
+        </div>
     );
 }
 

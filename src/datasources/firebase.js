@@ -1,13 +1,20 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { getFirestore, getDocs, collection } from 'firebase/firestore'
+import { getFirestore, getDocs, collection, addDoc, setDoc, doc } from 'firebase/firestore'
 import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { getStorage } from "firebase/storage";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+  uploadString,
+} from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCYX6ARJoL4o85wYhRK9vtTzsXiOBhhk1w',
@@ -29,17 +36,46 @@ const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 const googleLoginPopup = () => signInWithPopup(auth, provider)
 // 이메일 로그인
-const emailLogin = (email, password) => signInWithEmailAndPassword(auth, email, password)
+const emailLogin = (email, password) =>
+  signInWithEmailAndPassword(auth, email, password)
 
 // cloud Firestore 초기화
 const db = getFirestore()
+// store 받아오기
 const getFirebaseData = async (name) => {
   return await getDocs(collection(db, name))
 }
-
-const storage = getStorage(app)
-const uploadFirestorage = async (path ,img) => {
-  const storageRef = storage.ref(storage, path+'/'+img)
+// store 새로 만들기
+const addFirebaseData = async (name, content) => {
+  return await addDoc(collection(db, name), content)
+}
+// store 수정
+const setFirebaseData = async (name, id, content) => {
+  return await setDoc(doc(db, name, id), content)
 }
 
-export { app, db, getFirebaseData, googleLoginPopup, emailLogin, auth }
+// cloud stroage 초기화
+const storage = getStorage(app)
+// storage 업로드
+const uploadFirestorage = (path, name, img) => {
+  return new Promise((resolve) => {
+    const storageRef = ref(storage, path + '/' + name)
+    uploadBytesResumable(storageRef, img).then((r) => {
+      getDownloadURL(r.ref).then((downloadURL) => {
+        resolve(downloadURL)
+      })
+    })
+  })
+}
+
+export {
+  app,
+  db,
+  uploadFirestorage,
+  getFirebaseData,
+  addFirebaseData,
+  setFirebaseData,
+  googleLoginPopup,
+  emailLogin,
+  auth,
+}

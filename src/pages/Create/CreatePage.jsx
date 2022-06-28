@@ -108,7 +108,7 @@ const CreatePage =() => {
             default:
                 setTumShape("")
                 break;
-        }
+            }
     }
 
     //재질변경에 따른 내용 변경
@@ -153,20 +153,34 @@ const CreatePage =() => {
             setTumShape("");
         };
     },[material]);
-
+    
     //캔버스
     const canvasRef = useRef(null);
-
+    
     //캔버스에 대한 useEffect
     useEffect(()=>{
+
+
+        //이미지 스타일
+        // className="cre_img" 
+        // style={{filter:`opacity(0.5) drop-shadow(0 0 0 ${colorData}) brightness(65%) contrast(400%)`}}
+
+        const image = new Image()
+        image.src = require(`../../components/createcomp/img/${pic}.png`)
+
+        image.onload = function(){
+            ctx.drawImage(image,0,0)
+        }
+
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
-        canvas.width = "500"
-        canvas.height = "300"
+        canvas.width = "900"
+        canvas.height = "500"
 
         let start = {x:0,y:0}, offset = {x: canvas.offsetLeft, y: canvas.offsetTop},mouseDown = false, selection = false;
-
+        
         const textSelection = function(x, y, text){
+            ctx.drawImage(image,0,0)
             console.log(x, y)
             const tx = text.x, ty = text.y, tWidth = text.width, tHeight = text.height;
             return (x >= tx - tWidth/2 && x <= tx + tWidth/2 && y >= ty - tHeight && y <= ty);
@@ -209,7 +223,10 @@ const CreatePage =() => {
                 text.x += Number(dx.toFixed(0));
                 text.y += Number(dy.toFixed(0));
                 drawText(text);
+                ctx.drawImage(image,0,0)
             }
+
+
         });
 
         canvas.addEventListener("mouseup", function(e){
@@ -227,10 +244,9 @@ const CreatePage =() => {
             height: 26
         }
         drawText(text);
-    },[])
 
-    //메인이미지 선언
-    const optimg = require(`../../components/createcomp/img/${pic}.png`)
+        
+    },[canvasRef])
 
     return (
         <div className="cre_all">
@@ -269,11 +285,6 @@ const CreatePage =() => {
 
                 {/**메인이미지 */}
                 <div className="cre_mainImg">
-                    <img 
-                    className="cre_img" 
-                    src={optimg}
-                    style={{filter:`opacity(0.5) drop-shadow(0 0 0 ${colorData}) brightness(65%) contrast(400%)`}}
-                    />
 
                     <canvas ref={canvasRef} className="cre_canvas" />
 
@@ -311,14 +322,14 @@ const CreatePage =() => {
                     </div>
 
                     {/**레이어 창*/}
-                    <div className="cre_layer_div">
+                    {/* <div className="cre_layer_div">
                         <div className="cre_layer_title">레이어 관리</div>
                         <div className="cre_layers">
-                            {/**반복해서 추가 될 레이어 div */}
+                            {/**반복해서 추가 될 레이어 div
                             <div className="cre_layer">레이어1<FontAwesomeIcon icon={basicIcon} className="cre_layer_icon" onClick={changeIcon} />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

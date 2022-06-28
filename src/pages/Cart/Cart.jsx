@@ -3,7 +3,7 @@ import './Cart.scss'
 import ProductComp from '../../components/Cart/ProductComp';
 import TotalPriceComp from '../../components/Cart/TotalPriceComp';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteItem, minusOne, plusOne, selectItem, numberInput } from "../../modules/addCart"
+import { deleteItem, minusOne, plusOne, selectItem } from "../../modules/addCart"
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -16,8 +16,8 @@ function Cart() {
     const onSelectItem = useCallback( (id)=>dispatch(selectItem(id)), [dispatch]);
     const onPlusOne = useCallback( (id)=>dispatch(plusOne(id)), [dispatch]);
     const onMinusOne = useCallback( (id)=>dispatch(minusOne(id)), [dispatch]);
-    //const onInput = useCallback( (id, number) => dispatch(numberInput(id, number)), [dispatch]);
     
+    console.log(items);
     // 로컬스토리지에 저장 - 최상위컴포넌트에 작성할 것
     useEffect(() => {
         window.localStorage.setItem('cart', JSON.stringify(items))
@@ -33,8 +33,7 @@ function Cart() {
 
             <div className="item">
                 {/* 상품 출력되는 곳 */}
-                <input type="checkbox" style={{ margin: "50px 0 0 50px" }}
-                /> 전체선택
+                <input type="checkbox" style={{ margin: "50px 0 0 50px" }}/>전체선택
                 {
                     // itemsInStorage.length >=1 ? (
                     //     itemsInStorage.map( (item, i) => (
@@ -61,7 +60,6 @@ function Cart() {
                             onSelectItem={onSelectItem}
                             onPlusOne={onPlusOne}
                             onMinusOne={onMinusOne}
-                            //onInput={onInput}
                             idx={i}
                         />
                     ))

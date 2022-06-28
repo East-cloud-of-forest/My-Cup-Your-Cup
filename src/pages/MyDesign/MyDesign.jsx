@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 const MyDesign = () => {
   return (
     <>
-      <div className="header">
-        <div className="title">
+      <div className="mydesign_header">
+        <div className="title_hashtag">
           <h2>마이페이지</h2>
-          <ul>
+          <ul className="hashtag">
             <li>
-              <Link to="/">태그1</Link>
+              <span>태그1</span>
             </li>
             <li>
-              <Link to="/">태그2</Link>
+              <span>태그2</span>
             </li>
             <li>
-              <Link to="/">태그3</Link>
+              <span>태그3</span>
             </li>
           </ul>
         </div>
