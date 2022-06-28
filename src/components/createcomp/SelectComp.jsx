@@ -1,10 +1,8 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
-import { ButtonComp, ModalComp } from '../index-comp/IndexComp'
+import { useEffect, useState, useCallback } from 'react'
+import { ButtonComp } from '../index-comp/IndexComp'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem } from '../../modules/addCart'
-import CartPopUp from '../Cart/CartPopUp'
-import { Overlay, Popover } from 'react-bootstrap'
 
 const SelectComp = ({
   getTypeData,
@@ -99,7 +97,6 @@ const SelectComp = ({
         quantity: 1,
 
       })
-
       navigate('/pay')
     }
   }
@@ -122,7 +119,7 @@ const SelectComp = ({
         price: tumMet.price + tumSize.price + tumStraw.price,
         quantity: 1,
       });
-      console.log(items)
+      navigate('/cart')
     }
   }
 
@@ -132,15 +129,6 @@ const SelectComp = ({
   useEffect(() => {
     getProductName(tumMet.name + tumSize.name)
   }, [tumMet, tumSize])
-
-  // 장바구니 팝업 
-  // const [show, setShow] = useState(false);
-  // const [target, setTarget] = useState(null);
-  // const ref = useRef(null);
-  // const handleClick = (e) => { 
-  //   setShow(!show);
-  //   setTarget(e.target);
-  // };
 
   return (
     <div>
@@ -190,20 +178,6 @@ const SelectComp = ({
           >
             장바구니 
           </ButtonComp>
-{/* 
-          <Overlay
-            show={show}
-            target={target}
-            placement="bottom"
-            container={ref}
-            containerPadding={20}
-            rootClose
-            onHide={()=>setShow(false)} // 바깥클릭시 창닫힘
-          >
-            <Popover id="cart_popup">
-              <CartPopUp handleClick={handleClick} /> 
-            </Popover>
-          </Overlay> */}
           
           <ButtonComp
             style={{ width: '100%' }}

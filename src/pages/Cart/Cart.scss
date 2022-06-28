@@ -1,15 +1,21 @@
 .cart-container{
-    
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-auto-rows: minmax(100px, auto);
-    align-items: end;
+    
     .item:nth-child(1) {
         h2 {
             margin: 50px 0 0 50px;
         }
     }
     .item:nth-child(4) {
+        align-self: flex-end;
         margin: 5px 5px 5px 5px;
+        position: sticky;
+        bottom :10px;
     }
+}
+.buttons {
+    display: block;
+    min-width: max-content;
 }
