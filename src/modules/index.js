@@ -6,13 +6,15 @@ import cartReducer from "./addCart";
 import review from "./review";
 import enteruser from './enteruser'
 import firebaseData from './firebaseData'
+import loading from './loading'
 
 const rootReducer = combineReducers({
   cartReducer,
   // quantityReducer,
   review,
   enteruser,
-  firebaseData
+  firebaseData,
+  loading
 });
 
 

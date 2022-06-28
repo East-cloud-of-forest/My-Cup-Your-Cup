@@ -72,6 +72,7 @@
 
   > h4 {
     text-align: center;
+    margin: 0;
   }
 
   .tag_container {
@@ -82,7 +83,7 @@
     align-items: center;
 
     hr {
-      margin: 1rem 0;
+      margin: 2rem 0 1rem;
     }
 
     input {
@@ -101,7 +102,7 @@
       align-items: center;
       margin: 7px 0.5rem 7px 0;
       padding: 0 1rem;
-      background-color: rgba(0,0,0,0.06);
+      background-color: rgba(0, 0, 0, 0.06);
       border-radius: 500px;
       white-space: nowrap;
       color: #3da982;
@@ -133,7 +134,7 @@
       resize: none;
       border: none;
       border-radius: 7px;
-  
+
       &:focus-visible {
         outline: none;
       }
@@ -148,43 +149,82 @@
     }
   }
 
-  .img_label {
-    & svg {
-      cursor: pointer;
+  .addimage {
+    width: 100%;
+    text-align: center;
+
+    button {
+      font-size: 1.5rem;
+      width: 100%;
+      border: 2px dashed lightgrey;
+      margin: 1rem 0;
+      color: grey;
+
+      svg {
+        margin-right: 0.5rem;
+      }
     }
-  }
 
-  .review_user li {
-    float: left;
-    margin-right: 10px;
+    > p {
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
 
-    .review_user_img {
-      position: relative;
-      height: 80px;
-      width: 80px;
-      background-color: gray;
+    > span {
+      color: grey;
+      font-size: 0.85rem;
+      margin-bottom: 0rem;
+      display: block;
+    }
+
+    .img_block {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -1%;
+
+      .img_div {
+        position: relative;
+        width: 23%;
+        aspect-ratio: 1/1;
+        border: 2px dashed lightgrey;
+        border-radius: 7px;
+        margin: 1%;
+
+        .review_user_img {
+          width: 100%;
+          aspect-ratio: 1/1;
+          object-fit: cover;
+          border-radius: 7px;
+          margin-bottom: 1%;
+        }
+
+        .remove_img {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 24px;
+          aspect-ratio: 1/1;
+          background-color: rgba(0, 0, 0, 0.25);
+          cursor: pointer;
+          color: white;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+          }
+        }
+      }
     }
   }
 
   .review_form_btn {
-    float: right;
-  }
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 4rem 0;
 
-  .rating {
-    clear: both;
-  }
-
-  &.review .design {
-    display: none;
-  }
-
-  &.design .review {
-    display: none;
-  }
-
-  .design_preview {
-    height: 300px;
-    width: 410px;
-    background-color: gray;
+    button {
+      width: 49%;
+      margin: 0;
+    }
   }
 }
