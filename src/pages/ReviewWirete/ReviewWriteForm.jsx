@@ -1,10 +1,17 @@
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ButtonComp, StarRating } from '../../components/index-comp/IndexComp'
-import { addFirebaseData, setFirebaseData, uploadFirestorage } from '../../datasources/firebase'
+import {
+  addFirebaseData,
+  setFirebaseData,
+  uploadFirestorage,
+} from '../../datasources/firebase'
+import { loadingEnd, loadingStart } from '../../modules/loading'
 import './ReviewWriteForm.scss'
+import { Spinner } from 'react-bootstrap'
 
 const ReviewWriteForm = () => {
   // 입장시 스크롤 top
@@ -140,39 +147,69 @@ const ReviewWriteForm = () => {
     setFiles(Array.from(files).filter((file) => file.id != id))
   }
 
+  // firebase 로 업로드
+  const sendFirebase = async () => {
+    let postID
+    let images = new Object()
+    await addFirebaseData('Review', {}).then((r) => (postID = r.id))
+    const promise = files.map(async (file) => {
+      return await uploadFirestorage('review/' + postID, file.name, file)
+    })
+    const result = await Promise.all(promise)
+    result.forEach((url, i) => {
+      images['image' + i] = url
+    })
+    await setFirebaseData('Review', postID, {
+      createdAt: Date.now(),
+      user: {
+        아직: '못해',
+      },
+      images: images,
+      rating: rating,
+      review: review,
+      tages: tagList,
+      heart: 0,
+    })
+  }
+
   // 취소
   const navigate = useNavigate()
   const goBack = () => {
     navigate(-1)
   }
-  // 작성완료
+
+  // 작성
+  const { loading } = useSelector((a) => a.loading)
+  const dispatch = useDispatch()
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
   const compliteReview = async () => {
-    let postID
-    let images = new Object
-    await addFirebaseData('Review', {}).then(r=>postID = r.id)
-    const promise = files.map(async file => {
-      return await uploadFirestorage('review/'+postID, file.name, file)
-    })
-    const result = await Promise.all(promise)
-    result.forEach((url,i) => {
-      images['image'+i] = url
-    })
-    await setFirebaseData('Review', postID, {
-      createdAt: Date.now(),
-      user : {
-        '아직' : '못해'
-      },
-      images: images,
-      rating: rating,
-      review: review,
-      tages : tagList,
-      heart: 0
-    })
-    console.log('완료')
+    if (rating === 0) {
+      alert('별점을 선택해주세요.')
+    } else if (tagList.length === 0) {
+      alert('태그를 입력해주세요.')
+    } else if (review.length < 10) {
+      alert('리뷰를 10글자 이상 입력해주세요.')
+    } else if (files.length === 0) {
+      alert('리뷰 사진을 첨부해주세요.')
+    } else {
+      startLoading()
+      document.body.style.overflow = 'hidden'
+      await sendFirebase()
+      document.body.style = ''
+      endLoading()
+      navigate(-1)
+    }
   }
 
   return (
     <div className="review_write_page">
+      {loading ? (
+        <div className="pullpage_loading">
+          <Spinner animation="border" role="status" />
+        </div>
+      ) : null}
+
       <div>상품 정보</div>
 
       <StarRating
@@ -215,7 +252,7 @@ const ReviewWriteForm = () => {
           cols="57"
           rows="10"
           placeholder={
-            '구입하시고 사용하시면서 느끼신 만족에 대한 후기를 남겨주세요.'
+            '구입하시고 사용하시면서 느끼신 만족에 대한 후기를 남겨주세요. (최소 10글자 이상)'
           }
           value={review}
           onChange={reviewChange}
@@ -242,7 +279,7 @@ const ReviewWriteForm = () => {
         />
         {files.length === 0 ? (
           <>
-            <p>구입하신 상품을 사용해본 사진을 올려주세요.</p>
+            <p>상품을 직접 사용해보신 사진을 올려주세요.</p>
             <span>제품이 잘 보이도록 다양한 각도의 사진을</span>
             <span>올려주시면 너무 좋아요.</span>
           </>
