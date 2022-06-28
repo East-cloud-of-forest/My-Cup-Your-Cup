@@ -77,6 +77,7 @@ const SelectComp = ({
   const onAddItem = useCallback((tumblur) => dispatch(addItem(tumblur)), [
     dispatch,
   ])
+
   // 결제버튼 클릭시
   const sendCupInfoPay = () => {
     if (tumMet.met === 'none') {
@@ -120,6 +121,28 @@ const SelectComp = ({
         quantity: 1,
       });
       navigate('/cart')
+    }
+  }
+  // 저장버튼 클릭시
+  const sendCupInfoUpload = () => {
+    if (tumMet.met === 'none') {
+      alert('컵 재질을 선택해주세요')
+    } else if (tumSize.size === '') {
+      alert('컵 사이즈를 선택해주세요')
+    } else if (tumStraw.use === 'none') {
+      alert('빨대사용 여부를 선택해 주세요')
+    } else {
+      onAddItem({
+        image: null,
+        name: tumMet.name + tumSize.name,
+        color: colorName,
+        material: tumMet.met,
+        size: tumSize.size,
+        strow: tumStraw.use,
+        price: tumMet.price + tumSize.price + tumStraw.price,
+        quantity: 1,
+      });
+      navigate('/create/upload')
     }
   }
 
@@ -171,7 +194,12 @@ const SelectComp = ({
       <div id="btn">
         <ButtonComp>미리보기</ButtonComp>
         <div className="cre_savepay">
-          <ButtonComp style={{ width: '100%' }}>저장</ButtonComp>
+          <ButtonComp 
+            style={{ width: '100%' }}
+            onClick={sendCupInfoUpload}
+          >
+            저장
+          </ButtonComp>
           <ButtonComp 
             style={{ width: '100%' }}
             onClick={sendCupInfoCart}

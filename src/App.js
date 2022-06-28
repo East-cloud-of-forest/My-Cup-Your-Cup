@@ -30,6 +30,7 @@ function App() {
       case '/enteruser/agree':
       case '/enteruser/join':
       case '/review/write':
+      case '/create/upload':
         return false
       default:
         return true
@@ -46,8 +47,8 @@ function App() {
           <Route path="/mydesign" element={<MyDesign />} />
           <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
-          <Route path="/create" element={<CreatePage />} />
-          <Route path="/create/write" element={<CreateDesignUploadForm />} />
+          <Route path="/create" element={<CreatePage />}></Route>
+          <Route path="/create/upload" element={<CreateDesignUploadForm />} />
           <Route path="/enteruser" element={<EnterUser />}>
             <Route path="/enteruser/login" element={<LoginMain />} />
             <Route path="/enteruser/join" element={<JoinUser />} />
