@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../modules/addCart";
 import { text } from "@fortawesome/fontawesome-svg-core";
+import CanvasComp from "../../components/createcomp/CanvasComp";
 
 const CreatePage =() => {
     // const items = useSelector((state)=>state.cartReducer.items)
@@ -153,100 +154,6 @@ const CreatePage =() => {
             setTumShape("");
         };
     },[material]);
-    
-    //캔버스
-    const canvasRef = useRef(null);
-    
-    //캔버스에 대한 useEffect
-    useEffect(()=>{
-
-
-        //이미지 스타일
-        // className="cre_img" 
-        // style={{filter:`opacity(0.5) drop-shadow(0 0 0 ${colorData}) brightness(65%) contrast(400%)`}}
-
-        const image = new Image()
-        image.src = require(`../../components/createcomp/img/${pic}.png`)
-
-        image.onload = function(){
-            ctx.drawImage(image,0,0)
-        }
-
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
-        canvas.width = "900"
-        canvas.height = "500"
-
-        let start = {x:0,y:0}, offset = {x: canvas.offsetLeft, y: canvas.offsetTop},mouseDown = false, selection = false;
-        
-        const textSelection = function(x, y, text){
-            ctx.drawImage(image,0,0)
-            console.log(x, y)
-            const tx = text.x, ty = text.y, tWidth = text.width, tHeight = text.height;
-            return (x >= tx - tWidth/2 && x <= tx + tWidth/2 && y >= ty - tHeight && y <= ty);
-        }
-        /*Canvas 내 filltext 추가 함수*/
-        const drawText = function(text){
-            ctx.fillStyle = "white";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = text.fillStyle;
-            ctx.font = text.font;
-            ctx.textAlign = "center";
-            ctx.fillText(text.text, text.x, text.y);
-            text.width = Number(ctx.measureText(text.text).width.toFixed(0));
-        }
-
-        canvas.addEventListener("mousedown", function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            const winScrollTop = window.scrollY;
-            start.x = parseInt(e.clientX - e.currentTarget.getBoundingClientRect().left);
-            start.y = parseInt(e.clientY - e.currentTarget.getBoundingClientRect().top);
-            console.log(textSelection(start.x, start.y, text))
-            if(textSelection(start.x, start.y, text)){
-                selection = true;
-            }
-            mouseDown = true;
-        });
-
-        canvas.addEventListener("mousemove", function(e){
-            e.preventDefault();
-            if(mouseDown && selection){
-                const winScrollTop = window.scrollY,
-                        mouseX = parseInt(e.clientX - e.currentTarget.getBoundingClientRect().left),
-                        mouseY = parseInt(e.clientY - e.currentTarget.getBoundingClientRect().top);
-                const dx = mouseX - start.x, dy = mouseY - start.y;
-                    
-                start.x = mouseX;
-                start.y = mouseY;
-                
-                text.x += Number(dx.toFixed(0));
-                text.y += Number(dy.toFixed(0));
-                drawText(text);
-                ctx.drawImage(image,0,0)
-            }
-
-
-        });
-
-        canvas.addEventListener("mouseup", function(e){
-            mouseDown = false;
-            selection = false;
-        });
-
-        const text = {
-            text: "임의의값",
-            font: "26px nanumBold",
-            fillStyle: "#ff0000",
-            x: canvas.width/2,
-            y: canvas.height/2,
-            width: 0,
-            height: 26
-        }
-        drawText(text);
-
-        
-    },[canvasRef])
 
     return (
         <div className="cre_all">
@@ -285,8 +192,7 @@ const CreatePage =() => {
 
                 {/**메인이미지 */}
                 <div className="cre_mainImg">
-
-                    <canvas ref={canvasRef} className="cre_canvas" />
+                    <CanvasComp pic={pic} />
 
                     {/**에딧 2 */}
                     <div className="cre_acc">
