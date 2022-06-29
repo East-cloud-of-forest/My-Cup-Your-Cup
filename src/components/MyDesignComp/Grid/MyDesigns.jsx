@@ -57,7 +57,7 @@ export default function MyDesigns() {
                 mydesigns.map( design => (
                     <Col xs="6" md="3" key={design.id}>
                         <ModalComp 
-                        button={`임시버튼 : ${design.title}`}//<img id="preview-image" src={design.image} alt={design.title}/>
+                        button={`임시텍스트: ${design.title}`}//<img id="preview-image" src={design.image} alt={design.title}/>
                         image={<img src={design.image} alt={design.title}/>}
                         className="design_modal"
                         >
@@ -67,21 +67,24 @@ export default function MyDesigns() {
 
                         <div className="modal_body">
                             <p>{design.text}</p>
+                            <p> 공개여부 : {design.private} </p>
                             <div className="hashtag">
-                            <span>{design.tag}</span>
-
+                            { design.tag }
+                            {/* .map( tag => (
+                                <span>{tag}</span>
+                            ))} */}
                             </div>
                         </div>
 
                         <div className="modal_footer">
-                            <div className="profile_block">
-                                <ProfileComp
+                            
+                            <ProfileComp
                             className="profile" 
                             justName 
                             userName={"user1"} 
                             imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
                             />
-                            </div>
+                            
                             <div className="button_block">
                             <ButtonComp icon id="like_btn">
                                 <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
@@ -89,7 +92,7 @@ export default function MyDesigns() {
                             <ButtonComp icon id="share-btn">
                                 <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
                             </ButtonComp>  
-                            <ButtonComp color="mint" id="create-btn">제작하러가기</ButtonComp>
+                            <ButtonComp icon id="create-btn">제작하러가기</ButtonComp>
                             </div>
                         </div>
                             
@@ -100,7 +103,7 @@ export default function MyDesigns() {
         </Row>
         <Row>
             {
-                CUP_PICS.map( (cup_pic, i)=>(
+                CUP_PICS.map( cup_pic=>(
                 <Col xs="6" md="3" key={cup_pic.id}>
                     <ModalComp 
                     button={<img id="preview-image" src={cup_pic.src} alt={cup_pic.title}/>}
@@ -137,7 +140,7 @@ export default function MyDesigns() {
                         <ButtonComp icon id="share-btn">
                             <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
                         </ButtonComp>  
-                        <ButtonComp color="mint" id="create-btn">제작하러가기</ButtonComp>
+                        <ButtonComp icon id="create-btn">제작하러가기</ButtonComp>
                         </div>
                     </div>
                         

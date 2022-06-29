@@ -56,11 +56,12 @@ $facebook: #475a96;
         right: 1rem;
         justify-content: space-between;
         margin-bottom: 1rem;
-        & .profile_block {
+        & .profile {
             margin: auto;
         }
         & .button_block {
-            margin: auto;
+            display: block;
+            margin-left: auto;
         }
     }
 }

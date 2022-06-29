@@ -14,12 +14,18 @@ const CreateDesignUploadForm = () => {
   // 제목, 내용 입력
   const [title, setTitle] = useState('')
   const [text, setText] = useState('');
+  const [onlyMe, setOnlyMe] = useState(false);
   const titleInputChange = (e) => {
     setTitle(e.target.value);
   }
   const textInputChange = (e) => {
     setText(e.target.value);
   }
+  const checkOnlyMe = () => {
+    setOnlyMe(!onlyMe)
+    console.log(onlyMe)
+  }
+  
   // 태그 인풋 입력
   const [tagInput, setTagInput] = useState('')
   const tagInputChange = (e) => {
@@ -34,6 +40,7 @@ const CreateDesignUploadForm = () => {
       if (!tagList.includes(trimmedInput)) {
         setTagList((prevState) => [...prevState, trimmedInput]);
         setTagInput('');
+        console.log(tagList);
       } else {
         setTagInput('');
       }
@@ -50,27 +57,28 @@ const CreateDesignUploadForm = () => {
   // 파이어베이스 업로드
   
   // 나의 디자인 업로드하기
-  const uploadMyDesign = async (mycup) => {
+  const uploadMyDesign = async (mycup) => { // async 익명함수로 작성하면 표현식)
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
-      // ( async 익명함수로 작성하면 표현식)
-          try {
-            const ref = await addFirebaseData("MyDesign", {
-              id: mycup[0].mycup.id,
-              image: mycup[0].mycup.image,
-              title: title,
-              text: text,
-            })
-            console.log(ref);
-          }
-          catch (e) {
-            console.log(e.message);
-          }
-          
+      try {
+        const ref = await addFirebaseData("MyDesign", {
+          id: mycup[0].mycup.id,
+          image: mycup[0].mycup.image,
+          title: title,
+          text: text,
+          tag: [...tagList],
+          private: onlyMe // 수정
+        })
+        console.log(ref);
+        console.log(ref.tag);
       }
-      navigate('/mydesign');
+      catch (e) {
+        console.log(e.message);
+      }
     }
+    navigate('/mydesign');
+  }
   
 
   return (
@@ -111,7 +119,11 @@ const CreateDesignUploadForm = () => {
             onChange={tagInputChange}
           />
         </div>
-        <input type="checkbox" /> 나만 보기
+        <input 
+          type="checkbox" 
+          onChange={checkOnlyMe} 
+          checked={onlyMe}/> 
+          나만 보기
         <div className="button_block">
           <ButtonComp color="red">취소</ButtonComp>
           <ButtonComp color="green" onClick={() => { // 함수로 감싸지않고 썼을 경우 이전페이지에서 alert창이 뜨는 오류 발생
