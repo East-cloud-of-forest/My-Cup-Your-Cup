@@ -11,10 +11,29 @@ const PayPage = () => {
     const selectedItems = items.filter( item => item.selected === true );
     
     const [cost,setCost] = useState(0)
-
     const getData = (cost) =>{
         setCost(cost);
     }
+
+    const [addInfo,setAddInfo] = useState("")
+    const getAddressNum = (address) =>{
+        setAddInfo(address)
+    }
+    const [addDetail,setAddDetail] = useState("")
+    const getAddressDetail = (address) =>{
+        setAddDetail(address)
+    }
+
+    const [receiverName,setReceiverName] = useState("")
+    const getName = (name) => {
+        setReceiverName(name)
+    }
+
+    const [phoneNum,setPhoneNum] = useState("")
+    const getNum = (num)=>{
+        setPhoneNum(num)
+    }
+
 
     return (
         <div className='pay_all_div'>
@@ -27,7 +46,7 @@ const PayPage = () => {
 
             {/**배송지정보 */}
             <div>
-                <PayAddress/>
+                <PayAddress getName={getName} getNum={getNum} getAddressNum={getAddressNum} getAddressDetail={getAddressDetail} />
             </div>
 
             {/**결제수단 */}
@@ -37,7 +56,7 @@ const PayPage = () => {
 
             {/**픽스 div */}
             <div>
-                <PayFixed cost={cost} />
+                <PayFixed cost={cost} receiverName={receiverName} phoneNum={phoneNum} addInfo={addInfo} addDetail={addDetail} />
             </div>
         </div>
     );
