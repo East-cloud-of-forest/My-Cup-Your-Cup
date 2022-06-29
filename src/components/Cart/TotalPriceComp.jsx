@@ -35,10 +35,10 @@ function TotalPriceComp({ items }) {
         </div>
             <div className='buttons'>
                 {/* 이전에 저장된 데이터 뜨게 하려면?? -> 수정 버튼에서 구현 */}
-                <ButtonComp color="red" onClick={()=> navigate('/')}>
+                <ButtonComp color="brown" onClick={()=> navigate('/')}>
                     취소
                 </ButtonComp>
-                <ButtonComp color="green" onClick={toPayment}>결제하기</ButtonComp>
+                <ButtonComp color="darkgreen" onClick={toPayment}>결제하기</ButtonComp>
             </div>
         </div>
     );

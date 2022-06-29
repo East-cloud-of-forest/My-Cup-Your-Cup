@@ -1,0 +1,19 @@
+// Create page에서 저장버튼 클릭시
+const UPLOAD_ITEM = 'uploadDesign/UPLOAD_ITEM';
+
+let id = 2;
+export const uploadItem = (mycup) => ({
+    type : UPLOAD_ITEM,
+    mycup : {...mycup, id : id++ }
+})
+
+const initialState = {
+    mycup : []
+}
+const uploadDesign = ( state=initialState, action ) => {
+    if ( action.type === UPLOAD_ITEM ) {
+        return { mycup : state.mycup.concat({...state, mycup: action.mycup}) }
+    } else { return state}
+}
+
+export default uploadDesign;
