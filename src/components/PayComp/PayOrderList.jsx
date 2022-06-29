@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import React from "react";
+import { useState } from "react";
 
 const PayOrderList = ({items, cost, getData}) => {
 
     let payCost = 0
+
     for (let i = 0; i < items.length; i++) {
         payCost=payCost+items[i].total;
     };
@@ -22,11 +24,12 @@ const PayOrderList = ({items, cost, getData}) => {
                         {
                             items.map( (item, i) => (
                                 <div className="pay_product" key={i}>
-                                    <img className="pay_thumb" src={item.image} alt={item.name }/>
-                                    <div className="pay_product_content">
+                                    <div className="pay_product_info">
+                                        <img className="pay_thumb" src={item.image} alt={item.name }/>
                                         <p>[상품명] {`${item.name} [옵션] ${item.material} ${item.size} 빨대 ${item.strow}`}</p>
-                                        <p>{item.total}</p>
                                     </div>
+                                    <p className="pay_product_price">{(item.total).toLocaleString()} 원</p>
+
                                 </div>
                             ))
                         }

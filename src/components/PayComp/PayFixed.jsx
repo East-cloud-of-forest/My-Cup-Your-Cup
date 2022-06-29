@@ -2,7 +2,7 @@ import React from 'react';
 import {ButtonComp} from '../../components/index-comp/IndexComp'
 import { useNavigate } from 'react-router-dom'
 
-const PayFixed = ({cost, receiverName, phoneNum, addInfo, addDetail}) => {
+const PayFixed = ({onDeleteItem, items, cost, receiverName, phoneNum, addInfo, addDetail}) => {
     
     const navigate = useNavigate()
 
@@ -18,6 +18,10 @@ const PayFixed = ({cost, receiverName, phoneNum, addInfo, addDetail}) => {
         }
         else{
             navigate('/complete')
+            for (let i = 0; i < items.length; i++) {
+                let id = items[i].id;
+                onDeleteItem(id);
+            }
         }
     }
 
