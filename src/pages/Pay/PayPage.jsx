@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import "./PayPage.scss";
 import PayAddress from '../../components/PayComp/PayAddress';
 import PayOrderList from '../../components/PayComp/PayOrderList';
 import PayMethod from '../../components/PayComp/PayMethod';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PayFixed from '../../components/PayComp/PayFixed';
+import { deleteItem } from "../../modules/addCart"
 
 const PayPage = () => {
     const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
     const selectedItems = items.filter( item => item.selected === true );
+
+    const dispatch = useDispatch();
+    const onDeleteItem = useCallback( (id)=>dispatch(deleteItem(id)), [dispatch]);
     
     const [cost,setCost] = useState(0)
     const getData = (cost) =>{
         setCost(cost);
     }
 
+    //주소를 받아와서 요건이 충족되지않으면 complete로 넘어가지않게 함
     const [addInfo,setAddInfo] = useState("")
     const getAddressNum = (address) =>{
         setAddInfo(address)
@@ -51,12 +56,12 @@ const PayPage = () => {
 
             {/**결제수단 */}
             <div>
-                <PayMethod/>
+                <PayMethod />
             </div>
 
             {/**픽스 div */}
             <div>
-                <PayFixed cost={cost} receiverName={receiverName} phoneNum={phoneNum} addInfo={addInfo} addDetail={addDetail} />
+                <PayFixed items={selectedItems} onDeleteItem={onDeleteItem} cost={cost} receiverName={receiverName} phoneNum={phoneNum} addInfo={addInfo} addDetail={addDetail} />
             </div>
         </div>
     );

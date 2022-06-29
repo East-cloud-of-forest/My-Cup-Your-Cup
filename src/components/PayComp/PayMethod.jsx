@@ -17,6 +17,8 @@ const PayMethod = () => {
     const cardRef = React.useRef();
     const phoneRef = React.useRef();
 
+    const bankbookSelectRef = React.useRef();
+
     const [category,setCategory] = useState("무통장입금")
 
     const changeMethod =(e)=>{
@@ -64,7 +66,7 @@ const PayMethod = () => {
                             <td className="pay_methods_td">
 
                                 <div className='pay_bankbook' ref={bankbookRef} id="무통장입금" style={bankbookStyle}>
-                                    <select defaultValue="select_bank" className="pay_bank_select">
+                                    <select defaultValue="select_bank" className="pay_bank_select" ref={bankbookSelectRef}>
                                         <option value="select_bank">은행 선택</option>
                                         <option value="NH">농협</option>
                                         <option value="SH">신한</option>
