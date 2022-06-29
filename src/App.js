@@ -9,6 +9,7 @@ import JoinUser from './pages/EnterUser/Join/JoinUser'
 import QnAmenu from './pages/QnA/QnAmenu'
 import Review from './pages/Review/Review'
 import CreatePage from './pages/Create/CreatePage'
+import Complete from './pages/Complete/Complete'
 import PayPage from './pages/Pay/PayPage'
 import Search from './pages/Search/Search'
 import Cart from './pages/Cart/Cart'
@@ -64,6 +65,7 @@ function App() {
             <Route path=":tabkind" element={<SearchResultComp />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
+          <Route path="/complete" element={<Complete/> } />
         </Routes>
       </main>
       {hideHeader(location.pathname) ? <Footer /> : null}
