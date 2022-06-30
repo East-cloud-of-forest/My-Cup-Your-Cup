@@ -11,15 +11,22 @@ const CreateDesignUploadForm = () => {
   //console.log(mycup) // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
   const navigate = useNavigate();
 
-  // 제목, 내용 입력
+  // 제목, 내용, 비공개 입력
   const [title, setTitle] = useState('')
   const [text, setText] = useState('');
+  const [onlyMe, setOnlyMe] = useState(false);
   const titleInputChange = (e) => {
     setTitle(e.target.value);
   }
   const textInputChange = (e) => {
     setText(e.target.value);
+    
   }
+  const checkOnlyMe = () => {
+    setOnlyMe(!onlyMe)
+    console.log(onlyMe)
+  }
+  
   // 태그 인풋 입력
   const [tagInput, setTagInput] = useState('')
   const tagInputChange = (e) => {
@@ -34,6 +41,7 @@ const CreateDesignUploadForm = () => {
       if (!tagList.includes(trimmedInput)) {
         setTagList((prevState) => [...prevState, trimmedInput]);
         setTagInput('');
+        console.log(tagList) //
       } else {
         setTagInput('');
       }
@@ -50,7 +58,7 @@ const CreateDesignUploadForm = () => {
   // 파이어베이스 업로드
   
   // 나의 디자인 업로드하기
-  const uploadMyDesign = async (mycup) => {
+  const uploadMyDesign = async (mycup) => { // async 익명함수로 작성하면 표현식)
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
@@ -61,8 +69,9 @@ const CreateDesignUploadForm = () => {
               image: mycup[0].mycup.image,
               title: title,
               text: text,
+              tag: tagList,
+              private: onlyMe
             })
-            console.log(ref);
           }
           catch (e) {
             console.log(e.message);
@@ -71,19 +80,21 @@ const CreateDesignUploadForm = () => {
       }
       navigate('/mydesign');
     }
-  
+    
 
   return (
     <div className="uploadPage_container">
       <h2>나의 디자인 저장하기</h2>
       <div className="temporary_image">image : {mycup[0].mycup.image}</div>
-      <div>
+      <div className='cup_info'>
         <p>
-          {mycup[0].mycup.name} <br />
-          {mycup[0].mycup.color} <br />
-          {mycup[0].mycup.material} <br />
-          {mycup[0].mycup.size} <br />
-          빨대: {mycup[0].mycup.strow} <br />
+          <span>{mycup[0].mycup.name}</span>
+          {` | 
+          ${mycup[0].mycup.color} | 
+          ${mycup[0].mycup.shape} | 
+          ${mycup[0].mycup.material} | 
+          ${mycup[0].mycup.size} | 
+          빨대: ${mycup[0].mycup.strow}`}
         </p>      
       </div>
       <div className="upload_form">
@@ -111,7 +122,7 @@ const CreateDesignUploadForm = () => {
             onChange={tagInputChange}
           />
         </div>
-        <input type="checkbox" /> 나만 보기
+        <input type="checkbox" onChange={checkOnlyMe} checked={onlyMe}/> 나만 보기
         <div className="button_block">
           <ButtonComp color="red">취소</ButtonComp>
           <ButtonComp color="green" onClick={() => { // 함수로 감싸지않고 썼을 경우 이전페이지에서 alert창이 뜨는 오류 발생
@@ -123,6 +134,6 @@ const CreateDesignUploadForm = () => {
       </div>
     </div>
   );
-};
+}
 
 export default CreateDesignUploadForm;

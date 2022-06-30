@@ -26,7 +26,10 @@ const PayOrderList = ({items, cost, getData}) => {
                                 <div className="pay_product" key={i}>
                                     <div className="pay_product_info">
                                         <img className="pay_thumb" src={item.image} alt={item.name }/>
-                                        <p>[상품명] {`${item.name} [옵션] ${item.material} ${item.size} 빨대 ${item.strow}`}</p>
+                                        <p>
+                                            <span>[상품명] {`${item.name}`} </span>
+                                            <span> {`[옵션] ${item.shape} ${item.material} ${item.size} 빨대 ${item.strow}`}</span>
+                                        </p>
                                     </div>
                                     <p className="pay_product_price">{(item.total).toLocaleString()} 원</p>
 

@@ -22,21 +22,10 @@ import {
 import { ButtonComp } from "../../components/index-comp/IndexComp";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import classNames from "classnames";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { addItem } from "../../modules/addCart";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import CanvasComp from "../../components/createcomp/CanvasComp";
 
 const CreatePage = () => {
-  // const items = useSelector((state)=>state.cartReducer.items)
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  // const [cupInfo, setCupInfo] = useState();
-  // const onAddItem = useCallback( (item)=>dispatch(addItem(item)), [dispatch]);
-
-  //아이콘 변경 및 레이어 visible 함수 (faEye는 보이는 상태, faEyeSlash는 안보이는 상태)
   const [basicIcon, setBasicIcon] = useState(faEye);
   const changeIcon = () => {
     if (basicIcon === faEye) {
@@ -296,6 +285,7 @@ const CreatePage = () => {
 
         <SelectComp
           colorName={colorName}
+          tumShape={tumShape}
           getProductName={getProductName}
           material={material}
           getTypeData={getTypeData}

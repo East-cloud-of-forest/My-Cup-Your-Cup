@@ -31,7 +31,7 @@ const MyDesign = () => {
           userName={"user1"}
           intro={"I am User1. My websites are "}
           fbURL={"https://www.facebook.com"}
-          isntaURL={"https://www.instagram.com"}
+          instaURL={"https://www.instagram.com"}
         />
       </div>
 

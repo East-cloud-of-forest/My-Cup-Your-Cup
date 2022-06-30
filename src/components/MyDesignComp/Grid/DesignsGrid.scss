@@ -26,18 +26,28 @@ $facebook: #475a96;
 #preview-image {
     width: 200px;
     aspect-ratio: 1;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
-
+#temp_image {
+        background-color: #ffb251;
+        width: 200px;
+        aspect-ratio: 1;
+        display: flex;
+        margin-bottom: 20px;
+        p { margin: auto;}
+    }
 .img_block {
     width: fit-content;
     
 }
 
 .content_block {
-    
+    & .modal_head > span {
+        font-size: smaller;
+        color: gray;
+    }
     & .modal_body {
-        
+        margin: 2rem 0 2rem 0;
         .hashtag span {
             font-size: 0.9rem;
             background-color: #a6fae1;
@@ -49,18 +59,29 @@ $facebook: #475a96;
         }
     }
     & .modal_footer {
-        min-width: 290px;
-        width: inherit;
+        // min-width: 290px;
+        // width: inherit;
+        // display: flex;
+        // position:absolute;
+        // right: 1rem;
+        // justify-content: space-between;
+        // margin-bottom: 1rem;
+        // & .profile_block {
+        //     margin: auto;
+        // }
+        // & .button_block {
+        //     margin: auto;
+        // }
         display: flex;
         position:absolute;
-        right: 1rem;
+        bottom: 0;
+
+        align-items: center;
         justify-content: space-between;
-        margin-bottom: 1rem;
-        & .profile_block {
-            margin: auto;
-        }
+        .profile_block { margin: auto;}
         & .button_block {
-            margin: auto;
+            display: block;
+            margin-left: auto;
         }
     }
 }

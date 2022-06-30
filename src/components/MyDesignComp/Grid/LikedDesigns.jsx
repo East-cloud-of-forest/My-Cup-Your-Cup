@@ -63,7 +63,7 @@ export default function LikedDesigns() {
                       <ButtonComp icon id="share-btn">
                           <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
                       </ButtonComp>  
-                      <ButtonComp color="mint" id="create-btn">제작하러가기</ButtonComp>
+                      <ButtonComp icon id="create-btn">제작하러가기</ButtonComp>
                     </div>
                   </div>
                       
