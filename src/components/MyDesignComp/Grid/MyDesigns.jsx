@@ -11,10 +11,12 @@ import { getFirebaseData } from "../../../datasources/firebase";
 import { loadingStart, loadingEnd } from "../../../modules/loading";
 import { useCallback } from "react";
 import { deepCopy } from "@firebase/util";
+import { useNavigate } from "react-router-dom";
 
 export default function MyDesigns() {
     const [ mydesigns, setmydesigns ] = useState([])
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const startLoading = useCallback(dispatch(loadingStart()));
     const endLoading = useCallback(dispatch(loadingEnd()));
 
@@ -28,11 +30,12 @@ export default function MyDesigns() {
                     id: doc.data().id, 
                     title: doc.data().title, 
                     text: doc.data().text,
-                    image: doc.data().image
+                    image: doc.data().image,
+                    tag: doc.data().tag,
+                    private: doc.data().private
                 }); 
             });
             setmydesigns(array);
-            console.log(array)
         }
         catch (err) {
             console.log(err.message);
@@ -41,7 +44,6 @@ export default function MyDesigns() {
     
     useEffect( ()=> {
         dispatch(getMyDesign());
-        console.log(mydesigns)
     }, [])
 
     return (
@@ -57,19 +59,27 @@ export default function MyDesigns() {
                 mydesigns.map( design => (
                     <Col xs="6" md="3" key={design.id}>
                         <ModalComp 
-                        button={`임시버튼 : ${design.title}`}//<img id="preview-image" src={design.image} alt={design.title}/>
+                        button={
+                            <div id="temp_image">
+                                <p>{design.title}</p>
+                            </div>
+                            }//<img id="preview-image" src={design.image} alt={design.title}/>
                         image={<img src={design.image} alt={design.title}/>}
                         className="design_modal"
                         >
                         <div className="modal_head">
                             <h2>{design.title}</h2>
+                            {design.private === true ? (
+                                <span><FontAwesomeIcon icon={solid("lock")}/> 비공개 게시물입니다</span>) 
+                                : null}
                         </div>
 
                         <div className="modal_body">
                             <p>{design.text}</p>
                             <div className="hashtag">
-                            <span>{design.tag}</span>
-
+                                { design.tag.map( (tag, i) => (
+                                    <span key={i}>{tag}</span>
+                                ))}
                             </div>
                         </div>
 
@@ -89,7 +99,9 @@ export default function MyDesigns() {
                             <ButtonComp icon id="share-btn">
                                 <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
                             </ButtonComp>  
-                            <ButtonComp color="mint" id="create-btn">제작하러가기</ButtonComp>
+                            <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
+                                제작하러가기
+                            </ButtonComp>
                             </div>
                         </div>
                             
@@ -137,7 +149,9 @@ export default function MyDesigns() {
                         <ButtonComp icon id="share-btn">
                             <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
                         </ButtonComp>  
-                        <ButtonComp color="mint" id="create-btn">제작하러가기</ButtonComp>
+                        <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
+                            제작하러가기
+                        </ButtonComp>
                         </div>
                     </div>
                         

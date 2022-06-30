@@ -44,6 +44,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                             <p className="popup_title">{item.name}</p>
                             <p className="popup_options">
                                 색상: {item.color} <br/>
+                                모양: {item.shape} <br />
                                 재질: {item.material} <br/>
                                 용량: {item.size} <br/> 
                                 빨대: {item.strow} <br/>
@@ -70,6 +71,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                     <h4 className='product-title'> {`${idx+1}. ${item.name}`} </h4>
                     <p>
                         색상: {item.color} <br/>
+                        모양: {item.shape} <br />
                         재질: {item.material} <br/>
                         용량: {item.size} <br/> 
                         빨대: {item.strow} </p>

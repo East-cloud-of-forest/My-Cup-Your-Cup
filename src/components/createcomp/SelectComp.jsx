@@ -9,6 +9,7 @@ const SelectComp = ({
   getTypeData,
   getProductName,
   colorName,
+  tumShape,
 }) => {
   // 뭔지 모름
   const items = useSelector((state) => state.cartReducer.items)
@@ -96,6 +97,7 @@ const SelectComp = ({
         material: tumMet.met,
         size: tumSize.size,
         strow: tumStraw.use,
+        shape: tumShape,
         price: tumMet.price + tumSize.price + tumStraw.price,
         quantity: 1,
 
@@ -119,6 +121,7 @@ const SelectComp = ({
         material: tumMet.met,
         size: tumSize.size,
         strow: tumStraw.use,
+        shape: tumShape,
         price: tumMet.price + tumSize.price + tumStraw.price,
         quantity: 1,
       });
@@ -141,6 +144,7 @@ const SelectComp = ({
         material: tumMet.met,
         size: tumSize.size,
         strow: tumStraw.use,
+        shape: tumShape,
         price: tumMet.price + tumSize.price + tumStraw.price,
         quantity: 1,
       });
@@ -152,8 +156,8 @@ const SelectComp = ({
   const summa = tumMet.price + tumSize.price + tumStraw.price
   // 이름정보
   useEffect(() => {
-    getProductName(tumMet.name + tumSize.name)
-  }, [tumMet, tumSize])
+    getProductName(tumMet.name + tumSize.name + tumShape)
+  }, [tumMet, tumSize, tumShape])
 
   return (
     <div>
