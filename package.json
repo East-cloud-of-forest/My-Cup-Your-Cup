@@ -1,5 +1,6 @@
 {
   "name": "tumblr-project",
+  "homepage": "https://east-cloud-of-forest.github.io/tumblr-team-project-build",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -13,11 +13,6 @@ const Header = () => {
   const [searchActive, setSearchActive] = useState(false)
   const [searchKeyword, setSearchKeyword] = useState('')
   const [mouseDown, setMouseDown] = useState(false)
-  // 팝업
-  const { items } = useSelector((state) => state.cartReducer.items)
-  const [show, setShow] = useState(false)
-  const [target, setTarget] = useState(null)
-  const ref = useRef(null)
 
   const { user } = useSelector((a) => a.enteruser)
   console.log(user)
@@ -77,10 +72,23 @@ const Header = () => {
     e.preventDefault()
   }
 
-  // 팝업 열기
-  const handleClick = (e) => {
-    setShow(!show)
-    setTarget(e.target)
+  // 카트 팝업
+  const { items } = useSelector((state) => state.cartReducer.items)
+  const [cartshow, setCartshow] = useState(false)
+  const [carttarget, setCarttarget] = useState(null)
+  const cartRef = useRef(null)
+  const onCart = (e) => {
+    setCartshow(!cartshow)
+    setCarttarget(e.target)
+  }
+
+  // 유저 팝업
+  const infoRef = useRef(null)
+  const [userInfo, setUserInfo] = useState(false)
+  const [userInfotarget, setUserInfotarget] = useState(null)
+  const onUserInfo = (e) => {
+    setUserInfo(!userInfo)
+    setUserInfotarget(e.target)
   }
 
   // 사이드 바
@@ -132,11 +140,6 @@ const Header = () => {
     offSidebar()
   }
 
-  const [userInfo, setUserInfo] = useState(false)
-  const onUserInfo = () => {
-    setUserInfo(!userInfo)
-  }
-
   return (
     <header id="App_header" className="text-center">
       {/* 사이드 바 */}
@@ -157,22 +160,53 @@ const Header = () => {
             <div className="app_side_bar">
               <div>
                 <ul className="account">
-                  <li>
-                    <Link to="/enteruser/login" onClick={offSidebar}>
-                      <ButtonComp color="white">
-                        <FontAwesomeIcon icon={solid('right-to-bracket')} />
-                        로그인
-                      </ButtonComp>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/enteruser/agree" onClick={offSidebar}>
-                      <ButtonComp color="white">
-                        <FontAwesomeIcon icon={solid('user-plus')} />
-                        회원가입
-                      </ButtonComp>
-                    </Link>
-                  </li>
+                  {user ? (
+                    <div className='login_on'>
+                      <li>
+                        <div className="user_img">
+                          <img src={user.photoURL} alt="user_icon" />
+                        </div>
+                      </li>
+                      <li>
+                        <p>{user.displayName}</p>
+                        <p>{user.email}</p>
+                      </li>
+                      <li>
+                        <ButtonComp color="white" onClick={offSidebar}>
+                          마이페이지
+                        </ButtonComp>
+                      </li>
+                      <li>
+                        <Link to="/mydesign" onClick={offSidebar}>
+                          <ButtonComp color="white">마이디자인</ButtonComp>
+                        </Link>
+                      </li>
+                      <li>
+                        <ButtonComp color="white" onClick={offSidebar}>
+                          로그아웃
+                        </ButtonComp>
+                      </li>
+                    </div>
+                  ) : (
+                    <>
+                      <li>
+                        <Link to="/enteruser/login" onClick={offSidebar}>
+                          <ButtonComp color="white">
+                            <FontAwesomeIcon icon={solid('right-to-bracket')} />
+                            로그인
+                          </ButtonComp>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/enteruser/agree" onClick={offSidebar}>
+                          <ButtonComp color="white">
+                            <FontAwesomeIcon icon={solid('user-plus')} />
+                            회원가입
+                          </ButtonComp>
+                        </Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
                 <hr />
                 <ul className="side_nav">
@@ -259,49 +293,56 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <div ref={ref}>
-              <ButtonComp icon style={{ width: '45px' }} onClick={handleClick}>
+            <div ref={cartRef}>
+              <ButtonComp icon style={{ width: '45px' }} onClick={onCart}>
                 <FontAwesomeIcon icon={solid('cart-shopping')} size="2x" />
               </ButtonComp>
+
               <Overlay
-                show={show}
-                target={target}
+                show={cartshow}
+                target={carttarget}
                 placement="bottom"
-                container={ref}
+                container={cartRef}
                 containerPadding={20}
                 rootClose
-                onHide={() => setShow(false)} // 바깥클릭시 창닫힘
+                onHide={() => setCartshow(false)} // 바깥클릭시 창닫힘
               >
-                <Popover id="cart_popup">
-                  <CartPopUp openCartPop={handleClick} />
+                <Popover id="cart_popup" className="cartpopover">
+                  <CartPopUp openCartPop={onCart} />
                 </Popover>
               </Overlay>
             </div>
           </li>
           <li>
             {user !== null ? (
-              <>
+              <div ref={infoRef}>
                 <ButtonComp icon style={{ width: '45px' }} onClick={onUserInfo}>
                   <img src={user.photoURL} alt="user_icon" />
                 </ButtonComp>
-                <div className={classNames('acount_nav', userInfo?"active":null)}>
-                  <div className='user_img'>
-                    <img src={user.photoURL} alt="user_icon" />
-                  </div>
-                  <p>{user.displayName}</p>
-                  <p>{user.email}</p>
-                  <hr />
-                  <ButtonComp color='white'>
-                    마이페이지
-                  </ButtonComp>
-                  <ButtonComp color='white'>
-                    마이디자인
-                  </ButtonComp>
-                  <ButtonComp color='white'>
-                    로그아웃
-                  </ButtonComp>
-                </div>
-              </>
+
+                <Overlay
+                  show={userInfo}
+                  target={userInfotarget}
+                  placement="bottom"
+                  container={infoRef}
+                  rootClose
+                  onHide={() => setUserInfo(false)} // 바깥클릭시 창닫힘
+                >
+                  <Popover className="acount_nav">
+                    <div className="user_img">
+                      <img src={user.photoURL} alt="user_icon" />
+                    </div>
+                    <p>{user.displayName}</p>
+                    <p>{user.email}</p>
+                    <hr />
+                    <ButtonComp color="white">마이페이지</ButtonComp>
+                    <Link to="/mydesign">
+                      <ButtonComp color="white">마이디자인</ButtonComp>
+                    </Link>
+                    <ButtonComp color="white">로그아웃</ButtonComp>
+                  </Popover>
+                </Overlay>
+              </div>
             ) : (
               <>
                 <Link to="/enteruser/login">

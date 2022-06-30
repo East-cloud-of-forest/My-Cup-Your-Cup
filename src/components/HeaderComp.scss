@@ -157,7 +157,8 @@
       #cart_popup {
         width: 450px;
       }
-      .popover {
+
+      .cartpopover {
         min-width: 450px;
         min-height: 300px;
         background-color: white;
@@ -173,9 +174,6 @@
       }
 
       .acount_nav {
-        position: absolute;
-        top: calc(100% + 1rem);
-        right: 1rem;
         background-color: white;
         padding: 2rem 1rem;
         border-radius: 7px;
@@ -183,7 +181,13 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        display: none;
+        border: none;
+        min-width: 300px;
+        margin-top: 1rem;
+
+        .popover-arrow {
+          display: none;
+        }
 
         .user_img {
           border-radius: 50%;
@@ -195,7 +199,7 @@
 
         p {
           margin: 0;
-          
+
           &:nth-child(2) {
             font-size: 1.1rem;
             color: black;
@@ -212,6 +216,10 @@
           width: 100%;
         }
 
+        a {
+          width: 100%;
+        }
+
         button {
           border-radius: 500px;
           padding: 0.5rem 2rem;
@@ -221,10 +229,6 @@
           width: 100%;
           margin: 0.25rem 0;
         }
-      }
-
-      .active {
-        display: flex;
       }
     }
   }
@@ -311,6 +315,65 @@
 
       .account {
         margin-top: 1rem;
+
+        li {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+
+          .user_img {
+            border-radius: 50%;
+            overflow: hidden;
+            width: 96px;
+            aspect-ratio: 1/1;
+            margin: 1.5rem 0;
+          }
+
+          &:nth-child(2) {
+            margin-bottom: 1.5rem;
+            p {
+              margin: 0;
+              &:nth-child(1) {
+                font-size: 1.1rem;
+                color: black;
+                font-weight: 100;
+              }
+              &:nth-child(2) {
+                font-size: 1rem;
+                color: grey;
+                font-weight: 100;
+              }
+            }
+          }
+
+          a {
+            width: 100%;
+          }
+
+          button {
+            color: grey;
+            width: 100%;
+
+            span {
+              font-size: 1rem;
+            }
+          }
+        }
+
+        .login_on {
+          li {
+            .button {
+              color: grey;
+              width: 100%;
+              padding: 0.5rem 0;
+
+              span {
+                font-size: 1rem;
+              }
+            }
+          }
+        }
       }
 
       a {
