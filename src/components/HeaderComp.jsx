@@ -19,6 +19,10 @@ const Header = () => {
   const [target, setTarget] = useState(null)
   const ref = useRef(null)
 
+  const { user } = useSelector((a) => a.enteruser)
+  console.log(user)
+
+  // nav
   const navi = useNavigate()
   const searchInput = useRef()
   const navlink = [
@@ -128,6 +132,11 @@ const Header = () => {
     offSidebar()
   }
 
+  const [userInfo, setUserInfo] = useState(false)
+  const onUserInfo = () => {
+    setUserInfo(!userInfo)
+  }
+
   return (
     <header id="App_header" className="text-center">
       {/* 사이드 바 */}
@@ -198,9 +207,7 @@ const Header = () => {
                     style={{ width: '45px' }}
                     onClick={onSideSearch}
                   >
-                    <FontAwesomeIcon
-                      icon={solid('magnifying-glass')}
-                    />
+                    <FontAwesomeIcon icon={solid('magnifying-glass')} />
                   </ButtonComp>
                 </div>
               </div>
@@ -272,11 +279,38 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <Link to="/enteruser/login">
-              <ButtonComp icon style={{ width: '45px' }}>
-                <FontAwesomeIcon icon={solid('user')} size="2x" />
-              </ButtonComp>
-            </Link>
+            {user !== null ? (
+              <>
+                <ButtonComp icon style={{ width: '45px' }} onClick={onUserInfo}>
+                  <img src={user.photoURL} alt="user_icon" />
+                </ButtonComp>
+                <div className={classNames('acount_nav', userInfo?"active":null)}>
+                  <div className='user_img'>
+                    <img src={user.photoURL} alt="user_icon" />
+                  </div>
+                  <p>{user.displayName}</p>
+                  <p>{user.email}</p>
+                  <hr />
+                  <ButtonComp color='white'>
+                    마이페이지
+                  </ButtonComp>
+                  <ButtonComp color='white'>
+                    마이디자인
+                  </ButtonComp>
+                  <ButtonComp color='white'>
+                    로그아웃
+                  </ButtonComp>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link to="/enteruser/login">
+                  <ButtonComp icon style={{ width: '45px' }}>
+                    <FontAwesomeIcon icon={solid('user')} size="2x" />
+                  </ButtonComp>
+                </Link>
+              </>
+            )}
           </li>
         </ul>
       </div>
