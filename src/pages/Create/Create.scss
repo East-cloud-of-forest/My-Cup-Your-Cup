@@ -70,6 +70,13 @@
     cursor: pointer;
     align-items: center;
     margin: 20px;
+    position: relative;
+
+    input {
+        position: absolute;
+        top: 30%;
+        left: -200%;
+    }
 }
 
 
