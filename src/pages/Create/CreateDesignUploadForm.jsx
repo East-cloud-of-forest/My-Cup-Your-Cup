@@ -26,6 +26,7 @@ const CreateDesignUploadForm = () => {
     setOnlyMe(!onlyMe)
     console.log(onlyMe)
   }
+  
   // 태그 인풋 입력
   const [tagInput, setTagInput] = useState('')
   const tagInputChange = (e) => {
@@ -57,7 +58,7 @@ const CreateDesignUploadForm = () => {
   // 파이어베이스 업로드
   
   // 나의 디자인 업로드하기
-  const uploadMyDesign = async (mycup) => {
+  const uploadMyDesign = async (mycup) => { // async 익명함수로 작성하면 표현식)
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
@@ -78,10 +79,8 @@ const CreateDesignUploadForm = () => {
           
       }
       navigate('/mydesign');
-      console.log(mycup);//
-      console.log(tagList);//
     }
-  
+    
 
   return (
     <div className="uploadPage_container">
@@ -135,6 +134,6 @@ const CreateDesignUploadForm = () => {
       </div>
     </div>
   );
-};
+}
 
 export default CreateDesignUploadForm;

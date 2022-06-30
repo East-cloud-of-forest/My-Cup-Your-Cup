@@ -8,7 +8,6 @@ import classNames from 'classnames'
 import CartPopUp from './Cart/CartPopUp'
 import { Overlay, Popover } from 'react-bootstrap'
 import { useSelector } from 'react-redux/es/exports'
-import { useMemo } from 'react'
 
 const Header = () => {
   const [searchActive, setSearchActive] = useState(false)
@@ -79,12 +78,6 @@ const Header = () => {
     setShow(!show)
     setTarget(e.target)
   }
-  // const updatedItems = useMemo(() => {
-  //   return items;
-  // })
-  // useEffect(()=> {
-  //   setShow(!show)
-  // }, [updatedItems])
 
   // 사이드 바
   const [sidebarActive, setSidebarActive] = useState(false)

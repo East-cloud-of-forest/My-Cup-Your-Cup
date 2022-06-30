@@ -76,6 +76,7 @@ export default function MyDesigns() {
 
                         <div className="modal_body">
                             <p>{design.text}</p>
+                            <p> 공개여부 : {design.private} </p>
                             <div className="hashtag">
                                 { design.tag.map( (tag, i) => (
                                     <span key={i}>{tag}</span>
@@ -84,14 +85,14 @@ export default function MyDesigns() {
                         </div>
 
                         <div className="modal_footer">
-                            <div className="profile_block">
-                                <ProfileComp
+                            
+                            <ProfileComp
                             className="profile" 
                             justName 
                             userName={"user1"} 
                             imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
                             />
-                            </div>
+                            
                             <div className="button_block">
                             <ButtonComp icon id="like_btn">
                                 <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
@@ -112,7 +113,7 @@ export default function MyDesigns() {
         </Row>
         <Row>
             {
-                CUP_PICS.map( (cup_pic, i)=>(
+                CUP_PICS.map( cup_pic=>(
                 <Col xs="6" md="3" key={cup_pic.id}>
                     <ModalComp 
                     button={<img id="preview-image" src={cup_pic.src} alt={cup_pic.title}/>}

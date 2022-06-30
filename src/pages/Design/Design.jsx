@@ -66,7 +66,6 @@ const Design = () => {
                 >
                 <div className="modal_head">
                     <h2>{design.title}</h2>
-                    {design.private === true ? (<span>비공개</span>) : (<span>공개</span>) }
                 </div>
 
                 <div className="modal_body">
