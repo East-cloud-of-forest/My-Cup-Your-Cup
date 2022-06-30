@@ -2,55 +2,89 @@ import './CreateDesignUploadForm.scss'
 import { ButtonComp } from "../../components/index-comp/IndexComp";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+//import { addDoc } from 'firebase/firestore';
+import { addFirebaseData } from '../../datasources/firebase';
 
 const CreateDesignUploadForm = () => {
+  const {mycup}  = useSelector( (state) => ({ mycup : state.uploadDesign.mycup }) );
+  //console.log(mycup) // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
   const navigate = useNavigate();
 
+  // 제목, 내용 입력
   const [title, setTitle] = useState('')
+  const [text, setText] = useState('');
   const titleInputChange = (e) => {
-    setTitle(e.target.value)
+    setTitle(e.target.value);
+  }
+  const textInputChange = (e) => {
+    setText(e.target.value);
   }
   // 태그 인풋 입력
   const [tagInput, setTagInput] = useState('')
   const tagInputChange = (e) => {
-    setTagInput(e.target.value)
+    setTagInput(e.target.value);
   }
   // 태그 확정 입력
   const [tagList, setTagList] = useState([])
   const onKeyDown = (e) => {
-    const { key } = e
+    const { key } = e;
     const trimmedInput = tagInput.trim()
     if (key === 'Enter' && trimmedInput.length) {
       if (!tagList.includes(trimmedInput)) {
-        setTagList((prevState) => [...prevState, trimmedInput])
-        setTagInput('')
+        setTagList((prevState) => [...prevState, trimmedInput]);
+        setTagInput('');
       } else {
-        setTagInput('')
+        setTagInput('');
       }
     } else if (key === 'Backspace' && !tagInput.length && tagList.length) {
-      const tagListCopy = [...tagList]
-      tagListCopy.pop()
-      setTagList(tagListCopy)
+      const tagListCopy = [...tagList];
+      tagListCopy.pop();
+      setTagList(tagListCopy);
     }
   }
   // 태그 클릭 삭제
   const deleteTagItem = (index) => {
-    setTagList((prevState) => prevState.filter((tag, i) => i !== index))
+    setTagList((prevState) => prevState.filter((tag, i) => i !== index));
   }
+  // 파이어베이스 업로드
+  
   // 나의 디자인 업로드하기
-  const uploadMyDesign = () => {
+  const uploadMyDesign = async (mycup) => {
     if ( title==='' ) {
-      alert('컵 이름을 지어주세요!')
+      alert('컵 이름을 지어주세요!');
     } else {
+      // ( async 익명함수로 작성하면 표현식)
+          try {
+            const ref = await addFirebaseData("MyDesign", {
+              id: mycup[0].mycup.id,
+              image: mycup[0].mycup.image,
+              title: title,
+              text: text,
+            })
+            console.log(ref);
+          }
+          catch (e) {
+            console.log(e.message);
+          }
+          
+      }
       navigate('/mydesign');
     }
-  }
+  
+
   return (
     <div className="uploadPage_container">
-      <h2>나의 디자인 저장</h2>
-<div className="temporary_image">image</div>
-      <div>상품옵션 
-        <p>a</p>      
+      <h2>나의 디자인 저장하기</h2>
+      <div className="temporary_image">image : {mycup[0].mycup.image}</div>
+      <div>
+        <p>
+          {mycup[0].mycup.name} <br />
+          {mycup[0].mycup.color} <br />
+          {mycup[0].mycup.material} <br />
+          {mycup[0].mycup.size} <br />
+          빨대: {mycup[0].mycup.strow} <br />
+        </p>      
       </div>
       <div className="upload_form">
         <input 
@@ -60,7 +94,7 @@ const CreateDesignUploadForm = () => {
           onChange={titleInputChange}
         /> <br />
         <div className="main_input" >
-          <textarea rows={20}/>
+          <textarea rows={20} value={text} onChange={textInputChange}/>
         </div>
 
         <div className="tag_container">
@@ -80,10 +114,15 @@ const CreateDesignUploadForm = () => {
         <input type="checkbox" /> 나만 보기
         <div className="button_block">
           <ButtonComp color="red">취소</ButtonComp>
-          <ButtonComp color="green" onClick={uploadMyDesign}>저장</ButtonComp>
+          <ButtonComp color="green" onClick={() => { // 함수로 감싸지않고 썼을 경우 이전페이지에서 alert창이 뜨는 오류 발생
+            uploadMyDesign(mycup)}
+          }>
+            저장
+          </ButtonComp>
         </div>
       </div>
     </div>
   );
 };
+
 export default CreateDesignUploadForm;

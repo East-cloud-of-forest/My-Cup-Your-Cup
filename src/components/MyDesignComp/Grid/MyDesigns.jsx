@@ -1,54 +1,151 @@
 import "./DesignsGrid.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { IMAGES } from "../../../images";
-import { ButtonComp, ModalComp } from "../../index-comp/IndexComp";
+import { CUP_PICS } from "../../../images";
+import { ButtonComp, ModalComp, ProfileComp } from "../../index-comp/IndexComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+//import { getMyDesign } from "../../../modules/uploadDesign";
+import { useDispatch, useSelector } from "react-redux";
+import { getFirebaseData } from "../../../datasources/firebase";
+import { loadingStart, loadingEnd } from "../../../modules/loading";
+import { useCallback } from "react";
+import { deepCopy } from "@firebase/util";
 
 export default function MyDesigns() {
-    const [isOpen, setIsOPen] = useState(false);
-    const handleOpen = () => setIsOPen(!isOpen);
+    const [ mydesigns, setmydesigns ] = useState([])
+    const dispatch = useDispatch();
+    const startLoading = useCallback(dispatch(loadingStart()));
+    const endLoading = useCallback(dispatch(loadingEnd()));
 
-    if (isOpen) {
-        document.body.classList.add("active-modal");
-    } else {
-        document.body.classList.remove("active-modal");
+    // 나의디자인 가져오기
+    const getMyDesign = () => async () => {
+        try {
+            let array = [];
+            const myDesignColRef = getFirebaseData("MyDesign"); // 파이어스토어 컬렉션 문서 가져오기
+            (await myDesignColRef).forEach( (doc) => {
+                array.push({ 
+                    id: doc.data().id, 
+                    title: doc.data().title, 
+                    text: doc.data().text,
+                    image: doc.data().image
+                }); 
+            });
+            setmydesigns(array);
+            console.log(array)
+        }
+        catch (err) {
+            console.log(err.message);
+        }
     }
+    
+    useEffect( ()=> {
+        dispatch(getMyDesign());
+        console.log(mydesigns)
+    }, [])
 
     return (
         <>
         <div className="header">
-            <span id="title">나의 디자인</span>
+            <h3 id="title">나의 디자인</h3>
             <a href="#">더보기</a>
         </div>
 
         <Container fluid="sm">
-            <Row>
-                {
-                    IMAGES.map( (image, i) => (
-                        <Col>
-                            <ModalComp
-                                button={<img src={image.src} alt={image.title} />}
-                                imageSRC={image.src}
-                            >
-                                <h2>{image.title}</h2>
-                                <p>{image.title}</p>
-                                    <div>
-                                    <ButtonComp>
-                                        <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
-                                    </ButtonComp>
-                                    <ButtonComp>
-                                        <FontAwesomeIcon
-                                        icon={solid("share-nodes")}
-                                        ></FontAwesomeIcon>
-                                    </ButtonComp>
-                                    <ButtonComp>제작하러가기</ButtonComp>
-                                    </div>
-                                </ModalComp>
-                        </Col>
-                    ))
-                }
+        <Row>
+            {
+                mydesigns.map( design => (
+                    <Col xs="6" md="3" key={design.id}>
+                        <ModalComp 
+                        button={`임시버튼 : ${design.title}`}//<img id="preview-image" src={design.image} alt={design.title}/>
+                        image={<img src={design.image} alt={design.title}/>}
+                        className="design_modal"
+                        >
+                        <div className="modal_head">
+                            <h2>{design.title}</h2>
+                        </div>
+
+                        <div className="modal_body">
+                            <p>{design.text}</p>
+                            <div className="hashtag">
+                            <span>{design.tag}</span>
+
+                            </div>
+                        </div>
+
+                        <div className="modal_footer">
+                            <div className="profile_block">
+                                <ProfileComp
+                            className="profile" 
+                            justName 
+                            userName={"user1"} 
+                            imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
+                            />
+                            </div>
+                            <div className="button_block">
+                            <ButtonComp icon id="like_btn">
+                                <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                            </ButtonComp>
+                            <ButtonComp icon id="share-btn">
+                                <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
+                            </ButtonComp>  
+                            <ButtonComp color="mint" id="create-btn">제작하러가기</ButtonComp>
+                            </div>
+                        </div>
+                            
+                        
+                    </ModalComp>
+                </Col>
+            ))}
+        </Row>
+        <Row>
+            {
+                CUP_PICS.map( (cup_pic, i)=>(
+                <Col xs="6" md="3" key={cup_pic.id}>
+                    <ModalComp 
+                    button={<img id="preview-image" src={cup_pic.src} alt={cup_pic.title}/>}
+                    image={<img src={cup_pic.src} alt={cup_pic.title}/>}
+                    className="design_modal"
+                    >
+                    <div className="modal_head">
+                        <div className="text_block">
+                        <h2>제목</h2>
+                        
+                        </div>
+                    </div>
+
+                    <div className="modal_body">
+                        <p>내용</p>
+                        <div className="hashtag">
+                        <span>#태그1 </span>
+                        <span>#태그2 </span>
+                        <span>#태그3 </span>
+                        </div>
+                    </div>
+
+                    <div className="modal_footer">
+                        <ProfileComp
+                        className="profile" 
+                        justName 
+                        userName={"user1"} 
+                        imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
+                        />
+                        <div className="button_block">
+                        <ButtonComp icon id="like_btn">
+                            <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                        </ButtonComp>
+                        <ButtonComp icon id="share-btn">
+                            <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
+                        </ButtonComp>  
+                        <ButtonComp color="mint" id="create-btn">제작하러가기</ButtonComp>
+                        </div>
+                    </div>
+                        
+                    
+                </ModalComp>
+                </Col>
+                ))
+            }
             </Row>
         </Container>
     </>

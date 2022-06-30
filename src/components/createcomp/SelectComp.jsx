@@ -3,6 +3,7 @@ import { ButtonComp } from '../index-comp/IndexComp'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem } from '../../modules/addCart'
+import { uploadItem } from '../../modules/uploadDesign'
 
 const SelectComp = ({
   getTypeData,
@@ -76,7 +77,8 @@ const SelectComp = ({
   // state로 전달
   const onAddItem = useCallback((tumblur) => dispatch(addItem(tumblur)), [
     dispatch,
-  ])
+  ]);
+  const onUpload = useCallback( (tumblur) => dispatch(uploadItem(tumblur)), [dispatch]);
 
   // 결제버튼 클릭시
   const sendCupInfoPay = () => {
@@ -132,7 +134,7 @@ const SelectComp = ({
     } else if (tumStraw.use === 'none') {
       alert('빨대사용 여부를 선택해 주세요')
     } else {
-      onAddItem({
+      onUpload({
         image: null,
         name: tumMet.name + tumSize.name,
         color: colorName,

@@ -42,6 +42,7 @@ export const minusOne = (id) => ({
   id,
 })
 
+
 function cartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_ITEM:
