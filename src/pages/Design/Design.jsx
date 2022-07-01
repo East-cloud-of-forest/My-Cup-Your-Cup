@@ -53,8 +53,8 @@ const Design = () => {
       <h1>잔디자인</h1>
       <Container fluid>
         <Row>
-          {oDesigns.map((design) => (
-            <Col xl="2" lg="3" md="4" sm="6" key={design.id}>
+          {oDesigns.map((design, i) => (
+            <Col xl="2" lg="3" md="4" sm="6" key={i}>
               <ModalComp
                 button={
                   <div id="temp_image">

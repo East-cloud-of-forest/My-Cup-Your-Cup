@@ -80,7 +80,7 @@
     }
   }
 
-  .app_bar {
+  .app_bar, .app_bar_cart {
     display: none;
   }
 
@@ -292,12 +292,16 @@
 
 @media (max-width: 992px) {
   #App_header {
+    // 기존 div
     #App_nav {
       display: none;
     }
+    #App_subnav {
+      display: none;
+    }
 
+    // app_bar
     .app_bar {
-      display: block;
       flex: 1;
       display: flex;
 
@@ -533,6 +537,18 @@
           &:nth-child(3) {
             display: none;
           }
+        }
+      }
+    }
+
+    .app_bar_cart {
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+
+      button {
+        img {
+          width: 45px;
         }
       }
     }
