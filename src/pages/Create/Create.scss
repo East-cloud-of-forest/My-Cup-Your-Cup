@@ -219,3 +219,68 @@
     height: 500px;
     top: 0px;
 }
+
+
+.cre_font_editor{
+    margin: 10% 0 ;
+}
+
+.cre_font_selectbox {
+    background-color: white;
+    width: 80px;
+    padding: 5px;
+    border:1px solid #60ab90;
+    font-family:'Nanumgothic';
+    border-radius:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+}
+
+.cre_font_input {
+    background-color: white;
+    width: 180px;
+    padding: 5px;
+    border:1px solid #60ab90;
+    font-family:'Nanumgothic';
+    border-radius:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+}
+
+.cre_font_edit_btn{
+    display: flex;
+}
+
+.cre_edit_clicked{
+    margin: 0 10px;
+    overflow: hidden;
+    transition: 0.5s ease;
+    opacity: 0;
+    background-color: rgba(240, 240, 240, 0.9);
+    height: 500px;
+    width: 250px;
+    position: absolute;
+    right: 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+
+    &.editActive {
+        transition: 0.5s ease;
+        opacity: 1;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &.EditDisplaynone {
+        transition: 0.5s ease;
+        display: flex;
+        justify-content: space-around;
+        // display: none;
+        visibility: hidden;
+    }
+}
