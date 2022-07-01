@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 
 const Home = () => {
   const aaa = useSelector(a=>a)
-  console.log(aaa)
   
   const circleitem = []
   for (let i = 0; i < 6; i++) {

@@ -1,19 +1,27 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { getFirestore, getDocs, collection, addDoc, setDoc, doc } from 'firebase/firestore'
+import {
+  getFirestore,
+  getDocs,
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+} from 'firebase/firestore'
 import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
 } from 'firebase/auth'
 import {
   getDownloadURL,
   getStorage,
   ref,
-  uploadBytes,
   uploadBytesResumable,
-  uploadString,
 } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -38,6 +46,22 @@ const googleLoginPopup = () => signInWithPopup(auth, provider)
 // 이메일 로그인
 const emailLogin = (email, password) =>
   signInWithEmailAndPassword(auth, email, password)
+// 로그인 저장
+const saveLoginInfo = async (location) => {
+  switch (location) {
+    case 'local' :
+      return await setPersistence(auth, browserLocalPersistence)
+    case 'session' :
+      return await setPersistence(auth, browserSessionPersistence)
+  }
+} 
+// 로그인 유지
+const loginSession = () => {
+  const data = sessionStorage.getItem(
+    `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`,
+  )
+  return JSON.parse(data)
+}
 
 // cloud Firestore 초기화
 const db = getFirestore()
@@ -77,5 +101,7 @@ export {
   setFirebaseData,
   googleLoginPopup,
   emailLogin,
+  loginSession,
+  saveLoginInfo,
   auth,
 }
