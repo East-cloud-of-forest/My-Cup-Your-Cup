@@ -14,8 +14,16 @@ $facebook: #475a96;
     margin: 50px 0 50px 0;
   }
 
+  .row {
+    padding: 0 1rem;
+
+    > * {
+      padding: 0.1rem;
+    }
+  }
+
   #temp_image {
-    width: 200px;
+    width: 100%;
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -23,9 +31,9 @@ $facebook: #475a96;
     background-color: $mint;
     margin: 0;
   }
-  
+
   #preview-image {
-    width: 200px;
+    width: 100%;
     aspect-ratio: 1;
   }
 

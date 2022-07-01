@@ -51,10 +51,10 @@ const Design = () => {
   return (
     <div className="design_page">
       <h1>잔디자인</h1>
-      <Container fluid="sm">
+      <Container fluid>
         <Row>
           {oDesigns.map((design) => (
-            <Col xs="6" md="3" key={design.id}>
+            <Col xl="2" lg="3" md="4" sm="6" key={design.id}>
               <ModalComp
                 button={
                   <div id="temp_image">
@@ -109,10 +109,9 @@ const Design = () => {
               </ModalComp>
             </Col>
           ))}
-        </Row>
-        <Row>
+          {/* //////////////////////////////////////////////////////////// */}
           {CUP_PICS.map((cup_pic, i) => (
-            <Col xs="6" md="3" key={cup_pic.id}>
+            <Col xl="2" lg="3" md="4" sm="6" key={cup_pic.id}>
               <ModalComp
                 button={
                   <img
@@ -165,6 +164,9 @@ const Design = () => {
               </ModalComp>
             </Col>
           ))}
+        </Row>
+        <Row>
+          
         </Row>
       </Container>
 
