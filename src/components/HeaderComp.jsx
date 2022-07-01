@@ -108,6 +108,21 @@ const Header = () => {
     }, 300)
   }
 
+  const [sidebarCartActive, setSidebarCartActive] = useState(false)
+  const [sidebarCartActiveClass, setSidebarCartActiveClass] = useState(false)
+  const onCartSidebar = () => {
+    setSidebarCartActive(true)
+    setTimeout(() => {
+      setSidebarCartActiveClass(true)
+    })
+  }
+  const offCartSidebar = () => {
+    setSidebarCartActiveClass(false)
+    setTimeout(() => {
+      setSidebarCartActive(false)
+    }, 300)
+  }
+
   // 로그아웃
   const dispatch = useDispatch()
   const loginUser = useCallback((user) => dispatch(loginUserModule(user)), [
@@ -140,6 +155,8 @@ const Header = () => {
     if (windowSize.width + 17 > 993) {
       setSidebarActiveClass(false)
       setSidebarActive(false)
+      setSidebarCartActive(false)
+      setSidebarCartActiveClass(false)
     }
     ////////////////////////////////
     return () => {
@@ -275,6 +292,7 @@ const Header = () => {
         ) : null}
       </div>
 
+      {/* 헤더 */}
       <Link to="/">
         <Logo style={{ width: '80px', margin: '1rem 1.5rem' }} />
       </Link>
@@ -393,6 +411,28 @@ const Header = () => {
             )}
           </li>
         </ul>
+      </div>
+
+      {/* 카트 사이드바 */}
+      <div className="app_bar_cart">
+        <div className="caption">
+          <ButtonComp icon style={{ width: '45px' }} onClick={onCartSidebar}>
+            <FontAwesomeIcon icon={solid('cart-shopping')} size="2x" />
+          </ButtonComp>
+        </div>
+        {sidebarCartActive ? (
+          <div
+            className={classNames(
+              'app_side_bar_background',
+              sidebarCartActiveClass ? 'app_side_bar_background_active' : null,
+            )}
+            onClick={(e) => {
+              e.target === e.currentTarget && offCartSidebar()
+            }}
+          >
+            <div className="app_side_bar"></div>
+          </div>
+        ) : null}
       </div>
     </header>
   )
