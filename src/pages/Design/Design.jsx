@@ -40,11 +40,11 @@ const Design = () => {
   }
 
   // 공개된 디자인만 가져오기 
-  const oDesigns = designCol.filter( d => d.private == false );
+  const oDesigns = designCol.filter( d => d.private === false );
 
   useEffect( () => {
     dispatch(getDesign());
-  }, [])
+  }, [dispatch])
   
 
   return (
