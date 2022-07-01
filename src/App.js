@@ -25,11 +25,8 @@ import Agreement from './pages/EnterUser/Agreement/Agreement'
 import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginUserModule } from './modules/enteruser'
-<<<<<<< HEAD
 import CreateDesignEditForm from './pages/Create/CreateDesignEditForm'
-=======
 import { loginSession } from './datasources/firebase'
->>>>>>> 1c4bbdca49a6c748849f99bf0288e14064243b7c
 
 function App() {
   const location = useLocation()

@@ -148,6 +148,7 @@ const ReviewWriteForm = () => {
   }
 
   // firebase 로 업로드
+  const { user } = useSelector((a) => a.enteruser)
   const sendFirebase = async () => {
     let postID
     let images = new Object()
@@ -161,9 +162,7 @@ const ReviewWriteForm = () => {
     })
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
-      user: {
-        아직: '못해',
-      },
+      user: user,
       images: images,
       rating: rating,
       review: review,
