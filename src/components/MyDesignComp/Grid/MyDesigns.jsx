@@ -72,7 +72,7 @@ export default function MyDesigns() {
         <Row>
             {
                 mydesigns.map( design => (
-                    <Col xs="6" md="3" key={design.id}>
+                    <Col xl="2" lg="3" md="4" sm="6" key={design.id}>
                         <ModalComp 
                         button={
                             <div id="temp_image">

@@ -9,6 +9,7 @@ import { addFirebaseData } from '../../datasources/firebase';
 const CreateDesignUploadForm = () => {
   const {mycup}  = useSelector( (state) => ({ mycup : state.uploadDesign.mycup }) ); // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
   const {user} = useSelector( (user) => user.enteruser );
+
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -126,8 +127,11 @@ const CreateDesignUploadForm = () => {
         <div className="button_block">
           <ButtonComp color="red">취소</ButtonComp>
           <ButtonComp color="green" onClick={() => { // 함수로 감싸지않고 썼을 경우 이전페이지에서 alert창이 뜨는 오류 발생
-            uploadMyDesign(mycup, user.uid )}
-          }>
+            if ( user === null ) {
+              alert("로그인이 필요한 서비스입니다");
+              navigate('/enteruser/login');
+            } else {uploadMyDesign(mycup, user.uid)}
+          }}>
             저장
           </ButtonComp>
         </div>
