@@ -1,6 +1,6 @@
 import "./DesignsGrid.scss";
-import { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { useState, useEffect, useRef } from "react";
+import { Container, Row, Col, OverlayTrigger, Popover, Overlay } from "react-bootstrap";
 import { CUP_PICS } from "../../../images";
 import { ButtonComp, ModalComp, ProfileComp } from "../../index-comp/IndexComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,9 +14,14 @@ import { deepCopy } from "@firebase/util";
 import { useNavigate } from "react-router-dom";
 
 export default function MyDesigns() {
-    const [ mydesigns, setmydesigns ] = useState([])
+    const [ mydesigns, setmydesigns ] = useState([]);
+    const [ show, setShow ] = useState(false);
+    const [ target, setTarget ] = useState(null);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const ref = useRef();
+
     const startLoading = useCallback(dispatch(loadingStart()));
     const endLoading = useCallback(dispatch(loadingEnd()));
 
@@ -27,13 +32,13 @@ export default function MyDesigns() {
             const myDesignColRef = getFirebaseData("MyDesign"); // 파이어스토어 컬렉션 문서 가져오기
             (await myDesignColRef).forEach( (doc) => {
                 array.push({ 
-                    id: doc.data().id, 
+                    id: doc.id, 
                     title: doc.data().title, 
                     text: doc.data().text,
                     image: doc.data().image,
                     tag: doc.data().tag,
                     private: doc.data().private
-                }); 
+                });
             });
             setmydesigns(array);
         }
@@ -44,7 +49,16 @@ export default function MyDesigns() {
     
     useEffect( ()=> {
         dispatch(getMyDesign());
-    }, [])
+    }, [dispatch])
+
+    const handleClick = (e) => {
+        setShow(!show)
+        setTarget(e.target)
+    }
+    // 수정버튼 클릭시
+    const editPost = (id) => {
+        
+    }
 
     return (
         <>
@@ -57,7 +71,7 @@ export default function MyDesigns() {
         <Row>
             {
                 mydesigns.map( design => (
-                    <Col xs="6" md="3" key={design.id}>
+                    <Col xs="6" md="3" key={design.title}>
                         <ModalComp 
                         button={
                             <div id="temp_image">
@@ -67,16 +81,39 @@ export default function MyDesigns() {
                         image={<img src={design.image} alt={design.title}/>}
                         className="design_modal"
                         >
-                        <div className="modal_head">
+                        <div className="modal_head" ref={ref}>
                             <h2>{design.title}</h2>
-                            {design.private === true ? (
-                                <span><FontAwesomeIcon icon={solid("lock")}/> 비공개 게시물입니다</span>) 
-                                : null}
+                            
+                            <ButtonComp icon onClick={handleClick}>
+                                <FontAwesomeIcon icon={solid("ellipsis-vertical")} />
+                            </ButtonComp>
+                            <Overlay
+                                show={show}
+                                target={target}
+                                placement="left"
+                                container={ref}
+                                containerPadding={20}
+                                rootClose
+                                onHide={() => setShow(false)}
+                            >
+                                <Popover id="ellipsis_popover">
+                                    <ButtonComp icon onClick={() => navigate(`/edit/${design.id}`)}>
+                                        <FontAwesomeIcon icon={solid("pen-to-square")}/>
+                                    </ButtonComp> <br/>
+                                    <ButtonComp icon>
+                                        <FontAwesomeIcon icon={solid("trash-can")}/> 삭제
+                                    </ButtonComp>
+                                </Popover>
+                                
+                            </Overlay>
+                            
                         </div>
-
+                            {design.private === true ? (
+                                <span style={{ fontSize: "smaller", color: "gray" }}>
+                                    <FontAwesomeIcon icon={solid("lock")}/> 비공개 게시물입니다
+                                </span>) : null}
                         <div className="modal_body">
                             <p>{design.text}</p>
-                            <p> 공개여부 : {design.private} </p>
                             <div className="hashtag">
                                 { design.tag.map( (tag, i) => (
                                     <span key={i}>{tag}</span>

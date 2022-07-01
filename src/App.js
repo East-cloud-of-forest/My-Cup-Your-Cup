@@ -26,6 +26,7 @@ import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { auth } from './datasources/firebase'
 import { loginUserModule } from './modules/enteruser'
+import CreateDesignEditForm from './pages/Create/CreateDesignEditForm'
 
 function App() {
   const location = useLocation()
@@ -65,6 +66,8 @@ function App() {
           <Route index element={<HomeComp />} />
           <Route path="/design" element={<Design />} />
           <Route path="/mydesign" element={<MyDesign />} />
+          <Route path="/edit/:id" element={<CreateDesignEditForm />} />
+          
           <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
           <Route path="/create" element={<CreatePage />}></Route>
