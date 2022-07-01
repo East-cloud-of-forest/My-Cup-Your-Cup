@@ -22,8 +22,8 @@ export default function MyDesigns() {
     const navigate = useNavigate();
     const ref = useRef();
 
-    const startLoading = useCallback(dispatch(loadingStart()));
-    const endLoading = useCallback(dispatch(loadingEnd()));
+    // const startLoading = useCallback(dispatch(loadingStart()));
+    // const endLoading = useCallback(dispatch(loadingEnd()));
 
     // 나의디자인 가져오기
     const getMyDesign = () => async () => {
@@ -37,7 +37,8 @@ export default function MyDesigns() {
                     text: doc.data().text,
                     image: doc.data().image,
                     tag: doc.data().tag,
-                    private: doc.data().private
+                    private: doc.data().private,
+                    
                 });
             });
             setmydesigns(array);
@@ -55,8 +56,8 @@ export default function MyDesigns() {
         setShow(!show)
         setTarget(e.target)
     }
-    // 수정버튼 클릭시
-    const editPost = (id) => {
+    // 삭제버튼 클릭시
+    const deletePost = (id) => {
         
     }
 
@@ -71,7 +72,7 @@ export default function MyDesigns() {
         <Row>
             {
                 mydesigns.map( design => (
-                    <Col xs="6" md="3" key={design.title}>
+                    <Col xs="6" md="3" key={design.id}>
                         <ModalComp 
                         button={
                             <div id="temp_image">
@@ -98,9 +99,9 @@ export default function MyDesigns() {
                             >
                                 <Popover id="ellipsis_popover">
                                     <ButtonComp icon onClick={() => navigate(`/edit/${design.id}`)}>
-                                        <FontAwesomeIcon icon={solid("pen-to-square")}/>
+                                        <FontAwesomeIcon icon={solid("pen-to-square")}/> 수정
                                     </ButtonComp> <br/>
-                                    <ButtonComp icon>
+                                    <ButtonComp icon onClick={()=> deletePost(design.id)}>
                                         <FontAwesomeIcon icon={solid("trash-can")}/> 삭제
                                     </ButtonComp>
                                 </Popover>
@@ -115,9 +116,10 @@ export default function MyDesigns() {
                         <div className="modal_body">
                             <p>{design.text}</p>
                             <div className="hashtag">
-                                { design.tag.map( (tag, i) => (
+                                {design.tag.map(tag=><span key={tag}>{tag}</span>)}
+                                {/* { design.tag.map( (tag, i) => (
                                     <span key={i}>{tag}</span>
-                                ))}
+                                ))} */}
                             </div>
                         </div>
 

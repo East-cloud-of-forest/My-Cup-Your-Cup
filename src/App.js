@@ -25,11 +25,8 @@ import Agreement from './pages/EnterUser/Agreement/Agreement'
 import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginUserModule } from './modules/enteruser'
-<<<<<<< HEAD
-import CreateDesignEditForm from './pages/Create/CreateDesignEditForm'
-=======
 import { loginSession } from './datasources/firebase'
->>>>>>> 1c4bbdca49a6c748849f99bf0288e14064243b7c
+import PostEditForm from './pages/Create/PostEditForm'
 
 function App() {
   const location = useLocation()
@@ -68,7 +65,7 @@ function App() {
           <Route index element={<HomeComp />} />
           <Route path="/design" element={<Design />} />
           <Route path="/mydesign" element={<MyDesign />} />
-          <Route path="/edit/:id" element={<CreateDesignEditForm />} />
+          <Route path="/edit/:id" element={<PostEditForm />} />
           
           <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />

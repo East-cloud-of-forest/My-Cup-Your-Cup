@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 import { addFirebaseData } from '../../datasources/firebase';
 
 const CreateDesignUploadForm = () => {
-  const {mycup}  = useSelector( (state) => ({ mycup : state.uploadDesign.mycup }) );
-  //console.log(mycup) // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
+  const {mycup}  = useSelector( (state) => ({ mycup : state.uploadDesign.mycup }) ); // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
+  const {user} = useSelector( (user) => user.enteruser );
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -58,25 +58,25 @@ const CreateDesignUploadForm = () => {
   // 파이어베이스 업로드
   
   // 나의 디자인 업로드하기
-  const uploadMyDesign = async (mycup) => { // async 익명함수로 작성하면 표현식)
+  const uploadMyDesign = async (mycup, userid) => { // async 익명함수로 작성하면 표현식)
+    
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
-      // ( async 익명함수로 작성하면 표현식)
-          try {
-            const ref = await addFirebaseData("MyDesign", {
-              id: mycup[0].mycup.id,
-              image: mycup[0].mycup.image,
-              title: title,
-              text: text,
-              tag: tagList,
-              private: onlyMe
-            })
-          }
-          catch (e) {
-            console.log(e.message);
-          }
-          
+        try {
+          await addFirebaseData("MyDesign", {
+            image: mycup[0].mycup.image,
+            title: title,
+            text: text,
+            tag: tagList,
+            private: onlyMe,
+            userid: userid
+          })
+        }
+        catch (e) {
+          console.log(e.message);
+        }
+        
       }
       navigate('/mydesign');
     }
@@ -126,7 +126,7 @@ const CreateDesignUploadForm = () => {
         <div className="button_block">
           <ButtonComp color="red">취소</ButtonComp>
           <ButtonComp color="green" onClick={() => { // 함수로 감싸지않고 썼을 경우 이전페이지에서 alert창이 뜨는 오류 발생
-            uploadMyDesign(mycup)}
+            uploadMyDesign(mycup, user.uid )}
           }>
             저장
           </ButtonComp>
