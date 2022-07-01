@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect, useRef } from "react";
 
-const CanvasComp = ({ pic, texts, setTexts }) => {
+const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
   const canvasRef = useRef(null);
   const image = new window.Image();
   
@@ -70,6 +70,7 @@ const CanvasComp = ({ pic, texts, setTexts }) => {
 
     background() {
       this.ctx.drawImage(image, 0, 0);
+      this.ctx.filter = `opacity(0.5) drop-shadow(0 0 0 ${colorData}) brightness(65%) contrast(400%)`;
       image.src = require(`../../components/createcomp/img/${pic}.png`);
     }
 
@@ -172,7 +173,7 @@ const CanvasComp = ({ pic, texts, setTexts }) => {
 
   useEffect(() => {
     new App();
-  }, [pic, texts]);
+  }, [pic, texts, colorData]);
 
   return <canvas ref={canvasRef} className="cre_canvas" />;
 };

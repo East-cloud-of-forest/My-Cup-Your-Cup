@@ -26,14 +26,15 @@ import { text } from "@fortawesome/fontawesome-svg-core";
 import CanvasComp from "../../components/createcomp/CanvasComp";
 
 const CreatePage = () => {
-  const [basicIcon, setBasicIcon] = useState(faEye);
-  const changeIcon = () => {
-    if (basicIcon === faEye) {
-      setBasicIcon(faEyeSlash);
-    } else {
-      setBasicIcon(faEye);
-    }
-  };
+  //레이어 용
+  // const [basicIcon, setBasicIcon] = useState(faEye);
+  // const changeIcon = () => {
+  //   if (basicIcon === faEye) {
+  //     setBasicIcon(faEyeSlash);
+  //   } else {
+  //     setBasicIcon(faEye);
+  //   }
+  // };
 
   //재질 props 받아오는 함수
   const [material, setMaterial] = useState("");
@@ -178,6 +179,18 @@ const CreatePage = () => {
     }
   }, [material]);
 
+  //텍스트 스타일 편집
+  const [fontSizeEdit,setFontSizeEdit] = useState(12)
+  const fontSizeChange = (e) =>{
+    setFontSizeEdit(e.target.value);
+  }
+
+  const [fontColorEdit,setFontColorEdit] = useState("#000")
+  const fontColorChange = (e) =>{
+    console.log(e.target.value);
+    setFontColorEdit(e.target.value);
+  }
+
   // 텍스트 추가 임시
   const [texts, setTexts] = useState([]);
 
@@ -191,8 +204,8 @@ const CreatePage = () => {
       const textsClone = [...texts];
       textsClone.push({
         text: textinput,
-        font: "26px nanumBold",
-        color: "#ff0000",
+        font: `${fontSizeEdit}px nanumBold`,
+        color: `${fontColorEdit}`,
         height: 26,
         id: texts.length,
         x: -1000,
@@ -237,7 +250,7 @@ const CreatePage = () => {
 
         {/**메인이미지 */}
         <div className="cre_mainImg">
-          <CanvasComp pic={pic} texts={texts} setTexts={setTexts} />
+          <CanvasComp colorData={colorData} pic={pic} texts={texts} setTexts={setTexts} />
 
           {/**에딧 2 */}
           <div className="cre_acc">
@@ -296,7 +309,7 @@ const CreatePage = () => {
               </div>
               <div className='cre_font_editor'>
                 <p>폰트 사이즈</p>
-                <select className="cre_font_selectbox" defaultValue="12">
+                <select className="cre_font_selectbox" defaultValue="12" onChange={fontSizeChange}>
                   <option value="12">12</option>
                   <option value="24">24</option>
                   <option value="36">36</option>
@@ -305,11 +318,11 @@ const CreatePage = () => {
               </div>
               <div className='cre_font_editor'>
                 <p>폰트 색상</p>
-                <select className="cre_font_selectbox" defaultValue="black">
-                  <option value="black">검정</option>
-                  <option value="red">빨강</option>
-                  <option value="blue">파랑</option>
-                  <option value="green">초록</option>
+                <select className="cre_font_selectbox" defaultValue="#000" onChange={fontColorChange}>
+                  <option value="#000000">검정</option>
+                  <option value="#ff0000">빨강</option>
+                  <option value="#0000ff">파랑</option>
+                  <option value="#00ff00">초록</option>
                 </select>
               </div>
             </div>
