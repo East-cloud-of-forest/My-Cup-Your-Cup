@@ -1,98 +1,82 @@
-import { React, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import queryString from "query-string";
-
-import "./JoinUser.scss";
-import { ButtonComp } from "../../../components/index-comp/IndexComp";
-
-// 파이어베이스 fireStore 컬랙션 생성 기능 가져오기
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../datasources/firebase";
-
-// 파이어베이스 인증, 가입 기능 가져오기
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { React, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import queryString from 'query-string'
+import './JoinUser.scss'
+import { ButtonComp } from '../../../components/index-comp/IndexComp'
+import { createUser, setFirebaseData } from '../../../datasources/firebase'
+import { updateProfile } from 'firebase/auth'
 
 const JoinPage = () => {
-  const { search } = useLocation();
+  const { search } = useLocation()
   // 동의서
-  const agreeObj = queryString.parse(search);
+  const agreeObj = queryString.parse(search)
 
-  const navi = useNavigate();
+  const navi = useNavigate()
 
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
-  const auth = getAuth();
 
-  const [emailInput, setEmailInput] = useState("");
-  const [password, setPassword] = useState("");
-  const [nameInput, setNameInput] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [birthYear, setBirthYear] = useState("");
-  const [birthMonth, setBirthMonth] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [gender, setGender] = useState("");
+  const [emailInput, setEmailInput] = useState('')
+  const [password, setPassword] = useState('')
+  const [nameInput, setNameInput] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [birthYear, setBirthYear] = useState('')
+  const [birthMonth, setBirthMonth] = useState('')
+  const [birthDate, setBirthDate] = useState('')
+  const [gender, setGender] = useState('')
 
   // 이메일 비밀번호 onChange
   const InputEmail = (e) => {
-    setEmailInput(e.target.value);
-  };
+    setEmailInput(e.target.value)
+  }
   const signupPassword = (e) => {
-    setPassword(e.target.value);
-  };
+    setPassword(e.target.value)
+  }
 
   // 이름, 휴대폰번호 onChange
   const InputName = (e) => {
-    setNameInput(e.target.value);
-  };
+    setNameInput(e.target.value)
+  }
   const InputPhoneNumber = (e) => {
-    setPhoneNumber(e.target.value);
-  };
+    setPhoneNumber(e.target.value)
+  }
 
   // 생년월일 onChange
   const inputYear = (e) => {
-    setBirthYear(e.target.value);
-  };
+    setBirthYear(e.target.value)
+  }
   const inputMonth = (e) => {
-    setBirthMonth(e.target.value);
-  };
+    setBirthMonth(e.target.value)
+  }
   const inputDate = (e) => {
-    setBirthDate(e.target.value);
-  };
+    setBirthDate(e.target.value)
+  }
 
   // 성별 선택 onChange
   const genderChange = (e) => {
-    console.log(e.target.value);
-    setGender(e.target.value);
-  };
+    console.log(e.target.value)
+    setGender(e.target.value)
+  }
 
   // 회원가입 기능 실행
-  const signupEmail = () => {
-    return createUserWithEmailAndPassword(auth, emailInput, password);
-  };
-  function Join(emailInput, password) {
-    signupEmail(emailInput, password)
-      .then((userData) => {
-        onAuthStateChanged(auth, (userData) => {
-          if (userData) {
-            const uid = userData.uid;
-            setDoc(doc(db, "user", uid), {
-              userName: nameInput,
-              birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
-              gender: gender,
-              phone: phoneNumber,
-            });
-          }
-          alert("회원가입이 완료 되었습니다");
-          navi("/");
-        });
-        // const user = result.user;
+  function Join() {
+    createUser(emailInput, password)
+      .then(async ({ user }) => {
+        const uid = user.uid
+        await updateProfile(user, {
+          displayName: nameInput,
+        })
+        await setFirebaseData('user', uid, {
+          birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
+          gender: gender,
+          phone: phoneNumber,
+          agreement: agreeObj
+        })
+        alert('회원가입이 완료 되었습니다')
+        navi('/')
       })
       .catch(() => {
-        alert("회원가입 실패");
-      });
+        alert('회원가입 실패')
+      })
   }
 
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
@@ -241,7 +225,7 @@ const JoinPage = () => {
         </section>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default JoinPage;
+export default JoinPage

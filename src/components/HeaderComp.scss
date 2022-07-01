@@ -173,6 +173,32 @@
         }
       }
 
+      li:nth-child(3) {
+        > div {
+          > button {
+            padding: 0;
+  
+            span:nth-child(1) {
+              width: 100%;
+              height: 100%;
+  
+              .user_svg {
+                width: 100%;
+                height: 100%;
+                background-color: #a6fae1;
+                display: flex;
+                align-items: center;
+  
+                svg {
+                  margin: auto;
+                  color: white;
+                }
+              }
+            }
+          }
+        }
+      }
+
       .acount_nav {
         background-color: white;
         padding: 2rem 1rem;
@@ -195,6 +221,21 @@
           width: 96px;
           aspect-ratio: 1/1;
           margin-bottom: 1.5rem;
+          display: flex;
+          align-items: center;
+
+          .user_svg {
+            width: 100%;
+            height: 100%;
+            background-color: #a6fae1;
+            display: flex;
+            align-items: center;
+
+            svg {
+              margin: auto;
+              color: white;
+            }
+          }
         }
 
         p {
@@ -328,6 +369,21 @@
             width: 96px;
             aspect-ratio: 1/1;
             margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+
+            .user_svg {
+              width: 100%;
+              height: 100%;
+              background-color: #a6fae1;
+              display: flex;
+              align-items: center;
+
+              svg {
+                margin: auto;
+                color: white;
+              }
+            }
           }
 
           &:nth-child(2) {

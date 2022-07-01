@@ -11,11 +11,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Googlelogo from '../../../components/Login/img/googleicon.svg'
 import Facebooklogo from '../../../components/Login/img/facebookicon.svg'
 import { loginUserModule } from '../../../modules/enteruser'
-import { emailLogin, googleLoginPopup } from '../../../datasources/firebase'
-
-import { getAuth } from "firebase/auth";
-const auth = getAuth();
-
+import {
+  emailLogin,
+  googleLoginPopup,
+  saveLoginInfo,
+} from '../../../datasources/firebase'
 
 const LoginMainPage = () => {
   const [email, setEmail] = useState('')
@@ -36,22 +36,21 @@ const LoginMainPage = () => {
     dispatch,
   ])
 
-  // 로그인 유저 정보 가져오기 기능
-  const userInfo = auth.currentUser;
-
   // 구글 로그인 버튼 클릭시 구글 로그인
   function GoogleLoginClick() {
-    googleLoginPopup()
-      .then((result) => {
-        loginUser(result.user)
-        const hiGoogleUser = userInfo.displayName;
-        alert(`환영합니다 ${hiGoogleUser}님, 구글 로그인 되었습니다.`)
-        navi('/')
-      })
-      .catch((e) => {
-        alert('구글로그인에 실패 했습니다.')
-        console.log(e)
-      })
+    saveLoginInfo().then(async () => {
+      return await googleLoginPopup()
+        .then((result) => {
+          loginUser(result.user)
+          const hiGoogleUser = result.user.displayName
+          alert(`환영합니다 ${hiGoogleUser}님, 구글 로그인 되었습니다.`)
+          navi('/')
+        })
+        .catch((e) => {
+          alert('구글로그인에 실패 했습니다.')
+          console.log(e)
+        })
+    })
   }
 
   // 이메일, 비밀번호 미입력시 출력
@@ -62,25 +61,24 @@ const LoginMainPage = () => {
   // 이메일 로그인
   function emailLoginClick() {
     if (email === '') {
-      // alert("이메일을 입력하세요")
       setEmailAlert(true)
       setPasswordAlert(false)
       setEmailAndPasswordAlert(false)
     } else if (password === '') {
-      // alert("비밀번호를 입력하세요")
       setPasswordAlert(true)
       setEmailAlert(false)
       setEmailAndPasswordAlert(false)
     } else if (password !== '') {
-      emailLogin(email, password)
-        .then((result) => {
-          loginUser(result.user)
-          const hiEmailUser = userInfo.email;
-          alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`)
-          navi('/')
+      saveLoginInfo()
+        .then(() => {
+          emailLogin(email, password).then((result) => {
+            loginUser(result.user)
+            const hiEmailUser = result.user.email
+            alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`)
+            navi('/')
+          })
         })
         .catch((e) => {
-          // alert(`이메일 또는 비밀번호를 잘못 입력하셨습니다, 입력하신 내용을 다시 확인해주세요.`)
           setEmailAlert(false)
           setPasswordAlert(false)
           setEmailAndPasswordAlert(true)

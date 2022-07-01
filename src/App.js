@@ -24,9 +24,12 @@ import EnterUser from './pages/EnterUser/EnterUser'
 import Agreement from './pages/EnterUser/Agreement/Agreement'
 import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { auth } from './datasources/firebase'
 import { loginUserModule } from './modules/enteruser'
+<<<<<<< HEAD
 import CreateDesignEditForm from './pages/Create/CreateDesignEditForm'
+=======
+import { loginSession } from './datasources/firebase'
+>>>>>>> 1c4bbdca49a6c748849f99bf0288e14064243b7c
 
 function App() {
   const location = useLocation()
@@ -43,20 +46,19 @@ function App() {
     }
   }
 
+  // 로그인 유지
   const dispatch = useDispatch()
   const loginUser = useCallback((user) => dispatch(loginUserModule(user)), [
     dispatch,
   ])
-
-  useEffect(()=>{
-    auth.onAuthStateChanged((user) => {
-      if(user){
-        loginUser(user)
-      } else {
-        loginUser(null)
-      }
-    })
-  },[])
+  useEffect(() => {
+    const loginToken = loginSession()
+    if (loginToken) {
+      loginUser(loginToken)
+    } else {
+      loginUser(null)
+    }
+  }, [])
 
   return (
     <div className="App">

@@ -1,6 +1,6 @@
 const LOGIN_USER = 'enteruser/LOGIN_USER'
 
-export const loginUserModule = (user) => (console.log(user),{
+export const loginUserModule = (user) => ({
   type: LOGIN_USER,
   user: user
 })
