@@ -114,6 +114,27 @@ const CreatePage = () => {
     }
   };
 
+  //텍스트 편집 토글
+  const [editActive, setEditActive] = useState(false);
+  const [editDisplay, setEditDisplay] = useState(true);
+  const editTimeToggle = function (kind, time) {
+    setTimeout(() => {
+      kind === "editActive" ? setEditActive(!editActive) : setEditDisplay(!editDisplay);
+    }, time);
+  };
+
+  const editClick = () => {
+    clearTimeout(editTimeToggle);
+    if (display) {
+      setEditDisplay(!editDisplay);
+      editTimeToggle("editActive", 0);
+    } else {
+      setEditActive(!editActive);
+      editTimeToggle("editDisplay", 0);
+    }
+  };
+
+
   //재질변경에 따른 내용 변경
   useEffect(() => {
     if (material === "pla") {
@@ -250,16 +271,54 @@ const CreatePage = () => {
               <FontAwesomeIcon
                 icon={faFont}
                 className="cre_icon2"
-                onClick={textClick}
+                // onClick={textClick}
+                onClick={editClick}
               />
               텍스트 추가
-              <input type="text" value={textinput} onChange={textChange} />
             </div>
             <div className="cre_editdiv2">
               <FontAwesomeIcon icon={faStar} className="cre_icon2" />
               무료 디자인
             </div>
           </div>
+
+          {/* 레이어 편집 */}
+          <div 
+            className={classNames(
+            "cre_edit_clicked ",
+            editActive ? "editActive" : null,
+            editDisplay ? "EditDisplaynone" : null
+          )}>
+            <div>
+              <div>
+                <p>추가할 텍스트</p>
+                <input className="cre_font_input" type="text" value={textinput} onChange={textChange} />
+              </div>
+              <div className='cre_font_editor'>
+                <p>폰트 사이즈</p>
+                <select className="cre_font_selectbox" defaultValue="12">
+                  <option value="12">12</option>
+                  <option value="24">24</option>
+                  <option value="36">36</option>
+                  <option value="48">48</option>
+                </select>
+              </div>
+              <div className='cre_font_editor'>
+                <p>폰트 색상</p>
+                <select className="cre_font_selectbox" defaultValue="black">
+                  <option value="black">검정</option>
+                  <option value="red">빨강</option>
+                  <option value="blue">파랑</option>
+                  <option value="green">초록</option>
+                </select>
+              </div>
+            </div>
+            <div className="cre_font_edit_btn">
+              <ButtonComp style={{width:"80px", height:"40px", fontSize:"15px"}} onClick={textClick} >추가</ButtonComp>
+              <ButtonComp style={{width:"80px", height:"40px", fontSize:"15px"}} onClick={editClick} >취소</ButtonComp>
+            </div>
+          </div>
+
 
           {/**레이어 창*/}
           {/* <div className="cre_layer_div">
