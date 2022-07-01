@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { addFirebaseData, db, getFirebaseData } from '../../datasources/firebase';
 import { doc } from 'firebase/firestore';
 
-const CreateDesignEditForm = () => {
+const PostEditForm = () => {
   const {id} = useParams();
   const navigate = useNavigate();
 
@@ -151,4 +151,4 @@ const CreateDesignEditForm = () => {
   );
 }
 
-export default CreateDesignEditForm;
+export default PostEditForm;
