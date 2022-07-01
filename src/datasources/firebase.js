@@ -16,6 +16,7 @@ import {
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import {
   getDownloadURL,
@@ -39,6 +40,11 @@ const analytics = getAnalytics(app)
 
 // 인증 초기화
 const auth = getAuth(app)
+
+// 이메일 회원가입
+const createUser = async (emailInput, password) => {
+  return await createUserWithEmailAndPassword(auth, emailInput, password);
+};
 
 // 구글 로그인
 const provider = new GoogleAuthProvider()
@@ -98,5 +104,6 @@ export {
   emailLogin,
   loginSession,
   saveLoginInfo,
+  createUser,
   auth,
 }

@@ -16,7 +16,7 @@ const Header = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [mouseDown, setMouseDown] = useState(false)
 
-  const {user} = useSelector((a) => a.enteruser)
+  const { user } = useSelector((a) => a.enteruser)
 
   // nav
   const navi = useNavigate()
@@ -177,7 +177,13 @@ const Header = () => {
                     <div className="login_on">
                       <li>
                         <div className="user_img">
-                          <img src={user.photoURL} alt="user_icon" />
+                          {user.photoURL ? (
+                            <img src={user.photoURL} alt="user_icon" />
+                          ) : (
+                            <div className="user_svg">
+                              <FontAwesomeIcon icon={solid('user')} size="4x" />
+                            </div>
+                          )}
                         </div>
                       </li>
                       <li>
@@ -336,7 +342,13 @@ const Header = () => {
             {user !== null ? (
               <div ref={infoRef}>
                 <ButtonComp icon style={{ width: '45px' }} onClick={onUserInfo}>
-                  <img src={user.photoURL} alt="user_icon" />
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt="user_icon" />
+                  ) : (
+                    <div className="user_svg">
+                      <FontAwesomeIcon icon={solid('user')} size="2x" />
+                    </div>
+                  )}
                 </ButtonComp>
 
                 <Overlay
@@ -349,7 +361,13 @@ const Header = () => {
                 >
                   <Popover className="acount_nav">
                     <div className="user_img">
-                      <img src={user.photoURL} alt="user_icon" />
+                      {user.photoURL ? (
+                        <img src={user.photoURL} alt="user_icon" />
+                      ) : (
+                        <div className="user_svg">
+                          <FontAwesomeIcon icon={solid('user')} size="4x" />
+                        </div>
+                      )}
                     </div>
                     <p>{user.displayName}</p>
                     <p>{user.email}</p>
