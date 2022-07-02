@@ -207,7 +207,6 @@ const CreatePage = () => {
         text: textinput,
         font: `${fontSizeEdit}px nanumBold`,
         color: `${fontColorEdit}`,
-        height: 26,
         id: texts.length,
         x: -1000,
         y: -1000,
