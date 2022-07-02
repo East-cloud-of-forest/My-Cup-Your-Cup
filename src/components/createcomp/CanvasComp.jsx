@@ -4,9 +4,10 @@ import { useEffect, useRef } from "react";
 const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
   const canvasRef = useRef(null);
   const image = new window.Image();
-  
+
   class App {
     constructor() {
+      console.log(texts);
       this.canvas = canvasRef.current;
       this.ctx = this.canvas.getContext("2d");
       this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
@@ -15,24 +16,29 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
       this.mouseDown = false;
 
       this.Text = [];
-      this.selectedText = null
+      this.selectedText = null;
 
-      window.addEventListener("resize", this.resize.bind(this), false);
+      this.resizeHandler = this.resize.bind(this);
+      window.addEventListener("resize", this.resizeHandler, false);
       this.resize();
 
-      window.requestAnimationFrame(this.animate.bind(this));
+      this.animateHandler = this.animate.bind(this);
+      window.requestAnimationFrame(this.animateHandler);
 
-      this.canvas.addEventListener(
-        "pointerdown",
-        this.onDown.bind(this),
-        false
-      );
-      this.canvas.addEventListener(
-        "pointermove",
-        this.onMove.bind(this),
-        false
-      );
-      this.canvas.addEventListener("pointerup", this.onUp.bind(this), false);
+      this.onDownHandler = this.onDown.bind(this);
+      this.canvas.addEventListener("pointerdown", this.onDownHandler, false);
+      this.onMoveHandler = this.onMove.bind(this);
+      this.canvas.addEventListener("pointermove", this.onMoveHandler, false);
+      this.onUpHandler = this.onUp.bind(this);
+      this.canvas.addEventListener("pointerup", this.onUpHandler, false);
+    }
+
+    remove() {
+      window.removeEventListener("resize", this.resizeHandler);
+      window.cancelAnimationFrame(this.animateHandler);
+      this.canvas.removeEventListener("pointerdown", this.onDownHandler);
+      this.canvas.removeEventListener("pointermove", this.onUpHandler);
+      this.canvas.removeEventListener("pointerup", this.onUpHandler);
     }
 
     resize() {
@@ -53,7 +59,7 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
           text.y,
           this.stageWidth,
           this.stageHeight
-        )
+        );
       });
     }
 
@@ -82,7 +88,7 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
         e.clientY - e.currentTarget.getBoundingClientRect().top
       );
       this.mouseDown = true;
-      this.Text.map((text) => {
+      this.Text.forEach((text) => {
         if (text.selectionOn(this.mousePos) !== undefined) {
           this.selectedText = text.selectionOn(this.mousePos);
         }
@@ -96,26 +102,29 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
       this.mousePos.y = parseInt(
         e.clientY - e.currentTarget.getBoundingClientRect().top
       );
-      this.Text.map((text) => {
+      this.Text.forEach((text) => {
         text.move(this.mousePos, this.selectedText);
       });
     }
 
     onUp(e) {
       this.mouseDown = false;
-      this.Text.map((text) => {
-        text.selectionOff();
+      console.log(this.Text);
+      this.Text.forEach((text) => {
+        if (text.selectionOn(this.mousePos) !== undefined) {
+          text.selectionOff();
+        }
       });
     }
   }
 
   class Text {
-    constructor(text, font, color, height, id, x, y,stageWidth, stageHeight) {
+    constructor(text, font, color, height, id, x, y, stageWidth, stageHeight) {
       this.text = text;
       this.font = font;
       this.color = color;
-      this.x = x === -1000 ? stageWidth/2 : x;
-      this.y = y === -1000 ? stageHeight/2 : y;
+      this.x = x === -1000 ? stageWidth / 2 : x;
+      this.y = y === -1000 ? stageHeight / 2 : y;
       this.height = height;
       this.id = id;
     }
@@ -129,7 +138,7 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
       if (this.select) {
         this.clickposX = pos.x;
         this.clickposY = pos.y;
-        return this.id
+        return this.id;
       }
     }
 
@@ -148,18 +157,15 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
 
     selectionOff() {
       if (this.select) {
-        const textsclone = texts;
+        const textsclone = [...texts];
         textsclone[this.id] = {
           ...textsclone[this.id],
           x: this.x,
           y: this.y,
           id: this.id,
         };
-        console.log(textsclone)
-        setTexts(textsclone);
+        setTexts(textsclone)
       }
-      console.log(this.x)
-      this.select = false;
     }
 
     draw(ctx) {
@@ -172,8 +178,11 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
   }
 
   useEffect(() => {
-    new App();
-  }, [pic, texts, colorData]);
+    let appclass = new App();
+    return () => {
+      appclass.remove();
+    };
+  }, [pic, texts, colorData, canvasRef]);
 
   return <canvas ref={canvasRef} className="cre_canvas" />;
 };

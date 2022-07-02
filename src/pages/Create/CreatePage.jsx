@@ -120,7 +120,9 @@ const CreatePage = () => {
   const [editDisplay, setEditDisplay] = useState(true);
   const editTimeToggle = function (kind, time) {
     setTimeout(() => {
-      kind === "editActive" ? setEditActive(!editActive) : setEditDisplay(!editDisplay);
+      kind === "editActive"
+        ? setEditActive(!editActive)
+        : setEditDisplay(!editDisplay);
     }, time);
   };
 
@@ -134,7 +136,6 @@ const CreatePage = () => {
       editTimeToggle("editDisplay", 0);
     }
   };
-
 
   //재질변경에 따른 내용 변경
   useEffect(() => {
@@ -180,16 +181,16 @@ const CreatePage = () => {
   }, [material]);
 
   //텍스트 스타일 편집
-  const [fontSizeEdit,setFontSizeEdit] = useState(12)
-  const fontSizeChange = (e) =>{
+  const [fontSizeEdit, setFontSizeEdit] = useState(12);
+  const fontSizeChange = (e) => {
     setFontSizeEdit(e.target.value);
-  }
+  };
 
-  const [fontColorEdit,setFontColorEdit] = useState("#000")
-  const fontColorChange = (e) =>{
+  const [fontColorEdit, setFontColorEdit] = useState("#000");
+  const fontColorChange = (e) => {
     console.log(e.target.value);
     setFontColorEdit(e.target.value);
-  }
+  };
 
   // 텍스트 추가 임시
   const [texts, setTexts] = useState([]);
@@ -250,7 +251,12 @@ const CreatePage = () => {
 
         {/**메인이미지 */}
         <div className="cre_mainImg">
-          <CanvasComp colorData={colorData} pic={pic} texts={texts} setTexts={setTexts} />
+          <CanvasComp
+            colorData={colorData}
+            pic={pic}
+            texts={texts}
+            setTexts={setTexts}
+          />
 
           {/**에딧 2 */}
           <div className="cre_acc">
@@ -296,29 +302,43 @@ const CreatePage = () => {
           </div>
 
           {/* 레이어 편집 */}
-          <div 
+          <div
             className={classNames(
-            "cre_edit_clicked ",
-            editActive ? "editActive" : null,
-            editDisplay ? "EditDisplaynone" : null
-          )}>
+              "cre_edit_clicked ",
+              editActive ? "editActive" : null,
+              editDisplay ? "EditDisplaynone" : null
+            )}
+          >
             <div>
               <div>
                 <p>추가할 텍스트</p>
-                <input className="cre_font_input" type="text" value={textinput} onChange={textChange} />
+                <input
+                  className="cre_font_input"
+                  type="text"
+                  value={textinput}
+                  onChange={textChange}
+                />
               </div>
-              <div className='cre_font_editor'>
+              <div className="cre_font_editor">
                 <p>폰트 사이즈</p>
-                <select className="cre_font_selectbox" defaultValue="12" onChange={fontSizeChange}>
+                <select
+                  className="cre_font_selectbox"
+                  defaultValue="12"
+                  onChange={fontSizeChange}
+                >
                   <option value="12">12</option>
                   <option value="24">24</option>
                   <option value="36">36</option>
                   <option value="48">48</option>
                 </select>
               </div>
-              <div className='cre_font_editor'>
+              <div className="cre_font_editor">
                 <p>폰트 색상</p>
-                <select className="cre_font_selectbox" defaultValue="#000" onChange={fontColorChange}>
+                <select
+                  className="cre_font_selectbox"
+                  defaultValue="#000"
+                  onChange={fontColorChange}
+                >
                   <option value="#000000">검정</option>
                   <option value="#ff0000">빨강</option>
                   <option value="#0000ff">파랑</option>
@@ -327,11 +347,20 @@ const CreatePage = () => {
               </div>
             </div>
             <div className="cre_font_edit_btn">
-              <ButtonComp style={{width:"80px", height:"40px", fontSize:"15px"}} onClick={textClick} >추가</ButtonComp>
-              <ButtonComp style={{width:"80px", height:"40px", fontSize:"15px"}} onClick={editClick} >취소</ButtonComp>
+              <ButtonComp
+                style={{ width: "80px", height: "40px", fontSize: "15px" }}
+                onClick={textClick}
+              >
+                추가
+              </ButtonComp>
+              <ButtonComp
+                style={{ width: "80px", height: "40px", fontSize: "15px" }}
+                onClick={editClick}
+              >
+                취소
+              </ButtonComp>
             </div>
           </div>
-
 
           {/**레이어 창*/}
           {/* <div className="cre_layer_div">
