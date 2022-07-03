@@ -27,9 +27,11 @@ function TotalPriceComp({ items }) {
         <div className='text_container'>
             <p style={{ display: "block"}}>총 배송비 <br /> 
             <span className='price'>{formatter.format(2500)}</span> </p>
+            <p className='showMedia'>+</p>
             <p>총 상품가격 <br />
             <span className='price'>{formatter.format(Number(totalPrice))}</span> </p>
             <hr />
+            <p className='showMedia'>=</p>
             <span className='price'>{formatter.format(Number(totalPrice+2500))}</span>
 
         </div>

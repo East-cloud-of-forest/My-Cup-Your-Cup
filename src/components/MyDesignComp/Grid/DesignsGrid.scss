@@ -39,16 +39,13 @@ $facebook: #475a96;
       margin: auto;
     }
   }
-  .img_block {
-    width: fit-content;
-  }
-
-  .content_block {
-    & .modal_head {
+}
+  .modal-content {
+    .modal_head {
       display: flex;
       justify-content: space-between;
     }
-    & .modal_body {
+    .modal_body {
       margin: 2rem 0 2rem 0;
       .hashtag span {
         font-size: 0.9rem;
@@ -60,33 +57,14 @@ $facebook: #475a96;
         cursor: pointer;
       }
     }
-    & .modal_footer {
-      // min-width: 290px;
-      // width: inherit;
-      // display: flex;
-      // position:absolute;
-      // right: 1rem;
-      // justify-content: space-between;
-      // margin-bottom: 1rem;
-      // & .profile_block {
-      //     margin: auto;
-      // }
-      // & .button_block {
-      //     margin: auto;
-      // }
+    .modal_footer {
+      width: inherit;
       display: flex;
       position: absolute;
       bottom: 0;
-
       align-items: center;
       justify-content: space-between;
-      .profile_block {
-        margin: auto;
-      }
-      & .button_block {
-        display: block;
-        margin-left: auto;
-      }
     }
+
   }
-}
+
