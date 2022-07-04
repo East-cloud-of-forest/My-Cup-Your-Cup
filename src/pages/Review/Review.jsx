@@ -6,7 +6,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { dataResultModule } from "../../modules/firebaseData";
 
 const ReviewPage = () => {
@@ -18,12 +18,26 @@ const ReviewPage = () => {
 
   const dispatch = useDispatch()
   const aaa = useCallback(()=>dispatch(dataResultModule()),[dispatch])
-  aaa()
+  
+  useEffect( () => aaa(), [])
+  
+  const { review } = useSelector(state => state.firebaseData)
+  console.log(review)
 
   return (
     <div className="review_page">
       <h1>포토리뷰</h1>
       <Container fluid>
+        <Row>
+          {
+            // reviews.map( review => (
+            //   <Col xl="2" lg="3" md="4" sm="6" key={review.id} className="review_card">
+              
+            //   <p>{review}</p>
+            // </Col>
+            // ))
+          }
+        </Row>
         <Row>
           {boards.map((board, i) => (
             <Col xl="2" lg="3" md="4" sm="6" key={i} className="review_card">
