@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 import { deleteItem } from '../../modules/addCart';
 import { useEffect } from 'react';
 
-function CartPopUp({openCartPop}) {
+function CartPopUp({openCartPop, offCartSidebar}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {items} = useSelector( (state) => ({ items : state.cartReducer.items}) );
@@ -47,7 +47,7 @@ function CartPopUp({openCartPop}) {
                             
                             <div className='total_container'><hr />
                                 <p>총 배송비 : <span className='popup_total'>{formatter.format(2500)}</span> </p>
-                                <p>총 상품금액 : <span className='popup_total'>{formatter.format(totalPrice+2500)}</span> </p>
+                                <p>총 금액 : <span className='popup_total'>{formatter.format(totalPrice+2500)}</span> </p>
                             </div>
                         )}
                         <div className='btn_block'>
@@ -72,6 +72,7 @@ function CartPopUp({openCartPop}) {
                         <ButtonComp color="mint" onClick={()=>{
                             navigate('/create');
                             document.body.click();
+                            offCartSidebar();
                             }}>
                                 제작하러 가기
                         </ButtonComp>

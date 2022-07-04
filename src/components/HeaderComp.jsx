@@ -425,7 +425,7 @@ const Header = () => {
           </ButtonComp>
         }
       >
-        카트 내용
+        <CartPopUp offCartSidebar={offCartSidebar}/>
       </Appsidebar>
     </header>
   );

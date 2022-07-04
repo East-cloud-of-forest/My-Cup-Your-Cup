@@ -19,3 +19,24 @@
     display: block;
     min-width: max-content;
 }
+
+@media (max-width: 992px) {
+    .cart-container {
+        display: block;
+        .item:nth-child(1) {
+            h2 {
+            margin: 10px;
+            text-align: center;
+            }
+        }
+        
+        .item:nth-child(4) {
+            & input {
+                margin-bottom: 1rem;
+            }
+            position: relative;
+        }
+    }
+    
+
+}
