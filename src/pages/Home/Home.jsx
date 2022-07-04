@@ -2,7 +2,7 @@ import './Home.scss'
 import { ButtonComp, SliderComp } from '../../components/index-comp/IndexComp'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-
+//import "../../dummies/illustrations/slideImage_disney.jpg"
 const Home = () => {
   const aaa = useSelector(a=>a)
   // console.log(aaa)
@@ -30,10 +30,10 @@ const Home = () => {
       </div>
       <div className="main_slide">
         <SliderComp infinite={true} autoplay={true}>
-          <div className="main_slide_item">메인 슬라이더</div>
-          <div className="main_slide_item">메인 슬라이더</div>
-          <div className="main_slide_item">메인 슬라이더</div>
-          <div className="main_slide_item">메인 슬라이더</div>
+          <div className="main_slide_item"><img src={require('../../dummies/illustrations/slideImage_disney.jpg')} /></div>
+          <div className="main_slide_item"><img src={require('../../dummies/illustrations/slideImage_summer.jpg')} /></div>
+          <div className="main_slide_item"><img src={require('../../dummies/illustrations/slideImage_loopy.jpg')} /></div>
+          <div className="main_slide_item"><img src={require('../../dummies/illustrations/slideImage_popular.jpg')} /></div>
         </SliderComp>
       </div>
       <p className="text-center subtitle">인기 태그</p>
