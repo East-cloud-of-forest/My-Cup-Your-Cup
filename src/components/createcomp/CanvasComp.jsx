@@ -264,7 +264,6 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
         case 'resize':
           if (this.id === id) {
             const dx = (pos.x - this.clickposX) * 0.5
-            console.log(this.size)
 
             this.clickposX = pos.x
             this.clickposY = pos.y

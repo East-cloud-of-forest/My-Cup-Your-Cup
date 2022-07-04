@@ -285,6 +285,28 @@ $facebook: #475a96;
       min-height: 400px;
     }
   }
+
+  .bigimage {
+    .img_block {
+      width: 65%;
+    }
+
+    .content_block {
+      width: 35%;
+      aspect-ratio: auto;
+    }
+
+    .bigimage_close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      button {
+        span {
+          color: grey;
+        }
+      }
+    }
+  }
 }
 
 // 페이지 컴포넌트
