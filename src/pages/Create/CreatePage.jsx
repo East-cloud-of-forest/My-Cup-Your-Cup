@@ -205,8 +205,9 @@ const CreatePage = () => {
       const textsClone = [...texts];
       textsClone.push({
         text: textinput,
-        font: `${fontSizeEdit}px nanumBold`,
-        color: `${fontColorEdit}`,
+        font: `nanumBold`,
+        size: fontSizeEdit,
+        color: fontColorEdit,
         id: texts.length,
         x: -1000,
         y: -1000,
