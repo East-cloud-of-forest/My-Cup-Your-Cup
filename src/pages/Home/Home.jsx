@@ -7,10 +7,15 @@ const Home = () => {
   const aaa = useSelector(a=>a)
   // console.log(aaa)
   
-  const circleitem = []
-  for (let i = 0; i < 6; i++) {
-    circleitem.push('태그 ' + (i + 1))
-  }
+  const circleitem = [
+    '../../dummies/illustrations/tag1.jpg',
+    '../../dummies/illustrations/tag2.jpg',
+    '../../dummies/illustrations/tag3.png',
+    '../../dummies/illustrations/tag4.jpg',
+  ]
+  // for (let i = 0; i < 6; i++) {
+  //   circleitem.push(`../../dummies/illustrations/tag${i+1}.jpg`)
+  // }
 
   const reviewitem = []
   for (let i = 0; i < 8; i++) {
@@ -39,13 +44,14 @@ const Home = () => {
       <p className="text-center subtitle">인기 태그</p>
       <Container fluid>
         <Row>
-          {circleitem.map((e) => (
-            <Col key={e} md="2" sm="4" xs="4" className="main_circlemenu">
-              <div className="main_circleitem">
-                {e}
-              </div>
-            </Col>
-          ))}
+          <Col md="2" sm="4" xs="4" className="main_circlemenu">
+            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag1.jpg')} alt='tag' /> </div> </Col>
+          <Col md="2" sm="4" xs="4" className="main_circlemenu">
+            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag3.png')} alt='tag' /> </div></Col>
+          <Col md="2" sm="4" xs="4" className="main_circlemenu">
+            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag4.jpg')} alt='tag' /> </div></Col>
+          <Col md="2" sm="4" xs="4" className="main_circlemenu"> 
+            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag2.jpg')} alt='tag' /> </div></Col>
         </Row>
       </Container>
       <p className="text-center subtitle">리뷰</p>

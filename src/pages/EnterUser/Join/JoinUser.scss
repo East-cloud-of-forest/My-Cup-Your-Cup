@@ -20,7 +20,13 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
-
+  /* 프로필사진 */
+  & img {
+    width: 100px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+  }
   /* 아이디, 비밀번호/재확인 입력창 외부 디자인 */
   & .Joinsignup_input,
   & .JoinphoneNumberSpan {
