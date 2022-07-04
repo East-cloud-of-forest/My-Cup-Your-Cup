@@ -8,80 +8,85 @@ $darkgreen: #3da982;
 $mint: #4debbb;
 $facebook: #475a96;
 
-.header {
+.mydesign_page {
+  .header {
     margin: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     #title {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-}
+  }
 
-#Container {
+  #Container {
     & img {
-        display: flex;
-        width: 200px;
+      display: flex;
+      width: 200px;
     }
-}
-#preview-image {
+  }
+  #preview-image {
     width: 200px;
     aspect-ratio: 1;
     margin-bottom: 20px;
-}
-#temp_image {
-        background-color: #ffb251;
-        width: 200px;
-        aspect-ratio: 1;
-        display: flex;
-        margin-bottom: 20px;
-        p { margin: auto;}
+  }
+  #temp_image {
+    background-color: #ffb251;
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    margin-bottom: 20px;
+    p {
+      margin: auto;
     }
-.img_block {
+  }
+  .img_block {
     width: fit-content;
-    
-}
+  }
 
-.content_block {
-    & .modal_head > span {
-        font-size: smaller;
-        color: gray;
+  .content_block {
+    & .modal_head {
+      display: flex;
+      justify-content: space-between;
     }
     & .modal_body {
-        margin: 2rem 0 2rem 0;
-        .hashtag span {
-            font-size: 0.9rem;
-            background-color: #a6fae1;
-            color: #3da982;
-            border-radius: 500px;
-            padding: 0.2rem 0.6rem;
-            margin-right: 0.5rem;
-            cursor: pointer;
-        }
+      margin: 2rem 0 2rem 0;
+      .hashtag span {
+        font-size: 0.9rem;
+        background-color: #a6fae1;
+        color: #3da982;
+        border-radius: 500px;
+        padding: 0.2rem 0.6rem;
+        margin-right: 0.5rem;
+        cursor: pointer;
+      }
     }
     & .modal_footer {
-        // min-width: 290px;
-        // width: inherit;
-        // display: flex;
-        // position:absolute;
-        // right: 1rem;
-        // justify-content: space-between;
-        // margin-bottom: 1rem;
-        // & .profile_block {
-        //     margin: auto;
-        // }
-        // & .button_block {
-        //     margin: auto;
-        // }
-        display: flex;
-        position:absolute;
-        bottom: 0;
+      // min-width: 290px;
+      // width: inherit;
+      // display: flex;
+      // position:absolute;
+      // right: 1rem;
+      // justify-content: space-between;
+      // margin-bottom: 1rem;
+      // & .profile_block {
+      //     margin: auto;
+      // }
+      // & .button_block {
+      //     margin: auto;
+      // }
+      display: flex;
+      position: absolute;
+      bottom: 0;
 
-        align-items: center;
-        justify-content: space-between;
-        .profile_block { margin: auto;}
-        & .button_block {
-            display: block;
-            margin-left: auto;
-        }
+      align-items: center;
+      justify-content: space-between;
+      .profile_block {
+        margin: auto;
+      }
+      & .button_block {
+        display: block;
+        margin-left: auto;
+      }
     }
+  }
 }

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const MyDesign = () => {
   return (
-    <>
+    <div className="mydesign_page">
       <div className="mydesign_header">
         <div className="title_hashtag">
           <h2>마이페이지</h2>
@@ -37,7 +37,7 @@ const MyDesign = () => {
 
       <MyDesigns />
       <LikedDesigns />
-    </>
+    </div>
   );
 };
 export default MyDesign;

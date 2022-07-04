@@ -12,7 +12,7 @@
 
     li {
       margin: 1rem 1.5rem;
-      font-family: 'navi';
+      font-family: "navi";
       line-height: 1;
 
       a {
@@ -80,7 +80,8 @@
     }
   }
 
-  .app_bar {
+  .app_bar,
+  .app_bar_cart {
     display: none;
   }
 
@@ -173,6 +174,32 @@
         }
       }
 
+      li:nth-child(3) {
+        > div {
+          > button {
+            padding: 0;
+
+            span:nth-child(1) {
+              width: 100%;
+              height: 100%;
+
+              .user_svg {
+                width: 100%;
+                height: 100%;
+                background-color: #a6fae1;
+                display: flex;
+                align-items: center;
+
+                svg {
+                  margin: auto;
+                  color: white;
+                }
+              }
+            }
+          }
+        }
+      }
+
       .acount_nav {
         background-color: white;
         padding: 2rem 1rem;
@@ -183,7 +210,7 @@
         flex-direction: column;
         border: none;
         min-width: 300px;
-        margin-top: 1rem;
+        top: 1rem !important;
 
         .popover-arrow {
           display: none;
@@ -195,6 +222,21 @@
           width: 96px;
           aspect-ratio: 1/1;
           margin-bottom: 1.5rem;
+          display: flex;
+          align-items: center;
+
+          .user_svg {
+            width: 100%;
+            height: 100%;
+            background-color: #a6fae1;
+            display: flex;
+            align-items: center;
+
+            svg {
+              margin: auto;
+              color: white;
+            }
+          }
         }
 
         p {
@@ -239,58 +281,40 @@
   border-top: 1px solid black;
 }
 
+// 반응형
+
 @media (max-width: 992px) {
   #App_header {
+    justify-content: space-between;
+
+    // 기존 header 에서 가려질 것들
     #App_nav {
       display: none;
     }
+    #App_subnav {
+      display: none;
+    }
+    #App_subnav {
+      #main_subnav {
+        li {
+          &:nth-child(1) {
+            display: none;
+          }
+          &:nth-child(3) {
+            display: none;
+          }
+        }
+      }
+    }
 
-    .app_bar {
-      display: block;
-      flex: 1;
+    // nav_side_bar
+    .nav_side_bar {
+      height: 100%;
       display: flex;
+      justify-content: space-between;
+      flex-direction: column;
 
-      svg {
-        margin: 0 1rem;
-      }
-
-      $animation_time: 0.3s;
-      .app_side_bar_background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 9800;
-        transition: background-color $animation_time;
-
-        .app_side_bar {
-          position: fixed;
-          top: 0;
-          left: -300px;
-          width: 300px;
-          height: 100%;
-          background-color: white;
-          z-index: 9900;
-          box-shadow: none;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          transition: left $animation_time, box-shadow $animation_time;
-        }
-      }
-
-      .app_side_bar_background_active {
-        background-color: rgba(0, 0, 0, 0.2);
-        transition: background-color $animation_time;
-
-        .app_side_bar {
-          left: 0;
-          box-shadow: 0px 0px 30px grey;
-          transition: left $animation_time, box-shadow $animation_time;
-        }
-      }
-
+      // 공통 스타일
       ul {
         margin: 0;
         padding: 0 1rem;
@@ -313,6 +337,13 @@
         }
       }
 
+      a {
+        text-decoration: none;
+        display: block;
+        width: 100%;
+      }
+
+      // 계정 부분
       .account {
         margin-top: 1rem;
 
@@ -327,11 +358,25 @@
             overflow: hidden;
             width: 96px;
             aspect-ratio: 1/1;
-            margin: 1.5rem 0;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+
+            .user_svg {
+              width: 100%;
+              height: 100%;
+              background-color: #a6fae1;
+              display: flex;
+              align-items: center;
+
+              svg {
+                margin: auto;
+                color: white;
+              }
+            }
           }
 
           &:nth-child(2) {
-            margin-bottom: 1.5rem;
             p {
               margin: 0;
               &:nth-child(1) {
@@ -347,43 +392,22 @@
             }
           }
 
-          a {
-            width: 100%;
-          }
-
           button {
             color: grey;
-            width: 100%;
+            padding: 0.9rem 0;
+            margin: 0.3rem 0;
 
             span {
               font-size: 1rem;
             }
           }
         }
-
-        .login_on {
-          li {
-            .button {
-              color: grey;
-              width: 100%;
-              padding: 0.5rem 0;
-
-              span {
-                font-size: 1rem;
-              }
-            }
-          }
-        }
       }
 
-      a {
-        text-decoration: none;
-        display: block;
-      }
-
+      // 네비게이션 부분
       .side_nav {
         button {
-          padding: 1rem 0;
+          padding: 0.8rem 0;
           margin: 0.2rem 0;
 
           span {
@@ -409,6 +433,7 @@
         }
       }
 
+      // 검색창 부분
       .search {
         display: flex;
         justify-content: space-evenly;
@@ -446,29 +471,7 @@
       }
     }
 
-    a {
-      flex: 1;
+    // 카트 스타일 자리
 
-      div {
-        margin: auto !important;
-      }
-    }
-
-    #App_subnav {
-      flex: 1;
-
-      #main_subnav {
-        justify-content: end;
-
-        li {
-          &:nth-child(1) {
-            display: none;
-          }
-          &:nth-child(3) {
-            display: none;
-          }
-        }
-      }
-    }
   }
 }

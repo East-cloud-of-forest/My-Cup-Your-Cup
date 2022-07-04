@@ -1,15 +1,14 @@
 import './CreateDesignUploadForm.scss'
 import { ButtonComp } from "../../components/index-comp/IndexComp";
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 //import { addDoc } from 'firebase/firestore';
-import { addFirebaseData } from '../../datasources/firebase';
+import { addFirebaseData, db, getFirebaseData } from '../../datasources/firebase';
+import { doc } from 'firebase/firestore';
 
-const CreateDesignUploadForm = () => {
-  const {mycup}  = useSelector( (state) => ({ mycup : state.uploadDesign.mycup }) ); // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
-  const {user} = useSelector( (user) => user.enteruser );
-
+const PostEditForm = () => {
+  const {id} = useParams();
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -56,28 +55,52 @@ const CreateDesignUploadForm = () => {
   const deleteTagItem = (index) => {
     setTagList((prevState) => prevState.filter((tag, i) => i !== index));
   }
+
+  // 파이어베이스에서 데이터 가져오기
+  const [ mydesigns, setmydesigns ] = useState([]);
+  const getMyDesign = () => async () => {
+    try {
+        
+        const myDesignRef = doc(db, "MyDesign", {id});
+        const myDesignSnap = getFirebaseData(myDesignRef);
+        // (await myDesignColRef).forEach( (doc) => {
+        //     array.push({ 
+        //         id: doc.data().id, 
+        //         title: doc.data().title, 
+        //         text: doc.data().text,
+        //         image: doc.data().image,
+        //         tag: doc.data().tag,
+        //         private: doc.data().private
+        //     }); 
+        // });
+        // setmydesigns(array);
+        console.log(myDesignSnap);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+  }
   // 파이어베이스 업로드
   
-  // 나의 디자인 업로드하기
-  const uploadMyDesign = async (mycup, userid) => { // async 익명함수로 작성하면 표현식)
-    
+  // 수정한 디자인 업로드하기
+  const uploadMyDesign = async (mycup) => { // async 익명함수로 작성하면 표현식)
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
-        try {
-          await addFirebaseData("MyDesign", {
-            image: mycup[0].mycup.image,
-            title: title,
-            text: text,
-            tag: tagList,
-            private: onlyMe,
-            userid: userid
-          })
-        }
-        catch (e) {
-          console.log(e.message);
-        }
-        
+      // ( async 익명함수로 작성하면 표현식)
+          try {
+            const ref = await addFirebaseData("MyDesign", {
+              cupInfo: mycup[0].mycup,
+              title: title,
+              text: text,
+              tag: tagList,
+              private: onlyMe
+            })
+          }
+          catch (e) {
+            console.log(e.message);
+          }
+          
       }
       navigate('/mydesign');
     }
@@ -85,17 +108,10 @@ const CreateDesignUploadForm = () => {
 
   return (
     <div className="uploadPage_container">
-      <h2>나의 디자인 저장하기</h2>
-      <div className="temporary_image">image : {mycup[0].mycup.image}</div>
+      <h2>{id} 나의 디자인 수정</h2>
+      <div className="temporary_image">image</div>
       <div className='cup_info'>
         <p>
-          <span>{mycup[0].mycup.name}</span>
-          {` | 
-          ${mycup[0].mycup.color} | 
-          ${mycup[0].mycup.shape} | 
-          ${mycup[0].mycup.material} | 
-          ${mycup[0].mycup.size} | 
-          빨대: ${mycup[0].mycup.strow}`}
         </p>      
       </div>
       <div className="upload_form">
@@ -126,12 +142,7 @@ const CreateDesignUploadForm = () => {
         <input type="checkbox" onChange={checkOnlyMe} checked={onlyMe}/> 나만 보기
         <div className="button_block">
           <ButtonComp color="red">취소</ButtonComp>
-          <ButtonComp color="green" onClick={() => { // 함수로 감싸지않고 썼을 경우 이전페이지에서 alert창이 뜨는 오류 발생
-            if ( user === null ) {
-              alert("로그인이 필요한 서비스입니다");
-              navigate('/enteruser/login');
-            } else {uploadMyDesign(mycup, user.uid)}
-          }}>
+          <ButtonComp color="green">
             저장
           </ButtonComp>
         </div>
@@ -140,4 +151,4 @@ const CreateDesignUploadForm = () => {
   );
 }
 
-export default CreateDesignUploadForm;
+export default PostEditForm;

@@ -1,29 +1,19 @@
-
 import { React, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import queryString from 'query-string'
-
 import './JoinUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
-
-// 파이어베이스 fireStore 컬랙션 생성 기능 가져오기
-import { doc, setDoc } from "firebase/firestore"
-import { db } from "../../../datasources/firebase";
-
-// 파이어베이스 인증, 가입 기능 가져오기
-import { getAuth, createUserWithEmailAndPassword,
-  onAuthStateChanged } from 'firebase/auth'
-
+import { createUser, setFirebaseData } from '../../../datasources/firebase'
+import { updateProfile } from 'firebase/auth'
 
 const JoinPage = () => {
   const { search } = useLocation()
   // 동의서
   const agreeObj = queryString.parse(search)
 
-const navi = useNavigate()
+  const navi = useNavigate()
 
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
-  const auth = getAuth();
 
   const [emailInput, setEmailInput] = useState('')
   const [password, setPassword] = useState('')
@@ -34,7 +24,7 @@ const navi = useNavigate()
   const [birthDate, setBirthDate] = useState('')
   const [gender, setGender] = useState('')
 
-// 이메일 비밀번호 onChange
+  // 이메일 비밀번호 onChange
   const InputEmail = (e) => {
     setEmailInput(e.target.value)
   }
@@ -48,62 +38,48 @@ const navi = useNavigate()
   }
   const InputPhoneNumber = (e) => {
     setPhoneNumber(e.target.value)
-  } 
+  }
 
   // 생년월일 onChange
   const inputYear = (e) => {
-      setBirthYear(e.target.value)
+    setBirthYear(e.target.value)
   }
   const inputMonth = (e) => {
-      setBirthMonth(e.target.value)
-    }
+    setBirthMonth(e.target.value)
+  }
   const inputDate = (e) => {
-      setBirthDate(e.target.value)
+    setBirthDate(e.target.value)
   }
 
   // 성별 선택 onChange
   const genderChange = (e) => {
-      console.log(e.target.value)
-      setGender(e.target.value)
+    console.log(e.target.value)
+    setGender(e.target.value)
   }
 
-// 회원가입 기능 실행
-function Join(emailInput, password) {
-
-  signupEmail(emailInput, password)
-  .then((userData) => {
-
-    onAuthStateChanged(auth, (userData) => {
-
-      if (userData) {
-        const uid = userData.uid
-
-        setDoc(doc(db, "user", uid), {
-          userName: nameInput,
+  // 회원가입 기능 실행
+  function Join() {
+    createUser(emailInput, password)
+      .then(async ({ user }) => {
+        const uid = user.uid
+        await updateProfile(user, {
+          displayName: nameInput,
+        })
+        await setFirebaseData('user', uid, {
           birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
           gender: gender,
           phone: phoneNumber,
+          agreement: agreeObj
         })
-      }
-      loginSuccess();
-    })
-      // const user = result.user;
-  })
-  .catch(() => {
-      alert('회원가입 실패')
-  })
-}
+        alert('회원가입이 완료 되었습니다')
+        navi('/')
+      })
+      .catch(() => {
+        alert('회원가입 실패')
+      })
+  }
 
-const signupEmail = () => {
-  return createUserWithEmailAndPassword(auth, emailInput, password)
-};
-const loginSuccess = () => {
-  alert('회원가입이 완료 되었습니다')
-  navi('/')
-}
-  
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
-
 
   return (
     <main className="JoinMain">
@@ -112,12 +88,20 @@ const loginSuccess = () => {
           <div className="Joinid_password_input">
             <h3 className="Jointext">이메일</h3>
             <span className="Joinsignup_input">
-              <input onChange={InputEmail} className="Joinsignup_id" type="email"></input>
+              <input
+                onChange={InputEmail}
+                className="Joinsignup_id"
+                type="email"
+              ></input>
             </span>
 
             <h3 className="Jointext">비밀번호</h3>
             <span className="Joinsignup_input">
-              <input onChange={signupPassword} className="Joinsignup_pw" type="password"></input>
+              <input
+                onChange={signupPassword}
+                className="Joinsignup_pw"
+                type="password"
+              ></input>
             </span>
 
             {/* <h3 className="Jointext">비밀번호 재확인</h3>
@@ -130,7 +114,11 @@ const loginSuccess = () => {
             <h3 className="Jointext">이름</h3>
 
             <span className="Joinsignup_input">
-              <input onChange={InputName} className="Joinsignup_name" type="text"></input>
+              <input
+                onChange={InputName}
+                className="Joinsignup_name"
+                type="text"
+              ></input>
             </span>
 
             <h3 className="Jointext">생년월일</h3>
@@ -147,9 +135,13 @@ const loginSuccess = () => {
               </span>
 
               <span className="Joinsignup_input_birth">
-                <input onChange={inputMonth}
-                className="Joinsignup_birth_mm"
-                type="text" placeholder='월' maxLength="2">
+                <input
+                  onChange={inputMonth}
+                  className="Joinsignup_birth_mm"
+                  type="text"
+                  placeholder="월"
+                  maxLength="2"
+                >
                   {/* <option value="month" id="optionn">월</option>
                   <option value="1" id="one">1</option>
                   <option value="2">2</option>
@@ -180,7 +172,11 @@ const loginSuccess = () => {
             <h3 className="Jointext">성별</h3>
 
             <span className="Joinsignup_input">
-              <select onChange={genderChange} className="Joinsignup_gender" name="gender">
+              <select
+                onChange={genderChange}
+                className="Joinsignup_gender"
+                name="gender"
+              >
                 <option value="성별 선택">성별 선택</option>
                 <option value="남자">남자</option>
                 <option value="여자">여자</option>
@@ -221,9 +217,9 @@ const loginSuccess = () => {
             </div>
           </div>
 
-          <div className='btn_box'>
+          <div className="btn_box">
             <ButtonComp color="mint" onClick={Join}>
-              <h4 style={{padding:0, margin:0}}>가입하기</h4>
+              <h4 style={{ padding: 0, margin: 0 }}>가입하기</h4>
             </ButtonComp>
           </div>
         </section>

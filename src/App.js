@@ -22,6 +22,11 @@ import Ask from './pages/QnA/Ask'
 import Design from './pages/Design/Design'
 import EnterUser from './pages/EnterUser/EnterUser'
 import Agreement from './pages/EnterUser/Agreement/Agreement'
+import { useCallback, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { loginUserModule } from './modules/enteruser'
+import { loginSession } from './datasources/firebase'
+import PostEditForm from './pages/Create/PostEditForm'
 
 function App() {
   const location = useLocation()
@@ -38,6 +43,20 @@ function App() {
     }
   }
 
+  // 로그인 유지
+  const dispatch = useDispatch()
+  const loginUser = useCallback((user) => dispatch(loginUserModule(user)), [
+    dispatch,
+  ])
+  useEffect(() => {
+    const loginToken = loginSession()
+    if (loginToken) {
+      loginUser(loginToken)
+    } else {
+      loginUser(null)
+    }
+  }, [])
+
   return (
     <div className="App">
       {hideHeader(location.pathname) ? <Header /> : null}
@@ -46,6 +65,8 @@ function App() {
           <Route index element={<HomeComp />} />
           <Route path="/design" element={<Design />} />
           <Route path="/mydesign" element={<MyDesign />} />
+          <Route path="/edit/:id" element={<PostEditForm />} />
+          
           <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
           <Route path="/create" element={<CreatePage />}></Route>
