@@ -1,10 +1,11 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import queryString from 'query-string'
 import './JoinUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
-import { createUser, setFirebaseData } from '../../../datasources/firebase'
+import { addFirebaseData, createUser, setFirebaseData, storage } from '../../../datasources/firebase'
 import { updateProfile } from 'firebase/auth'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 
 const JoinPage = () => {
   const { search } = useLocation()
@@ -14,7 +15,8 @@ const JoinPage = () => {
   const navi = useNavigate()
 
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
-
+  const [profilePic, setProfilePic] = useState(null)
+  const [photoURL, setPhotoURL] = useState(null)
   const [emailInput, setEmailInput] = useState('')
   const [password, setPassword] = useState('')
   const [nameInput, setNameInput] = useState('')
@@ -24,6 +26,11 @@ const JoinPage = () => {
   const [birthDate, setBirthDate] = useState('')
   const [gender, setGender] = useState('')
 
+  // 프로필사진 업로드
+  const InputFile = (e) => {
+    setProfilePic(e.target.files[0]);
+    console.log(e.target.files[0]);
+  }
   // 이메일 비밀번호 onChange
   const InputEmail = (e) => {
     setEmailInput(e.target.value)
@@ -64,20 +71,43 @@ const JoinPage = () => {
         const uid = user.uid
         await updateProfile(user, {
           displayName: nameInput,
+          
         })
-        await setFirebaseData('user', uid, {
+        await addFirebaseData('user', {
+          userid: uid,
+          displayName: nameInput,
           birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
           gender: gender,
           phone: phoneNumber,
-          agreement: agreeObj
+          agreement: agreeObj,
+          photo: photoURL
         })
         alert('회원가입이 완료 되었습니다')
         navi('/')
       })
-      .catch(() => {
-        alert('회원가입 실패')
+      .catch((e) => {
+        alert('회원가입 실패' + e)
       })
   }
+
+  useEffect(() => {
+    const uploadFile = () => {
+      const name = new Date().getTime() + profilePic.name;
+      const storageRef = ref(storage, 'user/' + name);
+      const upload = uploadBytesResumable(storageRef, profilePic)
+      upload.on(
+        (r) => {
+          getDownloadURL(r.ref).then((downloadURL) => {
+            console.log(downloadURL)
+            console.log(photoURL)
+            setPhotoURL(downloadURL);
+          });
+        }
+      )
+    };
+    photoURL && uploadFile(); 
+  }, [profilePic]);
+  
 
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
 
@@ -85,6 +115,22 @@ const JoinPage = () => {
     <main className="JoinMain">
       <div className="Joinmain_signup">
         <section className="Joinsignup_wrap">
+          <div className='.Join_photoURL'>
+          <img
+              src={
+                profilePic
+                  ? URL.createObjectURL(profilePic)
+                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+              }
+              alt="profile"
+            />
+          <input
+            onChange={InputFile}
+            className="Joinsignup_id"
+            type="file"
+            style={{display: "block"}}
+            />
+          </div>
           <div className="Joinid_password_input">
             <h3 className="Jointext">이메일</h3>
             <span className="Joinsignup_input">

@@ -157,6 +157,7 @@ const ReviewWriteForm = () => {
       return await uploadFirestorage('review/' + postID, file.name, file)
     })
     const result = await Promise.all(promise)
+    console.log(result);
     result.forEach((url, i) => {
       images['image' + i] = url
     })
