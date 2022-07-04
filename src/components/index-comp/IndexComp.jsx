@@ -51,8 +51,8 @@ export const ButtonComp = (props) => {
         color,
       )}
       onClick={(e) => {
-        clickanimation(e);
-        onClick(e);
+        clickanimation(e)
+        onClick(e)
       }}
     >
       <span>{children}</span>
@@ -258,7 +258,14 @@ export function ProfileComp(props) {
 }
 
 // 모달 컴포넌트
-export const ModalComp = ({ children, button, image, className,height }) => {
+export const ModalComp = ({
+  children,
+  button,
+  image,
+  className,
+  height,
+  bigimage,
+}) => {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -274,14 +281,25 @@ export const ModalComp = ({ children, button, image, className,height }) => {
         show={show}
         onHide={handleClose}
       >
-        <Modal.Body>
+        <Modal.Body className={bigimage ? 'bigimage' : null}>
           {image ? (
             <>
               <div className="img_block">{image}</div>
-              <div className="content_block">{children}</div>
+              <div className="content_block">
+                {bigimage ? (
+                  <div className='bigimage_close'>
+                    <ButtonComp color='white' icon onClick={handleClose}>
+                      <FontAwesomeIcon icon={solid('xmark')} size='2x' />
+                    </ButtonComp>
+                  </div>
+                ) : null}
+                {children}
+              </div>
             </>
           ) : (
-            <div className="noimg_content_block" style={{height:height}}>{cloneChild}</div>
+            <div className="noimg_content_block" style={{ height: height }}>
+              {cloneChild}
+            </div>
           )}
         </Modal.Body>
       </Modal>

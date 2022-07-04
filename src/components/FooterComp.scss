@@ -1,0 +1,40 @@
+#App_footer{
+    font-size: small;
+    a {
+        text-decoration: none;
+        color: gray;
+    }
+    a:hover {
+        text-shadow: 2px black;
+    }
+    .footer_cs {
+        display: flex;
+        justify-content: space-around;
+        .footer_cs_box {
+            min-width: max-content;
+        }
+    }
+    .footer_copyright {
+        margin-top: 2rem;
+        justify-self: flex-start;
+        font-size: smaller;
+    }
+    .button {
+        position: fixed;
+        right: 8px;
+        bottom: 8px;
+        z-index: 10
+        
+    }
+}
+@media (max-width: 770px) {
+    #App_footer{
+        .footer_cs {
+            display: block;
+            font-size: smaller;
+            .footer_cs_box {
+                min-width: max-content;
+            }
+        }
+    }
+}

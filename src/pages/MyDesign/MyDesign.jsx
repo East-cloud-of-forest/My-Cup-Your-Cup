@@ -3,13 +3,16 @@ import { ProfileComp } from "../../components/index-comp/IndexComp";
 import MyDesigns from "../../components/MyDesignComp/Grid/MyDesigns";
 import LikedDesigns from "../../components/MyDesignComp/Grid/LikedDesigns";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MyDesign = () => {
+  const {user} = useSelector((user)=> user.enteruser)
+
   return (
     <div className="mydesign_page">
       <div className="mydesign_header">
-        <div className="title_hashtag">
-          <h2>마이페이지</h2>
+        <div>
+          <h2>마이디자인</h2>
           <ul className="hashtag">
             <li>
               <span>태그1</span>
@@ -22,22 +25,25 @@ const MyDesign = () => {
             </li>
           </ul>
         </div>
-        <ProfileComp
-          //icon
-          // justName
-          imageURL={
-            "https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg"
-          }
-          userName={"user1"}
-          intro={"I am User1. My websites are "}
-          fbURL={"https://www.facebook.com"}
-          instaURL={"https://www.instagram.com"}
-        />
+        { // 로그인된 상태에서 뜨는 부분 
+          user ? ( 
+            <div className="profile_block">
+              <ProfileComp
+                imageURL={user.photoURL} // 사진없을시 어떻게할지 생각
+                userName={user.displayName}
+                intro={`${user.displayName}의 디자인입니다`}
+                fbURL={"https://www.facebook.com"}
+                instaURL={"https://www.instagram.com"}
+              />
+            </div> ) : null }
+      </div> {/* 헤더 끝 */}
+        {
+          user? ( <>
+          <MyDesigns user={user} />
+          <LikedDesigns user={user} /> 
+        </> ) : null
+        }
       </div>
-
-      <MyDesigns />
-      <LikedDesigns />
-    </div>
   );
 };
 export default MyDesign;
