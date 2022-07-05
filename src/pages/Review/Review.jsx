@@ -1,6 +1,7 @@
 import "./Review.scss";
 import { Col, Container, Row } from "react-bootstrap";
 import ReviewAndModalComp from "../../components/Review/grid/ReviewAndModalComp";
+import TempReviewModalComp from "../../components/Review/grid/TempReviewModalComp";
 import { ButtonComp, Pagination } from "../../components/index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,15 +16,16 @@ const ReviewPage = () => {
     navigate("/review/write");
   };
   const { boards } = useSelector((state) => state.review);
-
+  console.log(boards)
+  const { review } = useSelector(state => state.firebaseData)
+  
   const dispatch = useDispatch()
   const aaa = useCallback(()=>dispatch(dataResultModule()),[dispatch])
   
   useEffect( () => aaa(), [])
-  
-  const { review } = useSelector(state => state.firebaseData)
-  review.map(r=> console.log(r))
 
+
+  //console.log(review)
 
   return (
     <div className="review_page">
@@ -31,16 +33,10 @@ const ReviewPage = () => {
       <Container fluid>
         <Row>
           {
-            review.map( r => (
+            review && review.map( r => (
               <Col xl="2" lg="3" md="4" sm="6" key={r.id} className="review_card">
-                <ReviewAndModalComp board={r}/>
-              
-              {/* <p>{r.id}</p>
-               <p>{r.data.rating}</p>
-              <p>{r.data.heart}</p>
-              <p>{r.data.review}</p>
-              <p>{r.data.tages}</p>
-              <p>{r.data.user}</p> */}
+                <TempReviewModalComp review={r.data} />
+                
             </Col>
             ))
           }

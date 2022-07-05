@@ -8,30 +8,35 @@ import {
 import './ReviewAndModalComp.scss'
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ReviewThumbnail from './ReviewThumbnail'
+import TempReviewThumbnail from './TempReviewThumbnail'
 
-const ReviewModalComp = (props) => {
-  const { boardImage, boardTitle, boardRating, boardContent } = props.board
-  
+const TempReviewModalComp = (props) => {
+  const { review, rating, tages, user, images } = props.review
+
+  let hashtags = []
+  hashtags.push(tages);
+  console.log(hashtags)
+  // props = 
+  // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
     <div>
       <ModalComp
-        button={<ReviewThumbnail board={props.board} />}
+        button={<TempReviewThumbnail review={props.review} />}
         image={
           <SliderComp>
-            <img src={boardImage} />
+            <img src={images.image0} />
           </SliderComp>
         }
         className="review_modal"
       >
         <div className="modal_top">
           <div className="star">
-            <StarRating rating={boardRating} />
+            <StarRating rating={rating} />
           </div>
         </div>
 
         <div className="modal_body">
-          <h5 className="modal_title">{boardTitle}</h5>
+          {/* <h5 className="modal_title">임시제목</h5> */}
           <div className="option">
             <p>옵션01</p>
             <p>옵션02</p>
@@ -39,11 +44,9 @@ const ReviewModalComp = (props) => {
             <p>옵션04</p>
           </div>
           <div className="hashtag">
-            <span>임시</span>
-            <span>해쉬</span>
-            <span>태그</span>
+            {hashtags.map( (tag,i) => <span key={i}>{tag}</span>)}
           </div>
-          <p>{boardContent}</p>
+          <p>{review}</p>
           <div className="score">
             <i>
               <FontAwesomeIcon icon={regular('eye')} />
@@ -83,4 +86,4 @@ const ReviewModalComp = (props) => {
     </div>
   )
 }
-export default ReviewModalComp
+export default TempReviewModalComp
