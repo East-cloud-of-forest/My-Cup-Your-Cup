@@ -200,11 +200,20 @@ const Header = () => {
                         <div className="user_svg">
                           <FontAwesomeIcon icon={solid("user")} size="4x" />
                         </div>
-                      )}
+                      )} 
                     </div>
+                    
                   </li>
                   <li>
-                    <p>{user.displayName}</p>
+                    <p className="name_editBtn">{user.displayName}
+                      <span>
+                        <ButtonComp icon onClick={()=>{
+                          navi('/editprofile')
+                          offSidebar() }}>
+                          <FontAwesomeIcon icon={solid("pencil")}  />
+                        </ButtonComp>
+                      </span>
+                    </p>
                     <p>{user.email}</p>
                   </li>
                   <li>
@@ -390,7 +399,9 @@ const Header = () => {
                     <p>{user.displayName}</p>
                     <p>{user.email}</p>
                     <hr />
-                    <ButtonComp color="white">마이페이지</ButtonComp>
+                    <Link to="/paylist">
+                      <ButtonComp color="white">결제내역</ButtonComp>
+                    </Link>
                     <Link to="/mydesign">
                       <ButtonComp color="white">마이디자인</ButtonComp>
                     </Link>
@@ -425,7 +436,7 @@ const Header = () => {
           </ButtonComp>
         }
       >
-        카트 내용
+        <CartPopUp offCartSidebar={offCartSidebar}/>
       </Appsidebar>
     </header>
   );

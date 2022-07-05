@@ -7,9 +7,11 @@ import { useSelector } from 'react-redux';
 import { addFirebaseData } from '../../datasources/firebase';
 
 const CreateDesignUploadForm = () => {
-  const {mycup}  = useSelector( (state) => ({ mycup : state.uploadDesign.mycup }) ); // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
+  const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
+  // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
+  const mycup = items[items.length - 1]
   const {user} = useSelector( (user) => user.enteruser );
-
+  console.log(items)
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -66,7 +68,7 @@ const CreateDesignUploadForm = () => {
     } else {
         try {
           await addFirebaseData("MyDesign", {
-            image: mycup[0].mycup.image,
+            image: mycup.image,
             title: title,
             text: text,
             tag: tagList,
@@ -86,16 +88,16 @@ const CreateDesignUploadForm = () => {
   return (
     <div className="uploadPage_container">
       <h2>나의 디자인 저장하기</h2>
-      <div className="temporary_image">image : {mycup[0].mycup.image}</div>
+      <div className="temporary_image">image : {mycup.image}</div>
       <div className='cup_info'>
         <p>
-          <span>{mycup[0].mycup.name}</span>
+          <span>{mycup.name}</span>
           {` | 
-          ${mycup[0].mycup.color} | 
-          ${mycup[0].mycup.shape} | 
-          ${mycup[0].mycup.material} | 
-          ${mycup[0].mycup.size} | 
-          빨대: ${mycup[0].mycup.strow}`}
+          ${mycup.color} | 
+          ${mycup.shape} | 
+          ${mycup.material} | 
+          ${mycup.size} | 
+          빨대: ${mycup.strow}`}
         </p>      
       </div>
       <div className="upload_form">
@@ -133,7 +135,7 @@ const CreateDesignUploadForm = () => {
             } else {uploadMyDesign(mycup, user.uid)}
           }}>
             저장
-          </ButtonComp>
+          </ButtonComp> 
         </div>
       </div>
     </div>

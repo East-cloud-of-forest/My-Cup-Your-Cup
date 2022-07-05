@@ -69,6 +69,7 @@
     justify-content: space-evenly;
     align-items: flex-start;
     margin: 10px;
+    //border: #cccccc solid 1px;
     & .popup_img {
         width: 100px;
         aspect-ratio: 1;
@@ -87,4 +88,26 @@
         font-weight: bold;
     }
     
+}
+
+// 반응형
+@media (max-width: 992px) {
+    .product-container {
+        width: inherit;
+        margin: 0;
+        display: block;
+        & .mdButtons {
+            position: inherit;
+            align-self: flex-end;
+            min-width: max-content;
+        }
+        & .product-price {
+            position: inherit;
+            align-self: flex-end;
+            margin: 0;
+            margin-left: 1rem;
+            font-size: medium;
+
+        }
+    }
 }

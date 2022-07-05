@@ -5,33 +5,41 @@ import {
   StarRating,
   SliderComp,
 } from '../../index-comp/IndexComp'
-import './ReviewAndModalComp.scss'
+import './Temp.scss'
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ReviewThumbnail from './ReviewThumbnail'
+import TempReviewThumbnail from './TempReviewThumbnail'
 
-const ReviewModalComp = (props) => {
-  const { boardImage, boardTitle, boardRating, boardContent } = props.board
+const TempReviewModalComp = (props) => {
+  const { review, rating, tages, user, images } = props.review
+  console.log(Object.values(images))
   
+  // props = 
+  // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
     <div>
       <ModalComp
-        button={<ReviewThumbnail board={props.board} />}
+        button={<TempReviewThumbnail review={props.review} />}
         image={
           <SliderComp>
-            <img src={boardImage} />
+            { Object.values(images).map( image => (
+              <div>
+                <img src={image} key={image} alt="review-image" />
+              </div>
+            ))}
+            
           </SliderComp>
         }
         className="review_modal"
       >
         <div className="modal_top">
           <div className="star">
-            <StarRating rating={boardRating} />
+            <StarRating rating={rating} />
           </div>
         </div>
 
         <div className="modal_body">
-          <h5 className="modal_title">{boardTitle}</h5>
+          {/* <h5 className="modal_title">임시제목</h5> */}
           <div className="option">
             <p>옵션01</p>
             <p>옵션02</p>
@@ -39,11 +47,9 @@ const ReviewModalComp = (props) => {
             <p>옵션04</p>
           </div>
           <div className="hashtag">
-            <span>임시</span>
-            <span>해쉬</span>
-            <span>태그</span>
+            {tages.map( (tag,i) => <span key={i}>{tag}</span>)}
           </div>
-          <p>{boardContent}</p>
+          <p>{review}</p>
           <div className="score">
             <i>
               <FontAwesomeIcon icon={regular('eye')} />
@@ -60,13 +66,11 @@ const ReviewModalComp = (props) => {
           <div className="profile_block">
             <ProfileComp
               justName
-              imageURL={
-                'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'
-              }
+              imageURL={user.photoURL}
               size="md"
             />
             <div>
-              <p>user1</p>
+              <p>{user.displayName}</p>
               <p className="caption">2022-06-07</p>
             </div>
           </div>
@@ -83,4 +87,4 @@ const ReviewModalComp = (props) => {
     </div>
   )
 }
-export default ReviewModalComp
+export default TempReviewModalComp

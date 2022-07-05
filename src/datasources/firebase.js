@@ -96,6 +96,7 @@ const uploadFirestorage = (path, name, img) => {
 export {
   app,
   db,
+  storage,
   uploadFirestorage,
   getFirebaseData,
   addFirebaseData,

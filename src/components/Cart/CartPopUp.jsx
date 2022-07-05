@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 import { deleteItem } from '../../modules/addCart';
 import { useEffect } from 'react';
 
-function CartPopUp({openCartPop}) {
+function CartPopUp({openCartPop, offCartSidebar}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {items} = useSelector( (state) => ({ items : state.cartReducer.items}) );
@@ -31,39 +31,43 @@ function CartPopUp({openCartPop}) {
     const emptyStyle = {
         textAlign: "center",
         position: "relative",
-        top: "50px",
+        alignItem: "center",
+        top: "230px",
     }
 
     return (
         <div className='popup_content'>
-            <h4>장바구니</h4>
             {
                 items.length >= 1 ? 
                     <div>
+                        <h4>장바구니</h4>
                         {items.map( item => (
                             <ProductComp PopUp item={item} key={item.id} onDeleteItem={onDeleteItem}/> ))
                         }
+                        
                         {(items.length >=1) && (
-                            
-                            <div className='total_container'><hr />
-                                <p>총 배송비 : <span className='popup_total'>{formatter.format(2500)}</span> </p>
-                                <p>총 상품금액 : <span className='popup_total'>{formatter.format(totalPrice+2500)}</span> </p>
+                            <div className='cartPop_footer'>
+                                <div className='total_container'><hr />
+                                    <p>총 배송비 : <span className='popup_total'>{formatter.format(2500)}</span> </p>
+                                    <p>총 금액 : <span className='popup_total'>{formatter.format(totalPrice+2500)}</span> </p>
+                                </div>
+                                <div className='btn_block'>
+                                <ButtonComp color="brown" onClick={()=>{
+                                    navigate('/cart');
+                                    document.body.click();
+                                }}>
+                                    제작하러 가기
+                                </ButtonComp>
+                                <ButtonComp color="darkgreen" onClick={()=>{
+                                    navigate('/cart');
+                                    document.body.click();
+                                }}>
+                                    장바구니 보기
+                                </ButtonComp>
                             </div>
-                        )}
-                        <div className='btn_block'>
-                            <ButtonComp color="brown" onClick={()=>{
-                                navigate('/cart');
-                                document.body.click();
-                            }}>
-                                제작하러 가기
-                            </ButtonComp>
-                            <ButtonComp color="darkgreen" onClick={()=>{
-                                navigate('/cart');
-                                document.body.click();
-                            }}>
-                                장바구니 보기
-                            </ButtonComp>
                         </div>
+                        )}
+                        
                     </div>
                     
                 : ( 
@@ -72,6 +76,7 @@ function CartPopUp({openCartPop}) {
                         <ButtonComp color="mint" onClick={()=>{
                             navigate('/create');
                             document.body.click();
+                            offCartSidebar();
                             }}>
                                 제작하러 가기
                         </ButtonComp>
