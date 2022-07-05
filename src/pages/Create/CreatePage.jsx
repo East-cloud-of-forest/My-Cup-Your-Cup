@@ -146,6 +146,9 @@ const CreatePage = () => {
     setFontColorEdit(e.target.value)
   }
 
+  const [fontFamily, setFontFamily] = useState('nanumBold')
+  const fontChange = (e) => [setFontFamily(e.target.value)]
+
   // 텍스트 추가 임시
   const [texts, setTexts] = useState([])
 
@@ -159,7 +162,7 @@ const CreatePage = () => {
       const textsClone = [...texts]
       textsClone.push({
         text: textinput,
-        font: `nanumBold`,
+        font: fontFamily,
         size: 18,
         color: fontColorEdit,
         id: texts.length,
@@ -171,6 +174,7 @@ const CreatePage = () => {
     setTextInput('')
   }
 
+  // 텍스트 선택
   const [selectOnText, setSelectOnText] = useState(null)
   console.log(selectOnText)
 
@@ -182,7 +186,7 @@ const CreatePage = () => {
         <div
           className={classNames(
             'cre_edit',
-            selectOnText!==null ? 'cre_edit_active' : null,
+            selectOnText !== null ? 'cre_edit_active' : null,
           )}
         >
           <div className="cre_editdiv">
@@ -328,6 +332,17 @@ const CreatePage = () => {
                   <option value="#00ff00">초록</option>
                 </select>
               </div>
+              <select style={{ fontFamily: fontFamily }} onChange={fontChange}>
+                <option value="nanumBold" style={{ fontFamily: 'nanumBold' }}>
+                  나눔
+                </option>
+                <option value="OKDDUNG" style={{ fontFamily: 'OKDDUNG' }}>
+                  읒뚱체
+                </option>
+                <option value="OKGUNG" style={{ fontFamily: 'OKGUNG' }}>
+                  읒궁체
+                </option>
+              </select>
             </div>
             <div className="cre_font_edit_btn">
               <ButtonComp onClick={textClick}>추가</ButtonComp>
