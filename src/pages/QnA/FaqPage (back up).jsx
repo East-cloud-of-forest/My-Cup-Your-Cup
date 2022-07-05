@@ -18,22 +18,6 @@ const FaqPage = () => {
 
         <div className="FAQ_contents">
 
-        <div className="abc">
-                <table className="aa">
-                    <tbody className="bb">
-                        <tr className="cc">
-                            <td className= "test_td"> 
-                                <p className="one_td">Q</p>
-                                <p className="two_td">자주 묻는 질문</p>
-                                <p className="three_td">배송완료인데 상품을 못 받으셨다면?</p>
-                            <div></div>
-                            <p className="iconn">dd</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-        </div>
-
                 <input type="checkbox" id="FAQ_answer01" />
                 <label htmlFor="FAQ_answer01">[ 회원 ] 회원가입은 어떻게 하나요?</label>
                 <div>
@@ -46,14 +30,12 @@ const FaqPage = () => {
                         네잔내잔 회원가입이 완료됩니다.
                     </p>
                 </div>
-            
 
           <input type="checkbox" id="FAQ_answer02" />
                 <label htmlFor="FAQ_answer02">[ 주문 ] 주문 제품 취소하는 법</label>
                 <div>
                     <p>내용~내용~내용~내용~내용~</p>
                 </div>
-
    
           <input type="checkbox" id="FAQ_answer03" />
                 <label htmlFor="FAQ_answer03">[ 결제 ] 상품 결제 방법</label>
