@@ -86,31 +86,10 @@ const CreatePage = () => {
     }
   }
 
+  // 사이드 에딧트
   const [sideEditOpen, setSideEditOpen] = useState(false)
   const sideEditToggle = () => {
     setSideEditOpen(!sideEditOpen)
-  }
-
-  //텍스트 편집 토글
-  const [editActive, setEditActive] = useState(false)
-  const [editDisplay, setEditDisplay] = useState(true)
-  const editTimeToggle = function (kind, time) {
-    setTimeout(() => {
-      kind === 'editActive'
-        ? setEditActive(!editActive)
-        : setEditDisplay(!editDisplay)
-    }, time)
-  }
-
-  const editClick = () => {
-    clearTimeout(editTimeToggle)
-    if (display) {
-      setEditDisplay(!editDisplay)
-      editTimeToggle('editActive', 0)
-    } else {
-      setEditActive(!editActive)
-      editTimeToggle('editDisplay', 0)
-    }
   }
 
   //재질변경에 따른 내용 변경
@@ -140,40 +119,27 @@ const CreatePage = () => {
     }
   }, [material])
 
-  const [fontColorEdit, setFontColorEdit] = useState('#000')
-  const fontColorChange = (e) => {
-    console.log(e.target.value)
-    setFontColorEdit(e.target.value)
-  }
-
-  const [fontFamily, setFontFamily] = useState('nanumBold')
-  const fontChange = (e) => [setFontFamily(e.target.value)]
-
   // 텍스트 추가 임시
   const [texts, setTexts] = useState([])
 
-  const [textinput, setTextInput] = useState('')
-  const textChange = (e) => {
-    setTextInput(e.target.value)
-  }
+  // 텍스트 선택
+  const [selectOnText, setSelectOnText] = useState(null)
 
   const addText = () => {
     const textsClone = [...texts]
     textsClone.push({
       text: '텍스트',
-      font: 'nanumBold',
-      size: 18,
-      color: 'black',
+      font: 'ROKAFSansBold',
+      size: 32,
+      color: '#000000',
       id: texts.length,
       x: -1000,
       y: -1000,
     })
     setTexts(textsClone)
+    setSelectOnText(texts.length)
+    sideEditToggle()
   }
-
-  // 텍스트 선택
-  const [selectOnText, setSelectOnText] = useState(null)
-  console.log(selectOnText)
 
   return (
     <div className="cre_all">
@@ -298,53 +264,6 @@ const CreatePage = () => {
               </div>
             </li>
           </ul>
-          {/* 텍스트 추가 */}
-          <div
-            className={classNames(
-              'cre_edit_clicked ',
-              editActive ? 'editActive' : null,
-              editDisplay ? 'EditDisplaynone' : null,
-            )}
-          >
-            <div>
-              <div>
-                <p>추가할 텍스트</p>
-                <input
-                  className="cre_font_input"
-                  type="text"
-                  value={textinput}
-                  onChange={textChange}
-                />
-              </div>
-              <div className="cre_font_editor">
-                <p>폰트 색상</p>
-                <select
-                  className="cre_font_selectbox"
-                  defaultValue="#000"
-                  onChange={fontColorChange}
-                >
-                  <option value="#000000">검정</option>
-                  <option value="#ff0000">빨강</option>
-                  <option value="#0000ff">파랑</option>
-                  <option value="#00ff00">초록</option>
-                </select>
-              </div>
-              <select style={{ fontFamily: fontFamily }} onChange={fontChange}>
-                <option value="nanumBold" style={{ fontFamily: 'nanumBold' }}>
-                  나눔
-                </option>
-                <option value="OKDDUNG" style={{ fontFamily: 'OKDDUNG' }}>
-                  읒뚱체
-                </option>
-                <option value="OKGUNG" style={{ fontFamily: 'OKGUNG' }}>
-                  읒궁체
-                </option>
-              </select>
-            </div>
-            <div className="cre_font_edit_btn">
-              <ButtonComp onClick={editClick}>취소</ButtonComp>
-            </div>
-          </div>
         </div>
       </div>
 
