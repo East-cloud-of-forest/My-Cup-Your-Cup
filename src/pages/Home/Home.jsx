@@ -47,11 +47,13 @@ const Home = () => {
           <Col md="2" sm="4" xs="4" className="main_circlemenu">
             <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag1.jpg')} alt='tag' /> </div> </Col>
           <Col md="2" sm="4" xs="4" className="main_circlemenu">
-            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag3.png')} alt='tag' /> </div></Col>
+            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag3.jpg')} alt='tag' /> </div></Col>
           <Col md="2" sm="4" xs="4" className="main_circlemenu">
             <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag4.jpg')} alt='tag' /> </div></Col>
           <Col md="2" sm="4" xs="4" className="main_circlemenu"> 
             <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag2.jpg')} alt='tag' /> </div></Col>
+          <Col md="2" sm="4" xs="4" className="main_circlemenu"> 
+            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag5.jpg')} alt='tag' /> </div></Col>
         </Row>
       </Container>
       <p className="text-center subtitle">리뷰</p>
