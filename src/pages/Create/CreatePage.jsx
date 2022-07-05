@@ -13,29 +13,14 @@ import {
   faFileArrowUp,
   faFont,
   faStar,
-  faEye,
-  faEyeSlash,
-  fa1,
-  fa2,
-  fa3,
 } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
-import React, { useRef, useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
-import { text } from '@fortawesome/fontawesome-svg-core'
 import CanvasComp from '../../components/createcomp/CanvasComp'
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 const CreatePage = () => {
-  //레이어 용
-  // const [basicIcon, setBasicIcon] = useState(faEye);
-  // const changeIcon = () => {
-  //   if (basicIcon === faEye) {
-  //     setBasicIcon(faEyeSlash);
-  //   } else {
-  //     setBasicIcon(faEye);
-  //   }
-  // };
-
   //재질 props 받아오는 함수
   const [material, setMaterial] = useState('')
 
@@ -61,8 +46,6 @@ const CreatePage = () => {
   }
 
   //아코디언 버튼
-  const parentRef = React.useRef()
-  const childRef = React.useRef()
   const [active, setActive] = useState(false)
   const [display, setDisplay] = useState(true)
   const timeToggle = function (kind, time) {
@@ -72,11 +55,7 @@ const CreatePage = () => {
   }
 
   const openClick = () => {
-    // if(parentRef.current.clientWidth>0){
-    //     parentRef.current.style.width="0";
-    // }else{
-    //     parentRef.current.style.width=`${childRef.current.clientWidth}px`
-    // };
+    console.log(1)
     clearTimeout(timeToggle)
     if (display) {
       setDisplay(!display)
@@ -87,14 +66,8 @@ const CreatePage = () => {
     }
   }
 
-  //아코디언 내용 변경
-  const [tumType, setTumType] = useState('')
-
-  const [pic, setPic] = useState('1')
-
   //텀블러 변경 및 텀블러 이름값 가져오기
   const [tumShape, setTumShape] = useState('')
-
   const changeTum = (e) => {
     setPic(e.currentTarget.id)
     switch (e.currentTarget.id.split('_')[1]) {
@@ -111,6 +84,11 @@ const CreatePage = () => {
         setTumShape('')
         break
     }
+  }
+
+  const [sideEditOpen, setSideEditOpen] = useState(false)
+  const sideEditToggle = () => {
+    setSideEditOpen(!sideEditOpen)
   }
 
   //텍스트 편집 토글
@@ -136,43 +114,27 @@ const CreatePage = () => {
   }
 
   //재질변경에 따른 내용 변경
+  //아코디언 내용 변경
+  const [tumType, setTumType] = useState([])
+  const [pic, setPic] = useState('1')
   useEffect(() => {
     if (material === 'pla') {
-      setTumType(
-        <div className="cre_acc_display" ref={childRef}>
-          <div className="cre_acc_icon" id="pla_1" onClick={changeTum}>
-            <FontAwesomeIcon icon={fa1} className="cre_icon2" />
-            기본형
-          </div>
-          <div className="cre_acc_icon" id="pla_2" onClick={changeTum}>
-            <FontAwesomeIcon icon={fa2} className="cre_icon2" />
-            원통형
-          </div>
-        </div>,
-      )
+      setTumType([
+        { name: '기본형', id: 'pla_1' },
+        { name: '원통형', id: 'pla_2' },
+      ])
       setPic('pla_1')
       setTumShape('기본형')
     } else if (material === 'stain') {
-      setTumType(
-        <div className="cre_acc_display" ref={childRef}>
-          <div className="cre_acc_icon" id="stain_1" onClick={changeTum}>
-            <FontAwesomeIcon icon={fa1} className="cre_icon2" />
-            기본형
-          </div>
-          <div className="cre_acc_icon" id="stain_2" onClick={changeTum}>
-            <FontAwesomeIcon icon={fa2} className="cre_icon2" />
-            원통형
-          </div>
-          <div className="cre_acc_icon" id="stain_3" onClick={changeTum}>
-            <FontAwesomeIcon icon={fa3} className="cre_icon2" />
-            컵형
-          </div>
-        </div>,
-      )
+      setTumType([
+        { name: '기본형', id: 'stain_1' },
+        { name: '원통형', id: 'stain_2' },
+        { name: '컵형', id: 'stain_3' },
+      ])
       setPic('stain_1')
       setTumShape('기본형')
     } else {
-      setTumType('')
+      setTumType([])
       setPic('1')
       setTumShape('')
     }
@@ -209,34 +171,41 @@ const CreatePage = () => {
     setTextInput('')
   }
 
+  const [selectOnText, setSelectOnText] = useState(null)
+  console.log(selectOnText)
+
   return (
     <div className="cre_all">
       {/**제작화면 */}
       <div className="cre_result">
         {/**에딧 아이콘 */}
-        <div className="cre_edit">
+        <div
+          className={classNames(
+            'cre_edit',
+            selectOnText!==null ? 'cre_edit_active' : null,
+          )}
+        >
           <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faPaintBrush} className="cre_icon" />
+            <FontAwesomeIcon icon={faPaintBrush} />
             새로만들기
           </div>
           <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowsAltH} className="cre_icon" />
+            <FontAwesomeIcon icon={faArrowsAltH} />
             좌우반전
           </div>
           <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowsAltV} className="cre_icon" />
+            <FontAwesomeIcon icon={faArrowsAltV} />
             상하반전
           </div>
           <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowRotateBack} className="cre_icon" />왼
-            회전
+            <FontAwesomeIcon icon={faArrowRotateBack} />왼 회전
           </div>
           <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowRotateForward} className="cre_icon" />
+            <FontAwesomeIcon icon={faArrowRotateForward} />
             오른 회전
           </div>
           <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faTrash} className="cre_icon" />
+            <FontAwesomeIcon icon={faTrash} />
             삭제
           </div>
         </div>
@@ -248,52 +217,87 @@ const CreatePage = () => {
             pic={pic}
             texts={texts}
             setTexts={setTexts}
+            selectOnText={selectOnText}
+            setSelectOnText={setSelectOnText}
           />
+        </div>
 
-          {/**에딧 2 */}
-          <div className="cre_acc">
-            <div
-              className={classNames(
-                'cre_acc_clicked ',
-                active ? 'active' : null,
-                display ? 'displaynone' : null,
-              )}
-              ref={parentRef}
+        {/* 사이드 에딧 */}
+        <div
+          className={classNames(
+            'side_edit',
+            sideEditOpen ? 'side_edit_active' : null,
+          )}
+        >
+          <div className="side_edit_toggle">
+            <ButtonComp
+              color="white"
+              onClick={() => {
+                sideEditToggle()
+                active && openClick()
+              }}
             >
-              {tumType}
-            </div>
-
-            <div className="cre_acc_click">
-              <FontAwesomeIcon
-                icon={faWhiskeyGlass}
-                className="cre_icon2"
-                onClick={openClick}
-              />
-              텀블러변경
-            </div>
+              {sideEditOpen ? (
+                <FontAwesomeIcon icon={solid('caret-right')} />
+              ) : (
+                <FontAwesomeIcon icon={solid('caret-left')} />
+              )}
+            </ButtonComp>
           </div>
-
-          <div className="cre_edit2">
-            <div className="cre_editdiv2">
-              <FontAwesomeIcon icon={faFileArrowUp} className="cre_icon2" />
-              이미지 업로드
-            </div>
-            <div className="cre_editdiv2">
-              <FontAwesomeIcon
-                icon={faFont}
-                className="cre_icon2"
-                // onClick={textClick}
-                onClick={editClick}
-              />
-              텍스트 추가
-            </div>
-            <div className="cre_editdiv2">
-              <FontAwesomeIcon icon={faStar} className="cre_icon2" />
-              무료 디자인
-            </div>
-          </div>
-
-          {/* 레이어 편집 */}
+          <ul>
+            <li>
+              <div className="cre_acc_click">
+                <FontAwesomeIcon
+                  icon={faWhiskeyGlass}
+                  className="cre_icon2"
+                  onClick={openClick}
+                />
+                텀블러변경
+              </div>
+              <ul
+                className={classNames(
+                  'tumtype_select',
+                  active ? 'active' : null,
+                  display ? 'displaynone' : null,
+                )}
+              >
+                {tumType.map((a, i) => (
+                  <li key={i}>
+                    <div id={a.id} onClick={changeTum}>
+                      {i === 0 ? <FontAwesomeIcon icon={solid('1')} /> : null}
+                      {i === 1 ? <FontAwesomeIcon icon={solid('2')} /> : null}
+                      {i === 2 ? <FontAwesomeIcon icon={solid('3')} /> : null}
+                      {a.name}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </li>
+            <li>
+              <div className="cre_editdiv2">
+                <FontAwesomeIcon icon={faFileArrowUp} className="cre_icon2" />
+                이미지 업로드
+              </div>
+            </li>
+            <li>
+              <div className="cre_editdiv2">
+                <FontAwesomeIcon
+                  icon={faFont}
+                  className="cre_icon2"
+                  // onClick={textClick}
+                  onClick={editClick}
+                />
+                텍스트 추가
+              </div>
+            </li>
+            <li>
+              <div className="cre_editdiv2">
+                <FontAwesomeIcon icon={faStar} className="cre_icon2" />
+                무료 디자인
+              </div>
+            </li>
+          </ul>
+          {/* 텍스트 추가 */}
           <div
             className={classNames(
               'cre_edit_clicked ',
@@ -326,30 +330,10 @@ const CreatePage = () => {
               </div>
             </div>
             <div className="cre_font_edit_btn">
-              <ButtonComp
-                style={{ width: '80px', height: '40px', fontSize: '15px' }}
-                onClick={textClick}
-              >
-                추가
-              </ButtonComp>
-              <ButtonComp
-                style={{ width: '80px', height: '40px', fontSize: '15px' }}
-                onClick={editClick}
-              >
-                취소
-              </ButtonComp>
+              <ButtonComp onClick={textClick}>추가</ButtonComp>
+              <ButtonComp onClick={editClick}>취소</ButtonComp>
             </div>
           </div>
-
-          {/**레이어 창*/}
-          {/* <div className="cre_layer_div">
-                        <div className="cre_layer_title">레이어 관리</div>
-                        <div className="cre_layers">
-                            {/**반복해서 추가 될 레이어 div
-                            <div className="cre_layer">레이어1<FontAwesomeIcon icon={basicIcon} className="cre_layer_icon" onClick={changeIcon} />
-                            </div>
-                        </div>
-                    </div> */}
         </div>
       </div>
 

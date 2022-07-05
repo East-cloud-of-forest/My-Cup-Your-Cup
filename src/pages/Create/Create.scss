@@ -1,164 +1,223 @@
 .cre_all {
   display: flex;
   justify-content: center;
-  margin: 30px auto;
   align-items: center;
-  min-height: 80vh;
-}
+  height: 80vh;
+  min-height: 700px;
 
-.cre_result {
-  width: 900px;
-  height: 500px;
-  margin: 0px 50px 20px 0px;
-}
+  .cre_result {
+    height: 620px;
+    width: 900px;
+    position: relative;
 
-.cre_edit {
-  display: flex;
-  justify-content: space-around;
-  padding: 0px 30px;
-}
+    .cre_edit_active {
+      height: 3.5rem !important;
+      transition: height 0.6s;
+    }
 
-.cre_editdiv {
-  font-size: 10px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  cursor: pointer;
-}
+    .cre_edit {
+      display: flex;
+      justify-content: space-around;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      box-shadow: 0 4px 4px -3px grey;
+      z-index: 3;
+      background-color: white;
+      height: 0;
+      align-items: center;
+      overflow: hidden;
+      transition: height 0.6s;
 
-.cre_icon {
-  height: 20px;
-  margin: 0 0 5px 0;
-}
+      .cre_editdiv {
+        font-size: 10px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        cursor: pointer;
 
-.cre_mainImg {
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 900px;
-  height: 500px;
-  justify-content: space-around;
-}
+        svg {
+          height: 20px;
+          margin: 0 0 5px 0;
+        }
+      }
+    }
 
-.cre_img {
-  max-width: 100%;
-  max-height: 100%;
-  margin: 20px 0px;
-}
+    .cre_mainImg {
+      display: flex;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      justify-content: space-around;
 
-.cre_edit2 {
-  position: absolute;
-  top: 28%;
-  left: 84.5%;
-}
+      .cre_canvas {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
 
-.cre_editdiv2 {
-  font-size: 13px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  cursor: pointer;
-  align-items: center;
-  margin: 20px;
-  position: relative;
-
-  input {
+  .side_edit_toggle {
     position: absolute;
-    top: 30%;
-    left: -200%;
-  }
-}
+    right: 100%;
+    bottom: 5%;
+    z-index: 3;
 
-.cre_acc {
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  display: flex;
-}
-
-.cre_acc_click {
-  font-size: 13px;
-  cursor: pointer;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.cre_acc_clicked {
-  display: flex;
-  margin: 0 10px;
-  overflow: hidden;
-  transition: 0.5s ease;
-  transform: translate(10%, 0);
-  opacity: 0;
-
-  &.active {
-    transition: 0.5s ease;
-    transform: translate(0);
-    opacity: 1;
+    button {
+      margin: 0;
+      padding: 0;
+      border-radius: 7px 0 0 7px;
+      padding: 0.5rem 0.3rem;
+      box-shadow: -2px 0 3px -1px grey;
+      color: #60ab90;
+    }
   }
 
-  &.displaynone {
-    display: none;
+  .side_edit_active {
+    right: 0 !important;
+    box-shadow: -2px 0 3px -1px grey !important;
+    transition: right 0.6s, box-shadow 0.6s;
   }
-}
 
-.cre_acc_icon {
-  font-size: 13px;
-  cursor: pointer;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin: 0 10px;
-}
+  .side_edit {
+    z-index: 2;
+    position: absolute;
+    right: -107.47px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: right 0.6s, box-shadow 0.6s;
+    box-shadow: none;
+    background-color: white;
 
-.cre_acc_display {
-  display: flex;
-}
+    > ul {
+      padding: 0;
+      margin: 2rem 0.5rem 0;
+    }
 
-.cre_icon2 {
-  height: 30px;
-  width: 30px;
-  padding: 15px;
-  background-color: white;
-  border-radius: 50%;
-  margin: 0 0 10px 0;
-  border: 2px solid #60ab90;
-  color: #60ab90;
-  opacity: 0.9;
-}
+    li {
+      position: relative;
+      margin-bottom: 1rem;
 
-.cre_layer_div {
-  width: 150px;
-  position: absolute;
-  border-radius: 5px;
-  left: 20px;
-  top: 100px;
-}
+      > div {
+        font-size: 0.9rem;
+        cursor: pointer;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
 
-.cre_layer_title {
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
-  font-size: 15px;
-  margin: 5px 0 5px 0;
-}
+        svg {
+          height: 30px;
+          width: 30px;
+          padding: 15px;
+          background-color: white;
+          border-radius: 50%;
+          margin: 0 0 10px 0;
+          border: 2px solid #60ab90;
+          color: #60ab90;
+          opacity: 0.9;
+        }
+      }
 
-.cre_layers {
-  background-color: white;
-  font-size: 15px;
-  border-radius: 5px;
-}
+      .tumtype_select {
+        position: absolute;
+        display: flex;
+        right: 105%;
+        top: 0;
+        overflow: hidden;
+        transition: 0.5s ease;
+        transform: translate(10%, 0);
+        opacity: 0;
 
-.cre_layer {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
+        &.active {
+          transition: 0.5s ease;
+          transform: translate(0);
+          opacity: 1;
+        }
 
-.cre_layer_icon {
-  position: absolute;
-  right: 15px;
+        &.displaynone {
+          display: none;
+        }
+
+        div {
+          margin: 0 0.5rem;
+        }
+      }
+    }
+
+    .cre_edit_clicked {
+      overflow: hidden;
+      transition: 0.5s ease;
+      opacity: 0;
+      background-color: rgba(240, 240, 240, 0.9);
+      height: 100%;
+      width: 250px;
+      position: absolute;
+      right: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 4;
+
+      &.editActive {
+        transition: 0.5s ease;
+        opacity: 1;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      &.EditDisplaynone {
+        transition: 0.5s ease;
+        display: flex;
+        justify-content: space-around;
+        visibility: hidden;
+      }
+
+      .cre_font_input {
+        background-color: white;
+        width: 180px;
+        padding: 5px;
+        border: 1px solid #60ab90;
+        font-family: 'Nanumgothic';
+        border-radius: 5px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+      .cre_font_editor {
+        margin: 10% 0;
+
+        .cre_font_selectbox {
+          background-color: white;
+          width: 80px;
+          padding: 5px;
+          border: 1px solid #60ab90;
+          font-family: 'Nanumgothic';
+          border-radius: 5px;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+        }
+      }
+
+      .cre_font_edit_btn {
+        display: flex;
+
+        button {
+          padding: 0.5rem 0;
+          margin: 0 0.15rem;
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
 .cre_opt {
@@ -167,6 +226,8 @@
   box-shadow: 0 0 3px grey;
   padding: 1rem;
   border-radius: 7px;
+  z-index: 3;
+  background-color: white;
 
   h2 {
     font-weight: 100;
@@ -226,7 +287,7 @@
       margin: 0;
 
       &::after {
-        content: "-";
+        content: '-';
         margin-left: 0.5rem;
       }
     }
@@ -259,19 +320,6 @@
         }
       }
     }
-  }
-
-  .cre_selectbox {
-    background-color: white;
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid grey;
-    font-family: "Nanumgothic";
-    border-radius: 5px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0.5rem 0;
   }
 
   .cre_calc {
@@ -329,7 +377,7 @@
       margin: 0;
       font-size: 0.95rem;
       color: grey;
-      
+
       &::before {
         content: '-';
         margin-right: 0.5rem;
@@ -393,77 +441,5 @@
         color: #60ab90;
       }
     }
-  }
-}
-
-.cre_canvas {
-  border: 1px solid red;
-  position: absolute;
-  width: 900px;
-  height: 500px;
-  top: 0px;
-}
-
-.cre_font_editor {
-  margin: 10% 0;
-}
-
-.cre_font_selectbox {
-  background-color: white;
-  width: 80px;
-  padding: 5px;
-  border: 1px solid #60ab90;
-  font-family: "Nanumgothic";
-  border-radius: 5px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.cre_font_input {
-  background-color: white;
-  width: 180px;
-  padding: 5px;
-  border: 1px solid #60ab90;
-  font-family: "Nanumgothic";
-  border-radius: 5px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.cre_font_edit_btn {
-  display: flex;
-}
-
-.cre_edit_clicked {
-  margin: 0 10px;
-  overflow: hidden;
-  transition: 0.5s ease;
-  opacity: 0;
-  background-color: rgba(240, 240, 240, 0.9);
-  height: 500px;
-  width: 250px;
-  position: absolute;
-  right: 0;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0;
-
-  &.editActive {
-    transition: 0.5s ease;
-    opacity: 1;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  &.EditDisplaynone {
-    transition: 0.5s ease;
-    display: flex;
-    justify-content: space-around;
-    // display: none;
-    visibility: hidden;
   }
 }

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useEffect, useRef } from 'react'
 
-const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
+const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOnText }) => {
   const canvasRef = useRef(null)
   const src = require(`../../components/createcomp/img/${pic}.png`)
-  const [selectOnText, setSelectOnText] = useState(null)
 
   class App {
     constructor() {
@@ -381,7 +380,7 @@ const CanvasComp = ({ pic, texts, colorData, setTexts }) => {
       ref={canvasRef}
       className="cre_canvas"
       style={{
-        background: `url(${src})`,
+        background: `url(${src}) no-repeat center`,
       }}
     />
   )
