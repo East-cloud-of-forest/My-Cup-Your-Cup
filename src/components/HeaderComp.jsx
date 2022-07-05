@@ -390,7 +390,9 @@ const Header = () => {
                     <p>{user.displayName}</p>
                     <p>{user.email}</p>
                     <hr />
-                    <ButtonComp color="white">마이페이지</ButtonComp>
+                    <Link to="/paylist">
+                      <ButtonComp color="white">결제내역</ButtonComp>
+                    </Link>
                     <Link to="/mydesign">
                       <ButtonComp color="white">마이디자인</ButtonComp>
                     </Link>
