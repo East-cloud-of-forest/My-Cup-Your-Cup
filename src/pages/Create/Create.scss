@@ -220,137 +220,154 @@
   }
 }
 
-.cre_opt {
-  min-width: 320px;
-  max-width: 320px;
+.cre_option_hidden {
+  width: 320px;
   box-shadow: 0 0 3px grey;
-  padding: 1rem;
-  border-radius: 7px;
+  border-radius: 0 7px 7px 0;
   z-index: 3;
   background-color: white;
+  height: 620px;
+  overflow: hidden;
 
-  h2 {
-    font-weight: 100;
-    font-size: 1.7rem;
+  .option_active {
+    position: relative;
+    top: 0%;
+    transition: top 0.2s;
+  }
+  .select_active {
+    position: relative;
+    top: -100%;
+    transition: top 0.2s;
   }
 
-  > p {
-    margin: 0;
-    text-align: right;
-    font-size: 0.95rem;
-    color: grey;
-  }
+  .option_select, .canvas_select {
+    padding: 1rem;
+    height: 620px;
+    width: 320px;
 
-  .cre_colorDiv {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0.5rem 0;
-
-    .cre_color {
-      box-shadow: 0 0 3px grey;
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      margin: 0.3rem;
-      border: 2px solid white;
-    }
-
-    .active {
-      border: 2px solid #a6fae1;
-      box-shadow: 0 0 10px #4debbb;
-    }
-  }
-
-  .select_block {
-    margin: 1.5rem 0;
-
-    button {
-      margin: 0;
-      width: 100%;
-      padding: 0.5rem 0;
-      color: grey;
-
-      &:hover {
-        background-color: lighten(#a6fae1, 15%);
-      }
-    }
-
-    > div {
-      display: flex;
-      margin: 0.1rem 0;
+    h2 {
+      font-weight: 100;
+      font-size: 1.7rem;
     }
 
     > p {
-      font-size: 0.9rem;
-      color: black;
       margin: 0;
+      text-align: right;
+      font-size: 0.95rem;
+      color: grey;
+    }
 
-      &::after {
-        content: '-';
-        margin-left: 0.5rem;
+    .cre_colorDiv {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+
+      .cre_color {
+        box-shadow: 0 0 3px grey;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        margin: 0.3rem;
+        border: 2px solid white;
+      }
+
+      .active {
+        border: 2px solid #a6fae1;
+        box-shadow: 0 0 10px #4debbb;
       }
     }
 
-    .Met_select,
-    .straw_select {
-      div {
-        margin: 0 0.1rem;
-        width: 50%;
-      }
-    }
+    .select_block {
+      margin: 1.5rem 0;
 
-    .size_select {
-      div {
-        margin: 0 0.1rem;
-        width: 33.333%;
-      }
-    }
-
-    .actvie {
       button {
         margin: 0;
         width: 100%;
         padding: 0.5rem 0;
         color: grey;
-        background-color: lighten(#a6fae1, 5%);
 
         &:hover {
-          background-color: darken(#a6fae1, 5%);
+          background-color: lighten(#a6fae1, 15%);
+        }
+      }
+
+      > div {
+        display: flex;
+        margin: 0.1rem 0;
+      }
+
+      > p {
+        font-size: 0.9rem;
+        color: black;
+        margin: 0;
+
+        &::after {
+          content: '-';
+          margin-left: 0.5rem;
+        }
+      }
+
+      .Met_select,
+      .straw_select {
+        div {
+          margin: 0 0.1rem;
+          width: 50%;
+        }
+      }
+
+      .size_select {
+        div {
+          margin: 0 0.1rem;
+          width: 33.333%;
+        }
+      }
+
+      .actvie {
+        button {
+          margin: 0;
+          width: 100%;
+          padding: 0.5rem 0;
+          color: grey;
+          background-color: lighten(#a6fae1, 5%);
+
+          &:hover {
+            background-color: darken(#a6fae1, 5%);
+          }
         }
       }
     }
-  }
 
-  .cre_calc {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 0.5rem;
+    .cre_calc {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin: 0.5rem;
 
-    p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: grey;
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: grey;
+      }
+
+      h3 {
+        font-weight: 100;
+        margin: 0.3rem;
+      }
     }
 
-    h3 {
-      font-weight: 100;
-      margin: 0.3rem;
-    }
-  }
+    #btn {
+      display: flex;
+      flex-direction: column;
 
-  #btn {
-    display: flex;
-    flex-direction: column;
+      > span {
+        width: 100%;
+      }
 
-    > span {
-      width: 100%;
-    }
-
-    button {
-      width: 100%;
-      margin: 0.3rem 0;
+      button {
+        width: 100%;
+        margin: 0.3rem 0;
+      }
     }
   }
 }

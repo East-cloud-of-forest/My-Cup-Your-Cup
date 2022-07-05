@@ -1,5 +1,4 @@
 import './Create.scss'
-import ColorComp from '../../components/createcomp/ColorComp'
 import SelectComp from '../../components/createcomp/SelectComp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -19,6 +18,7 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import CanvasComp from '../../components/createcomp/CanvasComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import CanvasSelectComp from '../../components/createcomp/CanvasSelectComp'
 
 const CreatePage = () => {
   //재질 props 받아오는 함수
@@ -157,21 +157,18 @@ const CreatePage = () => {
     setTextInput(e.target.value)
   }
 
-  const textClick = () => {
-    if (textinput.length !== 0) {
-      const textsClone = [...texts]
-      textsClone.push({
-        text: textinput,
-        font: fontFamily,
-        size: 18,
-        color: fontColorEdit,
-        id: texts.length,
-        x: -1000,
-        y: -1000,
-      })
-      setTexts(textsClone)
-    }
-    setTextInput('')
+  const addText = () => {
+    const textsClone = [...texts]
+    textsClone.push({
+      text: '텍스트',
+      font: 'nanumBold',
+      size: 18,
+      color: 'black',
+      id: texts.length,
+      x: -1000,
+      y: -1000,
+    })
+    setTexts(textsClone)
   }
 
   // 텍스트 선택
@@ -289,7 +286,7 @@ const CreatePage = () => {
                   icon={faFont}
                   className="cre_icon2"
                   // onClick={textClick}
-                  onClick={editClick}
+                  onClick={addText}
                 />
                 텍스트 추가
               </div>
@@ -345,30 +342,33 @@ const CreatePage = () => {
               </select>
             </div>
             <div className="cre_font_edit_btn">
-              <ButtonComp onClick={textClick}>추가</ButtonComp>
               <ButtonComp onClick={editClick}>취소</ButtonComp>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="cre_opt">
-        <h2 dangerouslySetInnerHTML={{ __html: productName }}></h2>
-        <p>{colorName}</p>
-
-        <ColorComp
-          getColorName={getColorName}
-          getColorData={getColorData}
-          colorData={colorData}
-        />
-
-        <SelectComp
-          colorName={colorName}
-          tumShape={tumShape}
-          getProductName={getProductName}
-          material={material}
-          getTypeData={getTypeData}
-        />
+      <div className="cre_option_hidden">
+        <div
+          className={selectOnText === null ? 'option_active' : 'select_active'}
+        >
+          <SelectComp
+            getColorName={getColorName}
+            getColorData={getColorData}
+            colorData={colorData}
+            colorName={colorName}
+            tumShape={tumShape}
+            getProductName={getProductName}
+            material={material}
+            getTypeData={getTypeData}
+            productName={productName}
+          />
+          <CanvasSelectComp
+            selectOnText={selectOnText}
+            setTexts={setTexts}
+            texts={texts}
+          />
+        </div>
       </div>
     </div>
   )
