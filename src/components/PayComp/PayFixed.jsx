@@ -1,12 +1,50 @@
 import React from 'react';
 import {ButtonComp} from '../../components/index-comp/IndexComp'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { db, setFirebaseData } from '../../datasources/firebase'
+import { doc, getDoc } from 'firebase/firestore';
 
 const PayFixed = ({onDeleteItem, items, cost, receiverName, phoneNum, addInfo, addDetail}) => {
     
     const navigate = useNavigate()
 
-    const sendComplete = () => {
+    const { user } = useSelector((a) => a.enteruser)
+    const sendFirebase = async () => {
+        // let userInfo = user.reloadUserInfo
+        let userID = user.uid
+
+        const docRef = doc(db,"user",userID);
+        getDoc(docRef).then(r => console.log(r.data()))
+
+        //기존 데이터 가져오기위한 선언
+        const userData = (await getDoc(docRef)).data();
+
+        //구매상품 데이터 추가
+        const boughtItems = userData.itemsList?userData.itemsList:[]
+        const date = new Date();
+        
+        for (let i = 0; i < items.length; i++) {
+            const boughtItem = {
+                boughtDate : date.toLocaleDateString('ko-kr'),
+                itemImage : items[i].image,
+                itemName : items[i].name,
+                itemSize : items[i].size,
+                itemStraw : items[i].strow,
+                itemColor : items[i].color,
+                itemQ : items[i].quantity,
+                itemPrice : items[i].total
+            };
+            boughtItems.push(boughtItem);
+        }
+
+        await setFirebaseData('user', userID, {
+            ...userData,
+            itemsList : boughtItems
+        })
+    }
+
+    const sendComplete = async () => {
         if(addInfo===""){
             alert("주소를 입력해주세요")
         }else if(addDetail===""){
@@ -18,6 +56,9 @@ const PayFixed = ({onDeleteItem, items, cost, receiverName, phoneNum, addInfo, a
         }
         else{
             navigate('/complete')
+            //추가로 firebase로 보내준다
+            await sendFirebase()
+
             for (let i = 0; i < items.length; i++) {
                 let id = items[i].id;
                 onDeleteItem(id);

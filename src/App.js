@@ -27,7 +27,11 @@ import { useDispatch } from 'react-redux'
 import { loginUserModule } from './modules/enteruser'
 import { loginSession } from './datasources/firebase'
 import PostEditForm from './pages/Create/PostEditForm'
+<<<<<<< HEAD
 import EditUser from './pages/EnterUser/Edit/EditUser'
+=======
+import PayList from './pages/PayList/PayList'
+>>>>>>> 63007c1d8a0230b3c251eda39ecf0d79a17308ce
 
 function App() {
   const location = useLocation()
@@ -90,6 +94,7 @@ function App() {
           </Route>
           <Route path="/cart" element={<Cart />} />
           <Route path="/complete" element={<Complete/> } />
+          <Route path="/paylist" element={<PayList/> } />
         </Routes>
       </main>
       {hideHeader(location.pathname) ? <Footer /> : null}

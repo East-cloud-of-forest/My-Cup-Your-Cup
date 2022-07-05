@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import { useEffect, useRef } from 'react'
 
-const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOnText }) => {
+const CanvasComp = ({
+  pic,
+  texts,
+  colorData,
+  setTexts,
+  selectOnText,
+  setSelectOnText,
+}) => {
   const canvasRef = useRef(null)
   const src = require(`../../components/createcomp/img/${pic}.png`)
 
@@ -215,8 +222,8 @@ const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOn
       this.select = // 왼 오 위 아래
         pos.x >= this.x - this.width / 2 &&
         pos.x <= this.x + this.width / 2 + 1 &&
-        pos.y >= this.y - this.height + 10 &&
-        pos.y <= this.y + 10
+        pos.y >= this.y - this.height + this.descent - 2 + 10 &&
+        pos.y <= this.y + this.descent - 1 + 10
       return this.select
     }
 
@@ -226,8 +233,8 @@ const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOn
           this.select = // 왼 오 위 아래
             pos.x >= this.x - this.width / 2 &&
             pos.x <= this.x + this.width / 2 + 1 &&
-            pos.y >= this.y - this.height + 10 &&
-            pos.y <= this.y + 10
+            pos.y >= this.y - this.height + this.descent - 2 + 10 &&
+            pos.y <= this.y + this.descent - 1 + 10
           if (this.select) {
             this.clickposX = pos.x
             this.clickposY = pos.y
@@ -262,13 +269,14 @@ const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOn
           break
         case 'resize':
           if (this.id === id) {
-            const dx = (pos.x - this.clickposX) * 0.5
+            const dx =
+              Math.abs(this.x - pos.x) - Math.abs(this.x - this.clickposX)
 
             this.clickposX = pos.x
             this.clickposY = pos.y
 
             // 최소값
-            if (this.size >= 12 ) {
+            if (this.size >= 12) {
               this.size = Number(this.size) + Number(dx)
             } else {
               this.size = 12
@@ -298,13 +306,11 @@ const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOn
       ctx.textAlign = 'center'
       ctx.fillStyle = this.color
       const text = ctx.measureText(this.text)
+      console.log(text)
       this.width = Number(text.width.toFixed(0)) + 20
-      this.height =
-        text.actualBoundingBoxAscent +
-        (text.actualBoundingBoxDescent < 0
-          ? 0
-          : text.actualBoundingBoxDescent) +
-        20
+      this.descent =
+        text.actualBoundingBoxDescent < 0 ? 0 : text.actualBoundingBoxDescent
+      this.height = text.actualBoundingBoxAscent + this.descent + 20
       ctx.fillText(this.text, this.x, this.y)
 
       // 선택 박스
@@ -315,7 +321,7 @@ const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOn
         ctx.lineWidth = 1
         ctx.strokeRect(
           this.x - this.width / 2,
-          this.y - this.height + 10,
+          this.y - this.height + this.descent + 10,
           this.width,
           this.height,
         )
@@ -323,17 +329,27 @@ const CanvasComp = ({ pic, texts, colorData, setTexts, selectOnText, setSelectOn
         this.circle[0].draw(
           ctx,
           this.x - this.width / 2,
-          this.y - this.height + 10,
+          this.y - this.height + this.descent + 10,
           id,
         )
         this.circle[1].draw(
           ctx,
           this.x + this.width / 2,
-          this.y - this.height + 10,
+          this.y - this.height + this.descent + 10,
           id,
         )
-        this.circle[2].draw(ctx, this.x + this.width / 2, this.y + 10, id)
-        this.circle[3].draw(ctx, this.x - this.width / 2, this.y + 10, id)
+        this.circle[2].draw(
+          ctx,
+          this.x + this.width / 2,
+          this.y + this.descent + 10,
+          id,
+        )
+        this.circle[3].draw(
+          ctx,
+          this.x - this.width / 2,
+          this.y + this.descent + 10,
+          id,
+        )
       }
     }
   }
