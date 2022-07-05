@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import queryString from 'query-string'
 import './EditUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
-import { addFirebaseData, createUser, setFirebaseData, uploadFirestorage } from '../../../datasources/firebase'
-import { updateProfile } from 'firebase/auth'
+import { setFirebaseData, uploadFirestorage } from '../../../datasources/firebase'
+import { getAuth, updateProfile } from 'firebase/auth'
 import { useSelector } from 'react-redux'
 
 const EditUser = () => {
@@ -15,12 +15,12 @@ const EditUser = () => {
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
   const [profilePic, setProfilePic] = useState(null)
   const [photoURL, setPhotoURL] = useState(null)
-  const [password, setPassword] = useState('')
   const [nameInput, setNameInput] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [birthYear, setBirthYear] = useState('')
-  const [birthMonth, setBirthMonth] = useState('')
-  const [birthDate, setBirthDate] = useState('')
+  // const [password, setPassword] = useState('')
+  // const [phoneNumber, setPhoneNumber] = useState('')
+  // const [birthYear, setBirthYear] = useState('')
+  // const [birthMonth, setBirthMonth] = useState('')
+  // const [birthDate, setBirthDate] = useState('')
   const { user } = useSelector((user) => user.enteruser)
 
   // 프로필사진 업로드
@@ -28,28 +28,28 @@ const EditUser = () => {
     setProfilePic(e.target.files[0]); 
   }
   // 비밀번호 onChange
-  const signupPassword = (e) => {
-    setPassword(e.target.value)
-  }
+  // const signupPassword = (e) => {
+  //   setPassword(e.target.value)
+  // }
 
   // 이름, 휴대폰번호 onChange
   const InputName = (e) => {
     setNameInput(e.target.value)
   }
-  const InputPhoneNumber = (e) => {
-    setPhoneNumber(e.target.value)
-  }
+  // const InputPhoneNumber = (e) => {
+  //   setPhoneNumber(e.target.value)
+  // }
 
-  // 생년월일 onChange
-  const inputYear = (e) => {
-    setBirthYear(e.target.value)
-  }
-  const inputMonth = (e) => {
-    setBirthMonth(e.target.value)
-  }
-  const inputDate = (e) => {
-    setBirthDate(e.target.value)
-  }
+  // // 생년월일 onChange
+  // const inputYear = (e) => {
+  //   setBirthYear(e.target.value)
+  // }
+  // const inputMonth = (e) => {
+  //   setBirthMonth(e.target.value)
+  // }
+  // const inputDate = (e) => {
+  //   setBirthDate(e.target.value)
+  // }
 
   // 파이어스토리지에 사진 올리기
   useEffect( () => {
@@ -58,18 +58,34 @@ const EditUser = () => {
     uploadFirestorage('user', name, profilePic).then(
       result => {
         setPhotoURL(result)
-        console.log(result)}
+      }
     )
     
   }
   profilePic && uploadFile()
-  profilePic && console.log("file uploaded") 
 }, [profilePic])
 
 
   // 수정 기능 실행
-  function editProfile(user) {
-  
+  const editProfile = async () => {
+    const auth = getAuth()
+    // if (nameInput == '' ) {
+    //   alert('이름을 입력해주세요')
+    // }
+    updateProfile(auth.currentUser, {
+      displayName: nameInput,
+      photoURL: photoURL,
+    })
+    .then((nameInput, photoURL) => {
+      console.log('Successfully updated user', nameInput, photoURL);
+    })
+    .then( ()=> {
+      navi('/')
+      window.location.reload()
+    } )
+    .catch((error) => {
+      console.log('Error fetching user data:', error);
+    });
   }
 
   return (
@@ -175,7 +191,7 @@ const EditUser = () => {
           </div>
 
           <div className="btn_box">
-            <ButtonComp color="mint" onClick={() => editProfile(user)}>
+            <ButtonComp color="mint" onClick={() => editProfile()}>
               <h4 style={{ padding: 0, margin: 0 }}>수정하기</h4>
             </ButtonComp>
           </div>

@@ -9,7 +9,7 @@ const TempReviewThumbnail = (props) => {
   const [number, setNumber] = useState(0)
   //const { boardImage, boardTitle, boardRating, boardContent } = props.board
   const { review, rating, user, images } = props.review
-  console.log(user)
+  
   return (
     <Card id="review_card">
       <Card.Img variant="top" src={images.image0} />

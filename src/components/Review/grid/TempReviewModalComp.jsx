@@ -12,8 +12,6 @@ import TempReviewThumbnail from './TempReviewThumbnail'
 
 const TempReviewModalComp = (props) => {
   const { review, rating, tages, user, images } = props.review
-  console.log(Object.values(images))
-  
   // props = 
   // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
