@@ -1,39 +1,33 @@
 import { React, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import queryString from 'query-string'
-import './JoinUser.scss'
+import './EditUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
-import { addFirebaseData, createUser, uploadFirestorage } from '../../../datasources/firebase'
+import { addFirebaseData, createUser, setFirebaseData, uploadFirestorage } from '../../../datasources/firebase'
 import { updateProfile } from 'firebase/auth'
-//import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+import { useSelector } from 'react-redux'
 
-const JoinPage = () => {
+const EditUser = () => {
   const { search } = useLocation()
-  // 동의서
-  const agreeObj = queryString.parse(search)
 
   const navi = useNavigate()
 
   //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
   const [profilePic, setProfilePic] = useState(null)
   const [photoURL, setPhotoURL] = useState(null)
-  const [emailInput, setEmailInput] = useState('')
   const [password, setPassword] = useState('')
   const [nameInput, setNameInput] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
   const [birthDate, setBirthDate] = useState('')
-  const [gender, setGender] = useState('')
+  const { user } = useSelector((user) => user.enteruser)
 
   // 프로필사진 업로드
   const InputFile = (e) => {
     setProfilePic(e.target.files[0]); 
   }
-  // 이메일 비밀번호 onChange
-  const InputEmail = (e) => {
-    setEmailInput(e.target.value)
-  }
+  // 비밀번호 onChange
   const signupPassword = (e) => {
     setPassword(e.target.value)
   }
@@ -57,10 +51,6 @@ const JoinPage = () => {
     setBirthDate(e.target.value)
   }
 
-  // 성별 선택 onChange
-  const genderChange = (e) => { 
-    setGender(e.target.value)
-  }
   // 파이어스토리지에 사진 올리기
   useEffect( () => {
     const uploadFile = () => {
@@ -75,48 +65,19 @@ const JoinPage = () => {
   profilePic && uploadFile()
   profilePic && console.log("file uploaded") 
 }, [profilePic])
+
+
+  // 수정 기능 실행
+  function editProfile(user) {
   
-    // const storageRef = ref(storage, 'user/' + name);
-    // uploadBytes(storageRef, profilePic).then(
-    //   (r) => { getDownloadURL(r.ref).then((downloadURL) => {
-    //     setPhotoURL(downloadURL)
-    //     });
-    //   }
-    // )
-
-
-  // 회원가입 기능 실행
-  function Join() {
-    createUser(emailInput, password)
-      .then(async ({ user }) => {
-        const uid = user.uid
-        await updateProfile(user, {
-          displayName: nameInput, 
-        })
-        await addFirebaseData('user', {
-          userid: uid,
-          displayName: nameInput,
-          birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
-          gender: gender,
-          phone: phoneNumber,
-          agreement: agreeObj,
-          photo: photoURL
-        })
-        alert('회원가입이 완료 되었습니다')
-        navi('/')
-      })
-      .catch((e) => {
-        alert('회원가입 실패' + e)
-      })
   }
-
-  //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
 
   return (
     <main className="JoinMain">
       <div className="Joinmain_signup">
         <section className="Joinsignup_wrap">
           <div className='.Join_photoURL'>
+            <h2> 프로필 수정</h2>
           <img
               src={
                 profilePic
@@ -132,15 +93,7 @@ const JoinPage = () => {
             style={{display: "block"}}
             />
           </div>
-          <div className="Joinid_password_input">
-            <h3 className="Jointext">이메일</h3>
-            <span className="Joinsignup_input">
-              <input
-                onChange={InputEmail}
-                className="Joinsignup_id"
-                type="email"
-              ></input>
-            </span>
+          {/* <div className="Joinid_password_input">
 
             <h3 className="Jointext">비밀번호</h3>
             <span className="Joinsignup_input">
@@ -150,12 +103,7 @@ const JoinPage = () => {
                 type="password"
               ></input>
             </span>
-
-            {/* <h3 className="Jointext">비밀번호 재확인</h3>
-            <span className="Joinsignup_input">
-              <input className="Joinsignup_pww" type="text"></input>
-            </span> */}
-          </div>
+          </div> */}
 
           <div className="Joinname_birth_gender_email">
             <h3 className="Jointext">이름</h3>
@@ -168,7 +116,7 @@ const JoinPage = () => {
               ></input>
             </span>
 
-            <h3 className="Jointext">생년월일</h3>
+            {/* <h3 className="Jointext">생년월일</h3>
 
             <span className="JoinbirthOption">
               <span className="Joinsignup_input_birth">
@@ -189,19 +137,6 @@ const JoinPage = () => {
                   placeholder="월"
                   maxLength="2"
                 >
-                  {/* <option value="month" id="optionn">월</option>
-                  <option value="1" id="one">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option> */}
                 </input>
               </span>
 
@@ -215,31 +150,6 @@ const JoinPage = () => {
                 ></input>
               </span>
             </span>
-
-            <h3 className="Jointext">성별</h3>
-
-            <span className="Joinsignup_input">
-              <select
-                onChange={genderChange}
-                className="Joinsignup_gender"
-                name="gender"
-              >
-                <option value="성별 선택">성별 선택</option>
-                <option value="남자">남자</option>
-                <option value="여자">여자</option>
-              </select>
-            </span>
-
-            {/* <span className="Joinchoice">
-              <h3 className="Jointext">본인 확인 이메일 (불필요, 삭제)</h3>
-            </span>
-            <span className="Joinsignup_input">
-              <input
-                className="Joinsignup_email"
-                type="text"
-                placeholder="선택입력"
-              ></input>
-            </span> */}
           </div>
 
           <div className="JoininputPhone">
@@ -261,12 +171,12 @@ const JoinPage = () => {
                   maxLength="11"
                 ></input>
               </span>
-            </div>
+            </div> */}
           </div>
 
           <div className="btn_box">
-            <ButtonComp color="mint" onClick={Join}>
-              <h4 style={{ padding: 0, margin: 0 }}>가입하기</h4>
+            <ButtonComp color="mint" onClick={() => editProfile(user)}>
+              <h4 style={{ padding: 0, margin: 0 }}>수정하기</h4>
             </ButtonComp>
           </div>
         </section>
@@ -275,4 +185,4 @@ const JoinPage = () => {
   )
 }
 
-export default JoinPage
+export default EditUser
