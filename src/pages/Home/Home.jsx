@@ -2,6 +2,7 @@ import './Home.scss'
 import { ButtonComp, SliderComp } from '../../components/index-comp/IndexComp'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 //import "../../dummies/illustrations/slideImage_disney.jpg"
 const Home = () => {
   const aaa = useSelector(a=>a)
@@ -17,6 +18,8 @@ const Home = () => {
   //   circleitem.push(`../../dummies/illustrations/tag${i+1}.jpg`)
   // }
 
+  const navigate = useNavigate()
+
   const reviewitem = []
   for (let i = 0; i < 8; i++) {
     reviewitem.push('리뷰 ' + (i + 1))
@@ -31,7 +34,7 @@ const Home = () => {
     <div className="maincomp">
       <div className="main_banner">
         메인 배너
-        <ButtonComp>텀블러 제작하러 가기</ButtonComp>
+        <ButtonComp onClick={()=>{navigate('/create')}} >텀블러 제작하러 가기</ButtonComp>
       </div>
       <div className="main_slide">
         <SliderComp infinite={true} autoplay={true}>
