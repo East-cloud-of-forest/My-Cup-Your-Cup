@@ -101,10 +101,7 @@ const SelectComp = ({ getTypeData, getProductName, colorName, tumShape }) => {
   };
 
   const doneDesign = (kind) => {
-    switch (kind) {
-      case "cart":
-      case "pay":
-        onAddItem({
+    onAddItem({
           image: null,
           name: tumMet.name + tumSize.name,
           color: colorName,
@@ -115,6 +112,9 @@ const SelectComp = ({ getTypeData, getProductName, colorName, tumShape }) => {
           price: tumMet.price + tumSize.price + tumStraw.price,
           quantity: count,
         });
+    switch (kind) {
+      case "cart":
+      case "pay":
         navigate("/" + kind);
         break;
       case "upload":

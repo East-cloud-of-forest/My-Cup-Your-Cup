@@ -22,7 +22,8 @@ const ReviewPage = () => {
   useEffect( () => aaa(), [])
   
   const { review } = useSelector(state => state.firebaseData)
-  console.log(review)
+  review.map(r=> console.log(r))
+
 
   return (
     <div className="review_page">
@@ -30,12 +31,18 @@ const ReviewPage = () => {
       <Container fluid>
         <Row>
           {
-            // reviews.map( review => (
-            //   <Col xl="2" lg="3" md="4" sm="6" key={review.id} className="review_card">
+            review.map( r => (
+              <Col xl="2" lg="3" md="4" sm="6" key={r.id} className="review_card">
+                <ReviewAndModalComp board={r}/>
               
-            //   <p>{review}</p>
-            // </Col>
-            // ))
+              {/* <p>{r.id}</p>
+               <p>{r.data.rating}</p>
+              <p>{r.data.heart}</p>
+              <p>{r.data.review}</p>
+              <p>{r.data.tages}</p>
+              <p>{r.data.user}</p> */}
+            </Col>
+            ))
           }
         </Row>
         <Row>
