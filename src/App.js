@@ -27,7 +27,11 @@ import { useDispatch } from 'react-redux'
 import { loginUserModule } from './modules/enteruser'
 import { loginSession } from './datasources/firebase'
 import PostEditForm from './pages/Create/PostEditForm'
+<<<<<<< HEAD
+import EditUser from './pages/EnterUser/Edit/EditUser'
+=======
 import PayList from './pages/PayList/PayList'
+>>>>>>> 63007c1d8a0230b3c251eda39ecf0d79a17308ce
 
 function App() {
   const location = useLocation()
@@ -38,6 +42,7 @@ function App() {
       case '/enteruser/join':
       case '/review/write':
       case '/create/upload':
+      case '/editprofile':
         return false
       default:
         return true
@@ -77,6 +82,7 @@ function App() {
             <Route path="/enteruser/join" element={<JoinUser />} />
             <Route path="/enteruser/agree" element={<Agreement />} />
           </Route>
+          <Route path="/editprofile" element={<EditUser/>} />
           <Route path="/QnAmenu" element={<QnAmenu />} />
           <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
           <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />

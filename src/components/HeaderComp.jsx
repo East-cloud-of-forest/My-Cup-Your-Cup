@@ -200,11 +200,20 @@ const Header = () => {
                         <div className="user_svg">
                           <FontAwesomeIcon icon={solid("user")} size="4x" />
                         </div>
-                      )}
+                      )} 
                     </div>
+                    
                   </li>
                   <li>
-                    <p>{user.displayName}</p>
+                    <p className="name_editBtn">{user.displayName}
+                      <span>
+                        <ButtonComp icon onClick={()=>{
+                          navi('/editprofile')
+                          offSidebar() }}>
+                          <FontAwesomeIcon icon={solid("pencil")}  />
+                        </ButtonComp>
+                      </span>
+                    </p>
                     <p>{user.email}</p>
                   </li>
                   <li>

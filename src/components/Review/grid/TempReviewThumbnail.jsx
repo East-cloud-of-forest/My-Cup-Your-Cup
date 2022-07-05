@@ -9,7 +9,7 @@ const TempReviewThumbnail = (props) => {
   const [number, setNumber] = useState(0)
   //const { boardImage, boardTitle, boardRating, boardContent } = props.board
   const { review, rating, user, images } = props.review
-
+  console.log(user)
   return (
     <Card id="review_card">
       <Card.Img variant="top" src={images.image0} />
@@ -34,13 +34,21 @@ const TempReviewThumbnail = (props) => {
         <div className="caption review_footer">
           <span>2022-06-01</span>
           <span>
-            <ProfileComp
-              justName
-              imageURL={
-                'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'
-              }
-              userName='user1'
-            ></ProfileComp>
+            {
+              // user.photoURL ? 
+              <ProfileComp
+                justName
+                imageURL={user.photoURL}
+                userName={user.displayName}
+              ></ProfileComp>
+              //  :
+              // <ProfileComp
+              //   justName
+              //   imageURL={null}
+              //   userName={user.displayName}
+              // ></ProfileComp>
+            }
+            
           </span>
         </div>
       </Card.Body>
