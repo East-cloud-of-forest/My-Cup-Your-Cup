@@ -69,21 +69,20 @@ const LoginMainPage = () => {
       setEmailAlert(false)
       setEmailAndPasswordAlert(false)
     } else if (password !== '') {
-      saveLoginInfo()
-        .then(() => {
-          emailLogin(email, password).then((result) => {
+      saveLoginInfo().then(() => {
+        emailLogin(email, password)
+          .then((result) => {
             loginUser(result.user)
             const hiEmailUser = result.user.email
             alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`)
             navi('/')
           })
-        })
-        .catch((e) => {
-          setEmailAlert(false)
-          setPasswordAlert(false)
-          setEmailAndPasswordAlert(true)
-          console.log(e)
-        })
+          .catch((e) => {
+            setEmailAlert(false)
+            setPasswordAlert(false)
+            setEmailAndPasswordAlert(true)
+          })
+      })
     }
   }
 
