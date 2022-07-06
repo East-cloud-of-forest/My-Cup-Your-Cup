@@ -113,7 +113,7 @@ export const SliderComp = ({
   }
 
   return (
-    <div>
+    <div style={{width : '100%'}}>
       <Slider {...settings}>{children}</Slider>
     </div>
   )

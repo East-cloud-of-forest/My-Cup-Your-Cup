@@ -36,9 +36,14 @@
         text-align: center;
         cursor: pointer;
 
-        svg {
-          height: 20px;
-          margin: 0 0 5px 0;
+        button {
+          margin: 0;
+          width: 44px;
+
+          svg {
+            font-size: 1.5rem;
+            height: 24px;
+          }
         }
       }
     }
@@ -103,7 +108,7 @@
       position: relative;
       margin-bottom: 1rem;
 
-      > div {
+      .cre_editdiv2, .cre_acc_click, > div {
         font-size: 0.9rem;
         cursor: pointer;
         align-items: center;
@@ -120,6 +125,15 @@
           border: 2px solid #60ab90;
           color: #60ab90;
           opacity: 0.9;
+        }
+      }
+
+      .unactive {
+        opacity: 0.7;
+
+        svg {
+          border: 2px solid grey;
+          color: grey;
         }
       }
 
@@ -146,6 +160,10 @@
         div {
           margin: 0 0.5rem;
         }
+      }
+
+      #imageUpload {
+        display: none;
       }
     }
   }

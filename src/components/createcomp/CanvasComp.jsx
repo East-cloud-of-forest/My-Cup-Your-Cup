@@ -3,18 +3,19 @@ import { useEffect, useRef } from 'react'
 
 const CanvasComp = ({
   pic,
-  texts,
+  canvasObjects,
   colorData,
-  setTexts,
-  selectOnText,
-  setSelectOnText,
+  setCanvasObjects,
+  selectOnObject,
+  setSelectOnObject,
 }) => {
   const canvasRef = useRef(null)
   const src = require(`../../components/createcomp/img/${pic}.png`)
+  console.log(selectOnObject)
 
   class App {
     constructor() {
-      console.log(texts)
+      console.log(canvasObjects)
       this.canvas = canvasRef.current
       this.ctx = this.canvas.getContext('2d')
       this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1
@@ -22,10 +23,11 @@ const CanvasComp = ({
       this.mousePos = { x: 0, y: 0 }
       this.mouseDown = false
 
-      this.Text = []
+      this.Obj = []
       this.circle = []
+      this.Image = []
       this.onDownText = null
-      this.selectOnText = selectOnText
+      this.selectOnObject = selectOnObject
 
       this.resizeHandler = this.resize.bind(this)
       window.addEventListener('resize', this.resizeHandler, false)
@@ -55,18 +57,22 @@ const CanvasComp = ({
       for (let i = 0; i < 4; i++) {
         this.circle.push(new Circle())
       }
-      texts.map((text, i) => {
-        this.Text[i] = new Text(
-          text.text,
-          text.font,
-          text.size,
-          text.color,
+      canvasObjects.map((obj, i) => {
+        this.Obj[i] = new Obj(
+          obj.text,
+          obj.font,
+          obj.size,
+          obj.color,
           i,
-          text.x,
-          text.y,
+          obj.x,
+          obj.y,
           this.stageWidth,
           this.stageHeight,
           this.circle,
+          obj.type,
+          obj.img,
+          obj.width,
+          obj.height,
         )
       })
     }
@@ -74,8 +80,8 @@ const CanvasComp = ({
     animate() {
       this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight)
 
-      this.Text.map((text) => {
-        text.draw(this.ctx, this.selectOnText)
+      this.Obj.map((text) => {
+        text.draw(this.ctx, this.selectOnObject)
       })
 
       this.animateHandler2 = window.requestAnimationFrame(
@@ -91,7 +97,7 @@ const CanvasComp = ({
       this.mousePos.y = parseInt(
         e.clientY - e.currentTarget.getBoundingClientRect().top,
       )
-      const boxArray = this.Text.map((text) => text.mouseOver(this.mousePos))
+      const boxArray = this.Obj.map((obj) => obj.mouseOver(this.mousePos))
       const circleArray = this.circle.map((c) => c.mouseOver(this.mousePos))
       if (!this.mouseDown) {
         if (circleArray.filter((a) => a === true).length !== 0) {
@@ -126,11 +132,11 @@ const CanvasComp = ({
       this.mouseDown = true
       switch (this.mouseVersion) {
         case 'move':
-          this.Text.map((text) => {
-            const selectid = text.onDown(this.mousePos, this.mouseVersion)
+          this.Obj.map((obj) => {
+            const selectid = obj.onDown(this.mousePos, this.mouseVersion)
             if (selectid !== undefined) {
               this.onDownText = selectid
-              this.selectOnText = selectid
+              this.selectOnObject = selectid
             }
           })
           break
@@ -138,8 +144,8 @@ const CanvasComp = ({
           let circleId
           this.circle.map((c) => (circleId = c.onDown()))
           this.onDownText = circleId
-          this.Text.map((text) => {
-            text.onDown(
+          this.Obj.map((obj) => {
+            obj.onDown(
               this.mousePos,
               this.mouseVersion,
               circleId,
@@ -148,7 +154,7 @@ const CanvasComp = ({
           })
           break
         case 'none':
-          setSelectOnText(null)
+          setSelectOnObject(null)
           break
       }
     }
@@ -163,13 +169,13 @@ const CanvasComp = ({
       if (this.mouseDown) {
         switch (this.mouseVersion) {
           case 'move':
-            this.Text.forEach((text) => {
-              text.onMove(this.mousePos, this.onDownText, this.mouseVersion)
+            this.Obj.forEach((obj) => {
+              obj.onMove(this.mousePos, this.onDownText, this.mouseVersion)
             })
             break
           case 'resize':
-            this.Text.forEach((text) => {
-              text.onMove(this.mousePos, this.onDownText, this.mouseVersion)
+            this.Obj.forEach((obj) => {
+              obj.onMove(this.mousePos, this.onDownText, this.mouseVersion)
             })
             break
         }
@@ -178,7 +184,7 @@ const CanvasComp = ({
 
     onUp(e) {
       this.mouseDown = false
-      this.Text.forEach((text) => {
+      this.Obj.forEach((text) => {
         text.onUp(this.onDownText)
       })
     }
@@ -195,7 +201,7 @@ const CanvasComp = ({
   }
 
   // text
-  class Text {
+  class Obj {
     constructor(
       text,
       font,
@@ -207,6 +213,10 @@ const CanvasComp = ({
       stageWidth,
       stageHeight,
       circle,
+      type,
+      img,
+      width,
+      height,
     ) {
       this.text = text
       this.font = font
@@ -216,6 +226,32 @@ const CanvasComp = ({
       this.y = y === -1000 ? stageHeight / 2 : y
       this.id = id
       this.circle = circle
+      this.type = type
+      this.img = img
+      this.descent = 0
+      // 이미지 일경우
+      if (!type) {
+        // 이미지가 화면보다 큰 경우
+        if (width < height) {
+          if (height > stageHeight) {
+            this.height = stageHeight * 0.8
+            this.width = width * (this.height / height)
+          } else {
+            this.width = width
+            this.height = height
+          }
+        } else if (height < width) {
+          if (width > stageWidth) {
+            this.width = stageWidth * 0.8
+            this.height = height * (this.width / width)
+          } else {
+            this.width = width
+            this.height = height
+          }
+        }
+        // 높이 가운데 정렬
+        this.y = y === -1000 ? stageHeight / 2 + this.height / 2 : y
+      }
     }
 
     mouseOver(pos) {
@@ -271,15 +307,19 @@ const CanvasComp = ({
           if (this.id === id) {
             const dx =
               Math.abs(this.x - pos.x) - Math.abs(this.x - this.clickposX)
-
             this.clickposX = pos.x
             this.clickposY = pos.y
-
-            // 최소값
-            if (this.size >= 12) {
-              this.size = Number(this.size) + Number(dx)
+            if (this.type) {
+              // 최소값
+              if (this.size >= 12) {
+                this.size = Number(this.size) + Number(dx)
+              } else {
+                this.size = 12
+              }
             } else {
-              this.size = 12
+              const dwidth = Number(this.width) + Number(dx)
+              this.height = Number(this.height) * (dwidth / this.width)
+              this.width = Number(this.width) + Number(dx)
             }
           }
           break
@@ -288,29 +328,51 @@ const CanvasComp = ({
 
     onUp(id) {
       if (this.id === id) {
-        const textsclone = [...texts]
-        textsclone[this.id] = {
-          ...textsclone[this.id],
+        const Objsclone = [...canvasObjects]
+        Objsclone[this.id] = {
+          ...Objsclone[this.id],
           x: this.x,
           y: this.y,
           id: this.id,
           size: this.size,
         }
-        setTexts(textsclone)
-        setSelectOnText(this.id)
+        if (this.type) {
+          Objsclone[this.id] = {
+            ...Objsclone[this.id],
+            size: this.size,
+          }
+        } else {
+          Objsclone[this.id] = {
+            ...Objsclone[this.id],
+            width: this.width,
+            height: this.height,
+          }
+        }
+        setCanvasObjects(Objsclone)
+        setSelectOnObject(this.id)
       }
     }
 
     draw(ctx, id) {
-      ctx.font = this.size + 'px ' + this.font
-      ctx.textAlign = 'center'
-      ctx.fillStyle = this.color
-      const text = ctx.measureText(this.text)
-      this.width = Number(text.width.toFixed(0)) + 20
-      this.descent =
-        text.actualBoundingBoxDescent < 0 ? 0 : text.actualBoundingBoxDescent
-      this.height = text.actualBoundingBoxAscent + this.descent + 20
-      ctx.fillText(this.text, this.x, this.y)
+      if (this.type === 'text') {
+        ctx.font = this.size + 'px ' + this.font
+        ctx.textAlign = 'center'
+        ctx.fillStyle = this.color
+        const text = ctx.measureText(this.text)
+        this.width = Number(text.width.toFixed(0)) + 20
+        this.descent =
+          text.actualBoundingBoxDescent < 0 ? 0 : text.actualBoundingBoxDescent
+        this.height = text.actualBoundingBoxAscent + this.descent + 20
+        ctx.fillText(this.text, this.x, this.y)
+      } else {
+        ctx.drawImage(
+          this.img,
+          this.x - this.width / 2,
+          this.y - this.height + 10,
+          this.width,
+          this.height,
+        )
+      }
 
       // 선택 박스
       if (id === this.id) {
@@ -388,7 +450,7 @@ const CanvasComp = ({
     return () => {
       appclass.remove()
     }
-  }, [pic, texts, colorData, canvasRef, selectOnText])
+  }, [pic, canvasObjects, colorData, canvasRef, selectOnObject])
 
   return (
     <canvas

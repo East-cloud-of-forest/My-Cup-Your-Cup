@@ -267,7 +267,7 @@ $facebook: #475a96;
       background-color: black;
       display: flex;
       align-items: center;
-
+      
       img {
         width: 100%;
       }
@@ -304,6 +304,17 @@ $facebook: #475a96;
         span {
           color: grey;
         }
+      }
+    }
+  }
+
+  .slick-track {
+    display: flex;
+    align-items: center;
+
+    div {
+      > div {
+        display: flex;
       }
     }
   }

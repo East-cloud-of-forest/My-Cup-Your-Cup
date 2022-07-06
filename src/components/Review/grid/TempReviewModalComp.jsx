@@ -12,20 +12,19 @@ import TempReviewThumbnail from './TempReviewThumbnail'
 
 const TempReviewModalComp = (props) => {
   const { review, rating, tages, user, images } = props.review
-  // props = 
+  // props =
   // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
     <div>
       <ModalComp
         button={<TempReviewThumbnail review={props.review} />}
         image={
-          <SliderComp>
+          <SliderComp dots={false} infinite={true}>
             { Object.values(images).map( image => (
               <div>
-                <img src={image} key={image} alt="review-image" />
+                <img id="image" src={image} key={image} alt="review-image" />
               </div>
             ))}
-            
           </SliderComp>
         }
         className="review_modal"
@@ -45,7 +44,9 @@ const TempReviewModalComp = (props) => {
             <p>옵션04</p>
           </div>
           <div className="hashtag">
-            {tages.map( (tag,i) => <span key={i}>{tag}</span>)}
+            {tages.map((tag, i) => (
+              <span key={i}>{tag}</span>
+            ))}
           </div>
           <p>{review}</p>
           <div className="score">
@@ -62,11 +63,7 @@ const TempReviewModalComp = (props) => {
 
         <div className="modal_footer">
           <div className="profile_block">
-            <ProfileComp
-              justName
-              imageURL={user.photoURL}
-              size="md"
-            />
+            <ProfileComp justName imageURL={user.photoURL} size="md" />
             <div>
               <p>{user.displayName}</p>
               <p className="caption">2022-06-07</p>
