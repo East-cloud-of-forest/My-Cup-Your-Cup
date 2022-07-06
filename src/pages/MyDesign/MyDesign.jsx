@@ -4,6 +4,7 @@ import MyDesigns from "../../components/MyDesignComp/Grid/MyDesigns";
 import LikedDesigns from "../../components/MyDesignComp/Grid/LikedDesigns";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import MyReviewsComp from "../../components/MyDesignComp/Grid/MyReviews";
 
 const MyDesign = () => {
   const {user} = useSelector((user)=> user.enteruser)
@@ -40,7 +41,8 @@ const MyDesign = () => {
         {
           user? ( <>
           <MyDesigns user={user} />
-          <LikedDesigns user={user} /> 
+          <LikedDesigns user={user} />
+          <MyReviewsComp user ={user} /> 
         </> ) : null
         }
       </div>

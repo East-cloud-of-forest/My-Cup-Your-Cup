@@ -21,8 +21,8 @@ const TempReviewModalComp = (props) => {
         image={
           <SliderComp dots={false} infinite={true}>
             { Object.values(images).map( image => (
-              <div style={{display: 'flex'}} className="1111">
-                <img src={image} key={image} alt="review-image" />
+              <div>
+                <img id="image" src={image} key={image} alt="review-image" />
               </div>
             ))}
           </SliderComp>
