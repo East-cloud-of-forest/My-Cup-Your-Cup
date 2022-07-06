@@ -217,9 +217,9 @@ const Header = () => {
                     <p>{user.email}</p>
                   </li>
                   <li>
-                    <ButtonComp color="white" onClick={offSidebar}>
-                      마이페이지
-                    </ButtonComp>
+                    <Link to="/paylist" onClick={offSidebar}>
+                      <ButtonComp color="white">결제내역</ButtonComp>
+                    </Link>
                   </li>
                   <li>
                     <Link to="/mydesign" onClick={offSidebar}>
