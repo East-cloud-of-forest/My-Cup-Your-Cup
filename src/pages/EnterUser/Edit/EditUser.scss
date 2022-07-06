@@ -14,6 +14,13 @@
   h2 {
     margin: 2rem;
   }
+  .filebox {
+    padding: 5px;
+    
+    label { margin: 1rem; padding: 5px; border-radius: 5px; background-color: lightgrey;}
+    span { margin: 1rem; padding: 5px;  border-radius: 5px; background-color: lightgrey;}
+  }
+  
   /* 모든 제목창 디자인 */
   & .Jointext {
     margin: 1rem 0px 0.5rem;
@@ -29,6 +36,7 @@
     border-radius: 50%;
     object-fit: cover;
   }
+
   /* 아이디, 비밀번호/재확인 입력창 외부 디자인 */
   & .Joinsignup_input,
   & .JoinphoneNumberSpan {
@@ -38,47 +46,38 @@
     border-radius: 7px;
     background: #fff;
     width: 100%;
-
-    // 입력 창 디자인
-    & input,
-    select {
-      width: 100%;
-      height: 29px;
-      border: none;
-      outline: none;
-    }
   }
 
-  & .Joinname_birth_gender_email {
-    margin-top: 3rem;
+  // & .Joinname_birth_gender_email {
+  //   margin-top: 3rem;
   
-    & .JoinbirthOption {
-      display: flex;
-      justify-content: space-between;
+  //   & .JoinbirthOption {
+  //     display: flex;
+  //     justify-content: space-between;
   
-      & .Joinsignup_input_birth {
-        display: block;
-        position: relative;
-        width: 31%;
-        height: 51px;
-        border: solid 1px #dadada;
-        padding: 10px;
-        background: #fff;
-        box-sizing: border-box;
-        border-radius: 7px;
+  //     & .Joinsignup_input_birth {
+  //       display: block;
+  //       position: relative;
+  //       width: 31%;
+  //       height: 51px;
+  //       border: solid 1px #dadada;
+  //       padding: 10px;
+  //       background: #fff;
+  //       box-sizing: border-box;
+  //       border-radius: 7px;
   
-        /* 생년월일 입력창 */
-        & .Joinsignup_birth_yy,
-        & .Joinsignup_birth_mm,
-        & .Joinsignup_birth_dd {
-          width: 113px;
-          height: 29px;
-          border: none;
-          outline: none;
-        }
-      }
-    }
-  }
+  //       /* 생년월일 입력창 */
+  //       & .Joinsignup_birth_yy,
+  //       & .Joinsignup_birth_mm,
+  //       & .Joinsignup_birth_dd {
+  //         width: 113px;
+  //         height: 29px;
+  //         border: none;
+  //         outline: none;
+  //       }
+  //     }
+  //   }
+  // }
   
   // 휴대전화 입력창
   & .JoininputPhone {
