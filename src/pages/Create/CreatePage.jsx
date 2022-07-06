@@ -2,12 +2,6 @@ import './Create.scss'
 import SelectComp from '../../components/createcomp/SelectComp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faArrowRotateBack,
-  faArrowRotateForward,
-  faArrowsAltV,
-  faArrowsAltH,
-  faTrash,
-  faPaintBrush,
   faWhiskeyGlass,
   faFileArrowUp,
   faFont,
@@ -119,43 +113,73 @@ const CreatePage = () => {
     }
   }, [material])
 
-  // 텍스트 추가 임시
-  const [texts, setTexts] = useState([])
-  const [textId, settextId] = useState(0)
+  // 요소 추가
+  const [canvasObjects, setCanvasObjects] = useState([])
+  const [objId, setObjId] = useState(0)
 
-  // 텍스트 선택
-  const [selectOnText, setSelectOnText] = useState(null)
+  // 요소 선택
+  const [selectOnObject, setSelectOnObject] = useState(null)
 
   const addText = () => {
-    const textsClone = [...texts]
-    textsClone.push({
+    const objClone = [...canvasObjects]
+    objClone.push({
+      type: 'text',
       text: '텍스트',
       font: 'ROKAFSansBold',
       size: 32,
       color: '#000000',
-      id: textId,
+      id: objId,
       x: -1000,
       y: -1000,
     })
-    setTexts(textsClone)
-    setSelectOnText(texts.length)
+    setCanvasObjects(objClone)
+    setSelectOnObject(canvasObjects.length)
     sideEditToggle()
-    settextId(textId + 1)
+    setObjId(objId + 1)
   }
 
+  // 파일 추가
+  const fileUpload = (e) => {
+    const img = new Image()
+    Array.from(e.target.files).forEach((file) => {
+      img.src = URL.createObjectURL(file)
+    })
+    const imagesclone = [...canvasObjects]
+    img.onload = () => {
+      imagesclone.push({
+        img: img,
+        id: objId,
+        x: -1000,
+        y: -1000,
+        width: img.width,
+        height: img.height,
+      })
+      setCanvasObjects(imagesclone)
+      setSelectOnObject(canvasObjects.length)
+      sideEditToggle()
+      setObjId(objId + 1)
+    }
+  }
+
+  // 삭제
   const deletText = () => {
-    const textsClone = texts.filter(
-      (text) => text.id !== texts[selectOnText].id,
+    const objClone = canvasObjects.filter(
+      (text) => text.id !== canvasObjects[selectOnObject].id,
     )
-    setTexts(textsClone)
-    setSelectOnText(null)
+    setCanvasObjects(objClone)
+    setSelectOnObject(null)
   }
 
+  // 전부 삭제
   const allDeleteText = () => {
-    setTexts([])
-    setSelectOnText(null)
-    settextId(0)
+    setCanvasObjects([])
+    setSelectOnObject(null)
+    setObjId(0)
   }
+
+  const selectType = canvasObjects[selectOnObject]
+    ? canvasObjects[selectOnObject]
+    : { type: null }
 
   return (
     <div className="cre_all">
@@ -165,7 +189,7 @@ const CreatePage = () => {
         <div
           className={classNames(
             'cre_edit',
-            selectOnText !== null ? 'cre_edit_active' : null,
+            selectOnObject !== null ? 'cre_edit_active' : null,
           )}
         >
           <div className="cre_editdiv" onClick={allDeleteText}>
@@ -187,10 +211,10 @@ const CreatePage = () => {
           <CanvasComp
             colorData={colorData}
             pic={pic}
-            texts={texts}
-            setTexts={setTexts}
-            selectOnText={selectOnText}
-            setSelectOnText={setSelectOnText}
+            canvasObjects={canvasObjects}
+            setCanvasObjects={setCanvasObjects}
+            selectOnObject={selectOnObject}
+            setSelectOnObject={setSelectOnObject}
           />
         </div>
 
@@ -218,11 +242,18 @@ const CreatePage = () => {
           </div>
           <ul>
             <li>
-              <div className="cre_acc_click">
+              <div
+                className={classNames(
+                  'cre_acc_click',
+                  tumType.length === 0 ? 'unactive' : null,
+                )}
+              >
                 <FontAwesomeIcon
                   icon={faWhiskeyGlass}
                   className="cre_icon2"
-                  onClick={openClick}
+                  onClick={() => {
+                    tumType.length !== 0 && openClick()
+                  }}
                 />
                 텀블러변경
               </div>
@@ -246,10 +277,18 @@ const CreatePage = () => {
               </ul>
             </li>
             <li>
-              <div className="cre_editdiv2">
-                <FontAwesomeIcon icon={faFileArrowUp} className="cre_icon2" />
-                이미지 업로드
-              </div>
+              <label htmlFor="imageUpload">
+                <div className="cre_editdiv2">
+                  <FontAwesomeIcon icon={faFileArrowUp} className="cre_icon2" />
+                  이미지 업로드
+                </div>
+              </label>
+              <input
+                type="file"
+                id="imageUpload"
+                onChange={fileUpload}
+                accept="image/*"
+              />
             </li>
             <li>
               <div className="cre_editdiv2">
@@ -274,7 +313,9 @@ const CreatePage = () => {
 
       <div className="cre_option_hidden">
         <div
-          className={selectOnText === null ? 'option_active' : 'select_active'}
+          className={
+            !selectType.type ? 'option_active' : 'select_active'
+          }
         >
           <SelectComp
             getColorName={getColorName}
@@ -288,9 +329,10 @@ const CreatePage = () => {
             productName={productName}
           />
           <CanvasSelectComp
-            selectOnText={selectOnText}
-            setTexts={setTexts}
-            texts={texts}
+            selectOnObject={selectOnObject}
+            setCanvasObjects={setCanvasObjects}
+            canvasObjects={canvasObjects}
+            selectType={selectType}
           />
         </div>
       </div>

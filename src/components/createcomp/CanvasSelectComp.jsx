@@ -2,58 +2,58 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { SwatchesPicker } from "react-color";
 
-const CanvasSelectComp = ({ selectOnText, setTexts, texts }) => {
+const CanvasSelectComp = ({ selectOnObject, setCanvasObjects, canvasObjects, selectType }) => {
   const textChange = (e, type) => {
-    const textsclone = [...texts];
+    const textsclone = [...canvasObjects];
     switch (type) {
       case "input":
-        textsclone[selectOnText] = {
-          ...textsclone[selectOnText],
+        textsclone[selectOnObject] = {
+          ...textsclone[selectOnObject],
           text: e.target.value,
         };
-        setTexts(textsclone);
+        setCanvasObjects(textsclone);
         break;
       case "font":
-        textsclone[selectOnText] = {
-          ...textsclone[selectOnText],
+        textsclone[selectOnObject] = {
+          ...textsclone[selectOnObject],
           font: e.target.value,
         };
-        setTexts(textsclone);
+        setCanvasObjects(textsclone);
         break;
       case "color":
-        textsclone[selectOnText] = {
-          ...textsclone[selectOnText],
+        textsclone[selectOnObject] = {
+          ...textsclone[selectOnObject],
           color: e.hex,
         };
-        setTexts(textsclone);
+        setCanvasObjects(textsclone);
         break;
       case "colorinput":
-        textsclone[selectOnText] = {
-          ...textsclone[selectOnText],
+        textsclone[selectOnObject] = {
+          ...textsclone[selectOnObject],
           color: e.target.value,
         };
-        setTexts(textsclone);
+        setCanvasObjects(textsclone);
         break;
     }
   };
 
-  const text = texts[selectOnText];
+  const obj = canvasObjects[selectOnObject];
 
   return (
     <div className="canvas_select">
-      {selectOnText === null ? null : (
+      {!selectType.type ? null : (
         <>
           <input
             type="text"
-            value={text.text}
+            value={obj.text}
             onChange={(e) => textChange(e, "input")}
             className="textinput"
           />
 
           <select
-            style={{ fontFamily: text.font }}
+            style={{ fontFamily: obj.font }}
             onChange={(e) => textChange(e, "font")}
-            value={text.font}
+            value={obj.font}
             size="4"
           >
             <option
@@ -104,9 +104,9 @@ const CanvasSelectComp = ({ selectOnText, setTexts, texts }) => {
           </select>
 
           <div className="color_select">
-            <label htmlFor="colorinput" style={{ color: text.color }}>
+            <label htmlFor="colorinput" style={{ color: obj.color }}>
               <FontAwesomeIcon icon={solid('eye-dropper')} />
-              {text.color.toUpperCase()}
+              {obj.color && obj.color.toUpperCase()}
             </label>
             <input
               type="color"
