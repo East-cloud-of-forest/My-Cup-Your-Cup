@@ -241,7 +241,7 @@
             }
           }
         }
-        #name_editBtn {
+        .name_editBtn {
           display: flex;
           align-items: center;
           .button {
@@ -348,6 +348,10 @@
         .name_editBtn {
           display: flex;
           align-items: center;
+          .button {
+            padding: 5px;
+            border : none;
+          }
         }
       }
 

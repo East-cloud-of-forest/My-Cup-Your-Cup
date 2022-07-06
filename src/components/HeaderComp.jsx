@@ -396,7 +396,7 @@ const Header = () => {
                         </div>
                       )}
                     </div>
-                    <p id="name_editBtn">{user.displayName}
+                    <p className="name_editBtn">{user.displayName}
                       <span>
                         <ButtonComp icon onClick={()=>{
                           navi('/editprofile')
