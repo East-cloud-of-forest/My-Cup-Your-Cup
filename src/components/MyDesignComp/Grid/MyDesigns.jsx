@@ -94,9 +94,9 @@ export default function MyDesigns(user) {
                             target={target}
                             placement="left"
                             container={ref}
-                            containerPadding={20}
-                            rootClose
-                            onHide={() => setShow(false)}
+                            // containerPadding={20}
+                            // rootClose
+                            // onHide={() => setShow(false)}
                         >
                             <Popover id="ellipsis_popover">
                                 <ButtonComp icon onClick={() => navigate(`/edit/${design.id}`)}>
@@ -133,13 +133,13 @@ export default function MyDesigns(user) {
                         
                         <div className="button_block">
                         <ButtonComp icon id="like_btn">
-                            <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={solid("heart")} />
                         </ButtonComp>
                         <ButtonComp icon id="share-btn">
-                            <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={solid("share-nodes")} />
                         </ButtonComp>  
                         <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
-                            제작하러가기
+                            Create
                         </ButtonComp>
                         </div>
                     </div>
@@ -188,7 +188,8 @@ export default function MyDesigns(user) {
                             <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
                         </ButtonComp>  
                         <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
-                            제작하러가기
+                            {/* <FontAwesomeIcon icon={solid("paintbrush-pencil")}></FontAwesomeIcon> */}
+                            Create
                         </ButtonComp>
                         </div>
                     </div>

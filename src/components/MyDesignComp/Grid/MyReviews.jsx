@@ -5,11 +5,11 @@ import {
     StarRating,
     SliderComp,
   } from '../../index-comp/IndexComp'
-import '../../Review/grid/Temp.scss'
+import './MyReviews.scss'
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TempReviewThumbnail from '../../Review/grid/TempReviewThumbnail'
-import { Col, Container, Overlay, OverlayTrigger, Popover, Row } from 'react-bootstrap'
+import { Col, Container, Overlay, Popover, Row } from 'react-bootstrap'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { deleteFirebaseData } from '../../../datasources/firebase'
@@ -17,10 +17,10 @@ import { deleteFirebaseData } from '../../../datasources/firebase'
 const MyReviewsComp = ({user, review}) => {
   const [ show, setShow ] = useState(false);
   const [ target, setTarget ] = useState(null);
-
-  const navigate = useNavigate();
   const ref = useRef(null);
 
+  const navigate = useNavigate();
+  
   // 인증된 유저의 리뷰만 들고오기
   const uid = user.uid;
   const myReview = review.filter( r => r.data.user.uid === uid)
@@ -55,7 +55,7 @@ const MyReviewsComp = ({user, review}) => {
             image={
               <SliderComp dots={false} infinite={true}>
                 { Object.values(myReview.data.images).map( (image,i) => (
-                  <div>
+                  <div key={i}>
                     <img id="image" src={image} key={i} alt="review-image" />
                   </div>
                 ))}
@@ -112,6 +112,11 @@ const MyReviewsComp = ({user, review}) => {
                 <FontAwesomeIcon icon={solid('share-nodes')} />
               </ButtonComp>
 
+              <ButtonComp icon onClick={handleClick}>
+                <FontAwesomeIcon icon={solid("ellipsis-vertical")} />
+              </ButtonComp>
+
+
               <Overlay
                 show={show}
                 target={target}
@@ -121,7 +126,7 @@ const MyReviewsComp = ({user, review}) => {
                 rootClose
                 onHide={() => setShow(false)}
               >
-                <Popover id="ellipsis_popover">
+                <div><Popover id='review_popover'>
                   <ButtonComp icon > 
                     <FontAwesomeIcon 
                       icon={solid("pen-to-square")}
@@ -132,7 +137,7 @@ const MyReviewsComp = ({user, review}) => {
                       icon={solid("trash-can")} 
                       onClick={()=> deletePost(myReview.id)}/> 삭제
                   </ButtonComp>
-                </Popover>
+                </Popover></div>
               </Overlay>
             </div>
           </div>
