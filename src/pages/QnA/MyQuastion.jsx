@@ -15,20 +15,9 @@ const MyQuastion = () => {
         <QnAmenu />
 
 
-
         <div className="board">
 
     <div>
-    <div className="QnA_Search">
-        <div>
-            <select>
-                <option value="">제목</option>
-                <option value="">내용</option>
-            </select>
-                <input type="text" placeholder='검색창' />
-                <button>검색</button>
-        </div>
-    </div>
 
         <table className="in_board">
             

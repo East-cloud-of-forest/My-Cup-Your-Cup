@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import queryString from 'query-string'
 import './JoinUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
-import { addFirebaseData, createUser, setFirebaseData, storage } from '../../../datasources/firebase'
+import { addFirebaseData, createUser, uploadFirestorage } from '../../../datasources/firebase'
 import { updateProfile } from 'firebase/auth'
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+//import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 
 const JoinPage = () => {
   const { search } = useLocation()
@@ -62,19 +62,31 @@ const JoinPage = () => {
     setGender(e.target.value)
   }
   // 파이어스토리지에 사진 올리기
-  const uploadFile = () => {
+  useEffect( () => {
+    const uploadFile = () => {
     const name = new Date().getTime() + profilePic.name;
-    const storageRef = ref(storage, 'user/' + name);
-    uploadBytes(storageRef, profilePic).then(
-      (r) => { getDownloadURL(r.ref).then((downloadURL) => {
-        setPhotoURL(downloadURL)
-        });
-      }
+    uploadFirestorage('user', name, profilePic).then(
+      result => {
+        setPhotoURL(result)
+        console.log(result)}
     )
-  };
+    
+  }
+  profilePic && uploadFile()
+  profilePic && console.log("file uploaded") 
+}, [profilePic])
+  
+    // const storageRef = ref(storage, 'user/' + name);
+    // uploadBytes(storageRef, profilePic).then(
+    //   (r) => { getDownloadURL(r.ref).then((downloadURL) => {
+    //     setPhotoURL(downloadURL)
+    //     });
+    //   }
+    // )
+
+
   // 회원가입 기능 실행
-  function Join() {  
-    console.log(photoURL)
+  function Join() {
     createUser(emailInput, password)
       .then(async ({ user }) => {
         const uid = user.uid
@@ -253,10 +265,7 @@ const JoinPage = () => {
           </div>
 
           <div className="btn_box">
-            <ButtonComp color="mint" onClick={() => {
-              Join()
-              uploadFile()
-              }}>
+            <ButtonComp color="mint" onClick={Join}>
               <h4 style={{ padding: 0, margin: 0 }}>가입하기</h4>
             </ButtonComp>
           </div>

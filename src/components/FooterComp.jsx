@@ -40,10 +40,11 @@ const Footer = () => {
         Copyright My Cup Your Cup All rights reserved.
         </p>
       </div>
-      <ButtonComp color="mint">
-        <FontAwesomeIcon icon={solid("arrow-up")} size="2x" />
-      </ButtonComp>
-
+      <a href="#">
+        <ButtonComp color="mint">
+          <FontAwesomeIcon icon={solid("arrow-up")} size="2x" />
+        </ButtonComp>
+      </a>
     </footer>
   )
 }

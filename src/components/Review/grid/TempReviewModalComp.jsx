@@ -5,26 +5,26 @@ import {
   StarRating,
   SliderComp,
 } from '../../index-comp/IndexComp'
-import './ReviewAndModalComp.scss'
+import './Temp.scss'
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TempReviewThumbnail from './TempReviewThumbnail'
 
 const TempReviewModalComp = (props) => {
   const { review, rating, tages, user, images } = props.review
-
-  let hashtags = []
-  hashtags.push(tages);
-  console.log(hashtags)
-  // props = 
+  // props =
   // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
     <div>
       <ModalComp
         button={<TempReviewThumbnail review={props.review} />}
         image={
-          <SliderComp>
-            <img src={images.image0} />
+          <SliderComp dots={false} infinite={true}>
+            { Object.values(images).map( image => (
+              <div>
+                <img id="image" src={image} key={image} alt="review-image" />
+              </div>
+            ))}
           </SliderComp>
         }
         className="review_modal"
@@ -44,7 +44,9 @@ const TempReviewModalComp = (props) => {
             <p>옵션04</p>
           </div>
           <div className="hashtag">
-            {hashtags.map( (tag,i) => <span key={i}>{tag}</span>)}
+            {tages.map((tag, i) => (
+              <span key={i}>{tag}</span>
+            ))}
           </div>
           <p>{review}</p>
           <div className="score">
@@ -61,15 +63,9 @@ const TempReviewModalComp = (props) => {
 
         <div className="modal_footer">
           <div className="profile_block">
-            <ProfileComp
-              justName
-              imageURL={
-                'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'
-              }
-              size="md"
-            />
+            <ProfileComp justName imageURL={user.photoURL} size="md" />
             <div>
-              <p>user1</p>
+              <p>{user.displayName}</p>
               <p className="caption">2022-06-07</p>
             </div>
           </div>

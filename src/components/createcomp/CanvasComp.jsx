@@ -306,7 +306,6 @@ const CanvasComp = ({
       ctx.textAlign = 'center'
       ctx.fillStyle = this.color
       const text = ctx.measureText(this.text)
-      console.log(text)
       this.width = Number(text.width.toFixed(0)) + 20
       this.descent =
         text.actualBoundingBoxDescent < 0 ? 0 : text.actualBoundingBoxDescent

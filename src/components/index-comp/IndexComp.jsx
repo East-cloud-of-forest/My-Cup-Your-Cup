@@ -113,7 +113,7 @@ export const SliderComp = ({
   }
 
   return (
-    <div>
+    <div style={{width : '100%'}}>
       <Slider {...settings}>{children}</Slider>
     </div>
   )
@@ -230,7 +230,8 @@ export function ProfileComp(props) {
       )}
     >
       <div className={classNames('image_container', size)}>
-        <img src={imageURL} alt="profile photo"></img>
+        { imageURL == null? <FontAwesomeIcon icon={solid("user")} /> //size="4x" 잠깐 옮겨놀게요
+        : <img src={imageURL} alt="profile photo"></img> }
       </div>
 
       {justName && (

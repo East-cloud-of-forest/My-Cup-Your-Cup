@@ -36,9 +36,14 @@
         text-align: center;
         cursor: pointer;
 
-        svg {
-          height: 20px;
-          margin: 0 0 5px 0;
+        button {
+          margin: 0;
+          width: 44px;
+
+          svg {
+            font-size: 1.5rem;
+            height: 24px;
+          }
         }
       }
     }
@@ -76,8 +81,7 @@
 
   .side_edit_active {
     right: 0 !important;
-    box-shadow: -5px 0 5px -5px grey !important;
-    transition: right 0.6s, box-shadow 0.6s;
+    transition: right 0.6s;
   }
 
   .side_edit {
@@ -91,8 +95,8 @@
     justify-content: center;
     flex-direction: column;
     box-sizing: border-box;
-    transition: right 0.6s, box-shadow 0.6s;
-    box-shadow: none;
+    transition: right 0.6s;
+    box-shadow: 0px 0 2px grey;
     background-color: white;
 
     > ul {
@@ -149,208 +153,233 @@
         }
       }
     }
-
-    .cre_edit_clicked {
-      overflow: hidden;
-      transition: 0.5s ease;
-      opacity: 0;
-      background-color: rgba(240, 240, 240, 0.9);
-      height: 100%;
-      width: 250px;
-      position: absolute;
-      right: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      z-index: 4;
-
-      &.editActive {
-        transition: 0.5s ease;
-        opacity: 1;
-        display: flex;
-        justify-content: space-around;
-      }
-
-      &.EditDisplaynone {
-        transition: 0.5s ease;
-        display: flex;
-        justify-content: space-around;
-        visibility: hidden;
-      }
-
-      .cre_font_input {
-        background-color: white;
-        width: 180px;
-        padding: 5px;
-        border: 1px solid #60ab90;
-        font-family: 'Nanumgothic';
-        border-radius: 5px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-      }
-
-      .cre_font_editor {
-        margin: 10% 0;
-
-        .cre_font_selectbox {
-          background-color: white;
-          width: 80px;
-          padding: 5px;
-          border: 1px solid #60ab90;
-          font-family: 'Nanumgothic';
-          border-radius: 5px;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
-        }
-      }
-
-      .cre_font_edit_btn {
-        display: flex;
-
-        button {
-          padding: 0.5rem 0;
-          margin: 0 0.15rem;
-          width: 100%;
-        }
-      }
-    }
   }
 }
 
-.cre_opt {
-  min-width: 320px;
-  max-width: 320px;
+.cre_option_hidden {
+  width: 320px;
   box-shadow: 0 0 3px grey;
-  padding: 1rem;
-  border-radius: 7px;
+  border-radius: 0 7px 7px 0;
   z-index: 3;
   background-color: white;
+  height: 620px;
+  overflow: hidden;
 
-  h2 {
-    font-weight: 100;
-    font-size: 1.7rem;
+  .option_active {
+    position: relative;
+    top: 0%;
+    transition: top 0.2s;
+  }
+  .select_active {
+    position: relative;
+    top: -100%;
+    transition: top 0.2s;
   }
 
-  > p {
-    margin: 0;
-    text-align: right;
-    font-size: 0.95rem;
-    color: grey;
-  }
+  .option_select,
+  .canvas_select {
+    padding: 1rem;
+    height: 620px;
+    width: 320px;
 
-  .cre_colorDiv {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0.5rem 0;
-
-    .cre_color {
-      box-shadow: 0 0 3px grey;
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      margin: 0.3rem;
-      border: 2px solid white;
-    }
-
-    .active {
-      border: 2px solid #a6fae1;
-      box-shadow: 0 0 10px #4debbb;
-    }
-  }
-
-  .select_block {
-    margin: 1.5rem 0;
-
-    button {
-      margin: 0;
-      width: 100%;
-      padding: 0.5rem 0;
-      color: grey;
-
-      &:hover {
-        background-color: lighten(#a6fae1, 15%);
-      }
-    }
-
-    > div {
-      display: flex;
-      margin: 0.1rem 0;
+    h2 {
+      font-weight: 100;
+      font-size: 1.7rem;
     }
 
     > p {
-      font-size: 0.9rem;
-      color: black;
       margin: 0;
+      text-align: right;
+      font-size: 0.95rem;
+      color: grey;
+    }
 
-      &::after {
-        content: '-';
-        margin-left: 0.5rem;
+    .cre_colorDiv {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+
+      .cre_color {
+        box-shadow: 0 0 3px grey;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        margin: 0.3rem;
+        border: 2px solid white;
+      }
+
+      .active {
+        border: 2px solid #a6fae1;
+        box-shadow: 0 0 10px #4debbb;
       }
     }
 
-    .Met_select,
-    .straw_select {
-      div {
-        margin: 0 0.1rem;
-        width: 50%;
-      }
-    }
+    .select_block {
+      margin: 1.5rem 0;
 
-    .size_select {
-      div {
-        margin: 0 0.1rem;
-        width: 33.333%;
-      }
-    }
-
-    .actvie {
       button {
         margin: 0;
         width: 100%;
         padding: 0.5rem 0;
         color: grey;
-        background-color: lighten(#a6fae1, 5%);
 
         &:hover {
-          background-color: darken(#a6fae1, 5%);
+          background-color: lighten(#a6fae1, 15%);
         }
+      }
+
+      > div {
+        display: flex;
+        margin: 0.1rem 0;
+      }
+
+      > p {
+        font-size: 0.9rem;
+        color: black;
+        margin: 0;
+
+        &::after {
+          content: "-";
+          margin-left: 0.5rem;
+        }
+      }
+
+      .Met_select,
+      .straw_select {
+        div {
+          margin: 0 0.1rem;
+          width: 50%;
+        }
+      }
+
+      .size_select {
+        div {
+          margin: 0 0.1rem;
+          width: 33.333%;
+        }
+      }
+
+      .actvie {
+        button {
+          margin: 0;
+          width: 100%;
+          padding: 0.5rem 0;
+          color: grey;
+          background-color: lighten(#a6fae1, 5%);
+
+          &:hover {
+            background-color: darken(#a6fae1, 5%);
+          }
+        }
+      }
+    }
+
+    .cre_calc {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin: 0.5rem;
+
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: grey;
+      }
+
+      h3 {
+        font-weight: 100;
+        margin: 0.3rem;
+      }
+    }
+
+    #btn {
+      display: flex;
+      flex-direction: column;
+
+      > span {
+        width: 100%;
+      }
+
+      button {
+        width: 100%;
+        margin: 0.3rem 0;
       }
     }
   }
 
-  .cre_calc {
+  .canvas_select {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin: 0.5rem;
+    justify-content: space-around;
 
-    p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: grey;
-    }
-
-    h3 {
-      font-weight: 100;
-      margin: 0.3rem;
-    }
-  }
-
-  #btn {
-    display: flex;
-    flex-direction: column;
-
-    > span {
+    .textinput {
       width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      padding: 1rem 0;
+      border: none;
+      border-bottom: 2px solid gray;
+
+      &:focus-visible {
+        outline: none;
+      }
     }
 
-    button {
+    .color_select {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      label {
+        width: 80%;
+        text-align: center;
+        padding: 0.3rem 0;
+        border-radius: 500px;
+        margin-bottom: 0.3rem;
+
+        &:hover {
+          background-color: grey;
+        }
+      }
+
+      svg {
+        margin-right: 0.5rem;
+      }
+
+      #colorinput {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        bottom: 0;
+        position: absolute;
+      }
+    }
+
+    select {
       width: 100%;
-      margin: 0.3rem 0;
+      margin: 1rem 0;
+      text-align: center;
+      appearance: none;
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      option {
+        font-size: 1.2rem;
+      }
+    }
+
+    .swatches-picker {
+      width: 100% !important;
+      > div {
+        > div {
+          box-shadow: none !important;
+        }
+      }
     }
   }
 }
@@ -379,7 +408,7 @@
       color: grey;
 
       &::before {
-        content: '-';
+        content: "-";
         margin-right: 0.5rem;
       }
     }

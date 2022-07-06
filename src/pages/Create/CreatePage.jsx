@@ -1,5 +1,4 @@
 import './Create.scss'
-import ColorComp from '../../components/createcomp/ColorComp'
 import SelectComp from '../../components/createcomp/SelectComp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -19,6 +18,7 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import CanvasComp from '../../components/createcomp/CanvasComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import CanvasSelectComp from '../../components/createcomp/CanvasSelectComp'
 
 const CreatePage = () => {
   //재질 props 받아오는 함수
@@ -86,31 +86,10 @@ const CreatePage = () => {
     }
   }
 
+  // 사이드 에딧트
   const [sideEditOpen, setSideEditOpen] = useState(false)
   const sideEditToggle = () => {
     setSideEditOpen(!sideEditOpen)
-  }
-
-  //텍스트 편집 토글
-  const [editActive, setEditActive] = useState(false)
-  const [editDisplay, setEditDisplay] = useState(true)
-  const editTimeToggle = function (kind, time) {
-    setTimeout(() => {
-      kind === 'editActive'
-        ? setEditActive(!editActive)
-        : setEditDisplay(!editDisplay)
-    }, time)
-  }
-
-  const editClick = () => {
-    clearTimeout(editTimeToggle)
-    if (display) {
-      setEditDisplay(!editDisplay)
-      editTimeToggle('editActive', 0)
-    } else {
-      setEditActive(!editActive)
-      editTimeToggle('editDisplay', 0)
-    }
   }
 
   //재질변경에 따른 내용 변경
@@ -140,43 +119,43 @@ const CreatePage = () => {
     }
   }, [material])
 
-  const [fontColorEdit, setFontColorEdit] = useState('#000')
-  const fontColorChange = (e) => {
-    console.log(e.target.value)
-    setFontColorEdit(e.target.value)
-  }
-
-  const [fontFamily, setFontFamily] = useState('nanumBold')
-  const fontChange = (e) => [setFontFamily(e.target.value)]
-
   // 텍스트 추가 임시
   const [texts, setTexts] = useState([])
-
-  const [textinput, setTextInput] = useState('')
-  const textChange = (e) => {
-    setTextInput(e.target.value)
-  }
-
-  const textClick = () => {
-    if (textinput.length !== 0) {
-      const textsClone = [...texts]
-      textsClone.push({
-        text: textinput,
-        font: fontFamily,
-        size: 18,
-        color: fontColorEdit,
-        id: texts.length,
-        x: -1000,
-        y: -1000,
-      })
-      setTexts(textsClone)
-    }
-    setTextInput('')
-  }
+  const [textId, settextId] = useState(0)
 
   // 텍스트 선택
   const [selectOnText, setSelectOnText] = useState(null)
-  console.log(selectOnText)
+
+  const addText = () => {
+    const textsClone = [...texts]
+    textsClone.push({
+      text: '텍스트',
+      font: 'ROKAFSansBold',
+      size: 32,
+      color: '#000000',
+      id: textId,
+      x: -1000,
+      y: -1000,
+    })
+    setTexts(textsClone)
+    setSelectOnText(texts.length)
+    sideEditToggle()
+    settextId(textId + 1)
+  }
+
+  const deletText = () => {
+    const textsClone = texts.filter(
+      (text) => text.id !== texts[selectOnText].id,
+    )
+    setTexts(textsClone)
+    setSelectOnText(null)
+  }
+
+  const allDeleteText = () => {
+    setTexts([])
+    setSelectOnText(null)
+    settextId(0)
+  }
 
   return (
     <div className="cre_all">
@@ -189,27 +168,16 @@ const CreatePage = () => {
             selectOnText !== null ? 'cre_edit_active' : null,
           )}
         >
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faPaintBrush} />
-            새로만들기
+          <div className="cre_editdiv" onClick={allDeleteText}>
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid('note-sticky')} />
+            </ButtonComp>
+            전부 삭제
           </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowsAltH} />
-            좌우반전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowsAltV} />
-            상하반전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowRotateBack} />왼 회전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowRotateForward} />
-            오른 회전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faTrash} />
+          <div className="cre_editdiv" onClick={deletText}>
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid('trash-can')} />
+            </ButtonComp>
             삭제
           </div>
         </div>
@@ -289,7 +257,7 @@ const CreatePage = () => {
                   icon={faFont}
                   className="cre_icon2"
                   // onClick={textClick}
-                  onClick={editClick}
+                  onClick={addText}
                 />
                 텍스트 추가
               </div>
@@ -301,74 +269,30 @@ const CreatePage = () => {
               </div>
             </li>
           </ul>
-          {/* 텍스트 추가 */}
-          <div
-            className={classNames(
-              'cre_edit_clicked ',
-              editActive ? 'editActive' : null,
-              editDisplay ? 'EditDisplaynone' : null,
-            )}
-          >
-            <div>
-              <div>
-                <p>추가할 텍스트</p>
-                <input
-                  className="cre_font_input"
-                  type="text"
-                  value={textinput}
-                  onChange={textChange}
-                />
-              </div>
-              <div className="cre_font_editor">
-                <p>폰트 색상</p>
-                <select
-                  className="cre_font_selectbox"
-                  defaultValue="#000"
-                  onChange={fontColorChange}
-                >
-                  <option value="#000000">검정</option>
-                  <option value="#ff0000">빨강</option>
-                  <option value="#0000ff">파랑</option>
-                  <option value="#00ff00">초록</option>
-                </select>
-              </div>
-              <select style={{ fontFamily: fontFamily }} onChange={fontChange}>
-                <option value="nanumBold" style={{ fontFamily: 'nanumBold' }}>
-                  나눔
-                </option>
-                <option value="OKDDUNG" style={{ fontFamily: 'OKDDUNG' }}>
-                  읒뚱체
-                </option>
-                <option value="OKGUNG" style={{ fontFamily: 'OKGUNG' }}>
-                  읒궁체
-                </option>
-              </select>
-            </div>
-            <div className="cre_font_edit_btn">
-              <ButtonComp onClick={textClick}>추가</ButtonComp>
-              <ButtonComp onClick={editClick}>취소</ButtonComp>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div className="cre_opt">
-        <h2 dangerouslySetInnerHTML={{ __html: productName }}></h2>
-        <p>{colorName}</p>
-
-        <ColorComp
-          getColorName={getColorName}
-          getColorData={getColorData}
-          colorData={colorData}
-        />
-
-        <SelectComp
-          colorName={colorName}
-          tumShape={tumShape}
-          getProductName={getProductName}
-          material={material}
-          getTypeData={getTypeData}
-        />
+      <div className="cre_option_hidden">
+        <div
+          className={selectOnText === null ? 'option_active' : 'select_active'}
+        >
+          <SelectComp
+            getColorName={getColorName}
+            getColorData={getColorData}
+            colorData={colorData}
+            colorName={colorName}
+            tumShape={tumShape}
+            getProductName={getProductName}
+            material={material}
+            getTypeData={getTypeData}
+            productName={productName}
+          />
+          <CanvasSelectComp
+            selectOnText={selectOnText}
+            setTexts={setTexts}
+            texts={texts}
+          />
+        </div>
       </div>
     </div>
   )
