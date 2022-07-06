@@ -7,6 +7,7 @@ import {
   addDoc,
   setDoc,
   doc,
+  deleteDoc,
 } from 'firebase/firestore'
 import {
   getAuth,
@@ -78,6 +79,10 @@ const addFirebaseData = async (name, content) => {
 const setFirebaseData = async (name, id, content) => {
   return await setDoc(doc(db, name, id), content)
 }
+// store 문서 삭제
+const deleteFirebaseData = async (name, id) => {
+  return await deleteDoc(doc(db, name, id));
+}
 
 // cloud stroage 초기화
 const storage = getStorage(app)
@@ -101,6 +106,7 @@ export {
   getFirebaseData,
   addFirebaseData,
   setFirebaseData,
+  deleteFirebaseData,
   googleLoginPopup,
   emailLogin,
   loginSession,

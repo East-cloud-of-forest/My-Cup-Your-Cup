@@ -11,7 +11,7 @@ const CreateDesignUploadForm = () => {
   // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
   const mycup = items[items.length - 1]
   const {user} = useSelector( (user) => user.enteruser );
-  console.log(items)
+
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -44,7 +44,6 @@ const CreateDesignUploadForm = () => {
       if (!tagList.includes(trimmedInput)) {
         setTagList((prevState) => [...prevState, trimmedInput]);
         setTagInput('');
-        console.log(tagList) //
       } else {
         setTagInput('');
       }
