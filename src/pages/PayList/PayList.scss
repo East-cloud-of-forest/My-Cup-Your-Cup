@@ -1,0 +1,32 @@
+
+
+.pl_main{
+  margin: 30px;
+  min-height: 100vh;
+
+  .pl_title{
+    margin: 20px;
+  }
+  
+  .pl_date{
+    margin: 20px;
+  }
+  
+  .pl_item{
+    margin: 10px 0;
+      padding: 15px;
+      background-color: rgb(235, 235, 235);
+      display: flex;
+      justify-content: space-between
+  }
+  
+  .pl_price{
+    margin: 40px 20px 0 10px;
+  }
+  
+  .pl_item_pic{
+    width: 80px;
+    margin: 0 30px 0 0;
+  }
+}
+

@@ -1,50 +1,90 @@
-import React from 'react';
-import { useSelector } from 'react-redux'
-import { db } from '../../datasources/firebase'
-import { doc, getDoc } from 'firebase/firestore'
-import { useState,useEffect } from 'react';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { db } from "../../datasources/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { useState, useEffect, useCallback } from "react";
+import { Spinner } from 'react-bootstrap'
+import { loadingEnd, loadingStart } from "../../modules/loading";
 
 const PayListComp = () => {
+  const { user } = useSelector((a) => a.enteruser);
 
-  const { user } = useSelector((a) => a.enteruser)
-  
   const [list, setList] = useState([]);
 
-  const buyList =  async () => {
-    
-    let userID = user.uid
+  const { loading } = useSelector((a) => a.loading)
+  const dispatch = useDispatch()
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
 
-    const docRef = doc(db,"user",userID);
-    const userData = (await getDoc(docRef)).data();
+  const buyList = async () => {
+    startLoading()
+    document.body.style.overflow = 'hidden'
+    let userID = user.uid;
+    const docRef = doc(db, "user", userID);
+    getDoc(docRef).then((r) => {
+      //uid의 itemList가져옴
+      const data = r.data().itemsList;
+      
+      //날짜값 push
+      const dateArr = [];
+      for (let i = 0; i < data.length; i++) {
+        dateArr.push(data[i].boughtDate);
+      }
+      //push된 날짜 중 중복날짜 제거
+      const dateNewArr = [...new Set(dateArr)]
 
-    //배열로 데이터의 키를 배열로 변환하여 아이템리스트의 인덱스를 구함
-    const listIndex = Object.keys(userData).indexOf("itemsList")
+      const finalList = [];
+      for (let i = 0; i < dateNewArr.length; i++) {
+        finalList.push({
+          [dateNewArr[i]]: data.filter((l) => l.boughtDate == dateNewArr[i]),
+        });
+      }
+      setList(finalList);
 
-    //아이템리스트의 값을 반환하게 함
-    const itemListValue = Object.values(userData)[listIndex];
+      console.log(list);
+      document.body.style = ''
+      endLoading()
+    });
+  };
 
-    console.log(itemListValue)
-    
-    setList(itemListValue)
-  }
-
-  useEffect(()=>{
-    buyList()
-  },[user])
+  useEffect(() => {
+    if (user) {
+      
+      buyList();
+      
+    }
+  }, [user]);
 
   return (
-    <div>
-      <hr className="pay_main_hr"/>
+    <div className="pl_main">
 
-        {list.map((a,i) => (
-          <div key={i}>
-            <img src={a.itemImage} alt="" />
-            <p>{a.itemName} - {a.itemSize}</p>
-            <hr />
+        {loading ? (
+          <div className="pullpage_loading">
+            <Spinner animation="border" role="status" />
           </div>
-        ))}
+        ) : null}
 
-      <hr className="pay_main_hr"/>
+      <hr className="pay_main_hr" />
+      <h1 className="pl_title">결제 내역</h1>
+      <hr className="pay_main_hr" />
+      {list.map((l, i) => (
+        <div>
+          <h3 className="pl_date" key={i}>{Object.keys(l)}</h3>
+          <hr />
+          {Object.values(l)[0].map((v,index) => (
+            <div className="pl_item" key={index}>
+              <div>
+                <img className="pl_item_pic" src={v.itemImage} alt="" />
+                <p>{v.itemName} - {v.itemSize}</p>
+              </div>
+              <p className="pl_price">{v.itemPrice}원</p>
+            </div>
+          ))}
+          
+        </div>
+      ))}
+
+      <hr className="pay_main_hr" />
     </div>
   );
 };
