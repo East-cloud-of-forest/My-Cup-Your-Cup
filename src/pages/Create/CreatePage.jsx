@@ -121,6 +121,7 @@ const CreatePage = () => {
 
   // 텍스트 추가 임시
   const [texts, setTexts] = useState([])
+  const [textId, settextId] = useState(0)
 
   // 텍스트 선택
   const [selectOnText, setSelectOnText] = useState(null)
@@ -132,13 +133,28 @@ const CreatePage = () => {
       font: 'ROKAFSansBold',
       size: 32,
       color: '#000000',
-      id: texts.length,
+      id: textId,
       x: -1000,
       y: -1000,
     })
     setTexts(textsClone)
     setSelectOnText(texts.length)
     sideEditToggle()
+    settextId(textId + 1)
+  }
+
+  const deletText = () => {
+    const textsClone = texts.filter(
+      (text) => text.id !== texts[selectOnText].id,
+    )
+    setTexts(textsClone)
+    setSelectOnText(null)
+  }
+
+  const allDeleteText = () => {
+    setTexts([])
+    setSelectOnText(null)
+    settextId(0)
   }
 
   return (
@@ -152,27 +168,16 @@ const CreatePage = () => {
             selectOnText !== null ? 'cre_edit_active' : null,
           )}
         >
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faPaintBrush} />
-            새로만들기
+          <div className="cre_editdiv" onClick={allDeleteText}>
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid('note-sticky')} />
+            </ButtonComp>
+            전부 삭제
           </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowsAltH} />
-            좌우반전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowsAltV} />
-            상하반전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowRotateBack} />왼 회전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faArrowRotateForward} />
-            오른 회전
-          </div>
-          <div className="cre_editdiv">
-            <FontAwesomeIcon icon={faTrash} />
+          <div className="cre_editdiv" onClick={deletText}>
+            <ButtonComp icon>
+              <FontAwesomeIcon icon={solid('trash-can')} />
+            </ButtonComp>
             삭제
           </div>
         </div>
