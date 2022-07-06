@@ -307,6 +307,17 @@ $facebook: #475a96;
       }
     }
   }
+
+  .slick-track {
+    display: flex;
+    align-items: center;
+
+    div {
+      > div {
+        display: flex;
+      }
+    }
+  }
 }
 
 // 페이지 컴포넌트
