@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 //import { getMyDesign } from "../../../modules/uploadDesign";
 import { useDispatch, useSelector } from "react-redux";
-import { getFirebaseData } from "../../../datasources/firebase";
+import { deleteFirebaseData, getFirebaseData } from "../../../datasources/firebase";
 import { loadingStart, loadingEnd } from "../../../modules/loading";
 import { useCallback } from "react";
 import { async, deepCopy } from "@firebase/util";
@@ -22,10 +22,7 @@ export default function MyDesigns(user) {
     const navigate = useNavigate();
     const ref = useRef();
 
-    // const startLoading = useCallback(dispatch(loadingStart()));
-    // const endLoading = useCallback(dispatch(loadingEnd()));
-
-    // 나의디자인 가져오기 - 인증된 유저의 디자인만 가져오기
+    // 디자인 가져오기
     const getDesign = () => async () => {
         try{
             let array = [];
@@ -41,24 +38,27 @@ export default function MyDesigns(user) {
                     userid: doc.data().userid
                     
                 });
-            });
+            })
             setdesigns(array);
         } catch (e) { console.log(e) }
-            
-        
-        
     }
-    //const myDesign = designs.filter( d => (d.userid == user.user.uid) );
-    //console.log(myDesign)
     useEffect(()=> {dispatch(getDesign());}, [dispatch])
+    // 인증된 유저의 디자인만 가져오기
+    const myDesign = designs.filter( d => (d.userid === user.user.uid) );
+    // console.log(myDesign)
 
     const handleClick = (e) => {
         setShow(!show)
         setTarget(e.target)
     }
     // 삭제버튼 클릭시
-    const deletePost = (id) => {
-        
+    const deletePost = async (id) => {
+        try {
+            alert('정말 삭제하시겠습니까?')
+            await deleteFirebaseData('MyDesign', id)
+            window.location.reload();
+        }
+        catch (e) { console.log(e) }
     }
     
 
@@ -72,91 +72,86 @@ export default function MyDesigns(user) {
         <Container fluid="sm">
         <Row>
             {
-                designs.map( design => {
-                        (<Col xl="2" lg="3" md="4" sm="6" key={design.id}>
-                            <ModalComp 
-                            button={
-                                <div id="temp_image">
-                                    <p>{design.title}</p>
-                                </div>
-                                }//<img id="preview-image" src={design.image} alt={design.title}/>
-                            image={<img src={design.image} alt={design.title}/>}
-                            className="design_modal"
-                            >
-                            <div className="modal_head" ref={ref}>
-                                <h2>{design.title}</h2>
-                                
-                                <ButtonComp icon onClick={handleClick}>
-                                    <FontAwesomeIcon icon={solid("ellipsis-vertical")} />
+                ( myDesign.length >= 1 ) && ( myDesign.map( design => (
+                <Col xl="2" lg="3" md="4" sm="6" key={design.id}>
+                    <ModalComp 
+                        button={
+                            <div id="temp_image">
+                                <p>{design.title}</p>
+                            </div>
+                            }//<img id="preview-image" src={design.image} alt={design.title}/>
+                        image={<img src={design.image} alt={design.title}/>}
+                        className="design_modal"
+                    >
+                    <div className="modal_head" ref={ref}>
+                        <h2>{design.title}</h2>
+                    
+                        <ButtonComp icon onClick={handleClick}>
+                            <FontAwesomeIcon icon={solid("ellipsis-vertical")} />
+                        </ButtonComp>
+                        <Overlay
+                            show={show}
+                            target={target}
+                            placement="left"
+                            container={ref}
+                            containerPadding={20}
+                            rootClose
+                            onHide={() => setShow(false)}
+                        >
+                            <Popover id="ellipsis_popover">
+                                <ButtonComp icon onClick={() => navigate(`/edit/${design.id}`)}>
+                                    <FontAwesomeIcon icon={solid("pen-to-square")}/> 수정
+                                </ButtonComp> <br/>
+                                <ButtonComp icon onClick={()=> deletePost(design.id)}>
+                                    <FontAwesomeIcon icon={solid("trash-can")}/> 삭제
                                 </ButtonComp>
-                                <Overlay
-                                    show={show}
-                                    target={target}
-                                    placement="left"
-                                    container={ref}
-                                    containerPadding={20}
-                                    rootClose
-                                    onHide={() => setShow(false)}
-                                >
-                                    <Popover id="ellipsis_popover">
-                                        <ButtonComp icon onClick={() => navigate(`/edit/${design.id}`)}>
-                                            <FontAwesomeIcon icon={solid("pen-to-square")}/> 수정
-                                        </ButtonComp> <br/>
-                                        <ButtonComp icon onClick={()=> deletePost(design.id)}>
-                                            <FontAwesomeIcon icon={solid("trash-can")}/> 삭제
-                                        </ButtonComp>
-                                    </Popover>
-                                    
-                                </Overlay>
-                                
-                            </div>
-                                {design.private === true ? (
-                                    <span style={{ fontSize: "smaller", color: "gray" }}>
-                                        <FontAwesomeIcon icon={solid("lock")}/> 비공개 게시물입니다
-                                    </span>) : null}
-                            <div className="modal_body">
-                                <p>{design.text}</p>
-                                <div className="hashtag">
-                                    {design.tag.map(tag=><span key={tag}>{tag}</span>)}
-                                    {/* { design.tag.map( (tag, i) => (
-                                        <span key={i}>{tag}</span>
-                                    ))} */}
-                                </div>
-                            </div>
+                            </Popover>
+                        </Overlay>
+                        
+                    </div>
+                        {design.private === true ? (
+                            <span style={{ fontSize: "smaller", color: "gray" }}>
+                                <FontAwesomeIcon icon={solid("lock")}/> 비공개 게시물입니다
+                            </span>) : null}
+                    <div className="modal_body">
+                        <p>{design.text}</p>
+                        <div className="hashtag">
+                            { design.tag.map( (tag, i) => (
+                                <span key={i}>{tag}</span>
+                            ))}
+                        </div>
+                    </div>
 
-                            <div className="modal_footer">
-                                
-                                <ProfileComp
-                                className="profile" 
-                                justName 
-                                userName={"user1"} 
-                                imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
-                                />
-                                
-                                <div className="button_block">
-                                <ButtonComp icon id="like_btn">
-                                    <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
-                                </ButtonComp>
-                                <ButtonComp icon id="share-btn">
-                                    <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
-                                </ButtonComp>  
-                                <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
-                                    제작하러가기
-                                </ButtonComp>
-                                </div>
-                            </div>
-                                
-                            
-                        </ModalComp>
-                        </Col>)
-                    }
-                )
+                    <div className="modal_footer">
+                        
+                        <ProfileComp
+                        className="profile" 
+                        justName 
+                        userName={"user1"} 
+                        imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
+                        />
+                        
+                        <div className="button_block">
+                        <ButtonComp icon id="like_btn">
+                            <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
+                        </ButtonComp>
+                        <ButtonComp icon id="share-btn">
+                            <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
+                        </ButtonComp>  
+                        <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
+                            제작하러가기
+                        </ButtonComp>
+                        </div>
+                    </div>
+                </ModalComp>
+                </Col>)
+                )) 
             }
         </Row>
         <Row>
             {
                 CUP_PICS.map( cup_pic=>(
-                <Col xs="6" md="3" key={cup_pic.id}>
+                <Col xl="2" lg="3" md="4" sm="6" key={cup_pic.id}>
                     <ModalComp 
                     button={<img id="preview-image" src={cup_pic.src} alt={cup_pic.title}/>}
                     image={<img src={cup_pic.src} alt={cup_pic.title}/>}

@@ -57,6 +57,8 @@ const Home = () => {
             <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag2.jpg')} alt='tag' /> </div></Col>
           <Col md="2" sm="4" xs="4" className="main_circlemenu"> 
             <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag5.jpg')} alt='tag' /> </div></Col>
+          <Col md="2" sm="4" xs="4" className="main_circlemenu"> 
+            <div className="main_circleitem"><img src={require('../../dummies/illustrations/tag6.jpg')} alt='tag' /> </div></Col>
         </Row>
       </Container>
       <p className="text-center subtitle">리뷰</p>

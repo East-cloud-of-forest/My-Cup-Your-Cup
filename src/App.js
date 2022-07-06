@@ -29,6 +29,7 @@ import { loginSession } from './datasources/firebase'
 import PostEditForm from './pages/Create/PostEditForm'
 import EditUser from './pages/EnterUser/Edit/EditUser'
 import PayList from './pages/PayList/PayList'
+import ReviewEditForm from './pages/ReviewWirete/ReviewEditForm'
 
 function App() {
   const location = useLocation()
@@ -72,6 +73,7 @@ function App() {
           
           <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
+          <Route path="/edit/:id" element={<ReviewEditForm />} />
           <Route path="/create" element={<CreatePage />}></Route>
           <Route path="/create/upload" element={<CreateDesignUploadForm />} />
           <Route path="/enteruser" element={<EnterUser />}>
