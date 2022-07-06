@@ -396,7 +396,15 @@ const Header = () => {
                         </div>
                       )}
                     </div>
-                    <p>{user.displayName}</p>
+                    <p id="name_editBtn">{user.displayName}
+                      <span>
+                        <ButtonComp icon onClick={()=>{
+                          navi('/editprofile')
+                          offSidebar() }}>
+                          <FontAwesomeIcon icon={solid("pencil")}  />
+                        </ButtonComp>
+                      </span>
+                    </p>
                     <p>{user.email}</p>
                     <hr />
                     <Link to="/paylist">
