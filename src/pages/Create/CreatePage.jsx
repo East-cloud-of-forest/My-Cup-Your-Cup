@@ -13,6 +13,7 @@ import classNames from 'classnames'
 import CanvasComp from '../../components/createcomp/CanvasComp'
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import CanvasSelectComp from '../../components/createcomp/CanvasSelectComp'
+import FreeDesignComp from '../../components/createcomp/FreeDesignComp'
 
 const CreatePage = () => {
   //재질 props 받아오는 함수
@@ -231,6 +232,7 @@ const CreatePage = () => {
   const dragEnd = (e) => {
     e.dataTransfer.dropEffect = 'move'
     setGrab(null)
+    setDragclass('')
   }
 
   const drop = (e) => {
@@ -334,7 +336,7 @@ const CreatePage = () => {
                   <ButtonComp
                     icon
                     onClick={(e) => {
-                      e.stopPropagation();
+                      e.stopPropagation()
                       showToggle(i)
                     }}
                   >
@@ -464,15 +466,20 @@ const CreatePage = () => {
               </div>
             </li>
             <li>
-              <div
-                className={classNames(
-                  'cre_acc_click',
-                  tumType.length === 0 ? 'unactive' : null,
-                )}
-              >
-                <FontAwesomeIcon icon={faStar} className="cre_icon2" />
-                무료 디자인
-              </div>
+              <FreeDesignComp
+                button={
+                  <div
+                    className={classNames(
+                      'cre_acc_click',
+                      tumType.length === 0 ? 'unactive' : null,
+                    )}
+                  >
+                    <FontAwesomeIcon icon={faStar} className="cre_icon2" />
+                    무료 디자인
+                  </div>
+                }
+                active={tumType.length === 0 ? false : true}
+              />
             </li>
           </ul>
         </div>
