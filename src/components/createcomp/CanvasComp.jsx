@@ -72,6 +72,7 @@ const CanvasComp = ({
           obj.img,
           obj.width,
           obj.height,
+          obj.show
         )
       })
     }
@@ -79,8 +80,8 @@ const CanvasComp = ({
     animate() {
       this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight)
 
-      this.Obj.map((text) => {
-        text.draw(this.ctx, this.selectOnObject)
+      this.Obj.map((obj) => {
+        obj.show && obj.draw(this.ctx, this.selectOnObject)
       })
 
       this.animateHandler2 = window.requestAnimationFrame(
@@ -216,6 +217,7 @@ const CanvasComp = ({
       img,
       width,
       height,
+      show
     ) {
       this.text = text
       this.font = font
@@ -227,6 +229,7 @@ const CanvasComp = ({
       this.circle = circle
       this.type = type
       this.img = img
+      this.show = show
       this.descent = 0
       // 이미지 일경우
       if (!type) {

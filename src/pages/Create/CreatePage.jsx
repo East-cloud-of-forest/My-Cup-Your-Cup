@@ -11,7 +11,7 @@ import { ButtonComp } from '../../components/index-comp/IndexComp'
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import CanvasComp from '../../components/createcomp/CanvasComp'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import CanvasSelectComp from '../../components/createcomp/CanvasSelectComp'
 
 const CreatePage = () => {
@@ -131,6 +131,7 @@ const CreatePage = () => {
       id: objId,
       x: -1000,
       y: -1000,
+      show: true,
     })
     setCanvasObjects(objClone)
     setSelectOnObject(canvasObjects.length)
@@ -153,6 +154,7 @@ const CreatePage = () => {
         y: -1000,
         width: img.width,
         height: img.height,
+        show: true,
       })
       setCanvasObjects(objClone)
       setSelectOnObject(canvasObjects.length)
@@ -180,6 +182,16 @@ const CreatePage = () => {
   // 레이어 선택
   const selectLayer = (i) => {
     setSelectOnObject(i)
+  }
+
+  // 레이어 가리기
+  const showToggle = (i) => {
+    const textsclone = [...canvasObjects]
+    textsclone[i] = {
+      ...textsclone[i],
+      show: !textsclone[i].show,
+    }
+    setCanvasObjects(textsclone)
   }
 
   // 레이어 드래그
@@ -319,8 +331,18 @@ const CreatePage = () => {
                   >
                     <FontAwesomeIcon icon={solid('trash-can')} />
                   </ButtonComp>
-                  <ButtonComp icon>
-                    <FontAwesomeIcon icon={solid('eye')} />
+                  <ButtonComp
+                    icon
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      showToggle(i)
+                    }}
+                  >
+                    {item.show ? (
+                      <FontAwesomeIcon icon={solid('eye')} />
+                    ) : (
+                      <FontAwesomeIcon icon={regular('eye-slash')} />
+                    )}
                   </ButtonComp>
                 </div>
               </li>
