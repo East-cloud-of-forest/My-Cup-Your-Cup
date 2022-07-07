@@ -13,11 +13,11 @@
 
     .show {
       top: 5% !important;
-    } 
+    }
 
     .layer {
       width: 170px;
-      min-height: 100px;
+      min-height: 60px;
       border-radius: 7px;
       box-shadow: 0 0 3px grey;
       position: absolute;
@@ -45,12 +45,15 @@
       .layer_body {
         overflow: auto;
         max-height: 200px;
+        padding: 0;
+        display: flex;
+        flex-direction: column-reverse;
 
         .select {
           background-color: #a6fae1;
 
           &:hover {
-            background-color: darken(#a6fae1, 20%) !important;
+            background-color: lighten(#a6fae1, 12%) !important;
           }
         }
 
@@ -61,6 +64,17 @@
           justify-content: space-between;
           padding: 0.1rem 0.5rem;
           cursor: pointer;
+
+          $layer_move_color: #81bcff;
+          &.top {
+            border-top: 3px solid $layer_move_color;
+          }
+          &.middle {
+            background-color: $layer_move_color;
+          }
+          &.bottom {
+            border-bottom: 3px solid $layer_move_color;
+          }
 
           > .icon {
             width: 14px;
@@ -326,7 +340,7 @@
         margin: 0;
 
         &::after {
-          content: "-";
+          content: '-';
           margin-left: 0.5rem;
         }
       }
@@ -494,7 +508,7 @@
       color: grey;
 
       &::before {
-        content: "-";
+        content: '-';
         margin-right: 0.5rem;
       }
     }
