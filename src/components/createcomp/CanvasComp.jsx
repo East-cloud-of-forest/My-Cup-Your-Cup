@@ -11,7 +11,6 @@ const CanvasComp = ({
 }) => {
   const canvasRef = useRef(null)
   const src = require(`../../components/createcomp/img/${pic}.png`)
-  console.log(selectOnObject)
 
   class App {
     constructor() {
