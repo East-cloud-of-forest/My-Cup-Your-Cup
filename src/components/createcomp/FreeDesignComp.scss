@@ -1,17 +1,56 @@
-.freedesigncomp {
-  padding: 0 1rem 1rem;
+.freedesigncomp_background {
+  position: absolute;
+  top: 0;
+  display: none;
+  z-index: 9990;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
 
-  h3 {
-    font-weight: 100;
-    text-align: center;
-    margin: 2rem 0;
+  &.actvie {
+    display: flex;
   }
 
-  .free_images {
-    height: 70vh;
-    max-height: 1200px;
-    overflow: auto;
-    width: 100%;
-    background-color: beige;
+  .freedesigncomp {
+    padding: 0 1rem 1rem;
+    background-color: white;
+    border-radius: 7px;
+
+    h3 {
+      font-weight: 100;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .free_images {
+      height: 70vh;
+      max-height: 1200px;
+      overflow: auto;
+      width: 100%;
+      padding: 0.5rem;
+
+      .free_img_item {
+        width: 100%;
+        aspect-ratio: 1/1;
+        padding: 1rem;
+        border-radius: 7px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          aspect-ratio: 1/1;
+          object-fit: contain;
+        }
+
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 3px grey;
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+      }
+    }
   }
 }
