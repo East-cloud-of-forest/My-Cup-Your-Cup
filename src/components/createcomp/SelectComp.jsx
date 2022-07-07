@@ -43,7 +43,7 @@ const SelectComp = ({
 
   // 재질 선택
   const [tumMet, setTumMet] = useState({
-    name: `상품명<br /> &nbsp;`,
+    name: `상품명 &nbsp;`,
     price: 0,
     met: "none",
   });
@@ -54,11 +54,11 @@ const SelectComp = ({
       met: met,
     };
     if (met === "pla") {
-      metObj.name = "플라스틱<br /> 텀블러 ";
+      metObj.name = "플라스틱 텀블러 ";
     } else if (met === "stain") {
-      metObj.name = "스테인리스<br /> 텀블러 ";
+      metObj.name = "스테인리스 텀블러 ";
     } else {
-      metObj.name = `상품명<br /> &nbsp;`;
+      metObj.name = `상품명 &nbsp;`;
     }
     setTumMet(metObj);
     getTypeData(met);

@@ -359,7 +359,7 @@ const Header = () => {
                 rootClose
                 onHide={() => setCartshow(false)} // 바깥클릭시 창닫힘
               >
-                <Popover id="cart_popup" className="cartpopover">
+                <Popover className="cartpopover">
                   <CartPopUp openCartPop={onCart} />
                 </Popover>
               </Overlay>

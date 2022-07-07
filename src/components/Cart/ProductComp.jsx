@@ -66,6 +66,7 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
                     onChange={onSelect}
                     checked={item.selected}
                     ></input>
+                <label htmlFor='itemCheckbox' />
                 <img src={item.image} alt="product-pic"></img>
                 <div className='product-text'>
                     <h4 className='product-title'> {`${idx+1}. ${item.name}`} </h4>

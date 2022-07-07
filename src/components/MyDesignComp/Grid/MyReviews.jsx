@@ -17,25 +17,24 @@ import { deleteFirebaseData } from '../../../datasources/firebase'
 const MyReviewsComp = ({user, review}) => {
   const [ show, setShow ] = useState(false);
   const [ target, setTarget ] = useState(null);
-  const ref = useRef(null);
+  const popref = useRef(null);
 
   const navigate = useNavigate();
   
   // 인증된 유저의 리뷰만 들고오기
   const uid = user.uid;
   const myReview = review.filter( r => r.data.user.uid === uid)
-
+  
   // 수정, 삭제 팝오버
   const handleClick = (e) => {
     setShow(!show)
     setTarget(e.target)
-    console.log(show, target) //왜안되
   }
   // 삭제버튼 클릭시
   const deletePost = async (id) => {
       try {
           alert('정말 삭제하시겠습니까?')
-          await deleteFirebaseData('MyDesign', id)
+          await deleteFirebaseData('Review', id)
           window.location.reload();
       }
       catch (e) { console.log(e) }
@@ -104,40 +103,33 @@ const MyReviewsComp = ({user, review}) => {
                 <p className="caption">2022-06-07</p>
               </div>
             </div>
-            <div>
+            <div ref={popref}>
               <ButtonComp icon>
                 <FontAwesomeIcon icon={solid('heart')} />
               </ButtonComp>
               <ButtonComp icon>
                 <FontAwesomeIcon icon={solid('share-nodes')} />
               </ButtonComp>
-
               <ButtonComp icon onClick={handleClick}>
                 <FontAwesomeIcon icon={solid("ellipsis-vertical")} />
               </ButtonComp>
-
-
               <Overlay
                 show={show}
                 target={target}
                 placement="left"
-                container={ref}
+                container={popref}
                 containerPadding={20}
                 rootClose
                 onHide={() => setShow(false)}
               >
-                <div><Popover id='review_popover'>
-                  <ButtonComp icon > 
-                    <FontAwesomeIcon 
-                      icon={solid("pen-to-square")}
-                      onClick={() => navigate(`/review/edit/${myReview.id}`)}/> 수정
+                <Popover id='review_popover'>
+                  <ButtonComp icon onClick={() => navigate(`/review/write/${myReview.id}`)}> 
+                    <FontAwesomeIcon icon={solid("pen-to-square")}/> 수정
                   </ButtonComp> <br/>
-                  <ButtonComp icon >
-                    <FontAwesomeIcon 
-                      icon={solid("trash-can")} 
-                      onClick={()=> deletePost(myReview.id)}/> 삭제
+                  <ButtonComp icon onClick={()=> deletePost(myReview.id)}>
+                    <FontAwesomeIcon  icon={solid("trash-can")} /> 삭제
                   </ButtonComp>
-                </Popover></div>
+                </Popover>
               </Overlay>
             </div>
           </div>
