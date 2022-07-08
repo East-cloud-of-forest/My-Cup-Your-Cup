@@ -81,18 +81,58 @@ const CanvasComp = ({
 
     animate() {
       this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight)
-      
+      // 오브젝트
       this.Obj.map((obj) => {
         obj.show && obj.draw(this.ctx, this.selectOnObject)
       })
-
-      // this.ctx.globalCompositeOperation = 'destination-in'
-
-      // this.ctx.drawImage(
-      //   backimg,
-      //   (this.stageWidth - backimg.width) / 2,
-      //   (this.stageHeight - backimg.height) / 2,
-      // )
+      // 마스킹
+      this.ctx.globalCompositeOperation = 'destination-in'
+      this.ctx.drawImage(
+        backimg,
+        (this.stageWidth - backimg.width) / 2,
+        (this.stageHeight - backimg.height) / 2,
+      )
+      this.ctx.globalCompositeOperation = 'source-over'
+      // 선택 박스
+      if (this.selectOnObject !== null) {
+        const id = this.selectOnObject
+        const obj = this.Obj[id]
+        // 박스 선
+        this.ctx.beginPath()
+        this.ctx.strokeStyle = '#4debbb'
+        this.ctx.lineWidth = 1
+        this.ctx.strokeRect(
+          obj.x - obj.width / 2,
+          obj.y - obj.height + obj.descent + 10,
+          obj.width,
+          obj.height,
+        )
+        // 모서리 원
+        this.circle[0].draw(
+          this.ctx,
+          obj.x - obj.width / 2,
+          obj.y - obj.height + obj.descent + 10,
+          id,
+        )
+        this.circle[1].draw(
+          this.ctx,
+          obj.x + obj.width / 2,
+          obj.y - obj.height + obj.descent + 10,
+          id,
+        )
+        this.circle[2].draw(
+          this.ctx,
+          obj.x + obj.width / 2,
+          obj.y + obj.descent + 10,
+          id,
+        )
+        this.circle[3].draw(
+          this.ctx,
+          obj.x - obj.width / 2,
+          obj.y + obj.descent + 10,
+          id,
+        )
+      }
 
       this.animateHandler2 = window.requestAnimationFrame(
         this.animate.bind(this),
@@ -365,7 +405,7 @@ const CanvasComp = ({
       }
     }
 
-    draw(ctx, id) {
+    draw(ctx) {
       ctx.globalCompositeOperation = 'source-over'
       if (this.type === 'text') {
         ctx.font = this.size + 'px ' + this.font
@@ -386,45 +426,6 @@ const CanvasComp = ({
           this.height,
         )
       }      
-
-      // 선택 박스
-      if (id === this.id) {
-        // 박스 선
-        ctx.beginPath()
-        ctx.strokeStyle = '#4debbb'
-        ctx.lineWidth = 1
-        ctx.strokeRect(
-          this.x - this.width / 2,
-          this.y - this.height + this.descent + 10,
-          this.width,
-          this.height,
-        )
-        // 모서리 원
-        this.circle[0].draw(
-          ctx,
-          this.x - this.width / 2,
-          this.y - this.height + this.descent + 10,
-          id,
-        )
-        this.circle[1].draw(
-          ctx,
-          this.x + this.width / 2,
-          this.y - this.height + this.descent + 10,
-          id,
-        )
-        this.circle[2].draw(
-          ctx,
-          this.x + this.width / 2,
-          this.y + this.descent + 10,
-          id,
-        )
-        this.circle[3].draw(
-          ctx,
-          this.x - this.width / 2,
-          this.y + this.descent + 10,
-          id,
-        )
-      }
     }
   }
 
