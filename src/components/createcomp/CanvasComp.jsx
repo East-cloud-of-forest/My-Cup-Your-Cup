@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 const CanvasComp = ({
   pic,
@@ -8,8 +7,9 @@ const CanvasComp = ({
   setCanvasObjects,
   selectOnObject,
   setSelectOnObject,
+  canvasRef
 }) => {
-  const canvasRef = useRef(null)
+  
   const src = require(`../../components/createcomp/img/${pic}.png`)
   const backimg = new Image()
   backimg.src = src
@@ -467,13 +467,14 @@ const CanvasComp = ({
   }, [pic, canvasObjects, colorData, canvasRef, selectOnObject])
 
   return (
+    <>
     <canvas
       ref={canvasRef}
       className="cre_canvas"
-      style={{
-        background: `url(${src}) no-repeat center`,
-      }}
+      style={{zIndex:"1"}}
     />
+    <img src={src} alt="" style={{position:'absolute', zIndex:"0"}}/>
+    </>
   )
 }
 

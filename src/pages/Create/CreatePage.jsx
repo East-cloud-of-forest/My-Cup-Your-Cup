@@ -8,7 +8,7 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons'
 import { ButtonComp } from '../../components/index-comp/IndexComp'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import CanvasComp from '../../components/createcomp/CanvasComp'
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
@@ -16,6 +16,8 @@ import CanvasSelectComp from '../../components/createcomp/CanvasSelectComp'
 import FreeDesignComp from '../../components/createcomp/FreeDesignComp'
 
 const CreatePage = () => {
+  const canvasRef = useRef(null)
+
   //재질 props 받아오는 함수
   const [material, setMaterial] = useState('')
 
@@ -364,7 +366,7 @@ const CreatePage = () => {
         </div>
 
         {/**메인이미지 */}
-        <div className="cre_mainImg">
+        <div className="cre_mainImg" >
           <CanvasComp
             colorData={colorData}
             pic={pic}
@@ -372,6 +374,7 @@ const CreatePage = () => {
             setCanvasObjects={setCanvasObjects}
             selectOnObject={selectOnObject}
             setSelectOnObject={setSelectOnObject}
+            canvasRef={canvasRef}
           />
         </div>
 
@@ -507,6 +510,7 @@ const CreatePage = () => {
             getTypeData={getTypeData}
             productName={productName}
             setSideEditOpen={setSideEditOpen}
+            canvasRef={canvasRef}
           />
           <CanvasSelectComp
             selectOnObject={selectOnObject}
