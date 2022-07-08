@@ -83,7 +83,7 @@ const CanvasComp = ({
       this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight)
       // 오브젝트
       this.Obj.map((obj) => {
-        obj.show && obj.draw(this.ctx, this.selectOnObject)
+        obj.draw(this.ctx, this.selectOnObject)
       })
       // 마스킹
       this.ctx.globalCompositeOperation = 'destination-in'
@@ -113,24 +113,28 @@ const CanvasComp = ({
           obj.x - obj.width / 2,
           obj.y - obj.height + obj.descent + 10,
           id,
+          obj.show
         )
         this.circle[1].draw(
           this.ctx,
           obj.x + obj.width / 2,
           obj.y - obj.height + obj.descent + 10,
           id,
+          obj.show
         )
         this.circle[2].draw(
           this.ctx,
           obj.x + obj.width / 2,
           obj.y + obj.descent + 10,
           id,
+          obj.show
         )
         this.circle[3].draw(
           this.ctx,
           obj.x - obj.width / 2,
           obj.y + obj.descent + 10,
           id,
+          obj.show
         )
       }
 
@@ -284,22 +288,17 @@ const CanvasComp = ({
       // 이미지 일경우
       if (!type) {
         // 이미지가 화면보다 큰 경우
-        if (width < height) {
-          if (height > stageHeight) {
+        if (height > stageHeight && width > stageWidth) {
+          if (width < height) {
             this.height = stageHeight * 0.8
             this.width = width * (this.height / height)
           } else {
-            this.width = width
-            this.height = height
-          }
-        } else if (height < width) {
-          if (width > stageWidth) {
             this.width = stageWidth * 0.8
             this.height = height * (this.width / width)
-          } else {
-            this.width = width
-            this.height = height
           }
+        } else {
+          this.width = width
+          this.height = height
         }
         // 높이 가운데 정렬
         this.y = y === -1000 ? stageHeight / 2 + this.height / 2 : y
@@ -312,7 +311,7 @@ const CanvasComp = ({
         pos.x <= this.x + this.width / 2 + 1 &&
         pos.y >= this.y - this.height + this.descent - 2 + 10 &&
         pos.y <= this.y + this.descent - 1 + 10
-      return this.select
+      return this.show && this.select
     }
 
     onDown(pos, version, cirlceId, circleIndex) {
@@ -416,16 +415,16 @@ const CanvasComp = ({
         this.descent =
           text.actualBoundingBoxDescent < 0 ? 0 : text.actualBoundingBoxDescent
         this.height = text.actualBoundingBoxAscent + this.descent + 20
-        ctx.fillText(this.text, this.x, this.y)
+        this.show && ctx.fillText(this.text, this.x, this.y)
       } else {
-        ctx.drawImage(
+        this.show && ctx.drawImage(
           this.img,
           this.x - this.width / 2,
           this.y - this.height + 10,
           this.width,
           this.height,
         )
-      }      
+      }
     }
   }
 
@@ -439,17 +438,18 @@ const CanvasComp = ({
       const dx = pos.x - this.x
       const dy = pos.y - this.y
       this.mouseon = dx * dx + dy * dy <= this.radius * this.radius
-      return this.mouseon
+      return this.show && this.mouseon
     }
 
     onDown() {
       return this.id
     }
 
-    draw(ctx, x, y, id) {
+    draw(ctx, x, y, id, show) {
       this.x = x
       this.y = y
       this.id = id
+      this.show = show
 
       ctx.beginPath()
       ctx.fillStyle = '#3da982'
