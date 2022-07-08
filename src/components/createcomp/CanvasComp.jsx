@@ -11,8 +11,8 @@ const CanvasComp = ({
 }) => {
   const canvasRef = useRef(null)
   const src = require(`../../components/createcomp/img/${pic}.png`)
-  const img = new Image()
-  img.src = src
+  const backimg = new Image()
+  backimg.src = src
 
   class App {
     constructor() {
@@ -81,13 +81,18 @@ const CanvasComp = ({
 
     animate() {
       this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight)
-
-      this.ctx.drawImage(img, (this.stageWidth - img.width) / 2, (this.stageHeight - img.height) / 2)
-
+      
       this.Obj.map((obj) => {
-        this.ctx.save()
         obj.show && obj.draw(this.ctx, this.selectOnObject)
       })
+
+      // this.ctx.globalCompositeOperation = 'destination-in'
+
+      // this.ctx.drawImage(
+      //   backimg,
+      //   (this.stageWidth - backimg.width) / 2,
+      //   (this.stageHeight - backimg.height) / 2,
+      // )
 
       this.animateHandler2 = window.requestAnimationFrame(
         this.animate.bind(this),
@@ -361,7 +366,7 @@ const CanvasComp = ({
     }
 
     draw(ctx, id) {
-      ctx.globalCompositeOperation = 'source-in'
+      ctx.globalCompositeOperation = 'source-over'
       if (this.type === 'text') {
         ctx.font = this.size + 'px ' + this.font
         ctx.textAlign = 'center'
@@ -380,8 +385,7 @@ const CanvasComp = ({
           this.width,
           this.height,
         )
-      }
-      ctx.globalCompositeOperation = 'source-over'
+      }      
 
       // 선택 박스
       if (id === this.id) {
