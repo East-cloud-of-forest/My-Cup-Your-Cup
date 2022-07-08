@@ -28,12 +28,12 @@ function CartPopUp({openCartPop, offCartSidebar}) {
         currency: 'KRW',
     });
 
-    const emptyStyle = {
-        textAlign: "center",
-        position: "relative",
-        alignItem: "center",
-        top: "95px",
-    }
+    // const emptyStyle = {
+    //     textAlign: "center",
+    //     // alignItem: "center",
+    //     // position: "relative",
+    //     // top: "95px"
+    // }
 
     return (
         <div className='popup_content'>
@@ -71,7 +71,7 @@ function CartPopUp({openCartPop, offCartSidebar}) {
                     </div>
                     
                 : ( 
-                    <div style={emptyStyle}>
+                    <div className="empty_cartpopup">
                         <p >장바구니가 비어있습니다!</p>
                         <ButtonComp color="mint" onClick={()=>{
                             navigate('/create');

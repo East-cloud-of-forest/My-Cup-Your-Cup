@@ -35,11 +35,9 @@ const ReviewPage = () => {
           images: doc.data().images,
           user: doc.data().user,
           }
-          )
+        )
       })
       setReview(array)
-        console.log(array)
-        console.log(review)
     } catch (e) { console.log(e) }
   }
 

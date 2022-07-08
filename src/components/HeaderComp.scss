@@ -497,5 +497,15 @@
     }
 
     // 카트 스타일 자리
+<<<<<<< HEAD
+=======
+    .app_side_bar {
+      .popup_content > .empty_cartpopup {
+          align-items: center;
+          position: relative;
+          top: 200px;
+      }
+    }
+>>>>>>> f59910c4e632b724008b1339aaec49e587e341c3
   }
 }
