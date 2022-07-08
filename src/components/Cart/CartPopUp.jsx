@@ -32,7 +32,7 @@ function CartPopUp({openCartPop, offCartSidebar}) {
         textAlign: "center",
         position: "relative",
         alignItem: "center",
-        top: "230px",
+        top: "95px",
     }
 
     return (
@@ -53,7 +53,7 @@ function CartPopUp({openCartPop, offCartSidebar}) {
                                 </div>
                                 <div className='btn_block'>
                                 <ButtonComp color="brown" onClick={()=>{
-                                    navigate('/cart');
+                                    navigate('/create');
                                     document.body.click();
                                 }}>
                                     제작하러 가기

@@ -1,3 +1,7 @@
+$darkgreen: #16855c;
+$mint: #4debbb;
+$realmint: #d5fff2;
+
 .product-container {
     display: flex;
     border: 0.7px solid #d9d9d9;
@@ -7,7 +11,28 @@
     width: 800px; 
     aspect-ratio: 4;
     align-items: center;
-    & #itemCheckbox { margin-right: 10px;}
+    & #itemCheckbox { display: none;    }
+        & label {
+            display: inline-block;
+            width: 17px;
+            aspect-ratio: 1/1;
+            border: 1px solid $mint;
+            border-radius: 2px;
+            cursor: pointer;
+            background-color: white;
+            transition: 0.2s;
+        }
+        label:checked + label {
+            background-color: white;
+            border: 3px solid $mint;
+            border-radius: 50%;
+            transition: 0.1s;
+            width: 20px;
+            aspect-ratio: 1/1;
+        }
+
+    
+    
     & img {
         
         width: 150px;
@@ -93,9 +118,9 @@
 // 반응형
 @media (max-width: 992px) {
     .product-container {
-        width: inherit;
-        margin: 0;
-        display: block;
+        width: fit-content;
+        margin: auto;
+        margin-bottom: 1rem;
         & .mdButtons {
             position: inherit;
             align-self: flex-end;

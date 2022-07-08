@@ -20,6 +20,7 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import {
+  deleteObject,
   getDownloadURL,
   getStorage,
   ref,
@@ -97,12 +98,25 @@ const uploadFirestorage = (path, name, img) => {
     })
   })
 }
+// storage 삭제
+const deleteFirestorage = (path, name) => {
+  return new Promise(()=> {
+    const storageRef = ref(storage, path +'/'+ name)
+    deleteObject(storageRef).then((r) => {
+      console.log(r)
+      }).catch((error) => {
+        console.log(error)
+    });
+  })
+}
+
 
 export {
   app,
   db,
   storage,
   uploadFirestorage,
+  deleteFirestorage,
   getFirebaseData,
   addFirebaseData,
   setFirebaseData,
