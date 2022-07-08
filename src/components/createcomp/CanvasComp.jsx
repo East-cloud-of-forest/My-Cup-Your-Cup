@@ -473,7 +473,14 @@ const CanvasComp = ({
       className="cre_canvas"
       style={{zIndex:"1"}}
     />
-    <img src={src} alt="" style={{position:'absolute', zIndex:"0"}}/>
+    <img 
+    src={src} 
+    alt="" 
+    style={{
+      position:'absolute', 
+      zIndex:"0",
+      filter :`opacity(0.5) drop-shadow(0 0 0 ${colorData}) brightness(65%) contrast(400%)`
+    }}/>
     </>
   )
 }
