@@ -444,7 +444,7 @@ const Header = () => {
           </ButtonComp>
         }
       >
-        <CartPopUp offCartSidebar={offCartSidebar}/>
+        <CartPopUp offCartSidebar={offCartSidebar} className="cartpop_sidebar"/>
       </Appsidebar>
     </header>
   );
