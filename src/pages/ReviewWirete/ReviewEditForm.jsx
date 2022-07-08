@@ -16,7 +16,32 @@ import { Spinner } from 'react-bootstrap'
 
 const ReviewEditForm = () => {
   const id = useParams();
-  console.log(id);
+  //console.log(id.id);
+  const dispatch = useDispatch()
+  // firebase 데이터가져오기 data fetching
+  let arry = []
+  const getMyReview = () => async () => {
+    try {
+      let thisPost;
+      const myReviewRef = getFirebaseData("Review");
+      (await myReviewRef).forEach( (doc) => {
+        if (doc.id === id.id ) {thisPost = doc.data()} else return;
+      });
+      console.log(thisPost)
+      setRating(thisPost.rating)
+      setTagList(thisPost.tages)
+      setReview(thisPost.review)
+      Object.values(thisPost.images).forEach( v => {
+        arry.push({ url: v, id: v }) 
+      })
+      setFiles(arry)
+      console.log(files) 
+    }
+    catch (err) {
+        console.log(err);
+    }
+  }
+  useEffect( ()=>{dispatch(getMyReview())}, [dispatch])
 
   // 입장시 스크롤 top
   const location = useLocation()
@@ -151,47 +176,30 @@ const ReviewEditForm = () => {
     setFiles(Array.from(files).filter((file) => file.id != id))
   }
 
-  // firebase data fetching
-  const getMyReview = () => async () => {
-    try {
-      let thisPost;
-      const myReviewRef = getFirebaseData("Review");
-      (await myReviewRef).forEach( (doc) => {
-        if (doc.id === id ) {thisPost = doc.data()} else return;
-      });
-      // setTitle(thisPost.title);
-      // setText(thisPost.text);
-      // setTagList([...thisPost.tag]);
-    }
-    catch (err) {
-        console.log(err);
-    }
-  }
-  useEffect( ()=>{dispatch(getMyReview())}, [dispatch])
-
   // firebase 로 업로드
   const { user } = useSelector((a) => a.enteruser)
   const sendFirebase = async () => {
-    let postID
+    //let postID
     let images = new Object()
-    await addFirebaseData('Review', {}).then((r) => (postID = r.id))
+    //await addFirebaseData('Review', {}).then((r) => (postID = r.id))
     const promise = files.map(async (file) => {
-      return await uploadFirestorage('review/' + postID, file.name, file)
+      return await uploadFirestorage('review/' + id.id, file.name, file)
     })
     const result = await Promise.all(promise)
     console.log(result);
-    result.forEach((url, i) => {
-      images['image' + i] = url
-    })
-    await setFirebaseData('Review', postID, {
-      createdAt: Date.now(),
-      user: user,
-      images: images,
-      rating: rating,
-      review: review,
-      tages: tagList,
-      heart: 0,
-    })
+    // result.forEach((url, i) => {
+    //   images['image' + i] = url
+    // })
+    // await setFirebaseData('Review', id.id, {
+    //   //createdAt: Date.now(),
+    //   //user: user,
+    //   images: images,
+    //   rating: rating,
+    //   review: review,
+    //   tages: tagList,
+    //   //heart: 0,
+    // })
+    console.log(images)
   }
 
   // 취소
@@ -202,7 +210,7 @@ const ReviewEditForm = () => {
 
   // 작성
   const { loading } = useSelector((a) => a.loading)
-  const dispatch = useDispatch()
+  
   const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
   const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
   const compliteReview = async () => {
@@ -232,7 +240,7 @@ const ReviewEditForm = () => {
         </div>
       ) : null}
 
-      <div>상품 정보</div>
+      {/* <div>상품 정보</div> */}
 
       <StarRating
         onClick={starClick}
@@ -326,7 +334,7 @@ const ReviewEditForm = () => {
           취소
         </ButtonComp>
         <ButtonComp color="green" onClick={compliteReview}>
-          작성
+          수정
         </ButtonComp>
       </div>
     </div>

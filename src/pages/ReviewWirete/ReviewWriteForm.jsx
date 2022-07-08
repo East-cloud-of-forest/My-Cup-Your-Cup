@@ -2,10 +2,11 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ButtonComp, StarRating } from '../../components/index-comp/IndexComp'
 import {
   addFirebaseData,
+  getFirebaseData,
   setFirebaseData,
   uploadFirestorage,
 } from '../../datasources/firebase'
@@ -14,6 +15,8 @@ import './ReviewWriteForm.scss'
 import { Spinner } from 'react-bootstrap'
 
 const ReviewWriteForm = () => {
+  const postid = useParams()
+  //console.log(postid.id)
   // 입장시 스크롤 top
   const location = useLocation()
   useEffect(() => {
@@ -141,13 +144,43 @@ const ReviewWriteForm = () => {
     } else {
       alert('최대 사진의 개수는 8개 입니다.')
     }
+    console.log(files)
   }
   // 파일 삭제
   const deleteFileImage = (id) => {
     setFiles(Array.from(files).filter((file) => file.id != id))
   }
 
-  // firebase 로 업로드
+  // firebase 데이터가져오기
+  let arry = []
+  const dispatch = useDispatch()
+  useEffect( ()=> {
+    const getMyReview = () => postid && ( async () => {
+    try {
+      let thisPost;
+      const myReviewRef = getFirebaseData("Review");
+      (await myReviewRef).forEach( (doc) => {
+        if (doc.id === postid.id ) {thisPost = doc.data()
+        console.log(doc.data())}
+        else return;
+      });
+      console.log(thisPost)
+      setRating(thisPost.rating)
+      setTagList(thisPost.tages)
+      setReview(thisPost.review)
+      Object.values(thisPost.images).forEach( v => {
+        arry.push({ url: v, id: v }) 
+      })
+      setFiles(arry)
+      console.log(files) 
+    } 
+    catch (err) {
+      console.log(err);
+    }})
+  dispatch(getMyReview())
+  }, [dispatch])
+
+  // firebase 로 새 리뷰 업로드
   const { user } = useSelector((a) => a.enteruser)
   const sendFirebase = async () => {
     let postID
@@ -171,6 +204,23 @@ const ReviewWriteForm = () => {
       heart: 0,
     })
   }
+  // firebase 리뷰 데이터 덮어쓰기
+  const editFirebase = async (id) => {
+    try { 
+      await setFirebaseData('Review', id, {
+        //images: images,
+        rating: rating,
+        review: review,
+        tages: tagList,
+      })
+    console.log('updated')
+    }
+    catch (e) {
+      console.log(e.message);
+    }
+  } 
+  
+
 
   // 취소
   const navigate = useNavigate()
@@ -180,7 +230,7 @@ const ReviewWriteForm = () => {
 
   // 작성
   const { loading } = useSelector((a) => a.loading)
-  const dispatch = useDispatch()
+  
   const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
   const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
   const compliteReview = async () => {
@@ -195,7 +245,7 @@ const ReviewWriteForm = () => {
     } else {
       startLoading()
       document.body.style.overflow = 'hidden'
-      await sendFirebase()
+      if (postid) {await sendFirebase()} else { editFirebase(postid)}
       document.body.style = ''
       endLoading()
       navigate(-1)

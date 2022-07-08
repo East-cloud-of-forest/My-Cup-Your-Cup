@@ -20,8 +20,8 @@ const TempReviewModalComp = (props) => {
         button={<TempReviewThumbnail review={props.review} />}
         image={
           <SliderComp dots={false} infinite={true}>
-            { Object.values(images).map( image => (
-              <div>
+            { Object.values(images).map( (image,i) => (
+              <div key={i}>
                 <img id="image" src={image} key={image} alt="review-image" />
               </div>
             ))}

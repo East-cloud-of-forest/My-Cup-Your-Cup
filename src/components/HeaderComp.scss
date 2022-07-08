@@ -155,13 +155,9 @@
         }
       }
 
-      #cart_popup {
-        width: 450px;
-      }
-
       .cartpopover {
         min-width: 450px;
-        min-height: 300px;
+        height: auto;
         background-color: white;
         border: 1px solid lightgray;
         mask-border-repeat: 5px;
