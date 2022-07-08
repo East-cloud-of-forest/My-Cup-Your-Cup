@@ -40,6 +40,7 @@ export default function MyDesigns(user) {
                 });
             })
             setdesigns(array);
+            console.log(designs)
         } catch (e) { console.log(e) }
     }
     useEffect(()=> {dispatch(getDesign());}, [dispatch])
@@ -99,7 +100,7 @@ export default function MyDesigns(user) {
                             // onHide={() => setShow(false)}
                         >
                             <Popover id="ellipsis_popover">
-                                <ButtonComp icon onClick={() => navigate(`/mydesign/edit/${design.id}`)}>
+                                <ButtonComp icon onClick={() => navigate(`/edit/${design.id}`)}>
                                     <FontAwesomeIcon icon={solid("pen-to-square")}/> 수정
                                 </ButtonComp> <br/>
                                 <ButtonComp icon onClick={()=> deletePost(design.id)}>
