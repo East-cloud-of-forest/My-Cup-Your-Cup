@@ -24,8 +24,9 @@ const Header = () => {
   const searchInput = useRef();
   const navlink = [
     {
-      name: "주문제작",
+      name: "잔만들기",
       path: "/create",
+      login: user === null,
     },
     {
       name: "잔디자인",
@@ -200,17 +201,21 @@ const Header = () => {
                         <div className="user_svg">
                           <FontAwesomeIcon icon={solid("user")} size="4x" />
                         </div>
-                      )} 
+                      )}
                     </div>
-                    
                   </li>
                   <li>
-                    <p className="name_editBtn">{user.displayName}
+                    <p className="name_editBtn">
+                      {user.displayName}
                       <span>
-                        <ButtonComp icon onClick={()=>{
-                          navi('/editprofile')
-                          offSidebar() }}>
-                          <FontAwesomeIcon icon={solid("pencil")}  />
+                        <ButtonComp
+                          icon
+                          onClick={() => {
+                            navi("/editprofile");
+                            offSidebar();
+                          }}
+                        >
+                          <FontAwesomeIcon icon={solid("pencil")} />
                         </ButtonComp>
                       </span>
                     </p>
@@ -265,25 +270,28 @@ const Header = () => {
 
             {/* 네비게이션 */}
             <ul className="side_nav">
-              {navlink.map((e, i) => (
-                <li key={i}>
-                  <NavLink
-                    to={e.path}
-                    activeclassname="true"
-                    onClick={offSidebar}
-                  >
-                    <ButtonComp color="white">
-                      {e.name}
-                      <FontAwesomeIcon icon={solid("caret-left")} />
-                    </ButtonComp>
-                  </NavLink>
-                </li>
-              ))}
+              {navlink.map(
+                (e, i) =>
+                  !e.login && (
+                    <li key={i}>
+                      <NavLink
+                        to={e.path}
+                        activeclassname="true"
+                        onClick={offSidebar}
+                      >
+                        <ButtonComp color="white">
+                          {e.name}
+                          <FontAwesomeIcon icon={solid("caret-left")} />
+                        </ButtonComp>
+                      </NavLink>
+                    </li>
+                  )
+              )}
             </ul>
           </div>
 
           {/* 검색창 */}
-          <div className='search'>
+          <div className="search">
             <form onSubmit={onSideSearch}>
               <input
                 type="text"
@@ -307,17 +315,20 @@ const Header = () => {
       </Link>
       <nav id="App_nav">
         <ul className="nav">
-          {navlink.map((e, i) => (
-            <li key={i}>
-              <NavLink to={e.path} activeclassname="true">
-                {e.name.split("").map((a, i) => (
-                  <span data-hover={a} key={i}>
-                    {a}
-                  </span>
-                ))}
-              </NavLink>
-            </li>
-          ))}
+          {navlink.map(
+            (e, i) =>
+              !e.login && (
+                <li key={i}>
+                  <NavLink to={e.path} activeclassname="true">
+                    {e.name.split("").map((a, i) => (
+                      <span data-hover={a} key={i}>
+                        {a}
+                      </span>
+                    ))}
+                  </NavLink>
+                </li>
+              )
+          )}
         </ul>
       </nav>
       <div id="App_subnav">
@@ -396,12 +407,17 @@ const Header = () => {
                         </div>
                       )}
                     </div>
-                    <p className="name_editBtn">{user.displayName}
+                    <p className="name_editBtn">
+                      {user.displayName}
                       <span>
-                        <ButtonComp icon onClick={()=>{
-                          navi('/editprofile')
-                          offSidebar() }}>
-                          <FontAwesomeIcon icon={solid("pencil")}  />
+                        <ButtonComp
+                          icon
+                          onClick={() => {
+                            navi("/editprofile");
+                            offSidebar();
+                          }}
+                        >
+                          <FontAwesomeIcon icon={solid("pencil")} />
                         </ButtonComp>
                       </span>
                     </p>
@@ -444,7 +460,10 @@ const Header = () => {
           </ButtonComp>
         }
       >
-        <CartPopUp offCartSidebar={offCartSidebar} className="cartpop_sidebar"/>
+        <CartPopUp
+          offCartSidebar={offCartSidebar}
+          className="cartpop_sidebar"
+        />
       </Appsidebar>
     </header>
   );
