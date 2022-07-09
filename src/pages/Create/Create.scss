@@ -580,3 +580,16 @@
     }
   }
 }
+
+.imgs {
+  background-color: white;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  
+  img {
+    width: auto !important;
+  }
+}
