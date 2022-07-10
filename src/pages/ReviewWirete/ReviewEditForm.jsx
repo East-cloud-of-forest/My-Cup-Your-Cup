@@ -14,9 +14,35 @@ import { loadingEnd, loadingStart } from '../../modules/loading'
 import './ReviewWriteForm.scss'
 import { Spinner } from 'react-bootstrap'
 
-const ReviewWriteForm = () => {
-  const postid = useParams()
-  //console.log(postid.id)
+const ReviewEditForm = () => {
+  const id = useParams();
+  //console.log(id.id);
+  const dispatch = useDispatch()
+  // firebase 데이터가져오기 data fetching
+  let arry = []
+  const getMyReview = () => async () => {
+    try {
+      let thisPost;
+      const myReviewRef = getFirebaseData("Review");
+      (await myReviewRef).forEach( (doc) => {
+        if (doc.id === id.id ) {thisPost = doc.data()} else return;
+      });
+      console.log(thisPost)
+      setRating(thisPost.rating)
+      setTagList(thisPost.tages)
+      setReview(thisPost.review)
+      Object.values(thisPost.images).forEach( v => {
+        arry.push({ url: v, id: v }) 
+      })
+      setFiles(arry)
+      console.log(files) 
+    }
+    catch (err) {
+        console.log(err);
+    }
+  }
+  useEffect( ()=>{dispatch(getMyReview())}, [dispatch])
+
   // 입장시 스크롤 top
   const location = useLocation()
   useEffect(() => {
@@ -144,83 +170,37 @@ const ReviewWriteForm = () => {
     } else {
       alert('최대 사진의 개수는 8개 입니다.')
     }
-    console.log(files)
   }
   // 파일 삭제
   const deleteFileImage = (id) => {
     setFiles(Array.from(files).filter((file) => file.id != id))
   }
 
-  // firebase 데이터가져오기
-  let arry = []
-  const dispatch = useDispatch()
-  useEffect( ()=> {
-    const getMyReview = () => postid && ( async () => {
-    try {
-      let thisPost;
-      const myReviewRef = getFirebaseData("Review");
-      (await myReviewRef).forEach( (doc) => {
-        if (doc.id === postid.id ) {thisPost = doc.data()
-        console.log(doc.data())}
-        else return;
-      });
-      console.log(thisPost)
-      setRating(thisPost.rating)
-      setTagList(thisPost.tages)
-      setReview(thisPost.review)
-      Object.values(thisPost.images).forEach( v => {
-        arry.push({ url: v, id: v }) 
-      })
-      setFiles(arry)
-      console.log(files) 
-    } 
-    catch (err) {
-      console.log(err);
-    }})
-  dispatch(getMyReview())
-  }, [dispatch])
-
-  // firebase 로 새 리뷰 업로드
+  // firebase 로 업로드
   const { user } = useSelector((a) => a.enteruser)
   const sendFirebase = async () => {
-    let postID
+    //let postID
     let images = new Object()
-    await addFirebaseData('Review', {}).then((r) => (postID = r.id))
+    //await addFirebaseData('Review', {}).then((r) => (postID = r.id))
     const promise = files.map(async (file) => {
-      return await uploadFirestorage('review/' + postID, file.name, file)
+      return await uploadFirestorage('review/' + id.id, file.name, file)
     })
     const result = await Promise.all(promise)
     console.log(result);
-    result.forEach((url, i) => {
-      images['image' + i] = url
-    })
-    await setFirebaseData('Review', postID, {
-      createdAt: Date.now(),
-      user: user,
-      images: images,
-      rating: rating,
-      review: review,
-      tages: tagList,
-      heart: 0,
-    })
+    // result.forEach((url, i) => {
+    //   images['image' + i] = url
+    // })
+    // await setFirebaseData('Review', id.id, {
+    //   //createdAt: Date.now(),
+    //   //user: user,
+    //   images: images,
+    //   rating: rating,
+    //   review: review,
+    //   tages: tagList,
+    //   //heart: 0,
+    // })
+    console.log(images)
   }
-  // firebase 리뷰 데이터 덮어쓰기
-  const editFirebase = async (id) => {
-    try { 
-      await setFirebaseData('Review', id, {
-        //images: images,
-        rating: rating,
-        review: review,
-        tages: tagList,
-      })
-    console.log('updated')
-    }
-    catch (e) {
-      console.log(e.message);
-    }
-  } 
-  
-
 
   // 취소
   const navigate = useNavigate()
@@ -245,7 +225,7 @@ const ReviewWriteForm = () => {
     } else {
       startLoading()
       document.body.style.overflow = 'hidden'
-      if (postid) {await sendFirebase()} else { editFirebase(postid)}
+      await sendFirebase()
       document.body.style = ''
       endLoading()
       navigate(-1)
@@ -260,7 +240,7 @@ const ReviewWriteForm = () => {
         </div>
       ) : null}
 
-      <div>상품 정보</div>
+      {/* <div>상품 정보</div> */}
 
       <StarRating
         onClick={starClick}
@@ -354,10 +334,10 @@ const ReviewWriteForm = () => {
           취소
         </ButtonComp>
         <ButtonComp color="green" onClick={compliteReview}>
-          작성
+          수정
         </ButtonComp>
       </div>
     </div>
   )
 }
-export default ReviewWriteForm
+export default ReviewEditForm

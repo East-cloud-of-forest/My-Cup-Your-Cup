@@ -155,17 +155,20 @@
         }
       }
 
-      #cart_popup {
-        width: 450px;
-      }
-
       .cartpopover {
         min-width: 450px;
         min-height: 300px;
+        height: auto;
         background-color: white;
         border: 1px solid lightgray;
         mask-border-repeat: 5px;
         padding: 10px;
+        .popup_content > .empty_cartpopup {
+          text-align: center;
+          justify-content: center;
+          position: relative;
+          top: 95px;
+        }
       }
 
       button {
@@ -246,7 +249,7 @@
           align-items: center;
           .button {
             padding: 5px;
-            border : none;
+            border: none;
           }
         }
         p {
@@ -350,7 +353,7 @@
           align-items: center;
           .button {
             padding: 5px;
-            border : none;
+            border: none;
           }
         }
       }
@@ -494,6 +497,12 @@
     }
 
     // 카트 스타일 자리
-
+    .app_side_bar {
+      .popup_content > .empty_cartpopup {
+        align-items: center;
+        position: relative;
+        top: 200px;
+      }
+    }
   }
 }

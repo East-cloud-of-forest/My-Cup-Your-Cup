@@ -7,6 +7,7 @@ import {
   addDoc,
   setDoc,
   doc,
+  deleteDoc,
 } from 'firebase/firestore'
 import {
   getAuth,
@@ -19,6 +20,7 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import {
+  deleteObject,
   getDownloadURL,
   getStorage,
   ref,
@@ -78,6 +80,10 @@ const addFirebaseData = async (name, content) => {
 const setFirebaseData = async (name, id, content) => {
   return await setDoc(doc(db, name, id), content)
 }
+// store 문서 삭제
+const deleteFirebaseData = async (name, id) => {
+  return await deleteDoc(doc(db, name, id));
+}
 
 // cloud stroage 초기화
 const storage = getStorage(app)
@@ -92,15 +98,29 @@ const uploadFirestorage = (path, name, img) => {
     })
   })
 }
+// storage 삭제
+const deleteFirestorage = (path, name) => {
+  return new Promise(()=> {
+    const storageRef = ref(storage, path +'/'+ name)
+    deleteObject(storageRef).then((r) => {
+      console.log(r)
+      }).catch((error) => {
+        console.log(error)
+    });
+  })
+}
+
 
 export {
   app,
   db,
   storage,
   uploadFirestorage,
+  deleteFirestorage,
   getFirebaseData,
   addFirebaseData,
   setFirebaseData,
+  deleteFirebaseData,
   googleLoginPopup,
   emailLogin,
   loginSession,

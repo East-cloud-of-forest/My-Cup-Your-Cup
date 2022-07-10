@@ -2,12 +2,19 @@ import "./MyDesign.scss";
 import { ProfileComp } from "../../components/index-comp/IndexComp";
 import MyDesigns from "../../components/MyDesignComp/Grid/MyDesigns";
 import LikedDesigns from "../../components/MyDesignComp/Grid/LikedDesigns";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MyReviewsComp from "../../components/MyDesignComp/Grid/MyReviews";
+import { useCallback, useEffect } from "react";
+import { dataResultModule } from "../../modules/firebaseData";
 
 const MyDesign = () => {
   const {user} = useSelector((user)=> user.enteruser)
+  const { review } = useSelector(state => state.firebaseData);
+
+  const dispatch = useDispatch();
+  const getReview = useCallback(()=>dispatch(dataResultModule()),[dispatch]);
+
+  useEffect( () => getReview(), []);
 
   return (
     <div className="mydesign_page">
@@ -39,10 +46,10 @@ const MyDesign = () => {
             </div> ) : null }
       </div> {/* 헤더 끝 */}
         {
-          user? ( <>
+          user && review ? ( <>
           <MyDesigns user={user} />
           <LikedDesigns user={user} />
-          <MyReviewsComp user ={user} /> 
+          <MyReviewsComp user={user} review={review} /> 
         </> ) : null
         }
       </div>

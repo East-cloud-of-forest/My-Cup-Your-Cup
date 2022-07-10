@@ -27,7 +27,7 @@ export default function LikedDesigns() {
         <Row>
           {
             CUP_PICS.map( (cup_pic, i)=>(
-              <Col xs="6" md="3" key={cup_pic.id}>
+              <Col xl="2" lg="3" md="4" sm="6" key={cup_pic.id}>
                 <ModalComp 
                 button={<img id="preview-image" src={cup_pic.src} alt={cup_pic.title}/>}
                 image={<img src={cup_pic.src} alt={cup_pic.title}/>}

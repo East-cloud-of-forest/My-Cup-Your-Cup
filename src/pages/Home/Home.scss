@@ -22,25 +22,13 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
+
     img {
-      height: 300px;
       object-fit: cover;
+      width: 100%;
     }
   }
-} // 모바일일때 다음배너 보이는 현상 조절
-// @media (max-width: 430px) {
-//   .main_slide {
-//     & .main_slide_item {
-//       display: flex !important;
-//       align-items: center;
-//       justify-content:center;
-//       img { // 첫번째 배너만 문제 고칠것
-//         height: 10rem;
-//         object-fit: cover;
-//       }
-//     }
-//   }
-// }
+}
 
 .main_circlemenu {
   display: flex;

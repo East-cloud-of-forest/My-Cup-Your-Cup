@@ -25,7 +25,7 @@ $facebook: #475a96;
     }
   }
   #preview-image {
-    width: 200px;
+    width: 100%;
     aspect-ratio: 1;
     margin-bottom: 20px;
   }
@@ -58,13 +58,22 @@ $facebook: #475a96;
       }
     }
     .modal_footer {
-      width: inherit;
-      display: flex;
+      // width: inherit;
+      // display: flex;
+      // position: absolute;
+      // bottom: 0;
+      // align-items: center;
+      // justify-content: space-between;
       position: absolute;
       bottom: 0;
+      display: flex;
+      right: 0;
+      width: 50%;
       align-items: center;
       justify-content: space-between;
+      padding: 0 1rem 0.5rem;
     }
+    
 
   }
 

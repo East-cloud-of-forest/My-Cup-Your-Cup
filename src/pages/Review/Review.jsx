@@ -9,23 +9,39 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { dataResultModule } from "../../modules/firebaseData";
+import { getFirebaseData } from "../../datasources/firebase";
 
 const ReviewPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
   const goReviewWrite = () => {
     navigate("/review/write");
   };
   const { boards } = useSelector((state) => state.review);
-  console.log(boards)
-  const { review } = useSelector(state => state.firebaseData)
-  
-  const dispatch = useDispatch()
-  const aaa = useCallback(()=>dispatch(dataResultModule()),[dispatch])
-  
-  useEffect( () => aaa(), [])
+  const [review, setReview] = useState([]);
 
+  const getReviews = () => async () => {
+    try {
+      let array = []
+      const reviewRef = getFirebaseData('Review');
+      (await reviewRef).forEach( doc => {
+        array.push(
+          {
+          id : doc.id,
+          rating : doc.data().rating,
+          tages : doc.data().tages,
+          review : doc.data().review,
+          images: doc.data().images,
+          user: doc.data().user,
+          }
+        )
+      })
+      setReview(array)
+    } catch (e) { console.log(e) }
+  }
 
-  //console.log(review)
+  useEffect(() => { dispatch(getReviews()) }, [dispatch])
 
   return (
     <div className="review_page">
@@ -35,7 +51,7 @@ const ReviewPage = () => {
           {
             review && review.map( r => (
               <Col xl="2" lg="3" md="4" sm="6" key={r.id} className="review_card">
-                <TempReviewModalComp review={r.data} />
+                <TempReviewModalComp review={r} />
                 
             </Col>
             ))
