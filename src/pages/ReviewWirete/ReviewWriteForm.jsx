@@ -9,10 +9,15 @@ import {
   getFirebaseData,
   setFirebaseData,
   uploadFirestorage,
+  deleteFirestorage,
+  getFileMeta,
+  storage,
+  uploadWithMetadata,
 } from '../../datasources/firebase'
 import { loadingEnd, loadingStart } from '../../modules/loading'
 import './ReviewWriteForm.scss'
 import { Spinner } from 'react-bootstrap'
+import { getMetadata, getStorage, ref } from 'firebase/storage'
 
 const ReviewWriteForm = () => {
   const postid = useParams()
@@ -146,12 +151,19 @@ const ReviewWriteForm = () => {
     }
     console.log(files)
   }
+  
   // 파일 삭제
   const deleteFileImage = (id) => {
-    setFiles(Array.from(files).filter((file) => file.id != id))
+    const firestorage = 'firebasestorage'
+    if (id.includes(firestorage)) {
+      deleteFirestorage('review', postid, name)
+    } else {
+      setFiles(Array.from(files).filter((file) => file.id != id))
+    }
   }
 
-  // firebase 데이터가져오기
+  const [imageLength, setImageLength] = useState(0);
+  // firestore 데이터가져오기
   let arry = []
   const dispatch = useDispatch()
   useEffect( ()=> {
@@ -164,6 +176,7 @@ const ReviewWriteForm = () => {
         console.log(doc.data())}
         else return;
       });
+      
       console.log(thisPost)
       setRating(thisPost.rating)
       setTagList(thisPost.tages)
@@ -171,14 +184,19 @@ const ReviewWriteForm = () => {
       Object.values(thisPost.images).forEach( v => {
         arry.push({ url: v, id: v }) 
       })
+      let imgs = Object.keys(thisPost.images);
       setFiles(arry)
-      console.log(files) 
-    } 
+      setImageLength(imgs.length)
+      console.log(imgs.length)
+  } 
     catch (err) {
       console.log(err);
-    }})
+    }} 
+  )
+
   dispatch(getMyReview())
   }, [dispatch])
+  
 
   // firebase 로 새 리뷰 업로드
   const { user } = useSelector((a) => a.enteruser)
@@ -206,7 +224,11 @@ const ReviewWriteForm = () => {
   }
   // firebase 리뷰 데이터 덮어쓰기
   const editFirebase = async (id) => {
-    try { 
+    try {
+      const promise = files.map(async (file) => {
+        !file.id.includes('firebasestorage') &&
+        await uploadFirestorage('review/' + postid, file.name, file)
+      })
       await setFirebaseData('Review', id, {
         //images: images,
         rating: rating,
@@ -245,7 +267,7 @@ const ReviewWriteForm = () => {
     } else {
       startLoading()
       document.body.style.overflow = 'hidden'
-      if (postid) {await sendFirebase()} else { editFirebase(postid)}
+      if (postid) {await editFirebase()} else { sendFirebase(postid)}
       document.body.style = ''
       endLoading()
       navigate(-1)
