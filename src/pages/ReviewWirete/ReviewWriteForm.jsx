@@ -209,7 +209,16 @@ const ReviewWriteForm = () => {
     else {
       await addFirebaseData('Review', {}).then((r) => (postID = r.id))
     }
-    
+    const promise = files.map(async (file) => {
+      filename.push(file.name)
+      fileid.push(file.id)
+      return await uploadFirestorage('review/' + postID, file.id, file)
+    })
+    const result = await Promise.all(promise)
+    console.log(result)
+    result.forEach((url, i) => {
+      images['image' + i] = url
+    })
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
       user: user,
