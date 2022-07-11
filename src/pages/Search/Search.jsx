@@ -1,4 +1,4 @@
-import { ButtonComp } from "../../components/index-comp/IndexComp";
+import { ButtonComp, StarRating } from "../../components/index-comp/IndexComp";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Search.scss";
@@ -14,6 +14,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useEffect } from "react";
 import queryString from "query-string";
 import { useState } from "react";
+import { firebaseSearch } from "../../datasources/firebase";
 
 const Search = () => {
   const navi = useNavigate();
@@ -29,7 +30,28 @@ const Search = () => {
   const { search } = useLocation();
   const { keyword } = queryString.parse(search);
 
+  const [allSearchResult, setAllSearchResult] = useState({
+    tagSearch: [],
+    reviewSearch: [],
+    designSearch: [],
+    userSearch: [],
+    inquiry: [],
+  });
+  // const [tagSearch, setTagSearch] = useState([]);
+  // const [reviewSearch, setReviewSearch] = useState([]);
+  const reviewSearchF = async () => {
+    await firebaseSearch("Review", "review", keyword).then((r) => {
+      const resultArray = [];
+      r.forEach((d) => {
+        resultArray.push(d.data());
+        console.log(d.data());
+      });
+      setAllSearchResult({ ...allSearchResult, reviewSearch: resultArray });
+    });
+  };
+
   useEffect(() => {
+    reviewSearchF();
     setSearchKeyword(keyword);
   }, [keyword]);
 
@@ -42,7 +64,7 @@ const Search = () => {
   // 검색 엔터
   const onSearch = (e) => {
     if (e !== undefined) {
-      e.preventDefault()
+      e.preventDefault();
     }
     navi("/search?keyword=" + searchKeyword);
   };
@@ -55,22 +77,27 @@ const Search = () => {
     {
       name: "태그",
       path: "/tag",
+      result: "tagSearch",
     },
     {
       name: "리뷰",
       path: "/review",
+      result: "reviewSearch",
     },
     {
       name: "디자인",
       path: "/design",
-    },
-    {
-      name: "문의",
-      path: "/inquiry",
+      result: "designSearch",
     },
     {
       name: "사용자",
       path: "/user",
+      result: "userSearch",
+    },
+    {
+      name: "문의",
+      path: "/inquiry",
+      result: "inquiry",
     },
   ];
 
@@ -116,7 +143,12 @@ const Search = () => {
                     }}
                   >
                     {t.name} <br />
-                    <p className="caption">000건</p>
+                    <p className="caption">
+                      {t.name === "전체"
+                        ? "000"
+                        : allSearchResult[t.result].length}
+                      건
+                    </p>
                   </ButtonComp>
                   <div className="active_bar"></div>
                 </NavLink>
@@ -136,30 +168,44 @@ const Search = () => {
             <hr />
             {tabs
               .filter((a) => a.name !== "전체")
-              .map((a) => (
-                <div className="result_box">
-                  <p>{a.name} - 000건</p>
+              .map(
+                (a, i) =>
+                  allSearchResult[a.result].length !== 0 && (
+                    // 각 결과별 건수
+                    <div key={i} className="result_box">
+                      <p>
+                        {a.name} - {allSearchResult[a.result].length}건
+                      </p>
 
-                  {resultdata.map((a) => (
-                    <div className="result_box_item">
-                      <div
-                        className="img"
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          backgroundColor: "orange",
-                        }}
-                      ></div>
-                      <div>
-                        <h4>title</h4>
-                        <p>text</p>
-                      </div>
+                      {allSearchResult[a.result].slice(0, 3).map((r, i) => (
+                        // 결과
+                        <div key={i} className="result_box_item">
+                          <img
+                            src={r.images.image0}
+                            alt=""
+                            className="img"
+                            style={{
+                              width: "100px",
+                              height: "100px",
+                            }}
+                          />
+                          <div>
+                            <h4>{a.result === "reviewSearch" && r.review}</h4>
+                            <StarRating rating={r.rating} />
+                            <div className="userInfo">
+                              <img src={r.user.photoURL} alt="" />
+                              <p>{r.user.displayName}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                      <hr />
+                      {allSearchResult[a.result].length > 3 && (
+                        <Link to={"/search" + a.path}>+ 더보기</Link>
+                      )}
                     </div>
-                  ))}
-                  <hr />
-                  <Link to={"/search" + a.path}>+ 더보기</Link>
-                </div>
-              ))}
+                  )
+              )}
           </div>
         )}
       </div>
