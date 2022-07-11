@@ -10,16 +10,22 @@ import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TempReviewThumbnail from '../../Review/grid/TempReviewThumbnail'
 import { Col, Container, Overlay, Popover, Row } from 'react-bootstrap'
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux/es/exports'
 import { deleteFirebaseData } from '../../../datasources/firebase'
+import { loadingEnd, loadingStart } from '../../../modules/loading'
   
-const MyReviewsComp = ({user, review}) => {
+const MyReviewsComp = ({review}) => {
+
   const [ show, setShow ] = useState(false);
   const [ target, setTarget ] = useState(null);
   const popref = useRef(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
 
   // 수정, 삭제 팝오버
   const handleClick = (e) => {
@@ -28,12 +34,11 @@ const MyReviewsComp = ({user, review}) => {
   }
   // 삭제버튼 클릭시
   const deletePost = async (id) => {
-      try {
-          alert('정말 삭제하시겠습니까?')
-          await deleteFirebaseData('Review', id)
-          window.location.reload();
-      }
-      catch (e) { console.log(e) }
+    try {
+        alert('정말 삭제하시겠습니까?')
+        await deleteFirebaseData('Review', id)
+        navigate(-1)
+    } catch (e) { console.log(e) }
   }
 
   return (

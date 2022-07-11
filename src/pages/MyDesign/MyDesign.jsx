@@ -7,14 +7,19 @@ import MyReviewsComp from "../../components/MyDesignComp/Grid/MyReviews";
 import { useCallback, useEffect, useState } from "react";
 import { dataResultModule } from "../../modules/firebaseData";
 import { getFirebaseData } from "../../datasources/firebase";
+import { loadingEnd, loadingStart } from "../../modules/loading";
 
 const MyDesign = () => {
   const {user} = useSelector((user)=> user.enteruser)
   const [review, setReview] = useState([]);
   const dispatch = useDispatch();
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
 
   const getReviews = () => async () => {
+    startLoading()
     try {
+      
       let array = []
       const reviewRef = getFirebaseData('Review');
       (await reviewRef).forEach( doc => {
@@ -32,6 +37,7 @@ const MyDesign = () => {
       })
       setReview(array)
     } catch (e) { console.log(e) }
+    endLoading()
   }
 
   useEffect(() => { dispatch(getReviews()) }, [dispatch])
