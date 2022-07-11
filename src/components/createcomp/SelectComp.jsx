@@ -137,6 +137,7 @@ const SelectComp = ({
     console.log(canvasImage)
     onAddItem({
       image: canvasImage,
+      imageBlob: canvasBlob,
       name: tumMet.name + tumSize.name,
       color: colorName,
       material: tumMet.met,
@@ -156,9 +157,6 @@ const SelectComp = ({
         break;
     }
   };
-  const downloadImage = () => {
-    
-  }
 
   // 가격정보
   const summa = tumMet.price + tumSize.price + tumStraw.price;
@@ -166,12 +164,30 @@ const SelectComp = ({
   useEffect(() => {
     getProductName(tumMet.name + tumSize.name + tumShape);
     getDesignImage()
+    downloadFile()
   }, [tumMet, tumSize, tumShape]);
 
   const [canvasImage, setCanvasImage] = useState();
   const getDesignImage = () => {
     setCanvasImage(canvasRef.current.toDataURL());
   };
+  const [canvasBlob, setCanvasBlob] =useState();
+  const downloadFile = () => {
+    canvasRef.current.toBlob( function(blob) {
+      const newImg = document.createElement('img');
+      const url = URL.createObjectURL(blob);
+
+      newImg.onload = function() {
+        // no longer need to read the blob so it's revoked
+        URL.revokeObjectURL(url);
+      };
+
+      newImg.src = url;
+      newImg.crossOrigin = "Anonymous"
+      console.log(newImg)
+      setCanvasBlob(newImg)
+    })
+  }
 
   return (
     <div className="option_select">
@@ -363,8 +379,13 @@ const SelectComp = ({
             </ModalComp>
             <ButtonComp onClick={() => {
               doneDesign("upload")
+              getDesignImage()
+              downloadFile()
               }} color="darkgreen">
               저장
+            </ButtonComp>
+            <ButtonComp onClick={downloadFile} color="darkgreen">
+              aa
             </ButtonComp>
           </>
         ) : (

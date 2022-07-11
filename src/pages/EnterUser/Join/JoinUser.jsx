@@ -98,15 +98,12 @@ const JoinPage = () => {
           displayName: nickname,
         })
         await setFirebaseData('user', uid, {
-          email: emailInput,
-          displayName: nickname,
-          uid: uid,
           name: nameInput,
           birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
           gender: gender,
           phone: phoneNumber,
           agreement: agreeObj,
-          photoURL: photoURL,
+          itemList: []
         })
         alert('회원가입이 완료 되었습니다')
         navi('/')
@@ -154,11 +151,6 @@ const JoinPage = () => {
                 type="password"
               ></input>
             </span>
-
-            {/* <h3 className="Jointext">비밀번호 재확인</h3>
-            <span className="Joinsignup_input">
-              <input className="Joinsignup_pww" type="text"></input>
-            </span> */}
           </div>
 
           <div className="Joinname_birth_gender_email">

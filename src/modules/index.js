@@ -7,6 +7,7 @@ import enteruser from './enteruser'
 import firebaseData from './firebaseData'
 import loading from './loading'
 import uploadDesign from "./uploadDesign";
+import writeReview from "./writeReview";
 
 const rootReducer = combineReducers({
   cartReducer,
@@ -15,7 +16,7 @@ const rootReducer = combineReducers({
   firebaseData,
   loading,
   uploadDesign,
-
+  writeReview,
 });
 
 

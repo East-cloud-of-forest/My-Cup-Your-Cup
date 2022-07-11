@@ -1,149 +1,139 @@
-import { React, useState, useCallback } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import './LoginMain.scss'
-import BrandButton from '../../../components/Login/BrandButton'
-import SearchID from '../../../components/Login/SearchID/SearchID'
-import SearchPassword from '../../../components/Login/SearchPassword/SearchPassword'
-import { ButtonComp } from '../../../components/index-comp/IndexComp'
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Googlelogo from '../../../components/Login/img/googleicon.svg'
-import Facebooklogo from '../../../components/Login/img/facebookicon.svg'
-import { loginUserModule } from '../../../modules/enteruser'
+import { React, useState, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import "./LoginMain.scss";
+import BrandButton from "../../../components/Login/BrandButton";
+import SearchID from "../../../components/Login/SearchID/SearchID";
+import SearchPassword from "../../../components/Login/SearchPassword/SearchPassword";
+import { ButtonComp } from "../../../components/index-comp/IndexComp";
+import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Googlelogo from "../../../components/Login/img/googleicon.svg";
+import Facebooklogo from "../../../components/Login/img/facebookicon.svg";
+import { loginUserModule } from "../../../modules/enteruser";
 import {
   emailLogin,
   getFirebaseData,
   googleLoginPopup,
   saveLoginInfo,
   setFirebaseData,
-} from '../../../datasources/firebase'
-import { loadingEnd, loadingStart } from '../../../modules/loading'
+} from "../../../datasources/firebase";
+import { loadingEnd, loadingStart } from "../../../modules/loading";
 
 const LoginMainPage = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useDispatch()
-  const navi = useNavigate()
-  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
-  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navi = useNavigate();
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch]);
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch]);
 
   // input 창 입력
   const inputEmail = (e) => {
-    setEmail(e.target.value)
-  }
+    setEmail(e.target.value);
+  };
   const inputPassword = (e) => {
-    setPassword(e.target.value)
-  }
+    setPassword(e.target.value);
+  };
 
   // 로그인 모듈 dispatch
-  const loginUser = useCallback((user) => dispatch(loginUserModule(user)), [
-    dispatch,
-  ])
+  const loginUser = useCallback(
+    (user) => dispatch(loginUserModule(user)),
+    [dispatch]
+  );
 
   // 구글 로그인 버튼 클릭시 구글 로그인
   function GoogleLoginClick() {
     saveLoginInfo().then(async () => {
-      startLoading()
-      document.body.style.overflow = 'hidden'
+      startLoading();
+      document.body.style.overflow = "hidden";
       return await googleLoginPopup()
         .then(async ({ user }) => {
-          await getFirebaseData('user', user.uid).then(async (r) => {
+          await getFirebaseData("user", user.uid).then(async (r) => {
             if (r.data() === undefined) {
-              await setFirebaseData('user', user.uid, {
-                email: user.email,
-                displayName: user.displayName,
-                userid: user.uid,
-                photoURL: user.photoURL,
-              })
-              loginUser(user)
+              await setFirebaseData("user", user.uid, {
+                itemList: []
+              });
+              loginUser(user);
             } else {
-              await getFirebaseData('user', user.uid)
-                .then((r) => {
-                  loginUser(r.data())
-                })
-                .catch((e) => console.log(e))
+              loginUser(user);
             }
-          })
-          alert(`환영합니다 ${user.displayName}님, 구글 로그인 되었습니다.`)
-          navi('/')
-          document.body.style = ''
-          endLoading()
+          });
+          alert(`환영합니다 ${user.displayName}님, 구글 로그인 되었습니다.`);
+          navi("/");
+          document.body.style = "";
+          endLoading();
         })
         .catch((e) => {
-          document.body.style = ''
-          endLoading()
-          alert('구글로그인에 실패 했습니다.')
-          console.log(e)
-        })
-    })
+          document.body.style = "";
+          endLoading();
+          alert("구글로그인에 실패 했습니다.");
+          console.log(e);
+        });
+    });
   }
 
   // 이메일, 비밀번호 미입력시 출력
-  const [emailAlert, setEmailAlert] = useState(false)
-  const [passwordAlert, setPasswordAlert] = useState(false)
-  const [emailAndPasswordAlert, setEmailAndPasswordAlert] = useState(false)
+  const [emailAlert, setEmailAlert] = useState(false);
+  const [passwordAlert, setPasswordAlert] = useState(false);
+  const [emailAndPasswordAlert, setEmailAndPasswordAlert] = useState(false);
 
   // 이메일 로그인
   function emailLoginClick() {
-    if (email === '') {
-      setEmailAlert(true)
-      setPasswordAlert(false)
-      setEmailAndPasswordAlert(false)
-    } else if (password === '') {
-      setPasswordAlert(true)
-      setEmailAlert(false)
-      setEmailAndPasswordAlert(false)
-    } else if (password !== '') {
+    if (email === "") {
+      setEmailAlert(true);
+      setPasswordAlert(false);
+      setEmailAndPasswordAlert(false);
+    } else if (password === "") {
+      setPasswordAlert(true);
+      setEmailAlert(false);
+      setEmailAndPasswordAlert(false);
+    } else if (password !== "") {
       saveLoginInfo().then(async () => {
-        startLoading()
-        document.body.style.overflow = 'hidden'
+        startLoading();
+        document.body.style.overflow = "hidden";
         await emailLogin(email, password)
           .then(async (result) => {
-            await getFirebaseData('user', result.user.uid)
-              .then((r) => {
-                loginUser(r.data())
-              })
-              .catch((e) => console.log(e))
-            const hiEmailUser = result.user.email
-            alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`)
-            document.body.style = ''
-            endLoading()
-            navi('/')
+            loginUser(result.user);
+            const hiEmailUser = result.user.email;
+            alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`);
+            document.body.style = "";
+            endLoading();
+            navi("/");
           })
           .catch((e) => {
-            console.log(e)
-            document.body.style = ''
-            endLoading()
-            setEmailAlert(false)
-            setPasswordAlert(false)
-            setEmailAndPasswordAlert(true)
-          })
-      })
+            console.log(e);
+            document.body.style = "";
+            endLoading();
+            setEmailAlert(false);
+            setPasswordAlert(false);
+            setEmailAndPasswordAlert(true);
+          });
+      });
     }
   }
 
   /*아이디찾기 모달창 기능*/
-  const [searchID, setSearchID] = useState(false)
+  const [searchID, setSearchID] = useState(false);
 
   const openWindow = () => {
-    setSearchID(true)
-  }
+    setSearchID(true);
+  };
 
   const closeWindow = () => {
-    setSearchID(false)
-  }
+    setSearchID(false);
+  };
 
   /*아이디찾기 모달창 기능*/
-  const [searchPassword, setSearchPassword] = useState(false)
+  const [searchPassword, setSearchPassword] = useState(false);
 
   const openWindowPS = () => {
-    setSearchPassword(true)
-  }
+    setSearchPassword(true);
+  };
 
   const closeWindowPS = () => {
-    setSearchPassword(false)
-  }
+    setSearchPassword(false);
+  };
 
   return (
     <main className="LoginLogin_Main">
@@ -153,13 +143,13 @@ const LoginMainPage = () => {
             <section className="Loginlogin_input_section_wrap">
               <form
                 onSubmit={(e) => {
-                  emailLoginClick()
-                  e.preventDefault()
+                  emailLoginClick();
+                  e.preventDefault();
                 }}
               >
                 <div className="Loginlogin_input_wrap">
                   <span className="icon">
-                    <FontAwesomeIcon icon={regular('user')} />
+                    <FontAwesomeIcon icon={regular("user")} />
                   </span>
                   <input
                     placeholder="이메일을 입력해주세요"
@@ -169,7 +159,7 @@ const LoginMainPage = () => {
                 </div>
                 <div className="Loginlogin_input_wrap password_wrap">
                   <span className="icon">
-                    <FontAwesomeIcon icon={solid('unlock-keyhole')} />
+                    <FontAwesomeIcon icon={solid("unlock-keyhole")} />
                   </span>
                   <input
                     placeholder="비밀번호를 입력해주세요"
@@ -247,7 +237,7 @@ const LoginMainPage = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default LoginMainPage
+export default LoginMainPage;
