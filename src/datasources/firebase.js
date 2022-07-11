@@ -25,6 +25,7 @@ import {
   getStorage,
   ref,
   uploadBytesResumable,
+  getMetadata,
 } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -98,10 +99,36 @@ const uploadFirestorage = (path, name, img) => {
     })
   })
 }
+// 메타데이터 storage 업로드
+const uploadWithMetadata= (path, name, img) => {
+  return new Promise((resolve) => {
+    const storageRef = ref(storage, path + '/' + name)
+    const metadata = {
+      name : name,
+    }
+    uploadBytesResumable(storageRef, img, metadata).then((r) => {
+      getDownloadURL(r.ref).then((downloadURL) => {
+        resolve(downloadURL)
+      })
+    })
+  })
+}
+// storage 메타데이터 받아오기
+const getFileMeta = async (path, name) => {
+  try {
+    const storageRef = ref(storage, path + '/' + name)
+    getMetadata(storageRef).then((metadata) => {
+      
+    })
+    
+  } catch (err) {
+    console.log(err)
+  }
+}
 // storage 삭제
-const deleteFirestorage = (path, name) => {
+const deleteFirestorage = (path, docid, name) => {
   return new Promise(()=> {
-    const storageRef = ref(storage, path +'/'+ name)
+    const storageRef = ref(storage, path +'/'+ docid + '/' + name)
     deleteObject(storageRef).then((r) => {
       console.log(r)
       }).catch((error) => {
@@ -116,6 +143,8 @@ export {
   db,
   storage,
   uploadFirestorage,
+  uploadWithMetadata,
+  getFileMeta,
   deleteFirestorage,
   getFirebaseData,
   addFirebaseData,

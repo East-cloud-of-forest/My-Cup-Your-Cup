@@ -13,10 +13,11 @@ import {
 import { loadingEnd, loadingStart } from '../../modules/loading'
 import './ReviewWriteForm.scss'
 import { Spinner } from 'react-bootstrap'
+import { deleteObject, getStorage, ref } from 'firebase/storage'
 
 const ReviewWriteForm = () => {
   const postid = useParams()
-  //console.log(postid.id)
+
   // 입장시 스크롤 top
   const location = useLocation()
   useEffect(() => {
@@ -144,56 +145,71 @@ const ReviewWriteForm = () => {
     } else {
       alert('최대 사진의 개수는 8개 입니다.')
     }
-    console.log(files)
   }
+  
   // 파일 삭제
+  const storage = getStorage();
+  
   const deleteFileImage = (id) => {
+    console.log(id);
+    if (postid.id !== null) {
+      const imageRef = ref(storage, `review/${postid.id}/${id}`);
+      deleteObject(imageRef)
+      let newfiles = files.filter((file)=> file.id !== id)
+      setFiles(newfiles)
+      console.log('deleted')
+    }
     setFiles(Array.from(files).filter((file) => file.id != id))
   }
 
-  // firebase 데이터가져오기
+  // firestore 데이터가져오기
   let arry = []
   const dispatch = useDispatch()
-  useEffect( ()=> {
-    const getMyReview = () => postid && ( async () => {
+
+  const getMyReview = () => postid && ( async () => {
     try {
       let thisPost;
       const myReviewRef = getFirebaseData("Review");
       (await myReviewRef).forEach( (doc) => {
-        if (doc.id === postid.id ) {thisPost = doc.data()
-        console.log(doc.data())}
+        if (doc.id === postid.id ) {thisPost = doc.data()}
         else return;
-      });
-      console.log(thisPost)
+      }); 
       setRating(thisPost.rating)
       setTagList(thisPost.tages)
       setReview(thisPost.review)
-      Object.values(thisPost.images).forEach( v => {
-        arry.push({ url: v, id: v }) 
-      })
-      setFiles(arry)
-      console.log(files) 
+      const newimages = Object.values(thisPost.images).map((url, i) => ({
+        url: url, id: thisPost.fileid[i], name: thisPost.filename[i]
+      }))
+      setFiles(newimages)
     } 
     catch (err) {
-      console.log(err);
-    }})
+        console.log(err);
+    }
+  console.log(files)
+  } 
+  )
+  useEffect( ()=> { 
   dispatch(getMyReview())
-  }, [dispatch])
+  }, [])
+  
 
-  // firebase 로 새 리뷰 업로드
+  // firebase 로 리뷰 업로드
   const { user } = useSelector((a) => a.enteruser)
   const sendFirebase = async () => {
     let postID
+    let filename = []
+    let fileid = []
     let images = new Object()
-    await addFirebaseData('Review', {}).then((r) => (postID = r.id))
-    const promise = files.map(async (file) => {
-      return await uploadFirestorage('review/' + postID, file.name, file)
-    })
-    const result = await Promise.all(promise)
-    console.log(result);
-    result.forEach((url, i) => {
-      images['image' + i] = url
-    })
+    // 리뷰 수정할 경우
+    if (postid.id) {
+      postID = postid.id
+      console.log(files)
+    }
+    // 리뷰 새로 등록할 경우
+    else {
+      await addFirebaseData('Review', {}).then((r) => (postID = r.id))
+    }
+    
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
       user: user,
@@ -202,25 +218,11 @@ const ReviewWriteForm = () => {
       review: review,
       tages: tagList,
       heart: 0,
+      filename: filename,
+      fileid: fileid,
     })
+    console.log(images)
   }
-  // firebase 리뷰 데이터 덮어쓰기
-  const editFirebase = async (id) => {
-    try { 
-      await setFirebaseData('Review', id, {
-        //images: images,
-        rating: rating,
-        review: review,
-        tages: tagList,
-      })
-    console.log('updated')
-    }
-    catch (e) {
-      console.log(e.message);
-    }
-  } 
-  
-
 
   // 취소
   const navigate = useNavigate()
@@ -228,9 +230,7 @@ const ReviewWriteForm = () => {
     navigate(-1)
   }
 
-  // 작성
   const { loading } = useSelector((a) => a.loading)
-  
   const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
   const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
   const compliteReview = async () => {
@@ -245,7 +245,7 @@ const ReviewWriteForm = () => {
     } else {
       startLoading()
       document.body.style.overflow = 'hidden'
-      if (postid) {await sendFirebase()} else { editFirebase(postid)}
+      await sendFirebase()
       document.body.style = ''
       endLoading()
       navigate(-1)
