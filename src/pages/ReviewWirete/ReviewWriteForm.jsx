@@ -21,7 +21,7 @@ import { getMetadata, getStorage, ref } from 'firebase/storage'
 
 const ReviewWriteForm = () => {
   const postid = useParams()
-  //console.log(postid.id)
+  console.log(postid.id)
   // 입장시 스크롤 top
   const location = useLocation()
   useEffect(() => {
@@ -154,15 +154,14 @@ const ReviewWriteForm = () => {
   
   // 파일 삭제
   const deleteFileImage = (id) => {
-    const firestorage = 'firebasestorage'
-    if (id.includes(firestorage)) {
-      deleteFirestorage('review', postid, name)
-    } else {
+    // const firestorage = 'firebasestorage'
+    // if (id.includes(firestorage)) {
+    //   deleteFirestorage('review', postid, name)
+    // } else {
       setFiles(Array.from(files).filter((file) => file.id != id))
-    }
+    //}
   }
 
-  const [imageLength, setImageLength] = useState(0);
   // firestore 데이터가져오기
   let arry = []
   const dispatch = useDispatch()
