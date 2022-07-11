@@ -29,7 +29,6 @@ import { loginSession } from './datasources/firebase'
 import PostEditForm from './pages/Create/PostEditForm'
 import EditUser from './pages/EnterUser/Edit/EditUser'
 import PayList from './pages/PayList/PayList'
-import ReviewEditForm from './pages/ReviewWirete/ReviewEditForm'
 import { produceWithPatches } from 'immer'
 import { Spinner } from 'react-bootstrap'
 

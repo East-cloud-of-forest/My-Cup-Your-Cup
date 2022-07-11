@@ -185,7 +185,6 @@ const ReviewWriteForm = () => {
     catch (err) {
         console.log(err);
     }
-  console.log(files)
   } 
   )
   useEffect( ()=> { 
@@ -215,12 +214,15 @@ const ReviewWriteForm = () => {
     })
     const result = await Promise.all(promise)
     console.log(result)
+    // 새로 올리는 파일 url 등록
     result.forEach((url, i) => {
       images['image' + i] = url
     })
+    // 기존파일, 새 파일 url 등록
     files.forEach((file, i) => {
       images['image' + i] = file.url
     }) 
+
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
       user: user,
@@ -232,6 +234,7 @@ const ReviewWriteForm = () => {
       filename: filename,
       fileid: fileid,
     })
+    console.log(images)
   }
 
   // 취소

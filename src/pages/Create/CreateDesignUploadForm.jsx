@@ -8,10 +8,9 @@ import { addFirebaseData } from '../../datasources/firebase';
 
 const CreateDesignUploadForm = () => {
   const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
-  // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
-  const mycup = items[items.length - 1]
   const {user} = useSelector( (user) => user.enteruser );
-
+  const mycup = items[items.length - 1]
+  console.log(mycup)
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -61,7 +60,6 @@ const CreateDesignUploadForm = () => {
   
   // 나의 디자인 업로드하기
   const uploadMyDesign = async (mycup, userid) => { // async 익명함수로 작성하면 표현식)
-    
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
@@ -87,7 +85,9 @@ const CreateDesignUploadForm = () => {
   return (
     <div className="uploadPage_container">
       <h2>나의 디자인 저장하기</h2>
-      <div className="temporary_image">image : {mycup.image}</div>
+      <div className="temporary_image">
+        <img src={mycup.image} alt={mycup.name} />
+      </div>
       <div className='cup_info'>
         <p>
           <span>{mycup.name}</span>

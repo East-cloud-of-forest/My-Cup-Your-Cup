@@ -134,6 +134,7 @@ const SelectComp = ({
   };
 
   const doneDesign = (kind) => {
+    console.log(canvasImage)
     onAddItem({
       image: canvasImage,
       name: tumMet.name + tumSize.name,
@@ -155,12 +156,16 @@ const SelectComp = ({
         break;
     }
   };
+  const downloadImage = () => {
+    
+  }
 
   // 가격정보
   const summa = tumMet.price + tumSize.price + tumStraw.price;
   // 이름정보
   useEffect(() => {
     getProductName(tumMet.name + tumSize.name + tumShape);
+    getDesignImage()
   }, [tumMet, tumSize, tumShape]);
 
   const [canvasImage, setCanvasImage] = useState();
@@ -189,7 +194,7 @@ const SelectComp = ({
       </div>
 
       <div className="select_block">
-        <p>제질</p>
+        <p>재질</p>
         <div className="Met_select">
           <div className={tumMet.met === "stain" ? "actvie" : null}>
             <ButtonComp
@@ -356,7 +361,9 @@ const SelectComp = ({
                 </div>
               </div>
             </ModalComp>
-            <ButtonComp onClick={() => doneDesign("upload")} color="darkgreen">
+            <ButtonComp onClick={() => {
+              doneDesign("upload")
+              }} color="darkgreen">
               저장
             </ButtonComp>
           </>
