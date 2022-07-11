@@ -21,13 +21,13 @@ const ReviewPage = () => {
   const goReviewWrite = () => {
     navigate('/review/write')
   }
-  const { boards } = useSelector((state) => state.review)
+  //const { boards } = useSelector((state) => state.review)
   const [review, setReview] = useState([])
 
   const getReviews = () => async () => {
-    startLoading()
     document.body.style.overflow = 'hidden'
     try {
+      startLoading()
       let array = []
       const reviewRef = getFirebaseData('Review')
       ;(await reviewRef).forEach((doc) => {
@@ -60,7 +60,7 @@ const ReviewPage = () => {
         <h1>포토리뷰</h1>
         <Container fluid>
           <Row>
-            {review &&
+            { review &&
               review.map((r) => (
                 <Col
                   xl="2"
@@ -69,7 +69,7 @@ const ReviewPage = () => {
                   sm="6"
                   key={r.id}
                   className="review_card"
-                >
+                > 
                   <TempReviewModalComp review={r} />
                 </Col>
               ))}

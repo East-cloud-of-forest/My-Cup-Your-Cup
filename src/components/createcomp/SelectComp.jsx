@@ -135,7 +135,7 @@ const SelectComp = ({
 
   const doneDesign = (kind) => {
     onAddItem({
-      image: null,
+      image: canvasImage,
       name: tumMet.name + tumSize.name,
       color: colorName,
       material: tumMet.met,

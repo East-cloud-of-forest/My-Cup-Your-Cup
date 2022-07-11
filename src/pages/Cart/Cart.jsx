@@ -33,7 +33,7 @@ function Cart() {
 
             <div className="item">
                 {/* 상품 출력되는 곳 */}
-                <input type="checkbox" style={{ margin: "50px 0 0 50px" }}/>전체선택
+                {/* <input type="checkbox" id='selectall_checkbox'/>전체선택 */}
                 {
                     // itemsInStorage.length >=1 ? (
                     //     itemsInStorage.map( (item, i) => (
