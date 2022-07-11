@@ -12,9 +12,11 @@ import TempReviewThumbnail from './TempReviewThumbnail'
 
 const TempReviewModalComp = (props) => {
   const { review, rating, tages, user, images } = props.review
+  console.log(props.review)
   // props =
   // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
+    
     <div>
       <ModalComp
         button={<TempReviewThumbnail review={props.review} />}

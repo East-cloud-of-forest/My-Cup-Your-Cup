@@ -39,8 +39,7 @@ export default function MyDesigns(user) {
                     
                 });
             })
-            setdesigns(array);
-            console.log(designs)
+            setdesigns(array); 
         } catch (e) { console.log(e) }
     }
     useEffect(()=> {dispatch(getDesign());}, [dispatch])

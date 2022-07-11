@@ -20,11 +20,7 @@ const MyReviewsComp = ({user, review}) => {
   const popref = useRef(null);
 
   const navigate = useNavigate();
-  
-  // 인증된 유저의 리뷰만 들고오기
-  const uid = user.uid;
-  const myReview = review.filter( r => r.data.user.uid === uid)
-  
+
   // 수정, 삭제 팝오버
   const handleClick = (e) => {
     setShow(!show)
@@ -47,13 +43,13 @@ const MyReviewsComp = ({user, review}) => {
       </div>
       <Container fluid="sm">
       <Row>
-      { myReview.length >=1 ? myReview.map( myReview => ( 
-      <Col xl="2" lg="3" md="4" sm="6" className="review_card" key={myReview.id} >
+      { review.length >=1 ? review.map( review => ( 
+      <Col xl="2" lg="3" md="4" sm="6" className="review_card" key={review.id} >
           <ModalComp
-            button={<TempReviewThumbnail review={myReview.data} />}
+            button={<TempReviewThumbnail review={review} />}
             image={
               <SliderComp dots={false} infinite={true}>
-                { Object.values(myReview.data.images).map( (image,i) => (
+                { Object.values(review.images).map( (image,i) => (
                   <div key={i}>
                     <img id="image" src={image} key={i} alt="review-image" />
                   </div>
@@ -64,7 +60,7 @@ const MyReviewsComp = ({user, review}) => {
           >
           <div className="modal_top">
             <div className="star">
-              <StarRating rating={myReview.data.rating} />
+              <StarRating rating={review.rating} />
             </div>
           </div>
   
@@ -77,13 +73,13 @@ const MyReviewsComp = ({user, review}) => {
             </div>
 
             <div className="hashtag">
-              {myReview.data.tages.map((tag, i) => (
+              {review.tages.map((tag, i) => (
                 <span key={i}>{tag}</span>
               ))}
             </div>
             
           </div>
-          <p>{myReview.data.review}</p>
+          <p>{review.review}</p>
           <div className="score">
             <i>
               <FontAwesomeIcon icon={regular('eye')} />
@@ -97,9 +93,9 @@ const MyReviewsComp = ({user, review}) => {
           
           <div className="modal_footer">
             <div className="profile_block">
-              <ProfileComp justName imageURL={myReview.data.user.photoURL} size="md" />
+              <ProfileComp justName imageURL={review.user.photoURL} size="md" />
               <div>
-                <p>{myReview.data.user.displayName}</p>
+                <p>{review.user.displayName}</p>
                 <p className="caption">2022-06-07</p>
               </div>
             </div>
@@ -123,10 +119,10 @@ const MyReviewsComp = ({user, review}) => {
                 onHide={() => setShow(false)}
               >
                 <Popover id='review_popover'>
-                  <ButtonComp icon onClick={() => navigate(`/review/write/${myReview.id}`)}> 
+                  <ButtonComp icon onClick={() => navigate(`/review/write/${review.id}`)}> 
                     <FontAwesomeIcon icon={solid("pen-to-square")}/> 수정
                   </ButtonComp> <br/>
-                  <ButtonComp icon onClick={()=> deletePost(myReview.id)}>
+                  <ButtonComp icon onClick={()=> deletePost(review.id)}>
                     <FontAwesomeIcon  icon={solid("trash-can")} /> 삭제
                   </ButtonComp>
                 </Popover>

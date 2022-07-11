@@ -4,17 +4,37 @@ import MyDesigns from "../../components/MyDesignComp/Grid/MyDesigns";
 import LikedDesigns from "../../components/MyDesignComp/Grid/LikedDesigns";
 import { useDispatch, useSelector } from "react-redux";
 import MyReviewsComp from "../../components/MyDesignComp/Grid/MyReviews";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { dataResultModule } from "../../modules/firebaseData";
+import { getFirebaseData } from "../../datasources/firebase";
 
 const MyDesign = () => {
   const {user} = useSelector((user)=> user.enteruser)
-  const { review } = useSelector(state => state.firebaseData);
-
+  const [review, setReview] = useState([]);
   const dispatch = useDispatch();
-  const getReview = useCallback(()=>dispatch(dataResultModule()),[dispatch]);
 
-  useEffect( () => getReview(), []);
+  const getReviews = () => async () => {
+    try {
+      let array = []
+      const reviewRef = getFirebaseData('Review');
+      (await reviewRef).forEach( doc => {
+        (doc.data().user.uid === user.uid) &&
+        array.push(
+          {
+          id : doc.id,
+          rating : doc.data().rating,
+          tages : doc.data().tages,
+          review : doc.data().review,
+          images: doc.data().images,
+          user: doc.data().user,
+          }
+        )
+      })
+      setReview(array)
+    } catch (e) { console.log(e) }
+  }
+
+  useEffect(() => { dispatch(getReviews()) }, [dispatch])
 
   return (
     <div className="mydesign_page">

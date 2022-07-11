@@ -10,7 +10,6 @@ import {
   setFirebaseData,
   uploadFirestorage,
   deleteFirestorage,
-  getFileMeta,
   storage,
   uploadWithMetadata,
 } from '../../datasources/firebase'
@@ -21,7 +20,7 @@ import { getMetadata, getStorage, ref } from 'firebase/storage'
 
 const ReviewWriteForm = () => {
   const postid = useParams()
-  console.log(postid.id)
+  //console.log(postid.id)
   // 입장시 스크롤 top
   const location = useLocation()
   useEffect(() => {
@@ -180,13 +179,11 @@ const ReviewWriteForm = () => {
       setRating(thisPost.rating)
       setTagList(thisPost.tages)
       setReview(thisPost.review)
-      Object.values(thisPost.images).forEach( v => {
-        arry.push({ url: v, id: v }) 
+      Object.values(thisPost.images).forEach( (url, i) => {
+        arry.push({ url: url, id: thisPost.fileid[i], name: thisPost[i] }) 
       })
-      let imgs = Object.keys(thisPost.images);
       setFiles(arry)
-      setImageLength(imgs.length)
-      console.log(imgs.length)
+      console.log(arry)
   } 
     catch (err) {
       console.log(err);
@@ -201,9 +198,13 @@ const ReviewWriteForm = () => {
   const { user } = useSelector((a) => a.enteruser)
   const sendFirebase = async () => {
     let postID
+    let filename = []
+    let fileid = []
     let images = new Object()
     await addFirebaseData('Review', {}).then((r) => (postID = r.id))
     const promise = files.map(async (file) => {
+      filename.push(file.name)
+      fileid.push(file.id)
       return await uploadFirestorage('review/' + postID, file.name, file)
     })
     const result = await Promise.all(promise)
@@ -219,6 +220,8 @@ const ReviewWriteForm = () => {
       review: review,
       tages: tagList,
       heart: 0,
+      filename: filename,
+      fileid: fileid,
     })
   }
   // firebase 리뷰 데이터 덮어쓰기
@@ -265,7 +268,11 @@ const ReviewWriteForm = () => {
     } else {
       startLoading()
       document.body.style.overflow = 'hidden'
-      if (postid) {await editFirebase()} else { sendFirebase(postid)}
+      if (postid.id) {
+        editFirebase(postid.id)
+      } else {
+        sendFirebase()
+      }
       document.body.style = ''
       endLoading()
       navigate(-1)

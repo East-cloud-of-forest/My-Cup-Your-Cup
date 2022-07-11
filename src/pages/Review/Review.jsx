@@ -21,16 +21,17 @@ const ReviewPage = () => {
   const goReviewWrite = () => {
     navigate('/review/write')
   }
-  const { boards } = useSelector((state) => state.review)
+  //const { boards } = useSelector((state) => state.review)
   const [review, setReview] = useState([])
 
   const getReviews = () => async () => {
-    startLoading()
+    //startLoading()
     document.body.style.overflow = 'hidden'
     try {
       let array = []
       const reviewRef = getFirebaseData('Review')
-      ;(await reviewRef).forEach((doc) => {
+      (await reviewRef).forEach((doc) => {
+        console.log(doc.data())
         array.push({
           id: doc.id,
           rating: doc.data().rating,
@@ -42,11 +43,11 @@ const ReviewPage = () => {
       })
       setReview(array)
       document.body.style = ''
-      endLoading()
+      //endLoading()
     } catch (e) {
       console.log(e)
       document.body.style = ''
-      endLoading()
+      //endLoading()
     }
   }
 
@@ -60,7 +61,7 @@ const ReviewPage = () => {
         <h1>포토리뷰</h1>
         <Container fluid>
           <Row>
-            {review &&
+            { review &&
               review.map((r) => (
                 <Col
                   xl="2"
@@ -70,7 +71,8 @@ const ReviewPage = () => {
                   key={r.id}
                   className="review_card"
                 >
-                  <TempReviewModalComp review={r} />
+                  <p>{r}</p>
+                  {/* <TempReviewModalComp review={r} /> */}
                 </Col>
               ))}
           </Row>
