@@ -203,7 +203,6 @@ const ReviewWriteForm = () => {
     // 리뷰 수정할 경우
     if (postid.id) {
       postID = postid.id
-      console.log(files)
     }
     // 리뷰 새로 등록할 경우
     else {
@@ -219,6 +218,9 @@ const ReviewWriteForm = () => {
     result.forEach((url, i) => {
       images['image' + i] = url
     })
+    files.forEach((file, i) => {
+      images['image' + i] = file.url
+    }) 
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
       user: user,
@@ -230,7 +232,6 @@ const ReviewWriteForm = () => {
       filename: filename,
       fileid: fileid,
     })
-    console.log(images)
   }
 
   // 취소
