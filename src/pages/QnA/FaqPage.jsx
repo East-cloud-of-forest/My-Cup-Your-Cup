@@ -2,15 +2,12 @@ import React from "react";
 
 import "../QnA/FaqPage.scss";
 
-import QnAmenu from "./QnAmenu";
-
 const FaqPage = () => {
 
 
   return (
 <div>
-      <QnAmenu />
-
+  
 <div className="FAQ_main">
     <div className="FAQmain_header">
             <h1>FAQ</h1>
