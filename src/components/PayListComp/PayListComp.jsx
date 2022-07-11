@@ -10,6 +10,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useNavigate } from 'react-router-dom';
 import { reviewItem } from "../../modules/review";
+import { addReviewItem } from "../../modules/writeReview";
 
 const PayListComp = () => {
   const { user } = useSelector((a) => a.enteruser);
@@ -64,10 +65,10 @@ const PayListComp = () => {
     }
   }, [user]);
   
-
+  const sendReviewItem = useCallback((item)=>dispatch(addReviewItem(item)),[dispatch])
   const writeReview = (i,index) =>{
     console.log(Object.values(list[i])[0][index])
-    
+    sendReviewItem(Object.values(list[i])[0][index])
     navigate("/review/write");
   }
 
@@ -84,8 +85,8 @@ const PayListComp = () => {
       <h1 className="pl_title">결제 내역</h1>
       <hr className="pay_main_hr" />
       {list.map((l, i) => (
-        <div>
-          <h3 className="pl_date" key={i}>{Object.keys(l)}</h3>
+        <div key={i}>
+          <h3 className="pl_date">{Object.keys(l)}</h3>
           <hr />
           {Object.values(l)[0].map((v,index) => (
             <div className="pl_item" key={index}>
