@@ -7,11 +7,17 @@
 
 .main_banner {
   height: 500px;
-  background-color: aqua;
+  background: url('./img/e94a86d894d255db.png') no-repeat center center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  position: relative;
+
+  button {
+    position: absolute;
+    bottom: 5%;
+  }
 }
 
 .main_slide {

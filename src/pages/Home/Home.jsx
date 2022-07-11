@@ -32,8 +32,8 @@ const Home = () => {
   return (
     <div className="maincomp">
       <div className="main_banner">
-        메인 배너
         <ButtonComp
+          color="mint"
           onClick={() => {
             user ? navigate("/create") : navigate("/enteruser/login");
           }}

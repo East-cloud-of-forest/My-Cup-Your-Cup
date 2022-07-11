@@ -37,17 +37,14 @@ import { produceWithPatches } from 'immer'
 function App() {
   const location = useLocation()
   const hideHeader = (location) => {
-    switch (location) {
-      case '/enteruser/login':
-      case '/enteruser/agree':
-      case '/enteruser/join':
-      case '/review/write':
-      case '/create/upload':
-      case '/editprofile':
-        return false
-      default:
-        return true
-    }
+    const locationArray = [
+      '/enteruser',
+      '/create/upload',
+      '/review/write',
+      '/editprofile'
+    ]
+    const includesArray = locationArray.map(a => location.includes(a))
+    return includesArray.filter(a => a===true).length === 0
   }
 
 
