@@ -15,6 +15,7 @@ import {
   emailLogin,
   googleLoginPopup,
   saveLoginInfo,
+  setFirebaseData,
 } from '../../../datasources/firebase'
 import { loadingEnd, loadingStart } from '../../../modules/loading'
 
@@ -45,10 +46,15 @@ const LoginMainPage = () => {
       startLoading()
       document.body.style.overflow = 'hidden'
       return await googleLoginPopup()
-        .then((result) => {
-          loginUser(result.user)
-          const hiGoogleUser = result.user.displayName
-          alert(`환영합니다 ${hiGoogleUser}님, 구글 로그인 되었습니다.`)
+        .then(({ user }) => {
+          setFirebaseData('user', user.uid, {
+            email: user.email,
+            displayName: user.displayName,
+            userid: user.uid,
+            photoURL: user.photoURL,
+          })
+          loginUser(user)
+          alert(`환영합니다 ${user.displayName}님, 구글 로그인 되었습니다.`)
           navi('/')
           document.body.style = ''
           endLoading()
@@ -84,6 +90,7 @@ const LoginMainPage = () => {
         await emailLogin(email, password)
           .then((result) => {
             loginUser(result.user)
+            console.log(result.user)
             const hiEmailUser = result.user.email
             alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`)
             document.body.style = ''

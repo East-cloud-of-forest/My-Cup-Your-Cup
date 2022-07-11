@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import queryString from 'query-string'
 import './JoinUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
-import { addFirebaseData, createUser, uploadFirestorage } from '../../../datasources/firebase'
+import { addFirebaseData, createUser, setFirebaseData, uploadFirestorage } from '../../../datasources/firebase'
 import { updateProfile } from 'firebase/auth'
 //import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 
@@ -97,14 +97,16 @@ const JoinPage = () => {
         await updateProfile(user, {
           displayName: nickname,
         })
-        await addFirebaseData('user', {
+        await setFirebaseData('user', uid, {
+          email: emailInput,
+          displayName: nickname,
           userid: uid,
           name: nameInput,
           birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
           gender: gender,
           phone: phoneNumber,
           agreement: agreeObj,
-          photo: photoURL
+          photoURL: photoURL
         })
         alert('회원가입이 완료 되었습니다')
         navi('/')
@@ -113,8 +115,6 @@ const JoinPage = () => {
         alert('회원가입 실패' + e)
       })
   }
-
-  //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
 
   return (
     <main className="JoinMain">
