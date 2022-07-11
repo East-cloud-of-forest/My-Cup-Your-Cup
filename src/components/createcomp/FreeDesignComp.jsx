@@ -1,75 +1,71 @@
-import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
-import "./FreeDesignComp.scss";
-import { useCallback, useEffect, useState } from "react";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { loadingEnd, loadingStart } from "../../modules/loading";
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'
+import './FreeDesignComp.scss'
+import { useCallback, useEffect, useState } from 'react'
+import { Col, Container, Row, Spinner } from 'react-bootstrap'
+import classNames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
+import { loadingEnd, loadingStart } from '../../modules/loading'
 
 const FreeDesignComp = ({ active, setFreeImageActive, addImage }) => {
-  const storage = getStorage();
-  const listRef = ref(storage, "freeDesign");
-  const [images, setImages] = useState([]);
-  const dispatch = useDispatch();
-  const { loading } = useSelector((a) => a.loading);
-  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch]);
-  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch]);
+  const storage = getStorage()
+  const listRef = ref(storage, 'freeDesign')
+  const [images, setImages] = useState([])
+  const dispatch = useDispatch()
+  const { loading } = useSelector((a) => a.loading)
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
 
   const getImages = async () => {
-    startLoading();
-    document.body.style.overflow = "hidden";
-    const imgArray = [];
+    startLoading()
+    document.body.style.overflow = 'hidden'
+    const imgArray = []
     await listAll(listRef)
       .then(async (res) => {
         const promise = res.items.map(async (itemRef) => {
           return await getDownloadURL(ref(storage, itemRef.fullPath)).then(
             (r) => {
-              const img = new Image();
-              img.crossOrigin = "anonymous";
-              img.src = r;
+              const img = new Image()
+              img.crossOrigin = 'anonymous'
+              img.src = r
               img.onload = () => {
-                imgArray.push(img);
-              };
-            }
-          );
-        });
-        await Promise.all(promise);
+                imgArray.push(img)
+              }
+            },
+          )
+        })
+        await Promise.all(promise)
       })
       .catch((e) => {
-        console.log(e);
-      });
-    setImages(imgArray);
-    document.body.style = "";
-    endLoading();
-  };
+        console.log(e)
+        document.body.style = ''
+        endLoading()
+      })
+    setImages(imgArray)
+    document.body.style = ''
+    endLoading()
+  }
 
   useEffect(() => {
-    getImages();
-  }, []);
+    getImages()
+  }, [])
 
   // 밖에 눌러 모달 닫기
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      setFreeImageActive(false);
+      setFreeImageActive(false)
     }
-  };
+  }
 
   // 무료 이미지 추가
   const sendImg = (src) => {
-    addImage(src);
-    setFreeImageActive(false);
-  };
+    addImage(src)
+    setFreeImageActive(false)
+  }
 
   return (
     <>
-      {loading ? (
-        <div className="pullpage_loading">
-          <Spinner animation="border" role="status" />
-        </div>
-      ) : null}
-
       <div
-        className={classNames("freedesigncomp_background", active && "actvie")}
+        className={classNames('freedesigncomp_background', active && 'actvie')}
         onClick={closeModal}
       >
         <div className="freedesigncomp">
@@ -82,7 +78,7 @@ const FreeDesignComp = ({ active, setFreeImageActive, addImage }) => {
                     <div
                       className="free_img_item"
                       onClick={() => {
-                        sendImg(img);
+                        sendImg(img)
                       }}
                     >
                       <img src={img.src} alt="free_img"></img>
@@ -95,7 +91,7 @@ const FreeDesignComp = ({ active, setFreeImageActive, addImage }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default FreeDesignComp;
+export default FreeDesignComp

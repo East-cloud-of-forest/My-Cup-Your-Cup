@@ -251,7 +251,6 @@ const ReviewWriteForm = () => {
   }
 
   // 작성
-  const { loading } = useSelector((a) => a.loading)
   
   const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
   const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
@@ -276,12 +275,6 @@ const ReviewWriteForm = () => {
 
   return (
     <div className="review_write_page">
-      {loading ? (
-        <div className="pullpage_loading">
-          <Spinner animation="border" role="status" />
-        </div>
-      ) : null}
-
       <div>상품 정보</div>
 
       <StarRating

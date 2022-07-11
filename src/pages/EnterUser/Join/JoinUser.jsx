@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import queryString from 'query-string'
 import './JoinUser.scss'
 import { ButtonComp } from '../../../components/index-comp/IndexComp'
-import { addFirebaseData, createUser, uploadFirestorage } from '../../../datasources/firebase'
+import { addFirebaseData, createUser, setFirebaseData, uploadFirestorage } from '../../../datasources/firebase'
 import { updateProfile } from 'firebase/auth'
 //import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 
@@ -19,6 +19,7 @@ const JoinPage = () => {
   const [photoURL, setPhotoURL] = useState(null)
   const [emailInput, setEmailInput] = useState('')
   const [password, setPassword] = useState('')
+  const [nickname, setNickName] = useState('')
   const [nameInput, setNameInput] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [birthYear, setBirthYear] = useState('')
@@ -41,6 +42,9 @@ const JoinPage = () => {
   // 이름, 휴대폰번호 onChange
   const InputName = (e) => {
     setNameInput(e.target.value)
+  }
+  const InputNickName = (e) => {
+    setNickName(e.target.value)
   }
   const InputPhoneNumber = (e) => {
     setPhoneNumber(e.target.value)
@@ -91,16 +95,18 @@ const JoinPage = () => {
       .then(async ({ user }) => {
         const uid = user.uid
         await updateProfile(user, {
-          displayName: nameInput, 
+          displayName: nickname,
         })
-        await addFirebaseData('user', {
+        await setFirebaseData('user', uid, {
+          email: emailInput,
+          displayName: nickname,
           userid: uid,
-          displayName: nameInput,
+          name: nameInput,
           birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
           gender: gender,
           phone: phoneNumber,
           agreement: agreeObj,
-          photo: photoURL
+          photoURL: photoURL
         })
         alert('회원가입이 완료 되었습니다')
         navi('/')
@@ -109,8 +115,6 @@ const JoinPage = () => {
         alert('회원가입 실패' + e)
       })
   }
-
-  //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
 
   return (
     <main className="JoinMain">
@@ -158,6 +162,16 @@ const JoinPage = () => {
           </div>
 
           <div className="Joinname_birth_gender_email">
+            <h3 className="Jointext">닉네임</h3>
+
+            <span className="Joinsignup_input">
+              <input
+                onChange={InputNickName}
+                className="Joinsignup_name"
+                type="text"
+              ></input>
+            </span>
+
             <h3 className="Jointext">이름</h3>
 
             <span className="Joinsignup_input">
