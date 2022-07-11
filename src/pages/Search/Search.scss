@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 600px;
 
-  & .search_input_box {
+  .search_input_box {
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -31,24 +32,24 @@
     }
   }
 
-  & .search_tabs {
+  .search_tabs {
     width: 100%;
     margin-bottom: 3rem;
 
-    & a {
+    a {
       text-decoration: none;
       box-sizing: border-box;
       display: block;
       position: relative;
 
-      & p {
+      p {
         margin: 0;
         padding: 0;
         font-weight: bold;
       }
     }
 
-    & .active_bar {
+    .active_bar {
       width: 0%;
       height: 4px;
       background-color: blue;
@@ -58,48 +59,77 @@
       transform: translate(-50%, 0);
     }
 
-    & .active {
+    .active {
       background-color: darken(white, 10%);
 
-      & .button {
+      .button {
         background-color: transparent;
       }
 
-      & .active_bar {
+      .active_bar {
         width: 100%;
         transition: width 0.2s;
       }
     }
   }
 
-  & .result_text {
+  .result_text {
     display: block;
     text-align: center;
     margin: 1rem 0 2rem;
   }
 
-  & .search_result {
+  .search_result {
     width: 100%;
     padding: 0 1rem;
 
-    & .result_box {
+    .result_box {
       margin-bottom: 5rem;
 
-      & .result_box_item {
-        padding: 0.3rem 1rem;
+      .result_box_item {
+        padding: 0.5rem 1rem;
         display: flex;
         cursor: pointer;
 
-        & .img {
+        .img {
           margin-right: 2rem;
         }
 
         &:hover {
           text-decoration: underline;
         }
+
+        > div {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+
+          h4 {
+            margin: 0;
+            font-weight: 100;
+            font-size: 1.3rem;
+          }
+
+          .userInfo {
+            display: flex;
+            align-items: center;
+  
+            p {
+              margin: 0;
+              font-size: 0.9rem;
+            }
+  
+            img {
+              width: 30px;
+              aspect-ratio: 1/1;
+              border-radius: 50%;
+              margin-right: 0.5rem;
+            }
+          }
+        }
       }
 
-      & a {
+      a {
         color: black;
         text-decoration: none;
         font-size: 0.9rem;
@@ -111,7 +141,7 @@
         }
       }
 
-      & hr {
+      hr {
         clear: both;
       }
     }
