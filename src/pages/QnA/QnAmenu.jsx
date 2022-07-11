@@ -1,9 +1,11 @@
+import { logDOM } from "@testing-library/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
 import "../QnA/QnAmenu.scss";
 
 const QnAmenu = () => {
+
   return (
     <div>
       
@@ -14,23 +16,24 @@ const QnAmenu = () => {
 
         <div className="QnAmain_header">
 
-        <div className="FAQ">
-        <Link to="/QnAmenu/FaqPage" style={{ textDecoration: 'none' }}>
+        <Link className="FAQ" to="/QnAmenu/FaqPage" style={{ textDecoration: 'none' }}>
+        <div>
           <span>자주 묻는 질문</span>
-        </Link>
         </div>
+        </Link>
 
-        <div className="my_quastion">
-        <Link to="/QnAmenu/MyQuastion" style={{ textDecoration: 'none' }}>
+        <Link className="my_quastion" to="/QnAmenu/MyQuastion" style={{ textDecoration: 'none' }}>
+        <div>
           <span>나의 문의게시글</span>
-        </Link>
         </div>
-
-        <div className="ask">
-        <Link to="/QnAmenu/Ask" style={{ textDecoration: 'none' }}>
+        </Link>
+       
+        <Link className="ask" to="/QnAmenu/Ask" style={{ textDecoration: 'none' }}>
+        <div>
           <span>문의하기</span>
-        </Link>
         </div>
+        </Link>
+      
 
       </div>
     </div>

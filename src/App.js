@@ -30,6 +30,9 @@ import PostEditForm from './pages/Create/PostEditForm'
 import EditUser from './pages/EnterUser/Edit/EditUser'
 import PayList from './pages/PayList/PayList'
 import ReviewEditForm from './pages/ReviewWirete/ReviewEditForm'
+import { produceWithPatches } from 'immer'
+
+
 
 function App() {
   const location = useLocation()
@@ -47,6 +50,7 @@ function App() {
     }
   }
 
+
   // 로그인 유지
   const dispatch = useDispatch()
   const loginUser = useCallback((user) => dispatch(loginUserModule(user)), [
@@ -60,6 +64,8 @@ function App() {
       loginUser(null)
     }
   }, [])
+
+
 
   return (
     <div className="App">
@@ -84,7 +90,8 @@ function App() {
           <Route path="/editprofile" element={<EditUser/>} />
           <Route path="/QnAmenu" element={<QnAmenu />} />
           <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
-          <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
+
+          <Route path="/QnAmenu/MyQuastion" element={<MyQuastion/> }/>
           <Route path="/QnAmenu/Ask" element={<Ask />} />
 
           <Route path="/pay" element={<PayPage />} />
