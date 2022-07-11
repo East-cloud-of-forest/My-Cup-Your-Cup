@@ -19,11 +19,30 @@ import { getFirebaseData } from '../../datasources/firebase'
 
 
 const MyQuastion = (props) => {
+
+    const [test, setTest] = useState(null)
+
+    let aa = null;
+
     const getPost = () => {
-        getFirebaseData('post').then(r=>
-            r.forEach(d=>console.log(d.data()))
-            )
+         // firestore에 있는 post 컬렉션 데이터를 호출한다
+        getFirebaseData('post')
+        .then((result) => {
+            result.forEach((doc)=> {
+                aa = doc.data()
+            })
+            console.log(aa.food)
+            console.log(aa.num1)
+        })
+
+        // 정상적으로 데이터 호출 됬을 경우 forEach 반복문으로 
+        // post 컬렉션 데이터를 콘솔로그에 하나씩 출력한다.
+        // 잠시 주석처리 .then(r=>
+        //     r.forEach(d=>console.log(d.data()))
+        //     )
     }
+
+    // UI가 재 랜더링 될때마다 getPost 함수를 실행한다.
     useEffect(()=>{
         getPost()
     })

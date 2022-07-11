@@ -11,14 +11,13 @@ import { db } from '../../datasources/firebase';
 
 
 const Ask = (props) => {
+
     const {user} = useSelector(a=>a.enteruser)
-    console.log(user)
+    // console.log(user)   현재 로그인 회원 정보를 콘솔로그에 출력시킴
 
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [category, setCategory] = useState("");
-
-    const [number, setNumber] = useState(1)
  
 
     const inputTitle = (e) => {
@@ -37,14 +36,16 @@ const Ask = (props) => {
     const month = date.getMonth()+1
     const day = date.getDate()
 
-    // 게시글 데이터가 유저 uid문서의 날짜 객체 안에 들어가게
+
 
     function createCollection() {
 
+        // 만약 사용자가 로그인했을 경우 1:1 문의가 등록되게
+        if (user) {
 
         // 게시판 create기능 구현할떄 push 기능 쓴걸 참고해서 비슷하게 만들어보기
         setDoc(doc(db, "post", user.uid), {
-            num: [
+            날짜: [
                 {
                     title: title,
                     body: body,
@@ -52,10 +53,15 @@ const Ask = (props) => {
                     date: year+"년"+month+"월"+day+"일"
                 }
             ]
-      })
-      setNumber(num)
+    })
 
     alert("firestore에 게시글 데이터가 등록되었습니다")
+        }
+
+        // 사용자가 로그인하지 않았을 경우 alert 출력
+        else {
+            alert("1:1 문의를 이용하기 위해 로그인을 해주세요")
+        }
     }
 
 
