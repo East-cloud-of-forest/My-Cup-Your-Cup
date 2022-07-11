@@ -23,7 +23,7 @@ import Design from './pages/Design/Design'
 import EnterUser from './pages/EnterUser/EnterUser'
 import Agreement from './pages/EnterUser/Agreement/Agreement'
 import { useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginUserModule } from './modules/enteruser'
 import { loginSession } from './datasources/firebase'
 import PostEditForm from './pages/Create/PostEditForm'
@@ -31,8 +31,7 @@ import EditUser from './pages/EnterUser/Edit/EditUser'
 import PayList from './pages/PayList/PayList'
 import ReviewEditForm from './pages/ReviewWirete/ReviewEditForm'
 import { produceWithPatches } from 'immer'
-
-
+import { Spinner } from 'react-bootstrap'
 
 function App() {
   const location = useLocation()
@@ -41,12 +40,11 @@ function App() {
       '/enteruser',
       '/create/upload',
       '/review/write',
-      '/editprofile'
+      '/editprofile',
     ]
-    const includesArray = locationArray.map(a => location.includes(a))
-    return includesArray.filter(a => a===true).length === 0
+    const includesArray = locationArray.map((a) => location.includes(a))
+    return includesArray.filter((a) => a === true).length === 0
   }
-
 
   // 로그인 유지
   const dispatch = useDispatch()
@@ -62,10 +60,16 @@ function App() {
     }
   }, [])
 
-
+  const { loading } = useSelector((a) => a.loading)
 
   return (
     <div className="App">
+      {loading ? (
+        <div className="pullpage_loading">
+          <Spinner animation="border" role="status" />
+        </div>
+      ) : null}
+
       {hideHeader(location.pathname) ? <Header /> : null}
       <main>
         <Routes>
@@ -73,7 +77,7 @@ function App() {
           <Route path="/design" element={<Design />} />
           <Route path="/mydesign" element={<MyDesign />} />
           <Route path="/mydesign/edit/:id" element={<PostEditForm />} />
-          
+
           <Route path="/review" element={<Review />} />
           <Route path="/review/write" element={<ReviewWriteForm />} />
           <Route path="/review/write/:id" element={<ReviewWriteForm />} />
@@ -84,11 +88,11 @@ function App() {
             <Route path="/enteruser/join" element={<JoinUser />} />
             <Route path="/enteruser/agree" element={<Agreement />} />
           </Route>
-          <Route path="/editprofile" element={<EditUser/>} />
+          <Route path="/editprofile" element={<EditUser />} />
           <Route path="/QnAmenu" element={<QnAmenu />} />
           <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
 
-          <Route path="/QnAmenu/MyQuastion" element={<MyQuastion/> }/>
+          <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
           <Route path="/QnAmenu/Ask" element={<Ask />} />
 
           <Route path="/pay" element={<PayPage />} />
@@ -96,8 +100,8 @@ function App() {
             <Route path=":tabkind" element={<SearchResultComp />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
-          <Route path="/complete" element={<Complete/> } />
-          <Route path="/paylist" element={<PayList/> } />
+          <Route path="/complete" element={<Complete />} />
+          <Route path="/paylist" element={<PayList />} />
         </Routes>
       </main>
       {hideHeader(location.pathname) ? <Footer /> : null}
