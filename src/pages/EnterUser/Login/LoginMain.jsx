@@ -47,18 +47,24 @@ const LoginMainPage = () => {
       startLoading()
       document.body.style.overflow = 'hidden'
       return await googleLoginPopup()
-        .then(({ user }) => {
-          getFirebaseData('user', user.uid).then((r) => {
+        .then(async ({ user }) => {
+          await getFirebaseData('user', user.uid).then(async (r) => {
             if (r.data() === undefined) {
-              setFirebaseData('user', user.uid, {
+              await setFirebaseData('user', user.uid, {
                 email: user.email,
                 displayName: user.displayName,
                 userid: user.uid,
                 photoURL: user.photoURL,
               })
+              loginUser(user)
+            } else {
+              await getFirebaseData('user', user.uid)
+                .then((r) => {
+                  loginUser(r.data())
+                })
+                .catch((e) => console.log(e))
             }
           })
-          loginUser(user)
           alert(`환영합니다 ${user.displayName}님, 구글 로그인 되었습니다.`)
           navi('/')
           document.body.style = ''
@@ -94,9 +100,9 @@ const LoginMainPage = () => {
         document.body.style.overflow = 'hidden'
         await emailLogin(email, password)
           .then(async (result) => {
-            await getFirebaseData('/user/', result.user.uid)
+            await getFirebaseData('user', result.user.uid)
               .then((r) => {
-                loginUser(Object.assign(r.data(), result.user))
+                loginUser(r.data())
               })
               .catch((e) => console.log(e))
             const hiEmailUser = result.user.email
