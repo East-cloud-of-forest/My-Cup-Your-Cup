@@ -1,5 +1,11 @@
 #App_footer {
-  font-size: small;
+  font-size: 0.8rem;
+  border-top: 1px solid lightgrey;
+  padding-top: 2rem;
+
+  p {
+    margin: 0;
+  }
   a {
     text-decoration: none;
     color: gray;
@@ -9,13 +15,13 @@
   }
   .footer_cs {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     .footer_cs_box {
       min-width: max-content;
     }
   }
   .footer_copyright {
-    margin-top: 2rem;
+    margin: 2rem 0;
     justify-self: flex-start;
     font-size: smaller;
   }
@@ -32,6 +38,7 @@
     }
   }
 }
+
 @media (max-width: 770px) {
   #App_footer {
     .footer_cs {

@@ -13,6 +13,7 @@ import Facebooklogo from '../../../components/Login/img/facebookicon.svg'
 import { loginUserModule } from '../../../modules/enteruser'
 import {
   emailLogin,
+  getFirebaseData,
   googleLoginPopup,
   saveLoginInfo,
   setFirebaseData,
@@ -47,11 +48,15 @@ const LoginMainPage = () => {
       document.body.style.overflow = 'hidden'
       return await googleLoginPopup()
         .then(({ user }) => {
-          setFirebaseData('user', user.uid, {
-            email: user.email,
-            displayName: user.displayName,
-            userid: user.uid,
-            photoURL: user.photoURL,
+          getFirebaseData('user', user.uid).then((r) => {
+            if (r.data() === undefined) {
+              setFirebaseData('user', user.uid, {
+                email: user.email,
+                displayName: user.displayName,
+                userid: user.uid,
+                photoURL: user.photoURL,
+              })
+            }
           })
           loginUser(user)
           alert(`환영합니다 ${user.displayName}님, 구글 로그인 되었습니다.`)
@@ -88,9 +93,12 @@ const LoginMainPage = () => {
         startLoading()
         document.body.style.overflow = 'hidden'
         await emailLogin(email, password)
-          .then((result) => {
-            loginUser(result.user)
-            console.log(result.user)
+          .then(async (result) => {
+            await getFirebaseData('/user/', result.user.uid)
+              .then((r) => {
+                loginUser(Object.assign(r.data(), result.user))
+              })
+              .catch((e) => console.log(e))
             const hiEmailUser = result.user.email
             alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`)
             document.body.style = ''
@@ -98,6 +106,7 @@ const LoginMainPage = () => {
             navi('/')
           })
           .catch((e) => {
+            console.log(e)
             document.body.style = ''
             endLoading()
             setEmailAlert(false)

@@ -8,6 +8,7 @@ import {
   setDoc,
   doc,
   deleteDoc,
+  getDoc,
 } from 'firebase/firestore'
 import {
   getAuth,
@@ -70,8 +71,12 @@ const loginSession = () => {
 // cloud Firestore 초기화
 const db = getFirestore()
 // store 받아오기
-const getFirebaseData = async (name) => {
-  return await getDocs(collection(db, name))
+const getFirebaseData = async (name, id) => {
+  if (id) {
+    return await getDoc(doc(db, name, id))
+  } else {
+    return await getDocs(collection(db, name))
+  }
 }
 // store 새로 만들기
 const addFirebaseData = async (name, content) => {

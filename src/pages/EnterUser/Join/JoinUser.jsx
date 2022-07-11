@@ -100,7 +100,7 @@ const JoinPage = () => {
         await setFirebaseData('user', uid, {
           email: emailInput,
           displayName: nickname,
-          userid: uid,
+          uid: uid,
           name: nameInput,
           birth: `${birthYear}년 ${birthMonth}월 ${birthDate}일`,
           gender: gender,
