@@ -44,6 +44,7 @@ const Ask = (props) => {
         if (user) {
 
         // 게시판 create기능 구현할떄 push 기능 쓴걸 참고해서 비슷하게 만들어보기
+        // setFirebaseData 으로 코드 수정
         setDoc(doc(db, "post", user.uid), {
             날짜: [
                 {

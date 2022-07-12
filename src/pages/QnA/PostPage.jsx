@@ -1,14 +1,15 @@
 
 
 
-// 여긴 게시글 보는 곳임
+// 올린 게시글 조회
 
-
-const Article = (props) => {
+const PostPage = (props) => {
     
 
     return (
         <div>
+
+            <h1>POST PAGE</h1>
 
             <h2>{props.title}</h2>
 
@@ -18,5 +19,5 @@ const Article = (props) => {
     )
 }
 
-export default Article
+export default PostPage
 

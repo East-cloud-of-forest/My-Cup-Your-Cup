@@ -46,7 +46,7 @@ const QnAmenu = () => {
         </Link>
       </div>
 
-      <Outlet />
+      <Outlet  />
     </div>
   );
 };
