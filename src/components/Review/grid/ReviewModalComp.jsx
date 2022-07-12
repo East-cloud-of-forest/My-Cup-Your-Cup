@@ -19,7 +19,17 @@ import { deleteFirebaseData } from '../../../datasources/firebase'
 const ReviewModalComp = (props) => {
   const userNow = useSelector((user)=> user.enteruser.user)
   const navigate = useNavigate();
-  const { review, rating, tages, user, images, boughtDate, itemName, itemColor } = props.review
+  const { 
+    review, 
+    rating, 
+    tages, 
+    user, 
+    images, 
+    createdAt, 
+    boughtDate, 
+    itemName, 
+    itemColor 
+  } = props.review
 
   // 수정, 삭제 팝오버
   const [ show, setShow ] = useState(false);
@@ -38,7 +48,9 @@ const ReviewModalComp = (props) => {
         navigate(-1)
     } catch (e) { console.log(e) }
   }
-  
+  // 날짜표시
+  const timeStamp = createdAt;
+  let postDate = new Date(timeStamp);
 
   return (
     <div>
@@ -91,7 +103,9 @@ const ReviewModalComp = (props) => {
             <ProfileComp justName imageURL={user.photoURL} size="md" />
             <div>
               <p>{user.displayName}</p>
-              <p className="caption">2022-06-07</p>
+              <p className="caption">
+                {`${postDate.getFullYear()}-${postDate.getMonth()+1}-${postDate.getDate()}`}
+              </p>
             </div>
           </div>
           <div ref={popref} className="button_block">

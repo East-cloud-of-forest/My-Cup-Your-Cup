@@ -62,12 +62,16 @@ $facebook: #475a96;
       display: flex;
       position: absolute;
       bottom: 0;
-
       align-items: center;
       justify-content: space-between;
-      .profile {
-        margin: auto;
+      .profile_block {
+        #date_span { // 날짜
+        font-size: smaller;
+        color: gray;
       }
+      }
+
+      
       & .button_block {
         display: block;
         margin-left: auto;

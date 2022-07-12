@@ -7,9 +7,12 @@ import { ProfileComp, StarRating } from '../../index-comp/IndexComp'
 
 const TempReviewThumbnail = (props) => {
   const [number, setNumber] = useState(0)
-  //const { boardImage, boardTitle, boardRating, boardContent } = props.board
-  const { review, rating, user, images } = props.review
+  const { review, rating, user, images, createdAt } = props.review
   
+  // 날짜표시
+  const timeStamp = createdAt;
+  let postDate = new Date(timeStamp);
+
   return (
     <Card id="review_card">
       <Card.Img variant="top" src={images.image0.url} />
@@ -32,21 +35,16 @@ const TempReviewThumbnail = (props) => {
         <hr />
 
         <div className="caption review_footer">
-          <span>2022-06-01</span>
+          <span>
+            {`${postDate.getFullYear()}-${postDate.getMonth()+1}-${postDate.getDate()}`}
+          </span>
           <span>
             {
-              // user.photoURL ? 
               <ProfileComp
                 justName
                 imageURL={user.photoURL}
                 userName={user.displayName}
               ></ProfileComp>
-              //  :
-              // <ProfileComp
-              //   justName
-              //   imageURL={null}
-              //   userName={user.displayName}
-              // ></ProfileComp>
             }
             
           </span>

@@ -83,6 +83,13 @@ $facebook: #475a96;
       align-items: center;
       justify-content: space-between;
       padding: 0 1rem 0.5rem;
+      .profile_block {
+        #date_span {
+          font-size: small;
+          color: grey;
+        }
+      }
+      
     }
     
 

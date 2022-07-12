@@ -1,14 +1,13 @@
 import "./DesignsGrid.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Container, Row, Col, Popover, Overlay } from "react-bootstrap";
-import { CUP_PICS } from "../../../images";
 import { ButtonComp, ModalComp, ProfileComp } from "../../index-comp/IndexComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-//import { getMyDesign } from "../../../modules/uploadDesign";
 import { useDispatch, } from "react-redux";
 import { deleteFirebaseData, getFirebaseData } from "../../../datasources/firebase";
 import { useNavigate } from "react-router-dom";
+import { addItem } from "../../../modules/addCart";
 
 export default function MyDesigns(user) {
     const [ designs, setdesigns ] = useState([]);
@@ -24,7 +23,7 @@ export default function MyDesigns(user) {
         try{
             let array = [];
             const designColRef = getFirebaseData("MyDesign"); // 파이어스토어 컬렉션 문서 가져오기
-            (await designColRef).forEach( (doc) => {
+            (await designColRef).forEach( (doc) => { 
                 array.push({ 
                     id: doc.id, 
                     title: doc.data().title, 
@@ -32,18 +31,19 @@ export default function MyDesigns(user) {
                     image: doc.data().image,
                     tag: doc.data().tag,
                     private: doc.data().private,
-                    userid: doc.data().userid
-                    
+                    user: doc.data().user,
+                    createdAt: doc.data().createdAt,
+                    cupInfo: doc.data().cupInfo,
                 });
             })
             setdesigns(array); 
         } catch (e) { console.log(e); }
     }
     useEffect(()=> {dispatch(getDesign());}, [dispatch]);
-    // 인증된 유저의 디자인만 가져오기
-    const myDesign = designs.filter( d => (d.userid === user.user.uid) );
-    //console.log(myDesign)
 
+    // 인증된 유저의 디자인만 가져오기
+    const myDesign = designs.filter( d => (d.user.uid === user.user.uid) );
+    // 수정, 삭제 팝오버
     const handleClick = (e) => {
         setShow(!show);
         setTarget(e.target);
@@ -57,7 +57,31 @@ export default function MyDesigns(user) {
         }
         catch (e) { console.log(e); }
     }
-    
+    // 날짜표시
+    const datefn = (d) => {
+        let postDate = new Date(d);
+        return `${postDate.getFullYear()}-${postDate.getMonth()+1}-${postDate.getDate()}`
+    }
+    // 장바구니 추가
+    const onAddItem = useCallback(
+        (tumblur) => dispatch(addItem(tumblur)),
+        [dispatch]
+    );
+    const addToCart = (info) => {
+        onAddItem({
+        image: info.image,
+        name: info.name,
+        color: info.color,
+        material: info.material,
+        size: info.size,
+        strow: info.strow,
+        shape: info.shape,
+        price: info.price,
+        quantity: info.quantity,
+        total: info.total
+        });
+        navigate('/cart')
+    }
 
     return (
         <>
@@ -125,14 +149,15 @@ export default function MyDesigns(user) {
                     </div>
 
                     <div className="modal_footer">
-                        
-                        <ProfileComp
-                            className="profile" 
-                            justName 
-                            userName={user.user.displayName} 
-                            imageURL={user.user.photoURL}
-                        />
-                        
+                        <div className="profile_block">
+                            <ProfileComp
+                                className="profile" 
+                                justName 
+                                userName={user.user.displayName} 
+                                imageURL={user.user.photoURL}
+                            />
+                            <span id="date_span">{datefn(design.createdAt)}</span>
+                        </div>
                         <div className="button_block">
                         <ButtonComp icon id="like_btn">
                             <FontAwesomeIcon icon={solid("heart")} />
@@ -140,8 +165,13 @@ export default function MyDesigns(user) {
                         <ButtonComp icon id="share-btn">
                             <FontAwesomeIcon icon={solid("share-nodes")} />
                         </ButtonComp>  
-                        <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
-                            Create
+                        <ButtonComp icon id="create-btn" 
+                            onClick={() => {
+                                addToCart(design.cupInfo)}
+                        }>
+                            <FontAwesomeIcon
+                                icon={solid('cart-shopping')}
+                            ></FontAwesomeIcon>
                         </ButtonComp>
                         </div>
                     </div>
