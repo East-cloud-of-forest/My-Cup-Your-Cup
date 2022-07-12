@@ -81,7 +81,11 @@ const getFirebaseData = async (name, id) => {
   if (id) {
     return await getDoc(doc(db, name, id))
   } else {
-    return await getDocs(collection(db, name))
+    const q = query(
+      collection(db, name),
+      orderBy('createdAt', 'desc')
+    )
+    return await getDocs(q)
   }
 }
 // store 새로 만들기

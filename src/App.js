@@ -91,8 +91,7 @@ function App() {
           </Route>
           <Route path="/editprofile" element={<EditUser />} />
           <Route path="/QnAmenu" element={<QnAmenu />}>
-            <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
-
+            <Route index element={<FaqPage />} />
             <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
             <Route path="/QnAmenu/Ask" element={<Ask />} />
           </Route>

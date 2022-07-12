@@ -17,7 +17,7 @@ const QnAmenu = () => {
       <div className="QnAmain_header">
         <Link
           className="FAQ"
-          to="/QnAmenu/FaqPage"
+          to="/QnAmenu"
           style={{ textDecoration: "none" }}
         >
           <div>

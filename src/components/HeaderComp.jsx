@@ -297,7 +297,6 @@ const Header = () => {
                 type="text"
                 value={searchKeyword}
                 onChange={onChange}
-                ref={searchInput}
               />
             </form>
             <div>
