@@ -52,7 +52,7 @@ const Design = () => {
 
   // 공개된 디자인만 가져오기
   const oDesigns = designCol.filter((d) => d.private === false)
-
+console.log(oDesigns)
   useEffect(() => {
     dispatch(getDesign())
   }, [dispatch])

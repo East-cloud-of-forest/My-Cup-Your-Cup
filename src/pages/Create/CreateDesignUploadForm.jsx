@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 //import { addDoc } from 'firebase/firestore';
-import { addFirebaseData } from '../../datasources/firebase';
+import { addFirebaseData, uploadFirestorage } from '../../datasources/firebase';
 
 const CreateDesignUploadForm = () => {
   const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
-  // mycup = [{mycup: {…}}] 배열안에 객체안에 키:밸류
-  const mycup = items[items.length - 1]
   const {user} = useSelector( (user) => user.enteruser );
-
+  
+  const mycup = items[items.length - 1]
+  
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -60,8 +60,20 @@ const CreateDesignUploadForm = () => {
   // 파이어베이스 업로드
   
   // 나의 디자인 업로드하기
+  // https://stackoverflow.com/questions/48862777/firebase-storage-upload-blob-url
+  console.log(mycup.imageBlob.src)
+  const getFileBlob = (url, cb) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.addEventListener('load', function() {
+      cb(xhr.response);
+    });
+    xhr.send();
+  }
   const uploadMyDesign = async (mycup, userid) => { // async 익명함수로 작성하면 표현식)
-    
+    let designID;
+    let designImage = new Image();
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
@@ -73,21 +85,35 @@ const CreateDesignUploadForm = () => {
             tag: tagList,
             private: onlyMe,
             userid: userid
+          }).then( res => designID = res.id );
+          
+          // designImage.crossOrigin = "Anonymous";
+          // designImage.src = new Blob(); // [object blob]
+          // console.log(designImage)
+          getFileBlob(mycup.imageBlob.src, blob => {
+            uploadFirestorage("MyDesign/" + designID)
+            .put(blob)
+            .then((snapshot) => {
+              console.log('Uploaded a blob or file! : ', snapshot);
+            })
           })
-        }
+          }
+          // await uploadFirestorage("MyDesign/" + designID, mycup.imageBlob )
+          // .then( res => console.log(res))
         catch (e) {
           console.log(e.message);
         }
-        
       }
-      navigate('/mydesign');
+      // navigate('/mydesign');
     }
     
 
   return (
     <div className="uploadPage_container">
       <h2>나의 디자인 저장하기</h2>
-      <div className="temporary_image">image : {mycup.image}</div>
+      <div className='image_block'>
+        <img src={mycup.image} alt={mycup.name} />
+      </div>
       <div className='cup_info'>
         <p>
           <span>{mycup.name}</span>

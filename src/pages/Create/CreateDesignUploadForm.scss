@@ -1,10 +1,17 @@
 .uploadPage_container {
   text-align: center;
-  .temporary_image {
+  .image_block {
     margin: 1rem auto; // 중앙배치
-    background-color: gray;
     width: 600px;
-    aspect-ratio: 1;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      object-fit: cover;
+    }
+    
+    
   }
   h2 {
     margin: 2rem;
