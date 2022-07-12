@@ -1,16 +1,13 @@
 import "./DesignsGrid.scss";
 import { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, OverlayTrigger, Popover, Overlay } from "react-bootstrap";
+import { Container, Row, Col, Popover, Overlay } from "react-bootstrap";
 import { CUP_PICS } from "../../../images";
 import { ButtonComp, ModalComp, ProfileComp } from "../../index-comp/IndexComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 //import { getMyDesign } from "../../../modules/uploadDesign";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, } from "react-redux";
 import { deleteFirebaseData, getFirebaseData } from "../../../datasources/firebase";
-import { loadingStart, loadingEnd } from "../../../modules/loading";
-import { useCallback } from "react";
-import { async, deepCopy } from "@firebase/util";
 import { useNavigate } from "react-router-dom";
 
 export default function MyDesigns(user) {
@@ -39,27 +36,26 @@ export default function MyDesigns(user) {
                     
                 });
             })
-            setdesigns(array);
-            console.log(designs)
-        } catch (e) { console.log(e) }
+            setdesigns(array); 
+        } catch (e) { console.log(e); }
     }
-    useEffect(()=> {dispatch(getDesign());}, [dispatch])
+    useEffect(()=> {dispatch(getDesign());}, [dispatch]);
     // 인증된 유저의 디자인만 가져오기
     const myDesign = designs.filter( d => (d.userid === user.user.uid) );
-    // console.log(myDesign)
+    //console.log(myDesign)
 
     const handleClick = (e) => {
-        setShow(!show)
-        setTarget(e.target)
+        setShow(!show);
+        setTarget(e.target);
     }
     // 삭제버튼 클릭시
     const deletePost = async (id) => {
         try {
-            alert('정말 삭제하시겠습니까?')
-            await deleteFirebaseData('MyDesign', id)
+            alert('정말 삭제하시겠습니까?');
+            await deleteFirebaseData('MyDesign', id);
             window.location.reload();
         }
-        catch (e) { console.log(e) }
+        catch (e) { console.log(e); }
     }
     
 
@@ -73,14 +69,15 @@ export default function MyDesigns(user) {
         <Container fluid="sm">
         <Row>
             {
-                ( myDesign.length >= 1 ) && ( myDesign.map( design => (
+                myDesign.length >= 1 ? 
+                ( myDesign.map(design => (
                 <Col xl="2" lg="3" md="4" sm="6" key={design.id}>
                     <ModalComp 
                         button={
                             <div id="temp_image">
-                                <p>{design.title}</p>
+                                <img src={design.image} alt={design.title}/>
                             </div>
-                            }//<img id="preview-image" src={design.image} alt={design.title}/>
+                            }
                         image={<img src={design.image} alt={design.title}/>}
                         className="design_modal"
                     >
@@ -95,9 +92,9 @@ export default function MyDesigns(user) {
                             target={target}
                             placement="left"
                             container={ref}
-                            // containerPadding={20}
-                            // rootClose
-                            // onHide={() => setShow(false)}
+                            containerPadding={20}
+                            rootClose
+                            onHide={() => setShow(false)}
                         >
                             <Popover id="ellipsis_popover">
                                 <ButtonComp icon onClick={() => navigate(`/edit/${design.id}`)}>
@@ -110,26 +107,30 @@ export default function MyDesigns(user) {
                         </Overlay>
                         
                     </div>
-                        {design.private === true ? (
-                            <span style={{ fontSize: "smaller", color: "gray" }}>
-                                <FontAwesomeIcon icon={solid("lock")}/> 비공개 게시물입니다
-                            </span>) : null}
+                        {
+                            design.private === true ? (
+                                <span style={{ fontSize: "smaller", color: "gray" }}>
+                                    <FontAwesomeIcon icon={solid("lock")}/> 비공개 게시물입니다
+                                </span>) : null
+                        }
                     <div className="modal_body">
                         <p>{design.text}</p>
                         <div className="hashtag">
-                            { design.tag.map( (tag, i) => (
-                                <span key={i}>{tag}</span>
-                            ))}
+                            { 
+                                design.tag.map( (tag, i) => (
+                                    <span key={i}>{tag}</span>
+                                ))
+                            }
                         </div>
                     </div>
 
                     <div className="modal_footer">
                         
                         <ProfileComp
-                        className="profile" 
-                        justName 
-                        userName={"user1"} 
-                        imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
+                            className="profile" 
+                            justName 
+                            userName={user.user.displayName} 
+                            imageURL={user.user.photoURL}
                         />
                         
                         <div className="button_block">
@@ -146,61 +147,10 @@ export default function MyDesigns(user) {
                     </div>
                 </ModalComp>
                 </Col>)
-                )) 
+                )) : ( <p>나의 디자인이 없습니다.</p> )
             }
         </Row>
-        <Row>
-            {
-                CUP_PICS.map( cup_pic=>(
-                <Col xl="2" lg="3" md="4" sm="6" key={cup_pic.id}>
-                    <ModalComp 
-                    button={<img id="preview-image" src={cup_pic.src} alt={cup_pic.title}/>}
-                    image={<img src={cup_pic.src} alt={cup_pic.title}/>}
-                    className="design_modal"
-                    >
-                    <div className="modal_head">
-                        <div className="text_block">
-                        <h2>제목</h2>
-                        
-                        </div>
-                    </div>
-
-                    <div className="modal_body">
-                        <p>내용</p>
-                        <div className="hashtag">
-                        <span>#태그1 </span>
-                        <span>#태그2 </span>
-                        <span>#태그3 </span>
-                        </div>
-                    </div>
-
-                    <div className="modal_footer">
-                        <ProfileComp
-                        className="profile" 
-                        justName 
-                        userName={"user1"} 
-                        imageURL={'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'}
-                        />
-                        <div className="button_block">
-                        <ButtonComp icon id="like_btn">
-                            <FontAwesomeIcon icon={solid("heart")}></FontAwesomeIcon>
-                        </ButtonComp>
-                        <ButtonComp icon id="share-btn">
-                            <FontAwesomeIcon icon={solid("share-nodes")}></FontAwesomeIcon>
-                        </ButtonComp>  
-                        <ButtonComp icon id="create-btn" onClick={() => {navigate('/create')}}>
-                            {/* <FontAwesomeIcon icon={solid("paintbrush-pencil")}></FontAwesomeIcon> */}
-                            Create
-                        </ButtonComp>
-                        </div>
-                    </div>
-                        
-                    
-                </ModalComp>
-                </Col>
-                ))
-            }
-            </Row>
+        
         </Container>
     </>
     );

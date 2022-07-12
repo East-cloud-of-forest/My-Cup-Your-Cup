@@ -8,6 +8,13 @@ import {
   setDoc,
   doc,
   deleteDoc,
+  getDoc,
+  query,
+  orderBy,
+  startAt,
+  endAt,
+  limit,
+  where,
 } from 'firebase/firestore'
 import {
   getAuth,
@@ -25,6 +32,7 @@ import {
   getStorage,
   ref,
   uploadBytesResumable,
+  getMetadata,
 } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -45,8 +53,8 @@ const auth = getAuth(app)
 
 // 이메일 회원가입
 const createUser = async (emailInput, password) => {
-  return await createUserWithEmailAndPassword(auth, emailInput, password);
-};
+  return await createUserWithEmailAndPassword(auth, emailInput, password)
+}
 
 // 구글 로그인
 const provider = new GoogleAuthProvider()
@@ -57,7 +65,7 @@ const emailLogin = (email, password) =>
 // 로그인 저장
 const saveLoginInfo = () => {
   return setPersistence(auth, browserSessionPersistence)
-} 
+}
 // 로그인 유지
 const loginSession = () => {
   const data = sessionStorage.getItem(
@@ -69,8 +77,12 @@ const loginSession = () => {
 // cloud Firestore 초기화
 const db = getFirestore()
 // store 받아오기
-const getFirebaseData = async (name) => {
-  return await getDocs(collection(db, name))
+const getFirebaseData = async (name, id) => {
+  if (id) {
+    return await getDoc(doc(db, name, id))
+  } else {
+    return await getDocs(collection(db, name))
+  }
 }
 // store 새로 만들기
 const addFirebaseData = async (name, content) => {
@@ -82,7 +94,7 @@ const setFirebaseData = async (name, id, content) => {
 }
 // store 문서 삭제
 const deleteFirebaseData = async (name, id) => {
-  return await deleteDoc(doc(db, name, id));
+  return await deleteDoc(doc(db, name, id))
 }
 
 // cloud stroage 초기화
@@ -99,17 +111,34 @@ const uploadFirestorage = (path, name, img) => {
   })
 }
 // storage 삭제
-const deleteFirestorage = (path, name) => {
-  return new Promise(()=> {
-    const storageRef = ref(storage, path +'/'+ name)
-    deleteObject(storageRef).then((r) => {
-      console.log(r)
-      }).catch((error) => {
+const deleteFirestorage = (path, docid, name) => {
+  return new Promise(() => {
+    const storageRef = ref(storage, path + '/' + docid + '/' + name)
+    deleteObject(storageRef)
+      .then((r) => {
+        console.log(r)
+      })
+      .catch((error) => {
         console.log(error)
-    });
+      })
   })
 }
 
+const firebaseSearch = async (name, target, keyword, user) => {
+  let q
+  if (user) {
+    q = query(
+      collection(db, name),
+      orderBy(target),
+      startAt(keyword),
+      endAt(keyword + '\uf8ff'),
+    )
+  } else {
+    q = query(collection(db, name), where(target, 'array-contains', keyword))
+  }
+
+  return await getDocs(q)
+}
 
 export {
   app,
@@ -126,5 +155,6 @@ export {
   loginSession,
   saveLoginInfo,
   createUser,
+  firebaseSearch,
   auth,
 }

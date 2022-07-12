@@ -1,73 +1,112 @@
 import './SearchResultComp.scss'
 import { Link, useParams } from 'react-router-dom'
-import { Pagination } from '../index-comp/IndexComp'
-
-const Error = () => {
-  return (
-    <div className="search_error">
-      <h2>검색결과를 찾을 수 없습니다.</h2>
-      <ul>
-        <li>잘못입력했는지</li>
-        <li>단어의 철자가 정확한지</li>
-        <li>어쩌고 저쩌고 했는지</li>
-        <li>잘 확인했는지</li>
-        <li>검색 좀 잘해보세여</li>
-      </ul>
-      <hr />
-      <p className="caption">
-        만족스러운 검색결과를 찾지 못하셨다면 아래 기능도 이용해 보세요.
-      </p>
-      <Link to="/">문의하기</Link>
-    </div>
-  )
-}
+import { Pagination, StarRating } from '../index-comp/IndexComp'
+import { useSelector } from 'react-redux'
 
 const SearchResultComp = () => {
   const { tabkind } = useParams()
   const tabname = (name) => {
     switch (name) {
-      case 'tag':
-        return '태그'
       case 'review':
         return '리뷰'
       case 'design':
         return '디자인'
-      case 'inquiry':
-        return '문의'
       case 'user':
         return '사용자'
     }
   }
-  const item = []
-  for (let i = 0; i < 15; i++) {
-    item.push(i)
+  const itemselector = useSelector((a) => a.searchResult)
+  const item = () => {
+    return (
+      (tabkind === 'user' && 'userSearch') ||
+      (tabkind === 'review' && 'reviewSearch') ||
+      (tabkind === 'design' && 'designSearch')
+    )
   }
 
   return (
     <div>
       <hr />
       <div className="result_box">
-        <p>{tabname(tabkind)} - 000건</p>
-
-        {item.map((a) => (
-          <div className="result_box_item">
-            <div
-              className="img"
-              style={{
-                width: '100px',
-                height: '100px',
-                backgroundColor: 'orange',
-              }}
-            ></div>
-            <div>
-              <h4>title</h4>
-              <p>text</p>
+        <p>
+          {tabname(tabkind)} -{' '}
+          {itemselector[item()] && itemselector[item()].length}건
+        </p>
+        {itemselector[item()] &&
+          itemselector[item()].map((r, i) => (
+            <div className="result_box_item" key={i}>
+              {/* 리뷰 결과 */}
+              {item() === 'reviewSearch' && (
+                <>
+                  <img
+                    src={r.images.image0.url}
+                    alt=""
+                    className="img"
+                    style={{
+                      width: '100px',
+                      height: '100px',
+                    }}
+                  />
+                  <div>
+                    <h4>{r.review}</h4>
+                    <div className="tag">
+                      {r.tages.map((t, i) => (
+                        <div className="tagitem" key={i}>
+                          {t}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="userInfo">
+                      <StarRating rating={r.rating} />
+                      <img src={r.user.photoURL} alt="" />
+                      <p>{r.user.displayName}</p>
+                    </div>
+                  </div>
+                </>
+              )}
+              {/* 디자인 결과 */}
+              {item() === 'designSearch' && (
+                <>
+                  <img
+                    src={r.image}
+                    alt=""
+                    className="img"
+                    style={{
+                      width: '100px',
+                      height: '100px',
+                    }}
+                  />
+                  <div>
+                    <h4>{r.title}</h4>
+                    <div className="tag">
+                      {r.tag.map((t, i) => (
+                        <div className="tagitem" key={i}>
+                          {t}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="userInfo">
+                      <img src={r.user.photoURL} alt="" />
+                      <p>{r.user.displayName}</p>
+                    </div>
+                  </div>
+                </>
+              )}
+              {/* 유저결과 */}
+              {item() === 'userSearch' && (
+                <div className="onlyUserInfo">
+                  <img src={r.photoURL} alt="" />
+                  <div className="text">
+                    <p>{r.email}</p>
+                    <p>{r.displayName}</p>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
-      <div style={{marginBottom:"2rem"}}>
+      <div style={{ marginBottom: '2rem' }}>
         <Pagination></Pagination>
       </div>
     </div>

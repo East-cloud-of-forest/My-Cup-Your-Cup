@@ -1,40 +1,52 @@
-#App_footer{
-    font-size: small;
-    a {
-        text-decoration: none;
-        color: gray;
+#App_footer {
+  font-size: 0.8rem;
+  border-top: 1px solid lightgrey;
+  padding-top: 2rem;
+
+  p {
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    color: gray;
+  }
+  a:hover {
+    text-shadow: 2px black;
+  }
+  .footer_cs {
+    display: flex;
+    justify-content: space-between;
+    .footer_cs_box {
+      min-width: max-content;
     }
-    a:hover {
-        text-shadow: 2px black;
+  }
+  .footer_copyright {
+    margin: 2rem 0;
+    justify-self: flex-start;
+    font-size: smaller;
+  }
+  .goTop {
+    position: fixed;
+    right: 8px;
+    bottom: -100%;
+    z-index: 10;
+    transition: bottom 0.2s;
+
+    &.active {
+      bottom: 8px;
+      transition: bottom 0.2s;
     }
-    .footer_cs {
-        display: flex;
-        justify-content: space-around;
-        .footer_cs_box {
-            min-width: max-content;
-        }
-    }
-    .footer_copyright {
-        margin-top: 2rem;
-        justify-self: flex-start;
-        font-size: smaller;
-    }
-    .button {
-        position: fixed;
-        right: 8px;
-        bottom: 8px;
-        z-index: 10
-        
-    }
+  }
 }
+
 @media (max-width: 770px) {
-    #App_footer{
-        .footer_cs {
-            display: block;
-            font-size: smaller;
-            .footer_cs_box {
-                min-width: max-content;
-            }
-        }
+  #App_footer {
+    .footer_cs {
+      display: block;
+      font-size: smaller;
+      .footer_cs_box {
+        min-width: max-content;
+      }
     }
+  }
 }

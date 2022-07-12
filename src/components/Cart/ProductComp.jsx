@@ -33,13 +33,12 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
 
     const navigate = useNavigate();
 
-//이미지 "https://images.unsplash.com/photo-1544003484-3cd181d17917?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
     return (
         <>
         {
             PopUp ? (
                 <div className="popup_container">
-                    <img className='popup_img' src="https://images.unsplash.com/photo-1544003484-3cd181d17917?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt={item.name} />
+                    <img className='popup_img' src={item.image} alt={item.name} />
                         <div className='popup_text'>
                             <p className="popup_title">{item.name}</p>
                             <p className="popup_options">

@@ -1,4 +1,9 @@
 .review_page {
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   & h1 {
     text-align: center;
     margin: 50px 0 50px 0;

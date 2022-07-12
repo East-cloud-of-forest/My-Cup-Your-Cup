@@ -19,6 +19,13 @@ $facebook: #475a96;
   }
 
   #Container {
+    .row {
+      padding: 0 1rem;
+  
+      > * {
+        padding: 0.1rem;
+      }
+    }
     & img {
       display: flex;
       width: 200px;
@@ -30,13 +37,17 @@ $facebook: #475a96;
     margin-bottom: 20px;
   }
   #temp_image {
-    background-color: #ffb251;
     width: 100%;
     aspect-ratio: 1;
     display: flex;
-    margin-bottom: 20px;
-    p {
-      margin: auto;
+    align-items: center;
+    justify-content: center;
+    //background-color: $mint;
+    border: 1px solid lightgrey;
+    margin: 0;
+    img {
+      object-fit: cover;
+      width: inherit;
     }
   }
 }

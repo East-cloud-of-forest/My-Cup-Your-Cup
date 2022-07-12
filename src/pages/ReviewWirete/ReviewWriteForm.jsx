@@ -6,6 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ButtonComp, StarRating } from '../../components/index-comp/IndexComp'
 import {
   addFirebaseData,
+  deleteFirestorage,
   getFirebaseData,
   setFirebaseData,
   uploadFirestorage,
@@ -15,8 +16,12 @@ import './ReviewWriteForm.scss'
 import { Spinner } from 'react-bootstrap'
 
 const ReviewWriteForm = () => {
-  const postid = useParams()
-  //console.log(postid.id)
+  const dispatch = useDispatch()
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
+  const { reviewItem } = useSelector((a) => a.writeReview)
+  const { loading } = useSelector((a) => a.loading)
+
   // 입장시 스크롤 top
   const location = useLocation()
   useEffect(() => {
@@ -146,54 +151,88 @@ const ReviewWriteForm = () => {
     }
     console.log(files)
   }
+
   // 파일 삭제
   const deleteFileImage = (id) => {
+    if (postid.id !== null) {
+      let newfiles = files.filter((file) => file.id !== id)
+      setFiles(newfiles)
+    }
     setFiles(Array.from(files).filter((file) => file.id != id))
   }
 
-  // firebase 데이터가져오기
-  let arry = []
-  const dispatch = useDispatch()
-  useEffect( ()=> {
-    const getMyReview = () => postid && ( async () => {
-    try {
-      let thisPost;
-      const myReviewRef = getFirebaseData("Review");
-      (await myReviewRef).forEach( (doc) => {
-        if (doc.id === postid.id ) {thisPost = doc.data()
-        console.log(doc.data())}
-        else return;
-      });
-      console.log(thisPost)
-      setRating(thisPost.rating)
-      setTagList(thisPost.tages)
-      setReview(thisPost.review)
-      Object.values(thisPost.images).forEach( v => {
-        arry.push({ url: v, id: v }) 
+  // url 파일로 변환
+  const convertURLtoFile = async (url, name) => {
+    const response = await fetch(url)
+    const data = await response.blob()
+    const ext = url.split('.').pop() // url 구조에 맞게 수정할 것
+    const filename = name // url 구조에 맞게 수정할 것
+    const metadata = { type: `image/${ext}` }
+    return new File([data], filename, metadata)
+  }
+  // firestore 데이터가져오기
+  const [prevFilename, setPrevFilename] = useState([])
+  const postid = useParams()
+  const getMyReview = async () => {
+    startLoading()
+    document.body.style.overflow = 'hidden'
+    await getFirebaseData('Review', postid.id)
+      .then(async (r) => {
+        const data = r.data()
+        setRating(data.rating)
+        setTagList(data.tages)
+        setReview(data.review)
+        const promise = Object.values(data.images).map(async (img, i) => {
+          await convertURLtoFile(img.url, img.filename).then((r) => {
+            r.id = img.fileid[i]
+            r.url = URL.createObjectURL(r)
+            setFiles([...files, r])
+            setPrevFilename([...prevFilename, img.filename])
+          })
+        })
+        await Promise.all(promise)
       })
-      setFiles(arry)
-      console.log(files) 
-    } 
-    catch (err) {
-      console.log(err);
-    }})
-  dispatch(getMyReview())
-  }, [dispatch])
+      .catch((e) => {
+        console.log(e)
+      })
+    document.body.style = ''
+    endLoading()
+  }
+  useEffect(() => {
+    postid.id && getMyReview()
+  }, [])
 
-  // firebase 로 새 리뷰 업로드
+  // firebase 로 리뷰 업로드
   const { user } = useSelector((a) => a.enteruser)
   const sendFirebase = async () => {
     let postID
+    let filename = []
+    let fileid = []
     let images = new Object()
-    await addFirebaseData('Review', {}).then((r) => (postID = r.id))
+
+    // 리뷰 수정할 경우
+    if (postid.id) {
+      console.log(postid.id)
+      postID = postid.id
+      prevFilename.map((name) => {
+        deleteFirestorage('review', postID, name)
+      })
+    } else {
+      await addFirebaseData('Review', {}).then((r) => (postID = r.id))
+    }
+    // 파이어 스토어 업데이트
+    console.log(prevFilename)
     const promise = files.map(async (file) => {
+      fileid = file.id
+      filename = file.name
       return await uploadFirestorage('review/' + postID, file.name, file)
     })
     const result = await Promise.all(promise)
-    console.log(result);
     result.forEach((url, i) => {
-      images['image' + i] = url
+      console.log(url)
+      images['image' + i] = { url: url, fileid: fileid, filename: filename }
     })
+    // 파이어 베이스 업데이트
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
       user: user,
@@ -202,25 +241,16 @@ const ReviewWriteForm = () => {
       review: review,
       tages: tagList,
       heart: 0,
+      filename: filename,
+      fileid: fileid,
+      // 파이어스토리지 업로드관련 잠깐 주석처리
+      // product: { 
+      //   itemName: reviewItem.itemName,
+      //   itemColor: reviewItem.itemColor,
+      //   boughtDate: reviewItem.boughtDate,
+      // },
     })
   }
-  // firebase 리뷰 데이터 덮어쓰기
-  const editFirebase = async (id) => {
-    try { 
-      await setFirebaseData('Review', id, {
-        //images: images,
-        rating: rating,
-        review: review,
-        tages: tagList,
-      })
-    console.log('updated')
-    }
-    catch (e) {
-      console.log(e.message);
-    }
-  } 
-  
-
 
   // 취소
   const navigate = useNavigate()
@@ -228,11 +258,6 @@ const ReviewWriteForm = () => {
     navigate(-1)
   }
 
-  // 작성
-  const { loading } = useSelector((a) => a.loading)
-  
-  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
-  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
   const compliteReview = async () => {
     if (rating === 0) {
       alert('별점을 선택해주세요.')
@@ -245,7 +270,7 @@ const ReviewWriteForm = () => {
     } else {
       startLoading()
       document.body.style.overflow = 'hidden'
-      if (postid) {await sendFirebase()} else { editFirebase(postid)}
+      await sendFirebase()
       document.body.style = ''
       endLoading()
       navigate(-1)
@@ -260,7 +285,14 @@ const ReviewWriteForm = () => {
         </div>
       ) : null}
 
-      <div>상품 정보</div>
+      <div className="review_write_item_info">
+        <img src={reviewItem.itemImage} style={{ width: '100%' }} alt="" />
+        <div>
+          <p>상품명 : {reviewItem.itemName}</p>
+          <p>색상 : {reviewItem.itemColor}</p>
+          <p>구매일자 : {reviewItem.boughtDate}</p>
+        </div>
+      </div>
 
       <StarRating
         onClick={starClick}

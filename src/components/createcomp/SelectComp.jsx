@@ -133,9 +133,41 @@ const SelectComp = ({
     }
   };
 
+  const [canvasImage, setCanvasImage] = useState();
+  const getDesignImage = () => {
+    setCanvasImage(canvasRef.current.toDataURL());
+  };
+  const [canvasBlob, setCanvasBlob] =useState();
+  const downloadFile = () => {
+    canvasRef.current.toBlob( function(blob) {
+      const newImg = document.createElement('img');
+      const url = URL.createObjectURL(blob);
+
+      newImg.onload = function() {
+        // no longer need to read the blob so it's revoked
+        URL.revokeObjectURL(url);
+      };
+      newImg.src = url;
+      newImg.crossOrigin = "Anonymous"
+      setCanvasBlob(newImg)
+    })
+  }
+
+  // 가격정보
+  const summa = tumMet.price + tumSize.price + tumStraw.price;
+  // 이름정보
+  useEffect(() => {
+    getProductName(tumMet.name + tumSize.name + tumShape);
+    getDesignImage()
+    downloadFile()
+  }, [tumMet, tumSize, tumShape, canvasImage, canvasBlob]);
+
   const doneDesign = (kind) => {
+    getDesignImage()
+    downloadFile()
     onAddItem({
-      image: null,
+      image: canvasImage,
+      imageBlob: canvasBlob,
       name: tumMet.name + tumSize.name,
       color: colorName,
       material: tumMet.met,
@@ -154,18 +186,6 @@ const SelectComp = ({
         navigate("/create/upload");
         break;
     }
-  };
-
-  // 가격정보
-  const summa = tumMet.price + tumSize.price + tumStraw.price;
-  // 이름정보
-  useEffect(() => {
-    getProductName(tumMet.name + tumSize.name + tumShape);
-  }, [tumMet, tumSize, tumShape]);
-
-  const [canvasImage, setCanvasImage] = useState();
-  const getDesignImage = () => {
-    setCanvasImage(canvasRef.current.toDataURL());
   };
 
   return (
@@ -189,7 +209,7 @@ const SelectComp = ({
       </div>
 
       <div className="select_block">
-        <p>제질</p>
+        <p>재질</p>
         <div className="Met_select">
           <div className={tumMet.met === "stain" ? "actvie" : null}>
             <ButtonComp
@@ -356,7 +376,11 @@ const SelectComp = ({
                 </div>
               </div>
             </ModalComp>
-            <ButtonComp onClick={() => doneDesign("upload")} color="darkgreen">
+            <ButtonComp onClick={() => {
+              getDesignImage()
+              downloadFile()
+              doneDesign("upload")
+              }} color="darkgreen">
               저장
             </ButtonComp>
           </>
