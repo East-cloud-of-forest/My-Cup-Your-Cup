@@ -12,7 +12,7 @@ const TempReviewThumbnail = (props) => {
   
   return (
     <Card id="review_card">
-      <Card.Img variant="top" src={images.image0} />
+      <Card.Img variant="top" src={images.image0.url} />
 
       <Card.Body>
         <div className="review_top">

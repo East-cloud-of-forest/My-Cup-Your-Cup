@@ -12,8 +12,6 @@ import TempReviewThumbnail from './TempReviewThumbnail'
 
 const TempReviewModalComp = (props) => {
   const { review, rating, tages, user, images, boughtDate, itemName, itemColor } = props.review
-  // props =
-  // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
     <div>
       <ModalComp
@@ -22,7 +20,7 @@ const TempReviewModalComp = (props) => {
           <SliderComp dots={false} infinite={true}>
             { Object.values(images).map( (image,i) => (
               <div key={i}>
-                <img id="image" src={image} key={image} alt="review-image" />
+                <img id="image" src={image.url} key={image.name} alt="review-image" />
               </div>
             ))}
           </SliderComp>
