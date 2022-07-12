@@ -17,7 +17,6 @@ import { deleteObject, getStorage, ref } from "firebase/storage";
 
 const ReviewWriteForm = () => {
   const { reviewItem } = useSelector((a) => a.writeReview);
-  console.log(reviewItem);
 
   // 입장시 스크롤 top
   const location = useLocation();
@@ -204,6 +203,7 @@ const ReviewWriteForm = () => {
     let filename = [];
     let fileid = [];
     let images = new Object();
+
     // 리뷰 수정할 경우
     if (postid.id) {
       postID = postid.id;
@@ -235,6 +235,9 @@ const ReviewWriteForm = () => {
       heart: 0,
       filename: filename,
       fileid: fileid,
+      itemName : reviewItem.itemName,
+      itemColor : reviewItem.itemColor,
+      boughtDate : reviewItem.boughtDate
     });
   };
 
@@ -274,7 +277,14 @@ const ReviewWriteForm = () => {
         </div>
       ) : null}
 
-      <div>상품 정보</div>
+      <div className="review_write_item_info">
+        <img src={reviewItem.itemImage} style={{width:"100%"}} alt="" />
+        <div>
+          <p>상품명 : {reviewItem.itemName}</p>
+          <p>색상 : {reviewItem.itemColor}</p>
+          <p>구매일자 : {reviewItem.boughtDate}</p>
+        </div>
+      </div>
 
       <StarRating
         onClick={starClick}

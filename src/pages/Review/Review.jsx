@@ -38,6 +38,9 @@ const ReviewPage = () => {
           review: doc.data().review,
           images: doc.data().images,
           user: doc.data().user,
+          itemName: doc.data().itemName,
+          itemColor: doc.data().itemColor,
+          boughtDate: doc.data().boughtDate,
         })
       })
       setReview(array)
