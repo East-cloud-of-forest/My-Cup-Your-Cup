@@ -12,7 +12,7 @@ const Article = (props) => {
 
             <h2>{props.title}</h2>
 
-            <p>{props.body}</p>)npmjKC
+            <p>{props.body}</p>
 
         </div>
     )

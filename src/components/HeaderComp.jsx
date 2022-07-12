@@ -38,7 +38,7 @@ const Header = () => {
     },
     {
       name: "제품문의",
-      path: "/QnAmenu/FaqPage",
+      path: "/QnAmenu",
     },
   ];
 

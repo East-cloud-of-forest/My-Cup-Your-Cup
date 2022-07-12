@@ -33,8 +33,9 @@ import { produceWithPatches } from 'immer'
 import { Spinner } from 'react-bootstrap'
 
 function App() {
-  const location = useLocation()
+  const location = useLocation();
   const hideHeader = (location) => {
+
     const locationArray = [
       '/enteruser',
       '/create/upload',
@@ -46,16 +47,17 @@ function App() {
   }
 
   // 로그인 유지
-  const dispatch = useDispatch()
-  const loginUser = useCallback((user) => dispatch(loginUserModule(user)), [
-    dispatch,
-  ])
+  const dispatch = useDispatch();
+  const loginUser = useCallback(
+    (user) => dispatch(loginUserModule(user)),
+    [dispatch]
+  );
   useEffect(() => {
-    const loginToken = loginSession()
+    const loginToken = loginSession();
     if (loginToken) {
-      loginUser(loginToken)
+      loginUser(loginToken);
     } else {
-      loginUser(null)
+      loginUser(null);
     }
   }, [])
 
@@ -88,11 +90,12 @@ function App() {
             <Route path="/enteruser/agree" element={<Agreement />} />
           </Route>
           <Route path="/editprofile" element={<EditUser />} />
-          <Route path="/QnAmenu" element={<QnAmenu />} />
-          <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
+          <Route path="/QnAmenu" element={<QnAmenu />}>
+            <Route path="/QnAmenu/FaqPage" element={<FaqPage />} />
 
-          <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
-          <Route path="/QnAmenu/Ask" element={<Ask />} />
+            <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
+            <Route path="/QnAmenu/Ask" element={<Ask />} />
+          </Route>
 
           <Route path="/pay" element={<PayPage />} />
           <Route path="/search" element={<Search />}>
@@ -105,7 +108,7 @@ function App() {
       </main>
       {hideHeader(location.pathname) ? <Footer /> : null}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
