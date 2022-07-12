@@ -20,7 +20,7 @@ const ReviewPage = () => {
   const goReviewWrite = () => {
     navigate('/review/write')
   }
-  //const { boards } = useSelector((state) => state.review)
+  
   const [review, setReview] = useState([])
 
   const getReviews = () => async () => {
@@ -30,6 +30,7 @@ const ReviewPage = () => {
       let array = []
       const reviewRef = getFirebaseData('Review')
       ;(await reviewRef).forEach((doc) => {
+        console.log(doc.data().createdAt)
         array.push({
           id: doc.id,
           rating: doc.data().rating,
@@ -37,6 +38,7 @@ const ReviewPage = () => {
           review: doc.data().review,
           images: doc.data().images,
           user: doc.data().user,
+          createdAt: doc.data().createdAt,
           itemName: doc.data().itemName,
           itemColor: doc.data().itemColor,
           boughtDate: doc.data().boughtDate,

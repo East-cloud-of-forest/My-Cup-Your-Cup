@@ -5,61 +5,87 @@ import {
   ProfileComp,
 } from '../../components/index-comp/IndexComp'
 import './Design.scss'
-import { CUP_PICS } from '../../images'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { Container, Row, Col } from 'react-bootstrap'
 import { getFirebaseData } from '../../datasources/firebase'
-import { useCallback, useState } from 'react'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useCallback, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loadingEnd, loadingStart } from '../../modules/loading'
+import { deepCopy } from '@firebase/util'
+import { addItem } from '../../modules/addCart'
 
 const Design = () => {
-  const [designCol, setDesignCol] = useState([])
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
-  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
+  
+  const {user} = useSelector(user => user.enteruser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch]);
+  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch]);
 
   // 파이어스토어에서 마이디자인컬렉션 가져오기
+  const [designCol, setDesignCol] = useState([]);
   const getDesign = () => async () => {
-    startLoading()
-    document.body.style.overflow = 'hidden'
+    startLoading();
+    document.body.style.overflow = 'hidden';
     try {
-      let array = []
+      let array = [];
       const designColRef = getFirebaseData('MyDesign');
-      const userColRef = getFirebaseData('user')
-      ;(await designColRef).forEach((doc) => {
-        console.log(doc.data())
+      (await designColRef).forEach((doc) => {
+        //console.log(doc);
         array.push({
-          id: doc.data().id,
+          //id: doc.data().id, // undefined 뜸 -> 없어도 되지않을까..?
           title: doc.data().title,
           text: doc.data().text,
           image: doc.data().image,
           tag: doc.data().tag,
-          userid: doc.data().userid,
+          user: doc.data().user,
+          createdAt: doc.data().createdAt,
           private: doc.data().private,
-        })
-      })
-      setDesignCol(array)
-
-      document.body.style = ''
-      endLoading()
+          cupInfo: doc.data().cupInfo
+        });
+      });
+      setDesignCol(array);
+      document.body.style = '';
+      endLoading();
     } catch (err) {
-      console.log(err.message)
-      document.body.style = ''
-      endLoading()
+      console.log(err.message);
+      document.body.style = '';
+      endLoading();
     }
   }
 
   // 공개된 디자인만 가져오기
-  const oDesigns = designCol.filter((d) => d.private === false)
-console.log(oDesigns)
+  const oDesigns = designCol.filter((d) => d.private === false);
   useEffect(() => {
     dispatch(getDesign())
-  }, [dispatch])
+  }, [dispatch]);
+  // 날짜표시
+  const datefn = (d) => {
+    let postDate = new Date(d);
+    return `${postDate.getFullYear()}-${postDate.getMonth()+1}-${postDate.getDate()}`
+  }
+  // 장바구니 추가
+  const onAddItem = useCallback(
+    (tumblur) => dispatch(addItem(tumblur)),
+    [dispatch]
+  );
+  const addToCart = (info) => {
+    onAddItem({
+      image: info.image,
+      name: info.name,
+      color: info.color,
+      material: info.material,
+      size: info.size,
+      strow: info.strow,
+      shape: info.shape,
+      price: info.price,
+      quantity: info.quantity,
+      total: info.total
+    });
+    navigate('/cart')
+  }
 
   return (
     <div className="design_page">
@@ -94,11 +120,10 @@ console.log(oDesigns)
                       <ProfileComp
                         className="profile"
                         justName
-                        userName={'user1'}
-                        imageURL={
-                          'https://cdn.pixabay.com/photo/2016/11/29/04/31/caffeine-1867326_960_720.jpg'
-                        }
+                        userName={design.user.displayName}
+                        imageURL={design.user.photoURL}
                       />
+                      <span id='date_span'>{datefn(design.createdAt)}</span>
                     </div>
                     <div className="button_block">
                       <ButtonComp icon id="like_btn">
@@ -115,10 +140,11 @@ console.log(oDesigns)
                         icon
                         id="create-btn"
                         onClick={() => {
-                          navigate('/create')
-                        }}
-                      >
-                        제작하러가기
+                          addToCart(design.cupInfo)
+                      }}>
+                        <FontAwesomeIcon
+                          icon={solid('cart-shopping')}
+                        ></FontAwesomeIcon>
                       </ButtonComp>
                     </div>
                   </div>

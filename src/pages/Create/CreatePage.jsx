@@ -527,6 +527,7 @@ const CreatePage = () => {
             setSideEditOpen={setSideEditOpen}
             canvasRef={canvasRef}
             pic={pic}
+            canvasObjects={canvasObjects} // 임의
           />
           <CanvasSelectComp
             selectOnObject={selectOnObject}
