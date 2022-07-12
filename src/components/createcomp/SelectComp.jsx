@@ -133,8 +133,38 @@ const SelectComp = ({
     }
   };
 
+  const [canvasImage, setCanvasImage] = useState();
+  const getDesignImage = () => {
+    setCanvasImage(canvasRef.current.toDataURL());
+  };
+  const [canvasBlob, setCanvasBlob] =useState();
+  const downloadFile = () => {
+    canvasRef.current.toBlob( function(blob) {
+      const newImg = document.createElement('img');
+      const url = URL.createObjectURL(blob);
+
+      newImg.onload = function() {
+        // no longer need to read the blob so it's revoked
+        URL.revokeObjectURL(url);
+      };
+      newImg.src = url;
+      newImg.crossOrigin = "Anonymous"
+      setCanvasBlob(newImg)
+    })
+  }
+
+  // 가격정보
+  const summa = tumMet.price + tumSize.price + tumStraw.price;
+  // 이름정보
+  useEffect(() => {
+    getProductName(tumMet.name + tumSize.name + tumShape);
+    getDesignImage()
+    downloadFile()
+  }, [tumMet, tumSize, tumShape, canvasImage, canvasBlob]);
+
   const doneDesign = (kind) => {
-    console.log(canvasImage)
+    getDesignImage()
+    downloadFile()
     onAddItem({
       image: canvasImage,
       imageBlob: canvasBlob,
@@ -157,37 +187,6 @@ const SelectComp = ({
         break;
     }
   };
-
-  // 가격정보
-  const summa = tumMet.price + tumSize.price + tumStraw.price;
-  // 이름정보
-  useEffect(() => {
-    getProductName(tumMet.name + tumSize.name + tumShape);
-    getDesignImage()
-    downloadFile()
-  }, [tumMet, tumSize, tumShape]);
-
-  const [canvasImage, setCanvasImage] = useState();
-  const getDesignImage = () => {
-    setCanvasImage(canvasRef.current.toDataURL());
-  };
-  const [canvasBlob, setCanvasBlob] =useState();
-  const downloadFile = () => {
-    canvasRef.current.toBlob( function(blob) {
-      const newImg = document.createElement('img');
-      const url = URL.createObjectURL(blob);
-
-      newImg.onload = function() {
-        // no longer need to read the blob so it's revoked
-        URL.revokeObjectURL(url);
-      };
-
-      newImg.src = url;
-      newImg.crossOrigin = "Anonymous"
-      console.log(newImg)
-      setCanvasBlob(newImg)
-    })
-  }
 
   return (
     <div className="option_select">
@@ -378,14 +377,11 @@ const SelectComp = ({
               </div>
             </ModalComp>
             <ButtonComp onClick={() => {
-              doneDesign("upload")
               getDesignImage()
               downloadFile()
+              doneDesign("upload")
               }} color="darkgreen">
               저장
-            </ButtonComp>
-            <ButtonComp onClick={downloadFile} color="darkgreen">
-              aa
             </ButtonComp>
           </>
         ) : (

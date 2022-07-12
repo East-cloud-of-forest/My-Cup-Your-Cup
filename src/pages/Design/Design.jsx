@@ -29,18 +29,22 @@ const Design = () => {
     document.body.style.overflow = 'hidden'
     try {
       let array = []
-      const designColRef = getFirebaseData('MyDesign')
+      const designColRef = getFirebaseData('MyDesign');
+      const userColRef = getFirebaseData('user')
       ;(await designColRef).forEach((doc) => {
+        console.log(doc.data())
         array.push({
           id: doc.data().id,
           title: doc.data().title,
           text: doc.data().text,
           image: doc.data().image,
           tag: doc.data().tag,
+          userid: doc.data().userid,
           private: doc.data().private,
         })
       })
       setDesignCol(array)
+
       document.body.style = ''
       endLoading()
     } catch (err) {
@@ -67,10 +71,10 @@ console.log(oDesigns)
               <Col xl="2" lg="3" md="4" sm="6" key={i}>
                 <ModalComp
                   button={
-                    <div id="temp_image">
-                      <p>{design.title}</p>
+                    <div id="preview_image">
+                      <img src={design.image} alt={design.title} />
                     </div>
-                  } //<img id="preview-image" src={design.image} alt={design.title}/>
+                  } 
                   image={<img src={design.image} alt={design.title} />}
                   className="design_modal"
                 >

@@ -22,8 +22,6 @@ const ReviewWriteForm = () => {
   const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
   const { reviewItem } = useSelector((a) => a.writeReview)
   const { loading } = useSelector((a) => a.loading)
-  // console.log('리뷰 아이템')
-  // console.log(reviewItem)
 
   // 입장시 스크롤 top
   const location = useLocation()
@@ -246,11 +244,12 @@ const ReviewWriteForm = () => {
       heart: 0,
       filename: filename,
       fileid: fileid,
-      product: {
-        itemName: reviewItem.itemName,
-        itemColor: reviewItem.itemColor,
-        boughtDate: reviewItem.boughtDate,
-      },
+      // 파이어스토리지 업로드관련 잠깐 주석처리
+      // product: { 
+      //   itemName: reviewItem.itemName,
+      //   itemColor: reviewItem.itemColor,
+      //   boughtDate: reviewItem.boughtDate,
+      // },
     })
   }
 

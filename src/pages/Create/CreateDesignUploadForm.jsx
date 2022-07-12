@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 //import { addDoc } from 'firebase/firestore';
-import { addFirebaseData, uploadFirestorage } from '../../datasources/firebase';
+import { addFirebaseData, setFirebaseData, uploadFirestorage } from '../../datasources/firebase';
 
 const CreateDesignUploadForm = () => {
   const {items} = useSelector( (state) => ({ items : state.cartReducer.items }) );
@@ -61,7 +61,7 @@ const CreateDesignUploadForm = () => {
   
   // 나의 디자인 업로드하기
   // https://stackoverflow.com/questions/48862777/firebase-storage-upload-blob-url
-  console.log(mycup.imageBlob.src)
+
   const getFileBlob = (url, cb) => {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -73,38 +73,35 @@ const CreateDesignUploadForm = () => {
   }
   const uploadMyDesign = async (mycup, userid) => { // async 익명함수로 작성하면 표현식)
     let designID;
-    let designImage = new Image();
+
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
         try {
-          await addFirebaseData("MyDesign", {
+          await addFirebaseData("MyDesign", {}).then( res => designID = res.id)
+            
+          getFileBlob(mycup.imageBlob.src, blob =>{
+            uploadFirestorage("MyDesign/" + designID, blob)
+            .then((snapshot) => {
+              console.log('Uploaded a blob or file! : ', snapshot);
+            })
+          })
+          await setFirebaseData("MyDesign", designID, {
             image: mycup.image,
             title: title,
             text: text,
             tag: tagList,
             private: onlyMe,
             userid: userid
-          }).then( res => designID = res.id );
-          
-          // designImage.crossOrigin = "Anonymous";
-          // designImage.src = new Blob(); // [object blob]
-          // console.log(designImage)
-          getFileBlob(mycup.imageBlob.src, blob => {
-            uploadFirestorage("MyDesign/" + designID)
-            .put(blob)
-            .then((snapshot) => {
-              console.log('Uploaded a blob or file! : ', snapshot);
             })
-          })
-          }
+        }
           // await uploadFirestorage("MyDesign/" + designID, mycup.imageBlob )
           // .then( res => console.log(res))
         catch (e) {
           console.log(e.message);
         }
       }
-      // navigate('/mydesign');
+      navigate('/mydesign');
     }
     
 
