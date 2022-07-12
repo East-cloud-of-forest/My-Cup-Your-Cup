@@ -1,7 +1,6 @@
 import './Review.scss'
 import { Col, Container, Row } from 'react-bootstrap'
-import ReviewAndModalComp from '../../components/Review/grid/ReviewAndModalComp'
-import TempReviewModalComp from '../../components/Review/grid/TempReviewModalComp'
+import ReviewModalComp from '../../components/Review/grid/ReviewModalComp'
 import { ButtonComp, Pagination } from '../../components/index-comp/IndexComp'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -73,7 +72,7 @@ const ReviewPage = () => {
                   key={r.id}
                   className="review_card"
                 > 
-                  <TempReviewModalComp review={r} />
+                  <ReviewModalComp review={r} />
                 </Col>
               ))}
           </Row>
