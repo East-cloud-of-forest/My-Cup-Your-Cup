@@ -10,13 +10,14 @@ import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TempReviewThumbnail from '../../Review/grid/TempReviewThumbnail'
 import { Col, Container, Overlay, Popover, Row } from 'react-bootstrap'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux/es/exports'
-import { deleteFirebaseData } from '../../../datasources/firebase'
+import { deleteFirebaseData, getFirebaseData } from '../../../datasources/firebase'
 import { loadingEnd, loadingStart } from '../../../modules/loading'
   
-const MyReviewsComp = ({review}) => {
+const MyReviewsComp = (props) => {
+  const { user, review } = props;
 
   const [ show, setShow ] = useState(false);
   const [ target, setTarget ] = useState(null);
@@ -24,8 +25,9 @@ const MyReviewsComp = ({review}) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch
-  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
-  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
+
+  // 나의 리뷰 가져오기 
+  const myReview = review.filter( r => r.user.uid === user.uid );
 
   // 수정, 삭제 팝오버
   const handleClick = (e) => {
@@ -41,6 +43,7 @@ const MyReviewsComp = ({review}) => {
     } catch (e) { console.log(e) }
   }
 
+
   return (
     <div className='my_review' >
       <div className="header">
@@ -48,7 +51,7 @@ const MyReviewsComp = ({review}) => {
       </div>
       <Container fluid="sm">
       <Row>
-      { review.length >=1 ? review.map( review => ( 
+      { myReview ? myReview.map( review => ( 
       <Col xl="2" lg="3" md="4" sm="6" className="review_card" key={review.id} >
           <ModalComp
             button={<TempReviewThumbnail review={review} />}

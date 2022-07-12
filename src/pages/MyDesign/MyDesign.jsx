@@ -11,36 +11,37 @@ import { loadingEnd, loadingStart } from "../../modules/loading";
 
 const MyDesign = () => {
   const {user} = useSelector((user)=> user.enteruser)
-  const [review, setReview] = useState([]);
+
   const dispatch = useDispatch();
+
   const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
   const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
-
-  const getReviews = () => async () => {
-    startLoading()
-    try {
-      
-      let array = []
-      const reviewRef = getFirebaseData('Review');
-      (await reviewRef).forEach( doc => {
-        (doc.data().user.uid === user.uid) &&
-        array.push(
-          {
-          id : doc.id,
-          rating : doc.data().rating,
-          tages : doc.data().tages,
-          review : doc.data().review,
-          images: doc.data().images,
-          user: doc.data().user,
-          }
-        )
-      })
-      setReview(array)
-    } catch (e) { console.log(e) }
-    endLoading()
-  }
-
-  useEffect(() => { dispatch(getReviews()) }, [dispatch])
+  
+  const [review, setReview] = useState([]);
+  const getReviews = () => 
+    async () => {
+      startLoading()
+      try {
+        let array = []
+        const reviewRef = getFirebaseData('Review');
+        (await reviewRef).forEach( doc => {
+          array.push(
+            {
+            id : doc.id,
+            rating : doc.data().rating,
+            tages : doc.data().tages,
+            review : doc.data().review,
+            images: doc.data().images,
+            user: doc.data().user,
+            }
+          )
+        })
+        setReview(array)
+      } catch (e) { console.log(e) }
+      endLoading()
+    }
+  
+  useEffect(() => { dispatch(getReviews()) }, [dispatch])//(r.userid === user.user.uid)
 
   return (
     <div className="mydesign_page">
@@ -63,22 +64,25 @@ const MyDesign = () => {
           user ? ( 
             <div className="profile_block">
               <ProfileComp
-                imageURL={user.photoURL} // 사진없을시 어떻게할지 생각
+                imageURL={user.photoURL}
                 userName={user.displayName}
                 intro={`${user.displayName}의 디자인입니다`}
                 fbURL={"https://www.facebook.com"}
                 instaURL={"https://www.instagram.com"}
               />
-            </div> ) : null }
+            </div> ) : null 
+        }
       </div> {/* 헤더 끝 */}
-        {
-          user && review ? ( <>
+      {
+        user ? ( 
+        <>
           <MyDesigns user={user} />
           <LikedDesigns user={user} />
           <MyReviewsComp user={user} review={review} /> 
         </> ) : null
-        }
-      </div>
+      }
+
+    </div>
   );
 };
 export default MyDesign;
