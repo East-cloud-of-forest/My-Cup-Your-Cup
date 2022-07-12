@@ -30,7 +30,6 @@ const ReviewPage = () => {
       let array = []
       const reviewRef = getFirebaseData('Review')
       ;(await reviewRef).forEach((doc) => {
-        console.log(doc.data().createdAt)
         array.push({
           id: doc.id,
           rating: doc.data().rating,
