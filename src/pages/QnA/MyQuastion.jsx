@@ -54,9 +54,15 @@ const MyQuastion = (props) => {
     ])
     
     // 게시판 세부 기능 컨트롤
-    const [ mode, setMode ] = useState("READ")
+    const [ mode, setMode ] = useState()
     const [ id, setId ] = useState(null)
-    const [ nextId, setNextId ] = useState(4)
+    const [ nextId, setNextId ] = useState(3)
+
+    // firestore에서 가져온 게시글 데이터 저장
+    const [ firestoreBODY, setfirestoreBODY ] = useState(["임의 내용"])
+    const [ firestoreCATEGORY, setfirestoreCATEGORY ] = useState(["임의 카테고리"])
+    const [ firestoreDATE, setfirestoreDATE ] = useState(["2022년 0월0일"])
+    const [ firestoreTITLE, setfirestoreTITLE ] = useState(["임의 제목"])
 
 
     let postText = null;
@@ -65,35 +71,35 @@ const MyQuastion = (props) => {
 
     // 게시글 읽기 모드일 경우 실행
 
-    if (mode === "READ") {
+
         for(let i=0; i<post.length; i++) {
             if(post[i].id === id) {
                 title = post[i].title;
                 body = post[i].body;
+
+
             }
         }
 
         postText = <Article title={title} body={body} />
-    }
+
 
 
     // 게시글 쓰기 모드일 경우 실행
-// mode === "CREATE"
-    else if (mode==="CREATE") {
+
         
-            const createPost = props.getNewPost
+    if(false) {
 
-            const date = createPost.year+"."+createPost.month+"."+createPost.day
-            const newPost1 = {id:nextId, category: createPost.category, date: date, title: createPost.title, body: createPost.body}
-            const newPost2 = [...post]
+        const newPost1 = {id:nextId, category: firestoreCATEGORY, date: firestoreDATE, title: firestoreTITLE, body: firestoreBODY}
+        const newPost2 = [...post]
 
-            newPost2.push(newPost1)
+        newPost2.push(newPost1)
 
-            setPost(newPost2)
-            setNextId(nextId+1)
+        setPost(newPost2)
+        setNextId(nextId+1)
+    }
 
-            setMode('READ')
-        }
+
     
 
     // 게시글 출력 관련
@@ -158,8 +164,8 @@ const MyQuastion = (props) => {
 
         </div>
 
-
     </div>
+
 
     <div className='postText'>
             {/* 게시글 출력 확인용 */}

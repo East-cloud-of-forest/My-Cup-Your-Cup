@@ -1,10 +1,13 @@
 import { logDOM } from "@testing-library/react";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useState } from 'react'
 
 import "../QnA/QnAmenu.scss";
 
-const QnAmenu = (props) => {
+const QnAmenu = () => {
+
+
   return (
     <div>
       <div className="QnAmain_Name">
@@ -38,7 +41,7 @@ const QnAmenu = (props) => {
           style={{ textDecoration: "none" }}
         >
           <div>   
-            <span>문의하기</span>
+            <span>1:1 문의</span>
           </div>
         </Link>
       </div>
