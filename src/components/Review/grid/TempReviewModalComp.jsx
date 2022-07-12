@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TempReviewThumbnail from './TempReviewThumbnail'
 
 const TempReviewModalComp = (props) => {
-  const { review, rating, tages, user, images } = props.review
+  const { review, rating, tages, user, images, boughtDate, itemName, itemColor } = props.review
   // props =
   // { review: { review : dd, rating: 5, tages: [], user: {name: 'name'}, images: {image0: 'url', image1} }}
   return (
@@ -38,10 +38,9 @@ const TempReviewModalComp = (props) => {
         <div className="modal_body">
           {/* <h5 className="modal_title">임시제목</h5> */}
           <div className="option">
-            <p>옵션01</p>
-            <p>옵션02</p>
-            <p>옵션03</p>
-            <p>옵션04</p>
+            <p>상품명 : {itemName}</p>
+            <p>색상 : {itemColor}</p>
+            <p>구매일자 : {boughtDate}</p>
           </div>
           <div className="hashtag">
             {tages.map((tag, i) => (
