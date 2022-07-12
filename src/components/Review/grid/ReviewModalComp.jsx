@@ -116,7 +116,7 @@ const ReviewModalComp = (props) => {
               <FontAwesomeIcon icon={solid('share-nodes')} />
             </ButtonComp>
             {
-              userNow.uid == user.uid ? (
+              userNow && userNow.uid == user.uid ? (
                 <div>
                   <ButtonComp icon onClick={handleClick}>
                     <FontAwesomeIcon icon={solid("ellipsis-vertical")} />
