@@ -14,7 +14,6 @@ import {
 import { loadingEnd, loadingStart } from '../../modules/loading'
 import './ReviewWriteForm.scss'
 import { Spinner } from 'react-bootstrap'
-import { deleteObject, getStorage, ref } from 'firebase/storage'
 
 const ReviewWriteForm = () => {
   const dispatch = useDispatch()

@@ -14,6 +14,7 @@ import {
   startAt,
   endAt,
   limit,
+  where,
 } from 'firebase/firestore'
 import {
   getAuth,
@@ -123,13 +124,19 @@ const deleteFirestorage = (path, docid, name) => {
   })
 }
 
-const firebaseSearch = async (name, target, keyword) => {
-  const q = query(
-    collection(db, name),
-    orderBy(target),
-    startAt(keyword),
-    endAt(keyword + '\uf8ff'),
-  )
+const firebaseSearch = async (name, target, keyword, user) => {
+  let q
+  if (user) {
+    q = query(
+      collection(db, name),
+      orderBy(target),
+      startAt(keyword),
+      endAt(keyword + '\uf8ff'),
+    )
+  } else {
+    q = query(collection(db, name), where(target, 'array-contains', keyword))
+  }
+
   return await getDocs(q)
 }
 
