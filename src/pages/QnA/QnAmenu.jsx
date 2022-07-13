@@ -1,12 +1,17 @@
 import { logDOM } from "@testing-library/react";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useState } from 'react'
+import { useState } from "react";
 
 import "../QnA/QnAmenu.scss";
+import { useSelector } from "react-redux";
 
 const QnAmenu = () => {
+  const { user } = useSelector((a) => a.enteruser);
 
+  const needlogin = () => {
+    alert("1:1 문의를 이용하기 위해 로그인을 해주세요");
+  };
 
   return (
     <div>
@@ -15,11 +20,7 @@ const QnAmenu = () => {
       </div>
 
       <div className="QnAmain_header">
-        <Link
-          className="FAQ"
-          to="/QnAmenu"
-          style={{ textDecoration: "none" }}
-        >
+        <Link className="FAQ" to="/QnAmenu" style={{ textDecoration: "none" }}>
           <div>
             <span>자주 묻는 질문</span>
           </div>
@@ -35,18 +36,31 @@ const QnAmenu = () => {
           </div>
         </Link>
 
-        <Link
-          className="ask"
-          to="/QnAmenu/Ask"
-          style={{ textDecoration: "none" }}
-        >
-          <div>   
-            <span>1:1 문의</span>
+        {user ? (
+          <Link
+            className="ask"
+            to="/QnAmenu/Ask"
+            style={{ textDecoration: "none" }}
+          >
+            <div>
+              <span>1:1 문의</span>
+            </div>
+          </Link>
+        ) : (
+          <div
+            className="ask"
+            to="/QnAmenu/Ask"
+            style={{ textDecoration: "none" }}
+            onClick={needlogin}
+          >
+            <div>
+              <span>1:1 문의</span>
+            </div>
           </div>
-        </Link>
+        )}
       </div>
 
-      <Outlet  />
+      <Outlet />
     </div>
   );
 };
