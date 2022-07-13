@@ -88,11 +88,19 @@ const getFirebaseData = async (name, id) => {
     return await getDocs(q)
   }
 }
+// 유저별로 받아오기
+const userGetFirebaseData = async (name, uid) => {
+  const q = query(
+    collection(db, name),
+    where("uid", "==", uid),
+  )
+  return await getDocs(q)
+}
 // store 새로 만들기
 const addFirebaseData = async (name, content) => {
   return await addDoc(collection(db, name), content)
 }
-// store 수정
+// store 수정 (setDoc)
 const setFirebaseData = async (name, id, content) => {
   return await setDoc(doc(db, name, id), content)
 }
@@ -160,5 +168,6 @@ export {
   saveLoginInfo,
   createUser,
   firebaseSearch,
+  userGetFirebaseData,
   auth,
 }
