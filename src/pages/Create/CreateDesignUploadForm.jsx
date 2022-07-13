@@ -1,88 +1,92 @@
-import "./CreateDesignUploadForm.scss";
-import { ButtonComp } from "../../components/index-comp/IndexComp";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import './CreateDesignUploadForm.scss'
+import { ButtonComp } from '../../components/index-comp/IndexComp'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import {
   addFirebaseData,
   setFirebaseData,
   uploadFirestorage,
-} from "../../datasources/firebase";
+} from '../../datasources/firebase'
 
 const CreateDesignUploadForm = () => {
   const { items } = useSelector((state) => ({
     items: state.cartReducer.items,
-  }));
-  const { user } = useSelector((user) => user.enteruser);
+  }))
+  const { user } = useSelector((user) => user.enteruser)
   // 컵 정보
-  const mycup = items[items.length - 1];
+  const mycup = items[items.length - 1]
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   // 제목, 내용, 비공개 입력
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
-  const [onlyMe, setOnlyMe] = useState(false);
+  const [title, setTitle] = useState('')
+  const [text, setText] = useState('')
+  const [onlyMe, setOnlyMe] = useState(false)
   const titleInputChange = (e) => {
-    setTitle(e.target.value);
-  };
+    setTitle(e.target.value)
+  }
   const textInputChange = (e) => {
-    setText(e.target.value);
-  };
+    setText(e.target.value)
+  }
   const checkOnlyMe = () => {
-    setOnlyMe(!onlyMe);
-  };
+    setOnlyMe(!onlyMe)
+  }
 
   // 태그 인풋 입력
-  const [tagInput, setTagInput] = useState("");
+  const [tagInput, setTagInput] = useState('')
   const tagInputChange = (e) => {
-    setTagInput(e.target.value);
-  };
+    setTagInput(e.target.value)
+  }
   // 태그 확정 입력
-  const [tagList, setTagList] = useState([]);
+  const [tagList, setTagList] = useState([])
   const onKeyDown = (e) => {
-    const { key } = e;
-    const trimmedInput = tagInput.trim();
-    if (key === "Enter" && trimmedInput.length) {
+    const { key } = e
+    const trimmedInput = tagInput.trim()
+    if (key === 'Enter' && trimmedInput.length) {
       if (!tagList.includes(trimmedInput)) {
-        setTagList((prevState) => [...prevState, trimmedInput]);
-        setTagInput("");
+        setTagList((prevState) => [...prevState, trimmedInput])
+        setTagInput('')
       } else {
-        setTagInput("");
+        setTagInput('')
       }
-    } else if (key === "Backspace" && !tagInput.length && tagList.length) {
-      const tagListCopy = [...tagList];
-      tagListCopy.pop();
-      setTagList(tagListCopy);
+    } else if (key === 'Backspace' && !tagInput.length && tagList.length) {
+      const tagListCopy = [...tagList]
+      tagListCopy.pop()
+      setTagList(tagListCopy)
     }
-  };
+  }
   // 태그 클릭 삭제
   const deleteTagItem = (index) => {
-    setTagList((prevState) => prevState.filter((tag, i) => i !== index));
-  };
+    setTagList((prevState) => prevState.filter((tag, i) => i !== index))
+  }
   // 파이어베이스 업로드
   const uploadMyDesign = async (mycup) => {
-    if (title === "") {
-      alert("컵 이름을 지어주세요!");
+    if (title === '') {
+      alert('컵 이름을 지어주세요!')
     } else {
       try {
-        await addFirebaseData("MyDesign", {
+        await addFirebaseData('MyDesign', {
           image: mycup.image,
           title: title,
           text: text,
           tag: tagList,
           private: onlyMe,
-          user: user,
+          user: {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          },
           createdAt: Date.now(),
           cupInfo: mycup,
-          uid: user.uid
-        });
+          uid: user.uid,
+        })
       } catch (e) {
-        console.log(e.message);
+        console.log(e.message)
       }
     }
-    navigate("/mydesign");
-  };
+    navigate('/mydesign')
+  }
 
   return (
     <div className="uploadPage_container">
@@ -107,7 +111,7 @@ const CreateDesignUploadForm = () => {
           placeholder="컵 이름을 지어주세요"
           value={title}
           onChange={titleInputChange}
-        />{" "}
+        />{' '}
         <br />
         <div className="main_input">
           <textarea rows={20} value={text} onChange={textInputChange} />
@@ -133,7 +137,7 @@ const CreateDesignUploadForm = () => {
           <ButtonComp
             color="green"
             onClick={() => {
-              uploadMyDesign(mycup);
+              uploadMyDesign(mycup)
             }}
           >
             저장
@@ -141,7 +145,7 @@ const CreateDesignUploadForm = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreateDesignUploadForm;
+export default CreateDesignUploadForm

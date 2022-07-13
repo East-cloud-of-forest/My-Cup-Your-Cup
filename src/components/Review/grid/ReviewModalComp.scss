@@ -114,6 +114,13 @@
         .button_block {
           display: flex;
           align-items: center;
+
+          .bs-popover-start {
+            button {
+              color: black;
+              padding: 0.5rem 2rem;
+            }
+          }
         }
       }
     }

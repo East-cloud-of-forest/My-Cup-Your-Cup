@@ -233,23 +233,12 @@ const ReviewWriteForm = () => {
       images['image' + i] = { url: url, fileid: fileid, filename: filename }
     })
     // 파이어 베이스 업데이트
-    console.log(
-      Date.now(),
-      user,
-      images,
-      rating,
-      review,
-      tagList,
-      filename,
-      fileid,
-      user.uid,
-    )
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
       user: {
         displayName: user.displayName,
         email: user.email,
-        photoURL: user.photoURL
+        photoURL: user.photoURL,
       },
       images: Object.assign({}, images),
       rating: rating,

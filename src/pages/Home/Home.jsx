@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { collection, getDocs, limit, query, where } from 'firebase/firestore'
 import { db } from '../../datasources/firebase'
 import ReviewModalComp from '../../components/Review/grid/ReviewModalComp'
+import DesignModalComp from '../../components/DesignModalComp/DesignModalComp'
 //import "../../dummies/illustrations/slideImage_disney.jpg"
 const Home = () => {
   const { user } = useSelector((a) => a.enteruser)
@@ -19,16 +20,27 @@ const Home = () => {
   ]
 
   const [review, setReview] = useState([])
+  const [design, setDesign] = useState([])
 
   const getData = async () => {
     const q = query(collection(db, 'Review'), limit(8))
     await getDocs(q).then((r) => {
       const reviewArray = []
       r.forEach((doc) => {
+        console.log(doc)
         const data = doc.data()
-        reviewArray.push(data)
+        reviewArray.push({ ...data, id: doc.id })
       })
       setReview(reviewArray)
+    })
+    const q2 = query(collection(db, 'MyDesign'), limit(4))
+    await getDocs(q2).then((r) => {
+      const designArray = []
+      r.forEach((doc) => {
+        const data = doc.data()
+        designArray.push({ ...data, id: doc.id })
+      })
+      setDesign(designArray)
     })
   }
 
@@ -137,7 +149,7 @@ const Home = () => {
         <Row>
           {review.map((e, i) => (
             <Col key={i} md="3" sm="6" xs="6" className="main_review">
-              <div className='main_review_item'>
+              <div className="main_review_item">
                 <ReviewModalComp review={e} />
               </div>
             </Col>
@@ -147,9 +159,11 @@ const Home = () => {
       <p className="text-center subtitle">디자인</p>
       <Container fluid>
         <Row>
-          {designitem.map((e) => (
-            <Col key={e} md="3" sm="6" xs="6" className="main_design">
-              <div className="main_design_item">{e}</div>
+          {design.map((e, i) => (
+            <Col key={i} md="3" sm="6" xs="6" className="main_design">
+              <div className="main_design_item">
+                <DesignModalComp design={e} />
+              </div>
             </Col>
           ))}
         </Row>
