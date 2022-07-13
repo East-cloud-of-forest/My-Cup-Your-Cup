@@ -16,20 +16,21 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { deleteFirebaseData } from '../../../datasources/firebase'
 
 const ReviewModalComp = (props) => {
-  const userNow = useSelector((user) => user.enteruser.user)
-  const navigate = useNavigate()
-  const {
-    review,
-    rating,
-    tages,
-    user,
-    images,
-    createdAt,
-    boughtDate,
-    itemName,
+  const userNow = useSelector((user)=> user.enteruser.user)
+  
+  const navigate = useNavigate();
+  const { 
+    review, 
+    rating, 
+    tages, 
+    user, 
+    images, 
+    createdAt, 
+    boughtDate, 
+    itemName, 
     itemColor,
-  } = props.review
-
+    uid,
+  } = props.review;
   // 수정, 삭제 팝오버
   const [show, setShow] = useState(false)
   const [target, setTarget] = useState(null)
@@ -53,8 +54,6 @@ const ReviewModalComp = (props) => {
   // 날짜표시
   const timeStamp = createdAt
   let postDate = new Date(timeStamp)
-
-  console.log(images)
 
   return (
     <div>
@@ -95,16 +94,6 @@ const ReviewModalComp = (props) => {
             ))}
           </div>
           <p>{review}</p>
-          <div className="score">
-            <i>
-              <FontAwesomeIcon icon={regular('eye')} />
-            </i>
-            <span>1234</span>
-            <i>
-              <FontAwesomeIcon icon={regular('heart')} />
-            </i>
-            <span>1234</span>
-          </div>
         </div>
 
         <div className="modal_footer">
@@ -126,11 +115,12 @@ const ReviewModalComp = (props) => {
             <ButtonComp icon>
               <FontAwesomeIcon icon={solid('share-nodes')} />
             </ButtonComp>
-            {userNow && userNow.uid == user.uid ? (
-              <div>
-                <ButtonComp icon onClick={handleClick}>
-                  <FontAwesomeIcon icon={solid('ellipsis-vertical')} />
-                </ButtonComp>
+            {
+              userNow && userNow.uid == uid ? (
+                <div>
+                  <ButtonComp icon onClick={handleClick}>
+                    <FontAwesomeIcon icon={solid("ellipsis-vertical")} />
+                  </ButtonComp>
                 <Overlay
                   show={show}
                   target={target}

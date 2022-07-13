@@ -18,18 +18,21 @@ $facebook: #475a96;
     }
   }
 
-  #Container {
+  .container-sm {
     .row {
       padding: 0 1rem;
-  
       > * {
         padding: 0.1rem;
       }
     }
-    & img {
-      display: flex;
-      width: 200px;
+    .load_button {
+      .button {
+        margin: 1rem 0;
+        padding: 1rem 0;
+      }
     }
+
+    
   }
   #preview-image {
     width: 100%;
