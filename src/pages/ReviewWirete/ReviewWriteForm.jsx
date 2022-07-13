@@ -243,6 +243,7 @@ const ReviewWriteForm = () => {
       heart: 0,
       filename: filename,
       fileid: fileid,
+      uid: user.uid
       // 파이어스토리지 업로드관련 잠깐 주석처리
       // product: { 
       //   itemName: reviewItem.itemName,
