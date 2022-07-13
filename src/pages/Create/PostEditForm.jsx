@@ -15,7 +15,9 @@ const PostEditForm = () => {
   const dispatch = useDispatch();
 
   // 제목, 내용, 비공개 입력
-  const [title, setTitle] = useState('')
+  const [createdAt, setCreatedAt] = useState(0);
+  const [image, setImage] = useState(null);
+  const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [onlyMe, setOnlyMe] = useState(false);
   const titleInputChange = (e) => {
@@ -26,8 +28,8 @@ const PostEditForm = () => {
     
   }
   const checkOnlyMe = () => {
-    setOnlyMe(!onlyMe)
-    console.log(onlyMe)
+    setOnlyMe(!onlyMe);
+    console.log(onlyMe);
   }
   
   // 태그 인풋 입력
@@ -62,23 +64,27 @@ const PostEditForm = () => {
   }
 
   // 파이어베이스에서 데이터 가져오기
-  //const [ mydesigns, setmydesigns ] = useState([]);
-  const getMyDesign = () => async () => {
+  const getMyDesign = async () => {
     try {
       let thisPost;
       const myDesignRef = getFirebaseData("MyDesign");
       (await myDesignRef).forEach( (doc) => {
         if (doc.id === id ) {thisPost = doc.data()} else return;
       });
+      setCreatedAt(thisPost.createdAt);
+      setImage(thisPost.image);
       setTitle(thisPost.title);
       setText(thisPost.text);
       setTagList([...thisPost.tag]);
+      console.log(thisPost)
     }
     catch (err) {
         console.log(err);
     }
   }
-  useEffect( ()=>{dispatch(getMyDesign())}, [dispatch])
+  useEffect(() => {
+    getMyDesign()}, []
+  )
 
   // 수정한 디자인 업로드하기
   const uploadMyDesign = async (userid) => {
@@ -87,11 +93,13 @@ const PostEditForm = () => {
     } else {
         try { // await setDoc(doc(db, name, id), content)
           await setFirebaseData("MyDesign", id, {
-            title: title,
-            text: text,
-            tag: tagList,
+            createdAt: createdAt,
+            image: image,
             private: onlyMe,
-            userid: userid
+            tag: tagList,
+            text: text,
+            title: title,
+            user: user, 
           })
         }
         catch (e) {
@@ -101,12 +109,13 @@ const PostEditForm = () => {
       }
       navigate('/mydesign');
     }
-    
 
   return (
     <div className="uploadPage_container">
       <h2>나의 디자인 수정</h2>
-      <div className="temporary_image">image</div>
+      <div className="temporary_image">
+        <img src={image} alt="cup_image"></img>
+      </div>
       <div className='cup_info'>
         <p>
         </p>      

@@ -16,7 +16,7 @@ const CreateDesignUploadForm = () => {
   const { user } = useSelector((user) => user.enteruser);
   // 컵 정보
   const mycup = items[items.length - 1];
-  console.log(mycup);
+
   const navigate = useNavigate();
 
   // 제목, 내용, 비공개 입력
@@ -31,7 +31,6 @@ const CreateDesignUploadForm = () => {
   };
   const checkOnlyMe = () => {
     setOnlyMe(!onlyMe);
-    console.log(onlyMe);
   };
 
   // 태그 인풋 입력
@@ -76,6 +75,7 @@ const CreateDesignUploadForm = () => {
           user: user,
           createdAt: Date.now(),
           cupInfo: mycup,
+          uid: user.uid
         });
       } catch (e) {
         console.log(e.message);

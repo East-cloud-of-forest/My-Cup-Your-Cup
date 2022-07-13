@@ -6,47 +6,58 @@ import { uploadFirestorage } from '../../../datasources/firebase'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { useSelector } from 'react-redux'
 import { getAllByTestId } from '@testing-library/react'
+import { getFirestore } from 'firebase/firestore'
 
 const EditUser = () => {
-  const { search } = useLocation()
-  const navi = useNavigate()
+  const { search } = useLocation();
+  const navi = useNavigate();
 
-  //////////////////  파이어베이스 회원가입 기능 구현 ////////////////
-  const [profilePic, setProfilePic] = useState(null)
-  const [photoURL, setPhotoURL] = useState(null)
-  const [nameInput, setNameInput] = useState('')
-  const { user } = useSelector((user) => user.enteruser)
-  // console.log(user.uid)
-  // console.log(getAuth().currentUser)
+  const { user } = useSelector((user) => user.enteruser);
+  
+  const [profilePic, setProfilePic] = useState(null);
+  const [photoURL, setPhotoURL] = useState(null);
+  const [nameInput, setNameInput] = useState('');
+  
+  // 유저데이터
+  // const getUserData = async () => {
+  //   try {
+  //     getFirestore
+  //   } catch (err) {console.log(err)}
+  // }
+
   // 프로필사진 업로드
   const InputFile = (e) => {
-    setProfilePic(e.target.files[0]); 
+    let photosrc = URL.createObjectURL(e.target.files[0])
+    setProfilePic(photosrc); 
   }
 
-  // 이름, 휴대폰번호 onChange
+  // 이름, onChange
   const InputName = (e) => {
     setNameInput(e.target.value)
   }
 
-
   // 파이어스토리지에 사진 올리기
-  useEffect( () => {
-    const uploadFile = () => {
-    const name = new Date().getTime() + profilePic.name;
-    uploadFirestorage('user', name, profilePic).then(
-      result => {
-        setPhotoURL(result)
-      }
-    )}
-    profilePic && uploadFile()
-  }, [profilePic])
+  // useEffect( () => {
+
+  //   profilePic && uploadFile()
+  // }, [profilePic])
+  const uploadFile = () => {
+      const name = new Date().getTime() + profilePic.name;
+      uploadFirestorage('user', name, profilePic).then(
+        result => {
+          setPhotoURL(result)
+        }
+      )
+    }
 
   // 수정 기능 실행
   // store user 문서도 업데이트
   const editProfile = async () => {
     const auth = getAuth()
+
+    profilePic && uploadFile()
     console.log(nameInput, photoURL)
-    updateProfile(auth.currentUser, {
+    await updateProfile(auth.currentUser, {
       displayName: nameInput,
       photoURL: photoURL,
     })
@@ -76,21 +87,27 @@ const EditUser = () => {
             <div className='.Join_photoURL'>
             <img
               src={
-                profilePic
-                  ? URL.createObjectURL(profilePic)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                profilePic != null ?
+                  user.photoURL
+                  : profilePic
               }
-              alt="profile"
+              alt="profile_picture"
               />
             <div className="filebox">
               <label htmlFor="file" >
                 파일찾기
               </label> 
-              <input type="file" onChange={InputFile} id="file" style={{display: "none"}}/>
-              <span onClick={()=>{
-                setPhotoURL('')
-                console.log(photoURL)
-                }} >프로필사진 삭제</span>
+              <input 
+                type="file" 
+                onChange={InputFile} 
+                id="file" 
+                style={{display: "none"}}
+              />
+                <span onClick={()=>{
+                  setPhotoURL('')
+                  console.log(photoURL)
+                  }} >프로필사진 삭제
+                </span>
             </div>
           </div>
 
@@ -102,21 +119,18 @@ const EditUser = () => {
                 onChange={InputName}
                 className="Joinsignup_name"
                 type="text"
+                value={ user && user.displayName}
               ></input>
             </span>
           </div>
 
           
           <div className="btn_box">
-            { nameInput ? (
-            <ButtonComp color="mint" onClick={() => editProfile()}>
-              <h4 style={{ padding: 0, margin: 0 }}>수정하기</h4>
-            </ButtonComp>) : (
-            <ButtonComp color="mint" onClick={() => noName()}>
+            <ButtonComp 
+              color="mint" 
+              onClick={() => editProfile()}>
               <h4 style={{ padding: 0, margin: 0 }}>수정하기</h4>
             </ButtonComp>
-            )}
-            
           </div>
         </section>
       </div>

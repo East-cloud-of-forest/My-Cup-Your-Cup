@@ -12,37 +12,6 @@ import { loadingEnd, loadingStart } from '../../modules/loading'
 const MyDesign = () => {
   const {user} = useSelector((user)=> user.enteruser)
 
-  const dispatch = useDispatch();
-
-  const startLoading = useCallback(() => dispatch(loadingStart()), [dispatch])
-  const endLoading = useCallback(() => dispatch(loadingEnd()), [dispatch])
-  
-  const [review, setReview] = useState([]);
-  const getReviews = () => 
-    async () => {
-      startLoading()
-      try {
-        let array = []
-        const reviewRef = getFirebaseData('Review');
-        (await reviewRef).forEach( doc => {
-          array.push(
-            {
-            id : doc.id,
-            rating : doc.data().rating,
-            tages : doc.data().tages,
-            review : doc.data().review,
-            images: doc.data().images,
-            user: doc.data().user,
-            }
-          )
-        })
-        setReview(array)
-      } catch (e) { console.log(e) }
-      endLoading()
-    }
-  
-  useEffect(() => { dispatch(getReviews()) }, [dispatch])//(r.userid === user.user.uid)
-
   return (
     <div className="mydesign_page">
       <div className="mydesign_header">
@@ -79,7 +48,7 @@ const MyDesign = () => {
         <>
           <MyDesigns user={user} />
           <LikedDesigns user={user} />
-          <MyReviewsComp user={user} review={review} /> 
+          <MyReviewsComp user={user} /> 
         </> ) : null
       }
 
