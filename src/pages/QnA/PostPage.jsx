@@ -1,23 +1,40 @@
 
+import "../QnA/PostPage.scss";
 
 
 // 올린 게시글 조회
 
-const PostPage = (props) => {
-    
+import { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-    return (
-        <div>
+const PostPage = ({ post }) => {
+  const [getpost, setGetpost] = useState([]);
+  const params = useParams();
 
-            <h1>POST PAGE</h1>
+  useEffect(() => {
+    if (post !== undefined) {
+      setGetpost(post.filter((p) => p.id === params.id));
+    }
+  }, [post]);
 
-            <h2>{props.title}</h2>
+  return (
+    <div>
+      {getpost.length !== 0 && (
+        <>
+  <div className="Post_Page">
+          <h1>POST PAGE</h1>
 
-            <p>{props.body}</p>
+          <h2>{getpost[0].title}</h2>
 
-        </div>
-    )
-}
+          <p>{getpost[0].body}</p>
+  </div>
+        </>
+  
 
-export default PostPage
+      )}
+    </div>
+  );
+};
 
+export default PostPage;

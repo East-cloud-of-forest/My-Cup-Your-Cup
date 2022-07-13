@@ -26,15 +26,28 @@ const QnAmenu = () => {
           </div>
         </Link>
 
-        <Link
-          className="my_quastion"
-          to="/QnAmenu/MyQuastion"
-          style={{ textDecoration: "none" }}
-        >
-          <div>
-            <span>나의 문의게시글</span>
-          </div>
-        </Link>
+        {user ? (
+          <Link
+            className="my_quastion"
+            to="/QnAmenu/MyQuastion"
+            style={{ textDecoration: "none" }}
+          >
+            <div>
+              <span>나의 문의게시글</span>
+            </div>
+          </Link>
+        ) : (
+          <Link
+            onClick={needlogin}
+            className="my_quastion"
+            to=""
+            style={{ textDecoration: "none" }}
+          >
+            <div>
+              <span>나의 문의게시글</span>
+            </div>
+          </Link>
+        )}
 
         {user ? (
           <Link

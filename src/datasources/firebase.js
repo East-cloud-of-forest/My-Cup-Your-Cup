@@ -96,11 +96,11 @@ const userGetFirebaseData = async (name, uid) => {
   )
   return await getDocs(q)
 }
-// store 새로 만들기
+// store 새로 만들기  ( addDoc : 문서이름 자동 설정 )
 const addFirebaseData = async (name, content) => {
   return await addDoc(collection(db, name), content)
 }
-// store 수정 (setDoc)
+// store 수정  ( setDoc : 문서 이름 임의로 작명해서 설정 )
 const setFirebaseData = async (name, id, content) => {
   return await setDoc(doc(db, name, id), content)
 }

@@ -20,6 +20,9 @@
         text-align: center;
         line-height: 40px;
     }
+    .title_Menu{
+        width: 310px;
+    }
     .contents tr {
         text-align: center;
         border-bottom: 1px solid lightgray;
@@ -28,6 +31,7 @@
     .contents td {
         padding: 11px;
     }
+    
     .contents tr:hover {
         background-color:rgb(232, 255, 248);
         cursor: pointer;
@@ -77,11 +81,13 @@
 
     // 게시글 내용 css
     
-    .postText{
+    .Update_Box{
         text-align: center;
         background-color: aqua;
-        width: 70%;
-        height: 200px;
+        border: 1px solid orange;
+        border-radius: 20px;
+        width: 40%;
+        height: 220px;
         margin: auto auto 70px auto;
     }
 

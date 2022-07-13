@@ -19,6 +19,7 @@ import SearchResultComp from './components/SearchComp/SearchResultComp'
 import FaqPage from './pages/QnA/FaqPage'
 import MyQuastion from './pages/QnA/MyQuastion'
 import Ask from './pages/QnA/Ask'
+import PostPage from './pages/QnA/PostPage'
 import Design from './pages/Design/Design'
 import EnterUser from './pages/EnterUser/EnterUser'
 import Agreement from './pages/EnterUser/Agreement/Agreement'
@@ -93,6 +94,7 @@ function App() {
           <Route path="/QnAmenu" element={<QnAmenu />}>
             <Route index element={<FaqPage />} />
             <Route path="/QnAmenu/MyQuastion" element={<MyQuastion />} />
+            <Route path="/QnAmenu/MyQuastion/:id" element={<MyQuastion />} />
             <Route path="/QnAmenu/Ask" element={<Ask />} />
           </Route>
 
