@@ -73,14 +73,16 @@
   & .main_review_item, .main_design_item {
     width: 90%;
     aspect-ratio: 1 / 1;
-    background-color: darkorange;
     margin-bottom: 50px;
-
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     cursor: pointer;
+
+    >div {
+      min-width: 0;
+    }
   }
 
   & .main_design_item {

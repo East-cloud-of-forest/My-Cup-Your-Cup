@@ -233,19 +233,34 @@ const ReviewWriteForm = () => {
       images['image' + i] = { url: url, fileid: fileid, filename: filename }
     })
     // 파이어 베이스 업데이트
+    console.log(
+      Date.now(),
+      user,
+      images,
+      rating,
+      review,
+      tagList,
+      filename,
+      fileid,
+      user.uid,
+    )
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
-      user: user,
-      images: images,
+      user: {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL
+      },
+      images: Object.assign({}, images),
       rating: rating,
       review: review,
-      tages: tagList,
+      tages: [...tagList],
       heart: 0,
       filename: filename,
       fileid: fileid,
-      uid: user.uid
+      uid: user.uid,
       // 파이어스토리지 업로드관련 잠깐 주석처리
-      // product: { 
+      // product: {
       //   itemName: reviewItem.itemName,
       //   itemColor: reviewItem.itemColor,
       //   boughtDate: reviewItem.boughtDate,
