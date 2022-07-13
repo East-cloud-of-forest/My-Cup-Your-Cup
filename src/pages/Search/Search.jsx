@@ -149,9 +149,9 @@ const Search = () => {
       </div>
       <div className="search_tabs">
         <Container fluid>
-          <Row>
+          <Row style={{justifyContent: 'center'}}>
             {tabs.map((t, i) => (
-              <Col key={i} lg="2" md="6" sm="6" style={{ margin: '5px 0' }}>
+              <Col key={i} lg="3" md="6" sm="6" style={{ margin: '5px 0' }}>
                 <NavLink
                   to={'/search' + t.path + '?keyword=' + searchKeyword}
                   activeclassname="true"

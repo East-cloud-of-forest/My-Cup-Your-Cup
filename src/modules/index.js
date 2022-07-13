@@ -4,7 +4,6 @@ import { combineReducers } from "redux";
 import cartReducer from "./addCart";
 import review from "./review";
 import enteruser from './enteruser'
-import firebaseData from './firebaseData'
 import loading from './loading'
 import uploadDesign from "./uploadDesign";
 import writeReview from "./writeReview";
@@ -14,7 +13,6 @@ const rootReducer = combineReducers({
   cartReducer,
   review,
   enteruser,
-  firebaseData,
   loading,
   uploadDesign,
   writeReview,

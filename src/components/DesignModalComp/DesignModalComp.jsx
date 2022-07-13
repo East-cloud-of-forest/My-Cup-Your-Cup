@@ -63,6 +63,10 @@ const DesignModalComp = ({design}) => {
     navigate('/cart')
   }
 
+  const tagSearch = (tag) => {
+    navigate("/search?keyword=" + tag);
+  }
+
   return (
     <ModalComp
       button={
@@ -111,7 +115,7 @@ const DesignModalComp = ({design}) => {
         <p>{design.text}</p>
         <div className="hashtag">
           {design.tag.map((tag, i) => (
-            <span key={i}>{tag}</span>
+            <span key={i} onClick={()=>{tagSearch(tag)}}>{tag}</span>
           ))}
         </div>
       </div>

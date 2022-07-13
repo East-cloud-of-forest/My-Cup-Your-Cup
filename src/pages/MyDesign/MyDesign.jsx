@@ -2,12 +2,8 @@ import './MyDesign.scss'
 import { ProfileComp } from '../../components/index-comp/IndexComp'
 import MyDesigns from '../../components/MyDesignComp/Grid/MyDesigns'
 import LikedDesigns from '../../components/MyDesignComp/Grid/LikedDesigns'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import MyReviewsComp from '../../components/MyDesignComp/Grid/MyReviews'
-import { useCallback, useEffect, useState } from 'react'
-import { dataResultModule } from '../../modules/firebaseData'
-import { getFirebaseData } from '../../datasources/firebase'
-import { loadingEnd, loadingStart } from '../../modules/loading'
 
 const MyDesign = () => {
   const {user} = useSelector((user)=> user.enteruser)
