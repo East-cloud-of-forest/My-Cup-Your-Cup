@@ -46,9 +46,9 @@ const MyDesign = () => {
       {
         user ? ( 
         <>
-          <MyDesigns user={user} />
-          <LikedDesigns user={user} />
-          <MyReviewsComp user={user} /> 
+          <MyDesigns />
+          <LikedDesigns />
+          <MyReviewsComp /> 
         </> ) : null
       }
 

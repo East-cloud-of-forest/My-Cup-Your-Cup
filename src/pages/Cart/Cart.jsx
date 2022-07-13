@@ -17,7 +17,6 @@ function Cart() {
     const onPlusOne = useCallback( (id)=>dispatch(plusOne(id)), [dispatch]);
     const onMinusOne = useCallback( (id)=>dispatch(minusOne(id)), [dispatch]);
     
-    console.log(items);
     // 로컬스토리지에 저장 - 최상위컴포넌트에 작성할 것
     useEffect(() => {
         window.localStorage.setItem('cart', JSON.stringify(items))
