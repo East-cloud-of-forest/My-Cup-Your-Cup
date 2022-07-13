@@ -30,6 +30,7 @@ const MyReviewsComp = ({user}) => {
             review : doc.data().review,
             images: doc.data().images,
             user: doc.data().user,
+            createdAt: doc.data().createdAt,
             }
           )
         })
@@ -42,8 +43,8 @@ const MyReviewsComp = ({user}) => {
   useEffect(() => { 
     getReviews()}, [])
 
-  const myReview = review.filter( r => r.user.uid == user.uid);
-  console.log(myReview)
+  const myReview = review.filter( r =>( r.user.uid == user.uid ));
+  // console.log(myReview)
   return (
     <div className='my_review' >
       <div className="header">

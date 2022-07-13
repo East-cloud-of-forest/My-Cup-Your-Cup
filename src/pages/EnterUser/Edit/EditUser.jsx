@@ -6,6 +6,7 @@ import { uploadFirestorage } from '../../../datasources/firebase'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { useSelector } from 'react-redux'
 import { getAllByTestId } from '@testing-library/react'
+import { getFirestore } from 'firebase/firestore'
 
 const EditUser = () => {
   const { search } = useLocation();
@@ -17,7 +18,12 @@ const EditUser = () => {
   const [photoURL, setPhotoURL] = useState(null);
   const [nameInput, setNameInput] = useState('');
   
-  // 유저데이터 
+  // 유저데이터
+  // const getUserData = async () => {
+  //   try {
+  //     getFirestore
+  //   } catch (err) {console.log(err)}
+  // }
 
   // 프로필사진 업로드
   const InputFile = (e) => {
@@ -85,7 +91,7 @@ const EditUser = () => {
                   user.photoURL
                   : profilePic
               }
-              alt="profile"
+              alt="profile_picture"
               />
             <div className="filebox">
               <label htmlFor="file" >
@@ -113,7 +119,7 @@ const EditUser = () => {
                 onChange={InputName}
                 className="Joinsignup_name"
                 type="text"
-                placeholder={ user && user.displayName}
+                value={ user && user.displayName}
               ></input>
             </span>
           </div>
