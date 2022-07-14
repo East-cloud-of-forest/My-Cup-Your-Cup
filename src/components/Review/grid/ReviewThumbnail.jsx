@@ -6,7 +6,7 @@ import { Card } from 'react-bootstrap'
 import { ProfileComp, StarRating } from '../../index-comp/IndexComp'
 
 const TempReviewThumbnail = (props) => {
-  const [number, setNumber] = useState(0)
+
   const { review, rating, user, images, createdAt } = props.review
   
   // 날짜표시
@@ -20,12 +20,6 @@ const TempReviewThumbnail = (props) => {
       <Card.Body>
         <div className="review_top">
           <StarRating rating={rating}></StarRating>
-          <div className="review_heart">
-            <i>
-              <FontAwesomeIcon icon={solid('heart')} size="sm" />
-            </i>
-            <span>{number}</span>
-          </div>
         </div>
 
         <div className="review_body">
