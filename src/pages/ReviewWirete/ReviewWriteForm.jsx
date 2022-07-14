@@ -178,6 +178,7 @@ const ReviewWriteForm = () => {
     document.body.style.overflow = 'hidden'
     await getFirebaseData('Review', postid.id)
       .then(async (r) => {
+        console.log(r)
         const data = r.data()
         setRating(data.rating)
         setTagList(data.tages)

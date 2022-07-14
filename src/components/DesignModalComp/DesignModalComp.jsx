@@ -16,7 +16,7 @@ const DesignModalComp = ({design}) => {
   const [target, setTarget] = useState(null)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-console.log(design)
+
   // 수정, 삭제 팝오버
   const handleClick = (e) => {
     setShow(!show)

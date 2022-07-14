@@ -20,7 +20,7 @@ const ReviewModalComp = (props) => {
   const navigate = useNavigate();
   const { review, rating, tages, user, images, createdAt, product } =
     props.review;
-
+console.log(props.review)
   // 수정, 삭제 팝오버
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
