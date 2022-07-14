@@ -68,9 +68,10 @@ const PostEditForm = () => {
       let thisPost;
       const myDesignRef = getFirebaseData("MyDesign");
       (await myDesignRef).forEach( (doc) => {
+        console.log(doc.id, id)
         if (doc.id === id ) {thisPost = doc.data()} else return;
       });
-      //console.log(thisPost)
+      console.log(thisPost)
       setCreatedAt(thisPost.createdAt);
       setImage(thisPost.image);
       setTitle(thisPost.title);
