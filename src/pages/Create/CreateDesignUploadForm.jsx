@@ -3,11 +3,7 @@ import { ButtonComp } from "../../components/index-comp/IndexComp";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  addFirebaseData,
-  setFirebaseData,
-  uploadFirestorage,
-} from "../../datasources/firebase";
+import { addFirebaseData } from "../../datasources/firebase";
 
 const CreateDesignUploadForm = () => {
   const { items } = useSelector((state) => ({
@@ -72,10 +68,15 @@ const CreateDesignUploadForm = () => {
           text: text,
           tag: tagList,
           private: onlyMe,
-          user: user,
+          user: {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            uid: user.uid,
+          },
           createdAt: Date.now(),
           cupInfo: mycup,
-          uid: user.uid
+          uid: user.uid,
         });
       } catch (e) {
         console.log(e.message);

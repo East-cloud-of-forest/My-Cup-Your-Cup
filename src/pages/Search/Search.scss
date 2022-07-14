@@ -93,6 +93,7 @@
 
         .img {
           margin-right: 2rem;
+          object-fit: cover;
         }
 
         &:hover h4 {
@@ -129,7 +130,7 @@
               font-size: 0.9rem;
 
               &::before {
-                content: '#';
+                content: "#";
               }
             }
           }
@@ -174,7 +175,7 @@
 
             p {
               margin: 0;
-              
+
               &:nth-child(1) {
                 font-size: 1rem;
                 color: grey;

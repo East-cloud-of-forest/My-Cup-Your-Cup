@@ -308,36 +308,6 @@ export const ModalComp = ({
   )
 }
 
-// 페이지 컴포넌트
-export const Pagination = (props) => {
-  const { total, limit, page, setPage } = props
-  const numPages = [1, 2, 3, 4] //Math.ceil(total / limit);
-  return (
-    <div className="pagination">
-      <nav>
-        <ButtonComp style={{ backgroundColor: 'transparent', color: 'black' }}>
-          <FontAwesomeIcon icon={solid('chevron-left')} />
-        </ButtonComp>
-
-        {numPages.fill().map((_, i) => (
-          <button
-            key={i + 1}
-            onClick={() => setPage(i + 1)}
-            aria-current={page === i + 1 ? 'page' : null}
-            style={{ border: 'none', margin: '7px' }}
-          >
-            {i + 1}
-          </button>
-        ))}
-
-        <ButtonComp style={{ backgroundColor: 'transparent', color: 'black' }}>
-          <FontAwesomeIcon icon={solid('chevron-right')} />
-        </ButtonComp>
-      </nav>
-    </div>
-  )
-}
-
 // 별점
 export const StarRating = ({ rating, onClick, onMouseOver, onMouseOut }) => {
   return (

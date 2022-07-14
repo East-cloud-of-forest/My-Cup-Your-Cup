@@ -1,50 +1,50 @@
-import './SearchResultComp.scss'
-import { Link, useParams } from 'react-router-dom'
-import { Pagination, StarRating } from '../index-comp/IndexComp'
-import { useSelector } from 'react-redux'
+import "./SearchResultComp.scss";
+import { useParams } from "react-router-dom";
+import { StarRating } from "../index-comp/IndexComp";
+import { useSelector } from "react-redux";
 
 const SearchResultComp = () => {
-  const { tabkind } = useParams()
+  const { tabkind } = useParams();
   const tabname = (name) => {
     switch (name) {
-      case 'review':
-        return '리뷰'
-      case 'design':
-        return '디자인'
-      case 'user':
-        return '사용자'
+      case "review":
+        return "리뷰";
+      case "design":
+        return "디자인";
+      case "user":
+        return "사용자";
     }
-  }
-  const itemselector = useSelector((a) => a.searchResult)
+  };
+  const itemselector = useSelector((a) => a.searchResult);
   const item = () => {
     return (
-      (tabkind === 'user' && 'userSearch') ||
-      (tabkind === 'review' && 'reviewSearch') ||
-      (tabkind === 'design' && 'designSearch')
-    )
-  }
+      (tabkind === "user" && "userSearch") ||
+      (tabkind === "review" && "reviewSearch") ||
+      (tabkind === "design" && "designSearch")
+    );
+  };
 
   return (
     <div>
       <hr />
       <div className="result_box">
         <p>
-          {tabname(tabkind)} -{' '}
+          {tabname(tabkind)} -{" "}
           {itemselector[item()] && itemselector[item()].length}건
         </p>
         {itemselector[item()] &&
           itemselector[item()].map((r, i) => (
             <div className="result_box_item" key={i}>
               {/* 리뷰 결과 */}
-              {item() === 'reviewSearch' && (
+              {item() === "reviewSearch" && (
                 <>
                   <img
                     src={r.images.image0.url}
                     alt=""
                     className="img"
                     style={{
-                      width: '100px',
-                      height: '100px',
+                      width: "100px",
+                      height: "100px",
                     }}
                   />
                   <div>
@@ -65,15 +65,15 @@ const SearchResultComp = () => {
                 </>
               )}
               {/* 디자인 결과 */}
-              {item() === 'designSearch' && (
+              {item() === "designSearch" && (
                 <>
                   <img
                     src={r.image}
                     alt=""
                     className="img"
                     style={{
-                      width: '100px',
-                      height: '100px',
+                      width: "100px",
+                      height: "100px",
                     }}
                   />
                   <div>
@@ -93,7 +93,7 @@ const SearchResultComp = () => {
                 </>
               )}
               {/* 유저결과 */}
-              {item() === 'userSearch' && (
+              {item() === "userSearch" && (
                 <div className="onlyUserInfo">
                   <img src={r.photoURL} alt="" />
                   <div className="text">
@@ -105,12 +105,8 @@ const SearchResultComp = () => {
             </div>
           ))}
       </div>
-
-      <div style={{ marginBottom: '2rem' }}>
-        <Pagination></Pagination>
-      </div>
     </div>
-  )
-}
+  );
+};
 
-export default SearchResultComp
+export default SearchResultComp;

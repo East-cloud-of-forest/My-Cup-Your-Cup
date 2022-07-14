@@ -1,13 +1,9 @@
 import './Review.scss'
 import { Col, Container, Row } from 'react-bootstrap'
 import ReviewModalComp from '../../components/Review/grid/ReviewModalComp'
-import { ButtonComp, Pagination } from '../../components/index-comp/IndexComp'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useCallback, useEffect, useState } from 'react'
-import { dataResultModule } from '../../modules/firebaseData'
 import { getFirebaseData } from '../../datasources/firebase'
 import { loadingEnd, loadingStart } from '../../modules/loading'
 
@@ -30,18 +26,7 @@ const ReviewPage = () => {
       let array = []
       const reviewRef = getFirebaseData('Review')
       ;(await reviewRef).forEach((doc) => {
-        array.push({
-          id: doc.id,
-          rating: doc.data().rating,
-          tages: doc.data().tages,
-          review: doc.data().review,
-          images: doc.data().images,
-          user: doc.data().user,
-          createdAt: doc.data().createdAt,
-          itemName: doc.data().itemName,
-          itemColor: doc.data().itemColor,
-          boughtDate: doc.data().boughtDate,
-        })
+        array.push({...doc.data(), id:doc.id})
       })
       setReview(array)
       document.body.style = ''
@@ -64,13 +49,13 @@ const ReviewPage = () => {
         <Container fluid>
           <Row>
             { review &&
-              review.map((r) => (
+              review.map((r, i) => (
                 <Col
                   xl="2"
                   lg="3"
                   md="4"
                   sm="6"
-                  key={r.id}
+                  key={i}
                   className="review_card"
                 > 
                   <ReviewModalComp review={r} />
@@ -78,20 +63,6 @@ const ReviewPage = () => {
               ))}
           </Row>
         </Container>
-      </div>
-
-      {/** plus 버튼 누르면 /review/write 페이지 이동 */}
-      <div>
-        <ButtonComp
-          icon
-          style={{ display: 'inline', float: 'right' }}
-          onClick={goReviewWrite}
-        >
-          <FontAwesomeIcon icon={solid('circle-plus')} size="2x" />
-        </ButtonComp>
-        <br />
-        {/** 페이징 */}
-        <Pagination />
       </div>
     </div>
   )

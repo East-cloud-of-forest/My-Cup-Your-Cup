@@ -1,10 +1,11 @@
 import './MyReviews.scss'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, NavLink, Row } from 'react-bootstrap'
 import ReviewModalComp from '../../Review/grid/ReviewModalComp'
 import { useCallback, useEffect, useState } from 'react'
 import { loadingEnd, loadingStart } from '../../../modules/loading'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFirebaseData, userGetFirebaseData } from '../../../datasources/firebase'
+import { ButtonComp } from '../../index-comp/IndexComp'
   
 const MyReviewsComp = () => {
   const { user } = useSelector((user) => user.enteruser);
@@ -30,6 +31,7 @@ const MyReviewsComp = () => {
             images: data.images,
             user: data.user,
             createdAt: data.createdAt,
+            uid : data.uid
           });
         });
       });
@@ -41,14 +43,24 @@ const MyReviewsComp = () => {
     user !== null && getReviews()
   }, [user])
 
+    // 더보기 기능 
+    const [noOfReviews, setNoOfReviews] = useState(6);
+    const slicedReview = review.slice(0, noOfReviews);
+    const loadMore = () => {
+      if (review.length > noOfReviews) {
+        setNoOfReviews(noOfReviews + 6);
+      } else return
+    }
+
   return (
     <div className='my_review' >
       <div className="header">
         <h3 id="title">나의 리뷰</h3>
+        
       </div>
       <Container fluid="sm">
         <Row>
-          { review.length >= 1 ? review.map( review => ( 
+          { slicedReview.length >= 1 ? slicedReview.map( review => ( 
               <Col 
                 xl="2"
                 lg="3"
@@ -62,6 +74,15 @@ const MyReviewsComp = () => {
             )) : ( 
             <p>작성한 리뷰가 없습니다.</p>
           )}
+      </Row>
+      <Row className="load_button">
+        { review.length > 6 ? (
+        <ButtonComp 
+          color="white" 
+          onClick={()=> loadMore()}
+        >
+          더보기
+        </ButtonComp> ) : null }
       </Row>
     </Container>
   </div>

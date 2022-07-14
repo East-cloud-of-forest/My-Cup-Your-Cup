@@ -178,6 +178,7 @@ const ReviewWriteForm = () => {
     document.body.style.overflow = 'hidden'
     await getFirebaseData('Review', postid.id)
       .then(async (r) => {
+        console.log(r)
         const data = r.data()
         setRating(data.rating)
         setTagList(data.tages)
@@ -235,21 +236,25 @@ const ReviewWriteForm = () => {
     // 파이어 베이스 업데이트
     await setFirebaseData('Review', postID, {
       createdAt: Date.now(),
-      user: user,
-      images: images,
+      user: {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      },
+      images: Object.assign({}, images),
       rating: rating,
       review: review,
-      tages: tagList,
+      tages: [...tagList],
       heart: 0,
       filename: filename,
       fileid: fileid,
-      uid: user.uid
-      // 파이어스토리지 업로드관련 잠깐 주석처리
-      // product: { 
-      //   itemName: reviewItem.itemName,
-      //   itemColor: reviewItem.itemColor,
-      //   boughtDate: reviewItem.boughtDate,
-      // },
+      uid: user.uid,
+      product: {
+        itemName: reviewItem.itemName,
+        itemColor: reviewItem.itemColor,
+        boughtDate: reviewItem.boughtDate,
+      },
     })
   }
 

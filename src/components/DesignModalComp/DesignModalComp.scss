@@ -1,0 +1,19 @@
+#temp_image {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid lightgrey;
+  margin: 0;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid grey;
+  }
+
+  img {
+    object-fit: cover;
+    width: inherit;
+  }
+}

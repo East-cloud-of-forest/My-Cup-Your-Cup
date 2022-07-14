@@ -1,5 +1,6 @@
 #review_card {
   width: 100%;
+  aspect-ratio: 1/1.2;
   cursor: pointer;
 
   & p {
@@ -58,6 +59,35 @@
     color: grey;
     display: flex;
     justify-content: space-between;
+    overflow: hidden;
+
+    > span {
+      width: 50%;
+
+      &:nth-child(2) {
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+
+    .profile {
+      .image_container {
+        width: 25px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .text {
+        #username {
+          width: 100%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    }
   }
 
   &:hover {

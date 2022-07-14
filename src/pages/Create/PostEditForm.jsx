@@ -8,8 +8,6 @@ import {  getFirebaseData, setFirebaseData } from '../../datasources/firebase';
 import { useEffect } from 'react';
 
 const PostEditForm = () => {
-  const {id} = useParams();
-  const {user} = useSelector((user)=>user.enteruser);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +18,7 @@ const PostEditForm = () => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [onlyMe, setOnlyMe] = useState(false);
+  const [cupInfo, setCupInfo] = useState(null);
   const titleInputChange = (e) => {
     setTitle(e.target.value);
   }
@@ -29,7 +28,6 @@ const PostEditForm = () => {
   }
   const checkOnlyMe = () => {
     setOnlyMe(!onlyMe);
-    console.log(onlyMe);
   }
   
   // 태그 인풋 입력
@@ -43,7 +41,7 @@ const PostEditForm = () => {
   const onKeyDown = (e) => {
     const { key } = e;
     const trimmedInput = tagInput.trim()
-    console.log(trimmedInput);
+
     if (key === 'Enter' && trimmedInput.length) {
       if (!tagList.includes(trimmedInput)) {
         setTagList((prevState) => [...prevState, trimmedInput]);
@@ -57,26 +55,30 @@ const PostEditForm = () => {
       setTagList(tagListCopy);
     }
   }
-        console.log(tagList) //
+
   // 태그 클릭 삭제
   const deleteTagItem = (index) => {
     setTagList((prevState) => prevState.filter((tag, i) => i !== index));
   }
 
   // 파이어베이스에서 데이터 가져오기
+  const {id} = useParams();
   const getMyDesign = async () => {
     try {
       let thisPost;
       const myDesignRef = getFirebaseData("MyDesign");
       (await myDesignRef).forEach( (doc) => {
+        console.log(doc.id, id)
         if (doc.id === id ) {thisPost = doc.data()} else return;
       });
+      console.log(thisPost)
       setCreatedAt(thisPost.createdAt);
       setImage(thisPost.image);
       setTitle(thisPost.title);
       setText(thisPost.text);
       setTagList([...thisPost.tag]);
-      console.log(thisPost)
+      setCupInfo(thisPost.cupInfo);
+      setOnlyMe(thisPost.private)
     }
     catch (err) {
         console.log(err);
@@ -87,19 +89,24 @@ const PostEditForm = () => {
   )
 
   // 수정한 디자인 업로드하기
+  const {user} = useSelector((user)=>user.enteruser);
   const uploadMyDesign = async (userid) => {
     if ( title==='' ) {
       alert('컵 이름을 지어주세요!');
     } else {
         try { // await setDoc(doc(db, name, id), content)
           await setFirebaseData("MyDesign", id, {
+            id: id,
+            title: title,
+            text: text,
+            image: image,
+            tag: tagList,
             createdAt: createdAt,
             image: image,
             private: onlyMe,
-            tag: tagList,
-            text: text,
-            title: title,
-            user: user, 
+            user: user,
+            cupInfo: cupInfo,
+            uid: user.uid,
           })
         }
         catch (e) {

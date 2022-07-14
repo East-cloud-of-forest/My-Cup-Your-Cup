@@ -6,6 +6,7 @@ import { addItem } from "../../modules/addCart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import classNames from "classnames";
+import { useRef } from "react";
 
 const SelectComp = ({
   getTypeData,
@@ -18,8 +19,7 @@ const SelectComp = ({
   productName,
   setSideEditOpen,
   canvasRef,
-  pic,
-  canvasObjects
+  setSelectOnObject
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -169,8 +169,23 @@ const SelectComp = ({
     }
   };
 
+  // 캔버스 말고 다른 곳 선택 시 선택 해제
+  const blockRef = useRef(null)
+  useEffect(() => {
+    const ref = blockRef.current
+    const pd = (e) => {
+      if (blockRef.current.className === e.currentTarget.className) {
+        setSelectOnObject(null)
+      }
+    }
+    ref.addEventListener('pointerdown', pd, false)
+    return () => {
+      ref.removeEventListener('pointerdown', pd)
+    }
+  }, [blockRef])
+
   return (
-    <div className="option_select">
+    <div className="option_select" ref={blockRef}>
       <h2 dangerouslySetInnerHTML={{ __html: productName }}></h2>
       <p>{colorName}</p>
 
