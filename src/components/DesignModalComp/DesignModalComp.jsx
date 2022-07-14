@@ -81,7 +81,7 @@ const DesignModalComp = ({design}) => {
         <h2>{design.title}</h2>
 
         {
-          design.user.uid == user.uid ? (
+          user && design.user.uid == user.uid ? (
           <div>
             <ButtonComp icon onClick={handleClick}>
               <FontAwesomeIcon icon={solid('ellipsis-vertical')} />
