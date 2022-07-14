@@ -22,6 +22,7 @@ const EditUser = () => {
   // 프로필 들고오기
   useEffect(() => {
     user !== null && 
+    
     setPhotoURL(user.photoURL); //profilePic 은 url string
     user !== null && 
     setNameInput(user.displayName);
@@ -30,8 +31,9 @@ const EditUser = () => {
   // 프로필사진 업로드
   const InputFile = (e) => {
     let photosrc = URL.createObjectURL(e.target.files[0])
-    setPhotoURL(photosrc); // 파일 주소
     setProfilePic(e.target.files[0]);  // 파일
+    setPhotoURL(photosrc); // 파일 주소
+    //console.log(photosrc);
   }
 
   // 이름, onChange
