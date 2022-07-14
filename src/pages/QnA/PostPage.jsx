@@ -23,9 +23,12 @@ const PostPage = ({ post }) => {
       {getpost.length !== 0 && (
         <>
   <div className="Post_Page">
-          <h1>POST PAGE</h1>
 
-          <h2>{getpost[0].title}</h2>
+        <div className="Post_Title">
+          <hr />
+            <h2>제목: {getpost[0].title}</h2>
+          <hr />
+        </div>
 
           <p>{getpost[0].body}</p>
   </div>

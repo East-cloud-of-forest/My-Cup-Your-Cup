@@ -21,26 +21,28 @@ import PostPage from "./PostPage";
 import UpdatePost from "./UpdatePost";
 import { useSelector } from "react-redux";
 
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { db } from '../../datasources/firebase'
+
+
 
 const MyQuastion = (props) => {
-  // 게시글 데이터
+
+  // 게시글 데이터 저장
   const [post, setPost] = useState([]);
   const params = useParams();
 
   // 게시판 세부 기능 컨트롤
   const [mode, setMode] = useState();
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(null);   // 내가 조회중인 게시글을 웹에 알려주기 위한 변수
 
-  let title,
-    body,
-    category,
-    date = null;
-  let postText = null;
+  let title,body,category,date = null;
   let update_delete = null;
   let updateArea = null;
 
-  //////////////////// 파이어 베이스 관련 ///////////////////////
+
+
+  //////////////////// FireStore로 게시글 데이터 저장 ///////////////////////
 
   const { user } = useSelector((a) => a.enteruser);
 
@@ -48,6 +50,7 @@ const MyQuastion = (props) => {
     let postArray = [];
     await userGetFirebaseData("inquiry", user.uid).then((r) => {
       r.forEach((doc) => {
+        console.log(doc.id)
         const data = doc.data();
 
         const DATE = new Date(data.createdAt);
@@ -74,35 +77,43 @@ const MyQuastion = (props) => {
     user !== null && getPost();
   }, [user]);
 
-  //////////////////// 파이어 베이스 관련 ///////////////////////
+  ///////////////////////////////////////////////////
 
-  // 게시글 출력
-  let list = [];
 
-  for (let i = 0; i < post.length; i++) {
-    let p = post[i];
 
-    list.push(
+
+  //// 게시글 출력  ////
+
+  let list = [];  // 게시판에 출력할 데이터를 담을 list 변수 
+
+  for (let i = 0; i < post.length; i++) {   // post 객체의 숫자만큼 반복실행
+    let p = post[i];   // 함수 실행시 post에 있는 객체를 p에 할당하고 진행
+
+    list.push(  // list 변수에 게시글 데이터를 밀어넣어서 저장함
       <tr key={i}>
-        <td>{i + 1}</td>
-        <td>{p.category}</td>
-        <td
-          className="title_Menu"
-          onClick={(e) => {
-            e.preventDefault();
-            updateArea = null;
-            setMode("READ");
-          }}
+        <td>{i + 1}</td>  {/* 게시글 번호 */}
+        <td>{p.category}</td> {/* 게시글 카테고리 */}
+
+        <td className="title_Menu"                                 /*  td영역 누르면 게시글 열리는 기능이었으나, 현재는 사용 안함  onClick={(e) => {e.preventDefault();  updateArea = null;  setMode("READ");   }}*/
         >
-          <Link to={"/QnAmenu/MyQuastion/" + p.id}>{p.title}</Link>
+          <Link to={"/QnAmenu/MyQuastion/" + p.id} className="PostName"
+          onClick={() => {} }>
+          {p.title}    {/* 게시글 제목 클릭시 게시글 열림 */}
+          </Link>
         </td>
-        <td>가입회원</td>
-        <td>{p.date}</td>
-        <td className="answer">답변준비중</td>
+      
+        <td>가입회원</td>                       {/* 글쓴이 */}
+        <td>{p.date}</td>                      {/* 게시글 작성 날짜 */}
+        <td className="answer">답변준비중</td>  {/* 1:1 답변 여부 */}
       </tr>
     );
 
-    // firestore 저장된 게시글 출력
+    
+    //////// firestore에 저장된 게시글 데이터를 게시판에 출력 ////////
+    ///  이 코드는 현재 사용 안함,
+    ///  fireStore에서 받은 게시글 데이터를 post에 담은 뒤
+    ///  맨 아래의 return 영역에서 PostPage(게시글 조회 컴포넌트) 에
+    ///  props로 전달해서 게시글 출력하는 기능으로 대체함
     if (mode === "READ") {
       for (let i = 0; i < post.length; i++) {
         if (post[i].id === id) {
@@ -110,12 +121,16 @@ const MyQuastion = (props) => {
           body = post[i].body;
         }
 
-        // 게시글 보기 div에 게시글 출력
-        postText = <PostPage title={title} body={body} />;
+    //    postText = <PostPage title={title} body={body} />;
+    //////////////////////////////////////////////////////////
 
+
+    //////////// 게시글 수정, 삭제 버튼 //////////////
         update_delete = (
           <div>
-            {/* 게시글 수정 */}
+
+            {/* 게시글 수정 버튼 */}
+
             <Link
               to="/QnAmenu/update"
               onClick={(e) => {
@@ -125,7 +140,13 @@ const MyQuastion = (props) => {
             >
               <button>수정하기</button>
             </Link>
-            | |{/* 게시글 삭제 */}
+
+            | |
+
+            {/* 게시글 삭제 버튼,
+            현재 작동x
+            firestore delete 기능으로 대체해야 */}
+
             <input
               type="button"
               value="삭제하기"
@@ -137,8 +158,8 @@ const MyQuastion = (props) => {
                     NewPost.push(post[i]);
                   }
                 }
-
                 // setPost(NewPost);
+        /////////////////////////////////////////////////// 
               }}
             />
           </div>
@@ -149,12 +170,12 @@ const MyQuastion = (props) => {
     // 게시글 수정 기능
 
     if (mode === "UPDATE") {
-      postText = null; // 게시글 조회 off
 
-      update_delete = null; // 수정하기 버튼 숨기기
+      update_delete = null;  //// 게시글 수정,삭제 버튼 숨기기
 
-      for (let i = 0; i < post.length; i++) {
+      for (let i = 0; i < post.length; i++) {  // 게시글 데이터 갯수만큼 반복실행
         if (post[i].id === id) {
+          
           title = post[i].title;
           body = post[i].body;
           category = post[i].category;
@@ -165,9 +186,23 @@ const MyQuastion = (props) => {
       updateArea = (
         <UpdatePost
           update_start={(_title, _body, _category, _date) => {
+
+          //////////// fireStore 게시글 데이터 Update 코드 ///////////
+            const firebase_PostUpdate = doc(db, "inquiry", post.id);
+
+            updateDoc(firebase_PostUpdate, {
+              title: _title,
+              body: _body,
+            })
+          /////////////////////////////////////////////
+
+
+          ///  fireStore에 저장된 데이터가 바뀌면
+          ///  자동으로 post 데이터가 바뀌게 되어있으므로,
+          ///  아래 코드는 현재 사용 안하는 상태   //////
             const NewPost = [...post];
             const NewObject = {
-              id: id,
+              id: post.id,
               title: _title,
               body: _body,
               category: _category,
@@ -175,13 +210,16 @@ const MyQuastion = (props) => {
             };
 
             for (let i = 0; i < NewPost.length; i++) {
-              if (NewPost[i].id === id) {
+              if (NewPost[i].id === post.id) {
                 NewPost[i] = NewObject;
               }
             }
-            // setPost(NewPost);
+            // setPost(NewPost);    현재 사용 안하는 update 코드 
+            //////////////////////////////////////////////////
           }}
-          // useState Post의 title,body,category,date를 UpdatePost에 props로 전달
+
+
+          // Post의 title,body,category,date를 UpdatePost에 props로 전달
           title={title}
           body={body}
           category={category}
@@ -211,6 +249,7 @@ const MyQuastion = (props) => {
               <tbody className="contents">{list}</tbody>
             </table>
           ) : (
+            /// firebase에서 받은 데이터를 Props로 넘겨줌
             <PostPage post={post} />
           )}
         </div>
@@ -244,3 +283,4 @@ export default MyQuastion;
 // - 문의글 파이어베이스 수정, 삭제 기능
 
 
+/// 게시글을 누를경우 post에 있는 게시글 데이터가 updatePost로 가게 해야

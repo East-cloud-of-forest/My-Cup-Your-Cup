@@ -88,7 +88,7 @@ const getFirebaseData = async (name, id) => {
     return await getDocs(q)
   }
 }
-// 유저별로 받아오기
+// 유저별로 받아오기  ( 유저 uid가 같은 것을 getDocs 한다 )
 const userGetFirebaseData = async (name, uid) => {
   const q = query(
     collection(db, name),
