@@ -22,7 +22,6 @@ function ProductComp({ item, onDeleteItem, onSelectItem, onPlusOne, onMinusOne, 
     };
 
     const onSelect = () => {
-        console.log(item.selected)
         onSelectItem(item.id);
     };
     const onDelete = () => {

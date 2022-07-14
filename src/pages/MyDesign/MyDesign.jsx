@@ -43,7 +43,6 @@ const MyDesign = () => {
         user ? ( 
         <>
           <MyDesigns />
-          <LikedDesigns />
           <MyReviewsComp /> 
         </> ) : null
       }

@@ -51,6 +51,10 @@ const analytics = getAnalytics(app)
 // 인증 초기화
 const auth = getAuth(app)
 
+// export const getUserInfo = async (uid) => {
+//   return await auth.getUser(uid)
+// }
+
 // 이메일 회원가입
 const createUser = async (emailInput, password) => {
   return await createUserWithEmailAndPassword(auth, emailInput, password)
