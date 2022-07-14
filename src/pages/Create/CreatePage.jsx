@@ -291,18 +291,6 @@ const CreatePage = () => {
 
   // 무료이미지
   const [freeImageActive, setFreeImageActive] = useState(false);
-  // 캔버스 말고 다른 곳 선택 시 선택 해제
-  useEffect(() => {
-    const pd = (e) => {
-      if (e.target.className !== 'cre_canvas') {
-        setSelectOnObject(null)
-      }
-    }
-    window.addEventListener('pointerdown', pd, false)
-    return () => {
-      window.removeEventListener('pointerdown', pd)
-    }
-  }, [])
 
   return (
     <div className="cre_all">
@@ -538,6 +526,7 @@ const CreatePage = () => {
             productName={productName}
             setSideEditOpen={setSideEditOpen}
             canvasRef={canvasRef}
+            setSelectOnObject={setSelectOnObject}
           />
           <CanvasSelectComp
             selectOnObject={selectOnObject}
