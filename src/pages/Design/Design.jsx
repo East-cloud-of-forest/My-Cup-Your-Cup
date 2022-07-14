@@ -20,9 +20,9 @@ const Design = () => {
       let array = [];
       const designColRef = getFirebaseData("MyDesign");
       (await designColRef).forEach((doc) => {
-        //console.log(doc);
+        //console.log(doc.id);
         array.push({
-          //id: doc.data().id, // undefined 뜸 -> 없어도 되지않을까..?
+          id: doc.id, 
           title: doc.data().title,
           text: doc.data().text,
           image: doc.data().image,

@@ -72,6 +72,7 @@ const CreateDesignUploadForm = () => {
             displayName: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
+            uid: user.uid,
           },
           createdAt: Date.now(),
           cupInfo: mycup,

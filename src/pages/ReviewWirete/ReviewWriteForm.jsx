@@ -239,6 +239,7 @@ const ReviewWriteForm = () => {
         displayName: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
+        uid: user.uid,
       },
       images: Object.assign({}, images),
       rating: rating,

@@ -16,7 +16,7 @@ const DesignModalComp = ({design}) => {
   const [target, setTarget] = useState(null)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+console.log(design)
   // 수정, 삭제 팝오버
   const handleClick = (e) => {
     setShow(!show)
@@ -80,31 +80,36 @@ const DesignModalComp = ({design}) => {
       <div className="modal_head" ref={ref}>
         <h2>{design.title}</h2>
 
-        <ButtonComp icon onClick={handleClick}>
-          <FontAwesomeIcon icon={solid('ellipsis-vertical')} />
-        </ButtonComp>
-        <Overlay
-          show={show}
-          target={target}
-          placement="left"
-          container={ref}
-          containerPadding={20}
-          rootClose
-          onHide={() => setShow(false)}
-        >
-          <Popover id="ellipsis_popover">
-            <ButtonComp
-              color="white"
-              onClick={() => navigate(`/mydesign/edit/${design.id}`)}
-            >
-              <FontAwesomeIcon icon={solid('pen-to-square')} /> 수정
-            </ButtonComp>{' '}
-            <br />
-            <ButtonComp color="white" onClick={() => deletePost(design.id)}>
-              <FontAwesomeIcon icon={solid('trash-can')} /> 삭제
+        {
+          design.user.uid == user.uid ? (
+          <div>
+            <ButtonComp icon onClick={handleClick}>
+              <FontAwesomeIcon icon={solid('ellipsis-vertical')} />
             </ButtonComp>
-          </Popover>
-        </Overlay>
+            <Overlay
+              show={show}
+              target={target}
+              placement="left"
+              container={ref}
+              containerPadding={20}
+              rootClose
+              onHide={() => setShow(false)}
+            >
+              <Popover id="ellipsis_popover">
+                <ButtonComp
+                  color="white"
+                  onClick={() => navigate(`/mydesign/edit/${design.id}`)}
+                >
+                  <FontAwesomeIcon icon={solid('pen-to-square')} /> 수정
+                </ButtonComp>{' '}
+                <br />
+                <ButtonComp color="white" onClick={() => deletePost(design.id)}>
+                  <FontAwesomeIcon icon={solid('trash-can')} /> 삭제
+                </ButtonComp>
+              </Popover>
+            </Overlay>
+        </div> ) : null
+        }
       </div>
       {design.private === true ? (
         <span style={{ fontSize: 'smaller', color: 'gray' }}>
