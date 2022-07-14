@@ -26,7 +26,7 @@ const ReviewPage = () => {
       let array = []
       const reviewRef = getFirebaseData('Review')
       ;(await reviewRef).forEach((doc) => {
-        array.push(doc.data())
+        array.push({...doc.data(), id:doc.id})
       })
       setReview(array)
       document.body.style = ''
