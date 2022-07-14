@@ -1,10 +1,13 @@
 
 
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 // 게시글 수정하는 곳
 
 const UpdatePost = (props) => {
+
+  const navigate = useNavigate()
 
   const [title, setTitle] = useState(props.title);
   const [body, setBody] = useState(props.body);
@@ -25,9 +28,10 @@ const inputBody = (e) => {
 
       <form
         onSubmit={(e) => {
-            alert("게시글 UPDATE 실행")
             e.preventDefault();
           props.update_start(title, body, category, date);
+          alert("게시글이 Update 되었습니다")
+          navigate("/QnAmenu/MyQuastion")
         }}
       >
         <p>

@@ -6,7 +6,7 @@
 
     .ask_box {
         width: 700px;
-        height: 440px;
+        height: 420px;
         background-color: cornsilk;
         margin: 20px auto auto auto;
         padding-top: 10px;
@@ -85,14 +85,15 @@
         }
     }
 
-    .send_button {
+    .send_buttonn {
         width: 290px;
         height: 35px;
-        background-color: lightblue;
+        background-color:rgb(203, 255, 238);
         text-align: center;
-        line-height: 35px;
-        margin: 20px auto auto auto;
-        color:aliceblue;
-        border-radius: 8px;
+        line-height: 30px;
+        margin: 30px auto auto 200px;
+        color:rgb(104, 104, 104);
+        border: 1px solid lightblue;
+        border-radius: 11px;
         cursor: pointer;
     }
