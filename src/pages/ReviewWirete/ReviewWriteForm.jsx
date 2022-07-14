@@ -248,12 +248,11 @@ const ReviewWriteForm = () => {
       filename: filename,
       fileid: fileid,
       uid: user.uid,
-      // 파이어스토리지 업로드관련 잠깐 주석처리
-      // product: {
-      //   itemName: reviewItem.itemName,
-      //   itemColor: reviewItem.itemColor,
-      //   boughtDate: reviewItem.boughtDate,
-      // },
+      product: {
+        itemName: reviewItem.itemName,
+        itemColor: reviewItem.itemColor,
+        boughtDate: reviewItem.boughtDate,
+      },
     })
   }
 

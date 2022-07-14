@@ -27,7 +27,6 @@ const Home = () => {
     await getDocs(q).then((r) => {
       const reviewArray = []
       r.forEach((doc) => {
-        console.log(doc)
         const data = doc.data()
         reviewArray.push({ ...data, id: doc.id })
       })

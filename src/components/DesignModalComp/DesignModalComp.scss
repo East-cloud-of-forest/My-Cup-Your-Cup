@@ -6,6 +6,12 @@
   justify-content: center;
   border: 1px solid lightgrey;
   margin: 0;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid grey;
+  }
+
   img {
     object-fit: cover;
     width: inherit;

@@ -21,6 +21,7 @@ $facebook: #475a96;
   .container-sm {
     .row {
       padding: 0 1rem;
+
       > * {
         padding: 0.1rem;
       }
@@ -31,8 +32,6 @@ $facebook: #475a96;
         padding: 1rem 0;
       }
     }
-
-    
   }
   #preview-image {
     width: 100%;
@@ -54,51 +53,58 @@ $facebook: #475a96;
     }
   }
 }
-  .modal-content {
-    .modal_head {
-      display: flex;
-      justify-content: space-between;
+.modal-content {
+  .modal_head {
+    display: flex;
+    justify-content: space-between;
 
-      > button {
-        aspect-ratio: 1/1;
-        width: 30px;
-      }
+    > button {
+      aspect-ratio: 1/1;
+      width: 30px;
+    }
 
-      .bs-popover-start {
-        button {
-          color: black;
-          padding: 0.5rem 2rem;
-        }
+    .bs-popover-start {
+      button {
+        color: black;
+        padding: 0.5rem 2rem;
       }
-    }
-    .modal_body {
-      margin: 2rem 0 2rem 0;
-      .hashtag span {
-        font-size: 0.9rem;
-        background-color: #a6fae1;
-        color: #3da982;
-        border-radius: 500px;
-        padding: 0.2rem 0.6rem;
-        margin-right: 0.5rem;
-        cursor: pointer;
-      }
-    }
-    .modal_footer {
-      position: absolute;
-      bottom: 0;
-      display: flex;
-      right: 0;
-      width: 50%;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1rem 0.5rem;
-      .profile_block {
-        #date_span {
-          font-size: small;
-          color: grey;
-        }
-      }
-      
     }
   }
+  .modal_body {
+    margin: 2rem 0 2rem 0;
+    .hashtag span {
+      font-size: 0.9rem;
+      background-color: #a6fae1;
+      color: #3da982;
+      border-radius: 500px;
+      padding: 0.2rem 0.6rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
 
+      &::before {
+        content: "#";
+      }
+
+      &:hover {
+        background-color: lighten(#a6fae1, 10%);
+        color: lighten(#3da982, 10%);
+      }
+    }
+  }
+  .modal_footer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    right: 0;
+    width: 50%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem 0.5rem;
+    .profile_block {
+      #date_span {
+        font-size: small;
+        color: grey;
+      }
+    }
+  }
+}

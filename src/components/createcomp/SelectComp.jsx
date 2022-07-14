@@ -18,8 +18,6 @@ const SelectComp = ({
   productName,
   setSideEditOpen,
   canvasRef,
-  pic,
-  canvasObjects
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
