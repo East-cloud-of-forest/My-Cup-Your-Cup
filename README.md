@@ -1,5 +1,5 @@
 # 내잔네잔 My Cup Your Cup - 텀블러 커스텀 쇼핑몰
-https://east-cloud-of-forest.github.io/tumblr-team-project-build/
+https://east-cloud-of-forest.github.io/MyCup-YourCup-build/
 
 ## :page_facing_up: Summary
 팀프로젝트로 진행한 커스텀 쇼핑몰 입니다. Canvas 를 이용해 사용자가 직접 자신의 텀블러를 디자인 할 수 있는 기능과, 리뷰 및 만든 디자인을 올려 공유할 수 있는 게시판 기능을 파이어베이스와 연동해 제작한 프로젝트 입니다.
