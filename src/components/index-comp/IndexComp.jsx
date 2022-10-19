@@ -10,7 +10,7 @@ import { Modal } from 'react-bootstrap'
 
 // 버튼
 export const ButtonComp = (props) => {
-  const { children, size, icon, style, block, tile, color, onClick } = props
+  const { children, size, icon, style, block, tile, color, onClick, type } = props
   const [ripples, setRipples] = useState([])
   useEffect(() => {
     if (ripples.length > 0) {
@@ -54,6 +54,7 @@ export const ButtonComp = (props) => {
         clickanimation(e)
         onClick(e)
       }}
+      type={type}
     >
       <span>{children}</span>
       {ripples.map((e) => e.element)}
@@ -231,7 +232,7 @@ export function ProfileComp(props) {
     >
       <div className={classNames('image_container', size)}>
         { imageURL == null? <FontAwesomeIcon icon={solid("user")} /> //size="4x" 잠깐 옮겨놀게요
-        : <img src={imageURL} alt="profile photo"></img> }
+        : <img src={imageURL} alt="profile"></img> }
       </div>
 
       {justName && (
@@ -246,10 +247,10 @@ export function ProfileComp(props) {
           <p id="intro">{intro}</p>
           <div className="social">
             <a href={fbURL} target="blank">
-              <img src="https://www.svgrepo.com/show/299115/facebook.svg"></img>
+              <img src="https://www.svgrepo.com/show/299115/facebook.svg" alt="facebookicon"></img>
             </a>
             <a href={instaURL} target="blank">
-              <img src="https://www.svgrepo.com/show/299116/instagram.svg"></img>
+              <img src="https://www.svgrepo.com/show/299116/instagram.svg" alt="instaicon"></img>
             </a>
           </div>
         </div>

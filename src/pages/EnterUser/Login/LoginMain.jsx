@@ -52,7 +52,7 @@ const LoginMainPage = () => {
           await getFirebaseData("user", user.uid).then(async (r) => {
             if (r.data() === undefined) {
               await setFirebaseData("user", user.uid, {
-                itemList: []
+                itemList: [],
               });
               loginUser(user);
             } else {
@@ -113,6 +113,28 @@ const LoginMainPage = () => {
     }
   }
 
+  // 데모계정 로그인
+  function demoLoginClick() {
+    saveLoginInfo().then(async () => {
+      startLoading();
+      document.body.style.overflow = "hidden";
+      await emailLogin('test@test.test', 'testtest')
+        .then(async (result) => {
+          loginUser(result.user);
+          const hiEmailUser = result.user.email;
+          alert(`어서오세요, ${hiEmailUser}님, 이메일 로그인 되었습니다.`);
+          document.body.style = "";
+          endLoading();
+          navi("/");
+        })
+        .catch((e) => {
+          console.log(e);
+          document.body.style = "";
+          endLoading();
+        });
+    });
+  }
+
   /*아이디찾기 모달창 기능*/
   const [searchID, setSearchID] = useState(false);
 
@@ -143,8 +165,8 @@ const LoginMainPage = () => {
             <section className="Loginlogin_input_section_wrap">
               <form
                 onSubmit={(e) => {
-                  emailLoginClick();
                   e.preventDefault();
+                  emailLoginClick();
                 }}
               >
                 <div className="Loginlogin_input_wrap">
@@ -171,12 +193,14 @@ const LoginMainPage = () => {
                   <button
                     className="Loginforget_account_a"
                     onClick={openWindow}
+                    type="button"
                   >
                     아이디 찾기
                   </button>
                   <button
                     className="Loginforget_account_a"
                     onClick={openWindowPS}
+                    type="button"
                   >
                     비밀번호 찾기
                   </button>
@@ -187,8 +211,11 @@ const LoginMainPage = () => {
                 <SearchID open={searchID} close={closeWindow} />
                 <SearchPassword open={searchPassword} close={closeWindowPS} />
                 <div className="Loginlogin_button_wrap">
-                  <ButtonComp color="mint" onClick={emailLoginClick}>
+                  <ButtonComp color="mint" onClick={emailLoginClick} type="button">
                     로그인
+                  </ButtonComp>
+                  <ButtonComp color="demo" onClick={demoLoginClick} type="button">
+                    데모 계정 로그인
                   </ButtonComp>
                 </div>
               </form>

@@ -92,6 +92,10 @@
             height: 50px;
             font-size: 18px;
             font-weight: bold;
+
+            &.demo {
+              margin-top: 10px;
+            }
           }
         }
       }
