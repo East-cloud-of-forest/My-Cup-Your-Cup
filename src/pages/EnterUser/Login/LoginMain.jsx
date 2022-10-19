@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "./LoginMain.scss";
 import BrandButton from "../../../components/Login/BrandButton";
-import SearchID from "../../../components/Login/SearchID/SearchID";
-import SearchPassword from "../../../components/Login/SearchPassword/SearchPassword";
+import SearchPassword from "../../../components/Login/SearchID/SearchPassword";
 import { ButtonComp } from "../../../components/index-comp/IndexComp";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -102,7 +101,6 @@ const LoginMainPage = () => {
             navi("/");
           })
           .catch((e) => {
-            console.log(e);
             document.body.style = "";
             endLoading();
             setEmailAlert(false);
@@ -118,7 +116,7 @@ const LoginMainPage = () => {
     saveLoginInfo().then(async () => {
       startLoading();
       document.body.style.overflow = "hidden";
-      await emailLogin('test@test.test', 'testtest')
+      await emailLogin("test@test.test", "testtest")
         .then(async (result) => {
           loginUser(result.user);
           const hiEmailUser = result.user.email;
@@ -128,7 +126,6 @@ const LoginMainPage = () => {
           navi("/");
         })
         .catch((e) => {
-          console.log(e);
           document.body.style = "";
           endLoading();
         });
@@ -136,24 +133,13 @@ const LoginMainPage = () => {
   }
 
   /*아이디찾기 모달창 기능*/
-  const [searchID, setSearchID] = useState(false);
-
-  const openWindow = () => {
-    setSearchID(true);
-  };
-
-  const closeWindow = () => {
-    setSearchID(false);
-  };
-
-  /*아이디찾기 모달창 기능*/
   const [searchPassword, setSearchPassword] = useState(false);
 
-  const openWindowPS = () => {
+  const openModal = () => {
     setSearchPassword(true);
   };
 
-  const closeWindowPS = () => {
+  const closeModal = () => {
     setSearchPassword(false);
   };
 
@@ -165,8 +151,8 @@ const LoginMainPage = () => {
             <section className="Loginlogin_input_section_wrap">
               <form
                 onSubmit={(e) => {
-                  e.preventDefault();
                   emailLoginClick();
+                  e.preventDefault()
                 }}
               >
                 <div className="Loginlogin_input_wrap">
@@ -177,6 +163,11 @@ const LoginMainPage = () => {
                     placeholder="이메일을 입력해주세요"
                     type="email"
                     onChange={inputEmail}
+                    onKeyDown={e=>{
+                      if(e.keyCode===13) {
+                        emailLoginClick()
+                      }
+                    }}
                   />
                 </div>
                 <div className="Loginlogin_input_wrap password_wrap">
@@ -187,34 +178,40 @@ const LoginMainPage = () => {
                     placeholder="비밀번호를 입력해주세요"
                     type="password"
                     onChange={inputPassword}
+                    onKeyDown={e=>{
+                      if(e.keyCode===13) {
+                        emailLoginClick()
+                      }
+                    }}
                   />
                 </div>
-                <section className="Loginforget_account_p caption">
-                  <button
-                    className="Loginforget_account_a"
-                    onClick={openWindow}
-                    type="button"
-                  >
-                    아이디 찾기
-                  </button>
-                  <button
-                    className="Loginforget_account_a"
-                    onClick={openWindowPS}
-                    type="button"
-                  >
-                    비밀번호 찾기
-                  </button>
-                  <Link to="/enteruser/agree" className="Loginforget_account_a">
+                <button
+                  className="Loginforget_account_a caption"
+                  onClick={openModal}
+                  type="button"
+                >
+                  비밀번호 재설정
+                </button>
+                <div className="signup">
+                  <p>아직 계정이 없으신가요?</p>
+                  <Link to="/enteruser/agree">
                     회원가입
                   </Link>
-                </section>
-                <SearchID open={searchID} close={closeWindow} />
-                <SearchPassword open={searchPassword} close={closeWindowPS} />
+                </div>
+                <SearchPassword open={searchPassword} close={closeModal} />
                 <div className="Loginlogin_button_wrap">
-                  <ButtonComp color="mint" onClick={emailLoginClick} type="button">
+                  <ButtonComp
+                    color="mint"
+                    onClick={emailLoginClick}
+                    type="button"
+                  >
                     로그인
                   </ButtonComp>
-                  <ButtonComp color="demo" onClick={demoLoginClick} type="button">
+                  <ButtonComp
+                    color="demo"
+                    onClick={demoLoginClick}
+                    type="button"
+                  >
                     데모 계정 로그인
                   </ButtonComp>
                 </div>

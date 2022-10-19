@@ -86,6 +86,11 @@ $facebook: #475a96;
     @include button($facebook);
   }
 
+  &.rock {
+    pointer-events: none;
+    background-color: lightgray;
+  }
+
   // 아이콘 버전
   &.icon {
     color: inherit;

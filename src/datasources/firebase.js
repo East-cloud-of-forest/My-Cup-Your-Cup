@@ -25,6 +25,7 @@ import {
   browserLocalPersistence,
   browserSessionPersistence,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail
 } from 'firebase/auth'
 import {
   deleteObject,
@@ -76,6 +77,11 @@ const loginSession = () => {
     `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`,
   )
   return JSON.parse(data)
+}
+
+// 비밀번호 재설정
+const resetPS = (email) => {
+  return sendPasswordResetEmail(auth, email)
 }
 
 // cloud Firestore 초기화
@@ -173,5 +179,6 @@ export {
   createUser,
   firebaseSearch,
   userGetFirebaseData,
+  resetPS,
   auth,
 }

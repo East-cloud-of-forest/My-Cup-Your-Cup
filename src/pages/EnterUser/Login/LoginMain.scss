@@ -59,24 +59,32 @@
         }
 
         // 아이디 비밀번호 찾기 및 회원가입
-        .Loginforget_account_p {
-          text-align: center;
-          margin-bottom: 1rem;
+        .Loginforget_account_a {
+          display: block;
           width: 100%;
-          display: flex;
-          justify-content: space-around;
+          margin-bottom: 0.5rem;
+          background: none;
+          text-decoration: none;
+          color: gray;
+          border: none;
+          text-align: right;
+        }
 
-          .Loginforget_account_a {
+        .signup {
+          display: flex;
+          justify-content: center;
+          font-size: 0.95rem;
+
+          p {
+            margin-bottom: 0.5rem;
+          }
+
+          a {
             background: none;
             text-decoration: none;
-            color: gray;
-            border: none;
-            flex: 1;
-
-            &:nth-child(2) {
-              border-left: 2px solid lightgrey;
-              border-right: 2px solid lightgrey;
-            }
+            color: orange;
+            font-weight: bold;
+            margin-left: 0.5rem;
           }
         }
 
